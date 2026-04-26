@@ -58,7 +58,7 @@
       case 'reverseGroup': return 'Select every airline in the group.';
       case 'tail': return 'Identify the aircraft tail livery.';
       case 'airportAirline': return 'Choose an airline serving the airport.';
-      case 'airlineDest': return 'Find where the airline flies.';
+      case 'airlineDest': return 'Find its top sourced destination.';
       case 'airportConn': return 'Pick a direct airport connection.';
     }
   }

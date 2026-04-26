@@ -56,6 +56,12 @@ interface AirlineRouteEntry {
   topDestinations?: string[];
   year?: number;
   source?: string;
+  sourceUrl?: string;
+  serviceSource?: string;
+  serviceSourceUrl?: string;
+  metric?: string;
+  basis?: string;
+  confidence?: string;
 }
 const airportRoutesMap = airportRoutesData as Record<string, AirportRouteEntry>;
 const airlineRoutesMap = airlineRoutesData as Record<string, AirlineRouteEntry>;
@@ -665,7 +671,7 @@ export function explainAnswer(q: Question): string {
       return `${airportLabel(q.answer)} is one of the busiest connections from ${airportLabel(ap)}.`;
     }
     case 'airlineDest':
-      return `${airportLabel(q.answer)} is the top destination for ${a.name}.`;
+      return `${airportLabel(q.answer)} is the top sourced destination for ${a.name}.`;
   }
 }
 
@@ -680,7 +686,7 @@ export function modeLabel(mode: Mode): string {
     case 'tail': return 'Which airline?';
     case 'airportAirline': return 'Top carrier here';
     case 'airportConn': return 'Major destination from here';
-    case 'airlineDest': return 'Top destination served';
+    case 'airlineDest': return 'Top sourced destination';
   }
 }
 
@@ -710,7 +716,7 @@ export function modeDescription(mode: Mode): string {
     case 'tail': return 'Identify the airline from a photo of its tail livery.';
     case 'airportAirline': return 'Pick a top carrier at the given airport. Ranked from airport stats where available, with curated fallbacks for airports that lack clean ranked tables.';
     case 'airportConn': return 'Pick a major destination served from the given airport. Ranked from busiest-route tables where available, with curated fallbacks for sparse airport pages.';
-    case 'airlineDest': return "Pick the top destination served by the airline. Ranked by route frequency / passenger volume; for major carriers from Wikipedia 'most-flown routes', otherwise from curated common knowledge — exact #1 vs #2 can be fuzzy.";
+    case 'airlineDest': return "Pick the top sourced destination served by the airline. Order comes from a public hub-airport route ranking, and each destination is checked against a public airline destination/source page.";
   }
 }
 

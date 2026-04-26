@@ -1,1058 +1,955 @@
 {
   "LH": {
     "topDestinations": [
+      "LHR",
+      "DXB",
+      "IST",
+      "CDG",
       "JFK",
+      "LIS",
       "ORD",
-      "PEK",
-      "PVG",
-      "DEL",
-      "BKK",
-      "HND"
+      "AMS"
     ],
-    "year": 2023,
-    "source": "Wikipedia: Lufthansa most-flown long-haul + manual"
+    "year": 2024,
+    "source": "Wikipedia: Frankfurt Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Frankfurt_Airport",
+    "serviceSource": "Wikipedia: List of Lufthansa destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Lufthansa_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "OS": {
     "topDestinations": [
       "FRA",
-      "JFK",
-      "ORD",
-      "TLV",
       "CDG",
-      "LHR",
-      "FCO",
-      "ZRH",
       "AMS",
-      "MAD"
+      "LHR",
+      "DUS",
+      "TLV",
+      "DXB",
+      "BKK",
+      "ORD"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Vienna International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Vienna_International_Airport",
+    "serviceSource": "Wikipedia: List of Austrian Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Austrian_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "LX": {
     "topDestinations": [
-      "JFK",
-      "ORD",
-      "BKK",
-      "HKG",
-      "PEK",
       "LHR",
-      "FRA",
-      "CDG"
+      "AMS",
+      "VIE",
+      "LIS",
+      "DXB",
+      "CDG",
+      "BKK",
+      "JFK"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Zürich Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Z%C3%BCrich_Airport",
+    "serviceSource": "Wikipedia: List of Swiss International Air Lines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Swiss_International_Air_Lines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "SN": {
     "topDestinations": [
-      "JFK",
-      "FRA",
+      "LIS",
+      "BCN",
+      "CDG",
       "LHR",
-      "FCO",
-      "MAD",
-      "NBO",
-      "JNB",
-      "KGL"
+      "JFK"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Brussels Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Brussels_Airport",
+    "serviceSource": "Wikipedia: List of Brussels Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Brussels_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "EW": {
     "topDestinations": [
-      "VIE",
-      "BCN",
-      "FCO",
+      "FRA",
       "LHR",
-      "MAD",
-      "ATH"
+      "BCN",
+      "VIE"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2024,
+    "source": "Wikipedia: Düsseldorf Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/D%C3%BCsseldorf_Airport",
+    "serviceSource": "Wikipedia: List of Eurowings destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Eurowings_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "AZ": {
     "topDestinations": [
       "JFK",
-      "ORD",
-      "GRU",
-      "EZE",
-      "LHR",
       "CDG",
+      "LGW",
+      "ATH",
+      "AMS",
+      "LHR",
+      "BRU",
+      "TLV",
       "FRA",
-      "MAD",
-      "TLV"
+      "VIE"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2022,
+    "source": "Wikipedia: Leonardo da Vinci-Fiumicino Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Leonardo_da_Vinci-Fiumicino_Airport",
+    "serviceSource": "Wikipedia: List of ITA Airways destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_ITA_Airways_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "BA": {
     "topDestinations": [
       "JFK",
-      "ORD",
       "DXB",
-      "SIN",
-      "HKG",
-      "JNB",
-      "GRU",
+      "DOH",
+      "DUB",
       "DEL",
-      "DOH"
+      "AMS",
+      "FRA",
+      "IST",
+      "YYZ",
+      "HKG"
     ],
-    "year": 2023,
-    "source": "Wikipedia: British Airways most-flown routes"
+    "year": 2024,
+    "source": "Wikipedia: Heathrow Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Heathrow_Airport",
+    "serviceSource": "Wikipedia: List of British Airways destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_British_Airways_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "IB": {
     "topDestinations": [
-      "JFK",
-      "MEX",
-      "GRU",
-      "EZE",
       "BOG",
-      "SCL",
       "LHR",
+      "EZE",
+      "MEX",
+      "BRU",
       "CDG",
-      "FCO",
-      "BCN"
+      "FRA"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Adolfo Suárez Madrid-Barajas Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Adolfo_Su%C3%A1rez_Madrid-Barajas_Airport",
+    "serviceSource": "Wikipedia: List of Iberia destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Iberia_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "EI": {
     "topDestinations": [
       "LHR",
-      "JFK",
-      "ORD",
       "AMS",
-      "CDG",
-      "MAD"
+      "LGW",
+      "CDG"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "VY": {
-    "topDestinations": [
-      "FCO",
-      "CDG",
-      "LHR",
-      "AMS",
-      "MAD",
-      "LIS",
-      "ATH",
-      "BRU"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "LV": {
-    "topDestinations": [
-      "JFK",
-      "EZE",
-      "SCL"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Dublin Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Dublin_Airport",
+    "serviceSource": "Wikipedia: List of Aer Lingus destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Aer_Lingus_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "AF": {
     "topDestinations": [
       "JFK",
-      "ORD",
-      "ATL",
-      "PEK",
-      "PVG",
-      "HND",
-      "GRU",
-      "MEX",
+      "DXB",
       "LHR",
-      "FCO"
+      "AMS",
+      "IST",
+      "FCO",
+      "ATL",
+      "CPH",
+      "DOH",
+      "ATH"
     ],
-    "year": 2023,
-    "source": "Wikipedia: Air France destinations + IR"
+    "year": 2024,
+    "source": "Wikipedia: Charles de Gaulle Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Charles_de_Gaulle_Airport",
+    "serviceSource": "Wikipedia: List of Air France destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Air_France_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "KL": {
     "topDestinations": [
+      "DXB",
       "JFK",
-      "ATL",
-      "ORD",
-      "GRU",
-      "EZE",
-      "PVG",
-      "PEK",
-      "ICN",
-      "HND",
-      "DEL"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "TO": {
-    "topDestinations": [
-      "BCN",
-      "LIS",
-      "ATH",
-      "FCO"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "DL": {
-    "topDestinations": [
+      "IST",
       "LHR",
-      "CDG",
-      "AMS",
-      "FRA",
-      "FCO",
-      "MEX",
-      "GRU",
-      "HND",
+      "PVG",
+      "NBO",
+      "DUB",
+      "HKG",
       "ICN",
-      "DXB"
+      "ORD"
     ],
-    "year": 2023,
-    "source": "Wikipedia: Delta Air Lines destinations + IR"
-  },
-  "9E": {
-    "topDestinations": [
-      "ATL",
-      "MSP",
-      "JFK"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2024,
+    "source": "Wikipedia: Amsterdam Airport Schiphol",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Amsterdam_Airport_Schiphol",
+    "serviceSource": "Wikipedia: List of KLM destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_KLM_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "UA": {
     "topDestinations": [
       "LHR",
-      "FRA",
-      "CDG",
-      "FCO",
-      "AMS",
-      "HND",
-      "PEK",
-      "PVG",
-      "ICN",
-      "HKG"
-    ],
-    "year": 2023,
-    "source": "Wikipedia: United Airlines destinations + IR"
-  },
-  "AA": {
-    "topDestinations": [
-      "LHR",
-      "CDG",
-      "MAD",
-      "FCO",
+      "DEN",
+      "YYZ",
       "MEX",
-      "GRU",
-      "EZE",
+      "FRA",
       "HND",
-      "ICN",
-      "DOH"
+      "CDG",
+      "DUB"
     ],
     "year": 2023,
-    "source": "Wikipedia: American Airlines destinations + IR"
-  },
-  "MQ": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
-  },
-  "OH": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
-  },
-  "PT": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
+    "source": "Wikipedia: O'Hare International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/O%27Hare_International_Airport",
+    "serviceSource": "Wikipedia: List of United Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_United_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "AS": {
     "topDestinations": [
+      "DEN",
       "LAS",
-      "JFK",
       "ORD",
-      "DFW"
+      "ATL",
+      "ICN"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Seattle-Tacoma International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Seattle-Tacoma_International_Airport",
+    "serviceSource": "Wikipedia: List of Alaska Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Alaska_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "HA": {
     "topDestinations": [
       "SEA",
       "LAS",
       "JFK",
-      "ICN",
-      "HND",
-      "SYD",
-      "AKL"
+      "HND"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "B6": {
-    "topDestinations": [
-      "FLL",
-      "LAS",
-      "LHR"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Daniel K. Inouye International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Daniel_K._Inouye_International_Airport",
+    "serviceSource": "Wikipedia: List of Hawaiian Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Hawaiian_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "WN": {
     "topDestinations": [
       "LAS",
       "DEN",
-      "ATL"
+      "ATL",
+      "FLL",
+      "MSP",
+      "ORD",
+      "SEA",
+      "CLT"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2025,
+    "source": "Wikipedia: Dallas Love Field (airlines: hub fallback)",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Dallas_Love_Field",
+    "serviceSource": "Wikipedia: List of Southwest Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Southwest_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "NK": {
     "topDestinations": [
-      "LAS",
-      "DTW",
-      "ORD",
       "ATL",
-      "DFW"
+      "CLT",
+      "ORD"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "F9": {
-    "topDestinations": [
-      "LAS",
-      "ATL",
-      "ORD",
-      "DFW"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "G4": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
-  },
-  "SY": {
-    "topDestinations": [
-      "LAS",
-      "DFW",
-      "JFK"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Fort Lauderdale-Hollywood International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Fort_Lauderdale-Hollywood_International_Airport",
+    "serviceSource": "Wikipedia: List of Spirit Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Spirit_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "AC": {
     "topDestinations": [
-      "LHR",
-      "CDG",
-      "FRA",
-      "FCO",
       "JFK",
       "ORD",
-      "HND",
-      "ICN",
-      "PEK",
-      "PVG"
+      "LHR",
+      "LGW",
+      "AMS",
+      "CDG",
+      "FRA",
+      "MEX",
+      "FCO",
+      "DXB"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Toronto Pearson International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Toronto_Pearson_International_Airport",
+    "serviceSource": "Wikipedia: List of Air Canada destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Air_Canada_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "WS": {
     "topDestinations": [
       "YYZ",
       "LAS",
+      "DEN",
+      "ORD",
+      "SEA",
+      "ATL",
+      "JFK",
       "LHR"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "PD": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
+    "year": 2022,
+    "source": "Wikipedia: Calgary International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Calgary_International_Airport",
+    "serviceSource": "Wikipedia: List of WestJet destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_WestJet_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "AM": {
     "topDestinations": [
-      "JFK",
-      "ORD",
-      "DFW",
-      "MAD",
-      "CDG",
-      "AMS",
-      "FCO",
-      "HND",
-      "ICN",
-      "GRU"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "Y4": {
-    "topDestinations": [
-      "ORD",
       "MTY",
-      "DEN"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "VB": {
-    "topDestinations": [
-      "MEX",
-      "LAS",
-      "ORD",
-      "JFK"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "LA": {
-    "topDestinations": [
-      "GRU",
-      "EZE",
       "JFK",
-      "MAD",
       "CDG",
-      "FCO",
-      "FRA",
-      "MEX",
-      "BOG",
-      "AKL"
+      "BOG"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2025,
+    "source": "Wikipedia: Mexico City International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mexico_City_International_Airport",
+    "serviceSource": "Wikipedia: List of Aeromexico destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Aeromexico_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "JJ": {
     "topDestinations": [
       "EZE",
-      "SCL",
-      "BOG",
-      "MEX",
       "JFK",
-      "MAD",
-      "CDG",
-      "FCO",
       "FRA",
       "LHR"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "AV": {
-    "topDestinations": [
-      "JFK",
-      "MEX",
-      "MAD",
-      "FCO",
-      "SCL",
-      "EZE",
-      "GRU",
-      "PTY"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "G3": {
-    "topDestinations": [
-      "EZE",
-      "SCL",
-      "BOG",
-      "PTY"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "AD": {
-    "topDestinations": [
-      "GRU",
-      "FLL",
-      "JFK",
-      "LIS",
-      "CDG",
-      "EZE"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: São Paulo-Guarulhos International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/S%C3%A3o_Paulo-Guarulhos_International_Airport",
+    "serviceSource": "Wikipedia: LATAM Brasil",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/LATAM_Brasil",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "CM": {
     "topDestinations": [
-      "MEX",
       "BOG",
+      "MEX",
+      "JFK",
       "SCL",
       "EZE",
-      "GRU",
-      "JFK",
-      "ORD",
-      "JNB"
+      "FLL"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Tocumen International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Tocumen_International_Airport",
+    "serviceSource": "Wikipedia: Copa Airlines",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/Copa_Airlines",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "AR": {
     "topDestinations": [
       "JFK",
-      "MAD",
-      "FCO",
-      "GRU",
       "SCL",
       "BOG",
-      "MEX"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "FR": {
-    "topDestinations": [
-      "BCN",
-      "MAD",
-      "FCO",
-      "ATH"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "U2": {
-    "topDestinations": [
-      "BCN",
-      "FCO",
-      "AMS",
-      "LIS",
-      "ATH",
+      "FRA",
       "CDG"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Ministro Pistarini International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Ministro_Pistarini_International_Airport",
+    "serviceSource": "Wikipedia: List of Aerolíneas Argentinas destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Aerol%C3%ADneas_Argentinas_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "W6": {
     "topDestinations": [
-      "WAW",
-      "OTP",
-      "SOF",
-      "FCO",
-      "BCN",
-      "MAD",
-      "TLV",
+      "IST",
+      "FRA",
       "DXB"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "DY": {
-    "topDestinations": [
-      "LGW",
-      "CPH",
-      "LHR",
-      "BCN",
-      "AMS",
-      "FCO"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "LS": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
-  },
-  "BY": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
+    "year": 2021,
+    "source": "Wikipedia: Budapest Ferenc Liszt International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Budapest_Ferenc_Liszt_International_Airport",
+    "serviceSource": "Wikipedia: List of Wizz Air destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Wizz_Air_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "PC": {
     "topDestinations": [
-      "IST",
       "DXB",
-      "LHR",
-      "CDG",
+      "AMS",
       "FRA",
-      "AMS"
+      "CDG",
+      "DOH",
+      "BUD",
+      "JED",
+      "IST"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Sabiha Gökçen International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Sabiha_G%C3%B6k%C3%A7en_International_Airport",
+    "serviceSource": "Wikipedia: List of Pegasus Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Pegasus_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "TK": {
     "topDestinations": [
-      "FRA",
       "LHR",
-      "CDG",
+      "FRA",
       "AMS",
-      "JFK",
+      "CDG",
       "DXB",
+      "JFK",
       "DOH",
-      "PEK",
-      "SIN",
-      "BKK"
+      "VIE"
     ],
     "year": 2023,
-    "source": "Wikipedia: Turkish Airlines destinations"
+    "source": "Wikipedia: Istanbul Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Istanbul_Airport",
+    "serviceSource": "Wikipedia: List of Turkish Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Turkish_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "TP": {
     "topDestinations": [
-      "GRU",
-      "JFK",
-      "CDG",
-      "LHR",
-      "FRA",
       "MAD",
-      "FCO"
+      "LHR",
+      "AMS",
+      "FRA",
+      "YYZ",
+      "VCP",
+      "JFK"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Lisbon Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Lisbon_Airport",
+    "serviceSource": "Wikipedia: List of TAP Air Portugal destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_TAP_Air_Portugal_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "A3": {
     "topDestinations": [
       "LHR",
       "CDG",
       "FRA",
-      "FCO",
-      "MAD",
-      "BRU",
       "AMS",
-      "TLV",
-      "ZRH"
+      "IST",
+      "DXB",
+      "VIE"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Athens International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Athens_International_Airport",
+    "serviceSource": "Wikipedia: List of Aegean Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Aegean_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "AY": {
     "topDestinations": [
-      "HND",
-      "ICN",
-      "PEK",
-      "PVG",
-      "HKG",
-      "BKK",
-      "SIN",
-      "DEL",
-      "JFK",
-      "LHR"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "SK": {
-    "topDestinations": [
       "LHR",
-      "CDG",
+      "AMS",
       "FRA",
-      "FCO",
-      "JFK",
-      "ORD",
-      "PEK",
-      "OSL"
+      "HND",
+      "BKK",
+      "ICN",
+      "DOH",
+      "HKG",
+      "JFK"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2022,
+    "source": "Wikipedia: Helsinki Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Helsinki_Airport",
+    "serviceSource": "Wikipedia: List of Finnair destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Finnair_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "LO": {
     "topDestinations": [
       "LHR",
-      "JFK",
-      "ORD",
+      "CDG",
       "FRA",
-      "CDG",
-      "AMS",
-      "BUD",
-      "ICN",
-      "HND",
-      "PEK"
+      "AMS"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "OK": {
-    "topDestinations": [
-      "CDG",
-      "MAD",
-      "AMS",
-      "FRA"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2025,
+    "source": "Wikipedia: Warsaw Chopin Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Warsaw_Chopin_Airport",
+    "serviceSource": "Wikipedia: List of LOT Polish Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_LOT_Polish_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "JU": {
     "topDestinations": [
-      "JFK",
-      "VIE",
-      "FRA",
-      "CDG",
-      "FCO",
-      "ZRH",
       "IST",
-      "TLV"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "OU": {
-    "topDestinations": [
       "FRA",
-      "CDG",
-      "AMS",
-      "LHR",
-      "FCO",
-      "ZRH"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "FI": {
-    "topDestinations": [
-      "JFK",
-      "ORD",
-      "MSP",
-      "SEA",
-      "DEN",
-      "LHR",
-      "CPH",
-      "OSL",
+      "VIE",
       "AMS",
       "CDG"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Belgrade Nikola Tesla Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Belgrade_Nikola_Tesla_Airport",
+    "serviceSource": "Wikipedia: List of Air Serbia destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Air_Serbia_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
+  },
+  "OU": {
+    "topDestinations": [
+      "FRA",
+      "IST",
+      "AMS",
+      "CDG",
+      "VIE",
+      "LHR",
+      "DUB",
+      "CPH"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: Franjo Tuđman Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Franjo_Tu%C4%91man_Airport",
+    "serviceSource": "Wikipedia: Croatia Airlines",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/Croatia_Airlines",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
+  },
+  "FI": {
+    "topDestinations": [
+      "CPH",
+      "AMS",
+      "CDG",
+      "LHR",
+      "OSL",
+      "JFK",
+      "FRA"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: Keflavík International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Keflav%C3%ADk_International_Airport",
+    "serviceSource": "Wikipedia: List of Icelandair destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Icelandair_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "EK": {
     "topDestinations": [
       "LHR",
       "JFK",
       "BKK",
-      "SIN",
-      "SYD",
-      "MEL",
-      "FRA",
-      "CDG",
-      "FCO",
-      "DEL"
+      "DEL",
+      "DOH",
+      "CAI",
+      "JED",
+      "IST"
     ],
     "year": 2023,
-    "source": "Wikipedia: Emirates most-flown routes"
+    "source": "Wikipedia: Dubai International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Dubai_International_Airport",
+    "serviceSource": "Wikipedia: List of Emirates destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Emirates_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "EY": {
     "topDestinations": [
       "LHR",
+      "DEL",
       "JFK",
-      "BKK",
-      "SIN",
-      "SYD",
-      "MEL",
+      "CAI",
       "FRA",
-      "CDG",
-      "FCO",
-      "DEL"
+      "MNL",
+      "BAH"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Zayed International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Zayed_International_Airport",
+    "serviceSource": "Wikipedia: List of Etihad Airways destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Etihad_Airways_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "QR": {
     "topDestinations": [
+      "DXB",
       "LHR",
-      "CDG",
-      "FRA",
-      "FCO",
-      "JFK",
-      "ORD",
       "BKK",
-      "SIN",
-      "HKG",
-      "DEL"
+      "DEL",
+      "JED",
+      "IST",
+      "JFK",
+      "CDG",
+      "FRA"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Hamad International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Hamad_International_Airport",
+    "serviceSource": "Wikipedia: List of Qatar Airways destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Qatar_Airways_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "SV": {
     "topDestinations": [
       "DXB",
       "CAI",
+      "DOH",
+      "AMM",
       "IST",
-      "LHR",
-      "CDG",
-      "FRA",
-      "JFK",
-      "MNL",
+      "BAH",
+      "KWI",
       "DEL",
       "BKK"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "FZ": {
-    "topDestinations": [
-      "IST",
-      "JED",
-      "DOH",
-      "MCT",
-      "BKK",
-      "TLV"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: King Abdulaziz International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/King_Abdulaziz_International_Airport",
+    "serviceSource": "Wikipedia: List of Saudia destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Saudia_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "RJ": {
     "topDestinations": [
       "DXB",
-      "CAI",
       "JED",
-      "LHR",
-      "CDG",
-      "FRA",
-      "JFK",
-      "ORD",
+      "CAI",
+      "IST",
+      "DOH",
+      "KWI",
+      "BAH",
       "BKK"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Queen Alia International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Queen_Alia_International_Airport",
+    "serviceSource": "Wikipedia: List of Royal Jordanian destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Royal_Jordanian_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "WY": {
     "topDestinations": [
       "DXB",
       "DOH",
-      "JED",
-      "BAH",
-      "BKK",
+      "AUH",
       "DEL",
-      "LHR",
-      "CDG",
-      "FRA"
+      "BKK",
+      "CAI",
+      "KHI",
+      "JED",
+      "IST"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Muscat International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Muscat_International_Airport",
+    "serviceSource": "Wikipedia: List of Oman Air destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Oman_Air_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "GF": {
     "topDestinations": [
       "DXB",
       "DOH",
       "JED",
+      "KWI",
       "CAI",
-      "AMM",
-      "LHR",
-      "CDG",
-      "FRA",
       "BKK",
-      "DEL"
+      "DEL",
+      "AMM"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Bahrain International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Bahrain_International_Airport",
+    "serviceSource": "Wikipedia: List of Gulf Air destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Gulf_Air_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "KU": {
     "topDestinations": [
       "DXB",
       "DOH",
-      "BAH",
       "JED",
+      "BAH",
       "CAI",
-      "LHR",
-      "CDG",
-      "FRA",
-      "JFK",
+      "AMM",
+      "IST",
+      "DEL",
       "BKK"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Kuwait International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kuwait_International_Airport",
+    "serviceSource": "Wikipedia: List of Kuwait Airways destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Kuwait_Airways_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "MS": {
     "topDestinations": [
       "DXB",
       "JED",
-      "LHR",
-      "CDG",
+      "IST",
+      "AMM",
+      "DOH",
+      "KWI",
       "FRA",
-      "FCO",
-      "JFK",
-      "BKK",
-      "PEK",
-      "JNB"
+      "LHR",
+      "CDG"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Cairo International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Cairo_International_Airport",
+    "serviceSource": "Wikipedia: List of EgyptAir destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_EgyptAir_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "AT": {
     "topDestinations": [
       "CDG",
-      "MAD",
-      "BCN",
-      "BRU",
-      "FCO",
+      "LIS",
       "FRA",
-      "LHR",
-      "JFK",
-      "DXB",
-      "CAI"
+      "BRU",
+      "AMS"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2022,
+    "source": "Wikipedia: Mohammed V International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mohammed_V_International_Airport",
+    "serviceSource": "Wikipedia: List of Royal Air Maroc destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Royal_Air_Maroc_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "LY": {
     "topDestinations": [
-      "JFK",
+      "IST",
       "LHR",
-      "CDG",
-      "FRA",
-      "FCO",
       "AMS",
-      "BKK"
+      "FRA",
+      "CDG",
+      "ATH",
+      "JFK",
+      "DXB",
+      "VIE",
+      "ZRH"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Ben Gurion Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Ben_Gurion_Airport",
+    "serviceSource": "Wikipedia: List of El Al destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_El_Al_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "SQ": {
     "topDestinations": [
+      "KUL",
       "BKK",
       "HKG",
-      "ICN",
-      "HND",
-      "PEK",
-      "PVG",
-      "DEL",
-      "LHR",
-      "CDG",
-      "FRA"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "TR": {
-    "topDestinations": [
-      "BKK",
-      "HKG",
-      "TPE",
-      "ICN",
-      "HND",
-      "PVG",
-      "DEL",
       "CGK",
       "MNL",
-      "KUL"
+      "TPE",
+      "HND",
+      "ICN",
+      "SYD",
+      "DXB"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2025,
+    "source": "Wikipedia: Singapore Changi Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Singapore_Changi_Airport",
+    "serviceSource": "Wikipedia: List of Singapore Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Singapore_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "CX": {
     "topDestinations": [
-      "LHR",
-      "CDG",
-      "FRA",
-      "FCO",
-      "JFK",
-      "ORD",
-      "HND",
+      "TPE",
+      "BKK",
       "ICN",
+      "MNL",
       "PVG",
-      "PEK"
+      "PEK",
+      "HND",
+      "KUL",
+      "SGN"
     ],
     "year": 2023,
-    "source": "Wikipedia: Cathay Pacific destinations"
+    "source": "Wikipedia: Hong Kong International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Hong_Kong_International_Airport",
+    "serviceSource": "Wikipedia: List of Cathay Pacific destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Cathay_Pacific_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "JL": {
     "topDestinations": [
-      "JFK",
-      "ORD",
-      "LHR",
-      "CDG",
-      "FRA",
-      "BKK",
-      "SIN",
-      "HKG",
       "ICN",
-      "PEK"
+      "TPE",
+      "HKG",
+      "PVG",
+      "BKK"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "NH": {
-    "topDestinations": [
-      "JFK",
-      "ORD",
-      "FRA",
-      "LHR",
-      "CDG",
-      "BKK",
-      "SIN",
-      "HKG",
-      "ICN",
-      "PEK"
-    ],
-    "year": 2023,
-    "source": "Wikipedia: ANA destinations"
+    "source": "Wikipedia: Haneda Airport (airlines: hub fallback)",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Haneda_Airport",
+    "serviceSource": "Wikipedia: List of Japan Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Japan_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "KE": {
     "topDestinations": [
-      "JFK",
-      "ORD",
-      "ATL",
-      "LHR",
-      "CDG",
-      "FRA",
-      "FCO",
+      "HND",
+      "PVG",
+      "PEK",
+      "TPE",
+      "HKG",
       "BKK",
-      "SIN",
-      "HKG"
+      "JFK"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "OZ": {
-    "topDestinations": [
-      "JFK",
-      "ORD",
-      "SEA",
-      "LHR",
-      "CDG",
-      "FRA",
-      "FCO",
-      "BKK",
-      "SIN",
-      "HKG"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Incheon International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Incheon_International_Airport",
+    "serviceSource": "Wikipedia: List of Korean Air destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Korean_Air_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "CA": {
     "topDestinations": [
-      "HKG",
-      "HND",
+      "PVG",
+      "CAN",
       "ICN",
-      "BKK",
-      "SIN",
-      "FRA",
-      "CDG",
-      "LHR",
-      "FCO",
-      "JFK"
+      "HKG"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Beijing Capital International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Beijing_Capital_International_Airport",
+    "serviceSource": "Wikipedia: List of Air China destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Air_China_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "MU": {
     "topDestinations": [
+      "PEK",
+      "CAN",
+      "TPE",
       "HKG",
-      "HND",
-      "ICN",
-      "BKK",
-      "SIN",
-      "FRA",
-      "CDG",
-      "LHR",
-      "JFK",
-      "SYD"
+      "ICN"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2021,
+    "source": "Wikipedia: Shanghai Pudong International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Shanghai_Pudong_International_Airport",
+    "serviceSource": "Wikipedia: List of China Eastern Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_China_Eastern_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "CZ": {
     "topDestinations": [
+      "PEK",
+      "PVG",
       "HKG",
       "BKK",
-      "SIN",
-      "ICN",
-      "HND",
-      "CDG",
-      "LHR",
-      "FRA",
-      "AMS",
-      "JFK"
+      "ICN"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Guangzhou Baiyun International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Guangzhou_Baiyun_International_Airport",
+    "serviceSource": "Wikipedia: List of China Southern Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_China_Southern_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "HU": {
     "topDestinations": [
@@ -1060,329 +957,274 @@
       "PVG",
       "CAN",
       "HKG",
-      "BKK",
-      "ICN",
-      "HND",
-      "CDG",
-      "LHR",
-      "FRA"
+      "ICN"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Haikou Meilan International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Haikou_Meilan_International_Airport",
+    "serviceSource": "Wikipedia: List of Hainan Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Hainan_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "BR": {
     "topDestinations": [
       "HKG",
-      "BKK",
-      "SIN",
       "ICN",
+      "BKK",
       "HND",
       "PVG",
-      "PEK",
-      "JFK",
-      "SEA",
-      "LHR"
+      "KUL",
+      "MNL",
+      "CAN",
+      "JFK"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "CI": {
-    "topDestinations": [
-      "HKG",
-      "BKK",
-      "SIN",
-      "ICN",
-      "HND",
-      "PVG",
-      "PEK",
-      "JFK",
-      "AMS",
-      "FRA"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Taoyuan International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Taoyuan_International_Airport",
+    "serviceSource": "Wikipedia: List of EVA Air destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_EVA_Air_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "TG": {
     "topDestinations": [
       "HKG",
-      "SIN",
       "ICN",
-      "HND",
       "PEK",
       "PVG",
-      "DEL",
-      "LHR",
-      "CDG",
-      "FRA"
+      "HND",
+      "DXB",
+      "KUL",
+      "TPE",
+      "DEL"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Suvarnabhumi Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Suvarnabhumi_Airport",
+    "serviceSource": "Wikipedia: List of Thai Airways destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Thai_Airways_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "VN": {
     "topDestinations": [
       "SGN",
       "BKK",
-      "HKG",
-      "SIN",
       "ICN",
-      "HND",
-      "PVG",
-      "PEK",
-      "CDG",
-      "LHR"
+      "HKG",
+      "TPE",
+      "KUL",
+      "HND"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Noi Bai International Airport (airlines: hub fallback)",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Noi_Bai_International_Airport",
+    "serviceSource": "Wikipedia: List of Vietnam Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Vietnam_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "PR": {
     "topDestinations": [
-      "JFK",
-      "HNL",
-      "HND",
-      "ICN",
-      "PVG",
-      "PEK",
       "HKG",
-      "SIN",
+      "ICN",
+      "TPE",
       "BKK",
-      "SYD"
+      "DXB",
+      "DOH",
+      "HND"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Ninoy Aquino International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Ninoy_Aquino_International_Airport",
+    "serviceSource": "Wikipedia: List of Philippine Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Philippine_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "GA": {
     "topDestinations": [
-      "SIN",
       "KUL",
       "BKK",
       "HKG",
       "ICN",
-      "HND",
-      "PVG",
-      "PEK",
-      "AMS",
-      "DXB"
+      "JED"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Soekarno-Hatta International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soekarno-Hatta_International_Airport",
+    "serviceSource": "Wikipedia: List of Garuda Indonesia destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Garuda_Indonesia_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "MH": {
     "topDestinations": [
-      "SIN",
-      "BKK",
-      "HKG",
-      "ICN",
-      "HND",
-      "PVG",
-      "PEK",
-      "DEL",
-      "LHR",
-      "CDG"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "AK": {
-    "topDestinations": [
-      "SIN",
       "BKK",
       "CGK",
-      "MNL",
       "HKG",
-      "ICN",
-      "PVG",
-      "PEK",
+      "TPE",
       "DEL",
-      "SYD"
+      "ICN",
+      "HAN"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "6E": {
-    "topDestinations": [
-      "DXB",
-      "DOH",
-      "BKK",
-      "SIN",
-      "KUL",
-      "CMB",
-      "IST"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2024,
+    "source": "Wikipedia: Kuala Lumpur International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kuala_Lumpur_International_Airport",
+    "serviceSource": "Wikipedia: List of Malaysia Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Malaysia_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "AI": {
     "topDestinations": [
       "DXB",
+      "BKK",
       "DOH",
-      "JFK",
-      "ORD",
-      "LHR",
-      "CDG",
-      "FRA",
-      "SIN",
-      "BKK",
-      "HKG"
+      "LHR"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "UK": {
-    "topDestinations": [
-      "DXB",
-      "SIN",
-      "BKK",
-      "LHR",
-      "CDG",
-      "FRA"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2024,
+    "source": "Wikipedia: Indira Gandhi International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Indira_Gandhi_International_Airport",
+    "serviceSource": "Wikipedia: List of Air India destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Air_India_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "UL": {
     "topDestinations": [
-      "DEL",
       "DXB",
       "DOH",
-      "SIN",
       "BKK",
-      "KUL",
-      "HKG",
-      "ICN",
-      "LHR",
-      "CDG"
+      "DEL",
+      "KUL"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2025,
+    "source": "Wikipedia: Bandaranaike International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Bandaranaike_International_Airport",
+    "serviceSource": "Wikipedia: SriLankan Airlines",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/SriLankan_Airlines",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "QF": {
     "topDestinations": [
       "MEL",
       "BNE",
       "AKL",
-      "DFW",
-      "JFK",
-      "LHR",
-      "SIN",
-      "HKG",
-      "HND",
-      "ICN"
+      "HKG"
     ],
-    "year": 2023,
-    "source": "Wikipedia: Qantas international destinations"
-  },
-  "JQ": {
-    "topDestinations": [
-      "SYD",
-      "BNE",
-      "AKL",
-      "BKK",
-      "SIN",
-      "HND",
-      "HNL"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "VA": {
-    "topDestinations": [
-      "SYD",
-      "MEL",
-      "AKL",
-      "NAN",
-      "HND"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2024,
+    "source": "Wikipedia: Sydney Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Sydney_Airport",
+    "serviceSource": "Wikipedia: List of Qantas destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Qantas_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "NZ": {
     "topDestinations": [
       "SYD",
       "MEL",
       "BNE",
-      "JFK",
-      "ORD",
-      "HND",
-      "ICN",
-      "PVG",
-      "SIN",
       "HKG"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Auckland Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Auckland_Airport",
+    "serviceSource": "Wikipedia: List of Air New Zealand destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Air_New_Zealand_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "FJ": {
     "topDestinations": [
-      "SYD",
-      "MEL",
-      "BNE",
       "AKL",
-      "HND",
-      "ICN",
-      "HNL",
-      "SIN",
+      "SYD",
+      "BNE",
+      "MEL",
       "HKG"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "SA": {
-    "topDestinations": [
-      "GRU",
-      "FRA",
-      "LHR",
-      "CDG",
-      "DXB",
-      "ADD",
-      "NBO"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2024,
+    "source": "Wikipedia: Nadi International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nadi_International_Airport",
+    "serviceSource": "Wikipedia: List of Fiji Airways destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Fiji_Airways_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "ET": {
     "topDestinations": [
-      "JNB",
-      "NBO",
       "DXB",
-      "DOH",
-      "JED",
-      "CDG",
-      "LHR",
       "FRA",
-      "FCO",
-      "JFK"
+      "LHR",
+      "JFK",
+      "JED",
+      "CAI",
+      "NBO",
+      "JNB",
+      "IST",
+      "BKK"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2022,
+    "source": "Wikipedia: Addis Ababa Bole International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Addis_Ababa_Bole_International_Airport",
+    "serviceSource": "Wikipedia: List of Ethiopian Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Ethiopian_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "KQ": {
     "topDestinations": [
-      "JNB",
-      "ADD",
       "DXB",
-      "DOH",
-      "LHR",
-      "CDG",
+      "ADD",
+      "JNB",
       "AMS",
-      "JFK",
-      "BKK",
-      "GRU"
+      "LHR",
+      "CAI",
+      "KGL"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2024,
+    "source": "Wikipedia: Jomo Kenyatta International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jomo_Kenyatta_International_Airport",
+    "serviceSource": "Wikipedia: List of Kenya Airways destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Kenya_Airways_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "WB": {
     "topDestinations": [
       "NBO",
-      "JNB",
-      "ADD",
       "DXB",
+      "DOH",
+      "ADD",
+      "JNB",
       "BRU",
-      "LHR",
       "CDG"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Kigali International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kigali_International_Airport",
+    "serviceSource": "Wikipedia: RwandAir",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/RwandAir",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "MK": {
     "topDestinations": [
@@ -1390,252 +1232,178 @@
       "CDG",
       "LHR",
       "FRA",
-      "DXB",
       "DEL",
-      "SIN",
-      "HKG",
-      "MEL"
+      "NBO"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Sir Seewoosagur Ramgoolam International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Sir_Seewoosagur_Ramgoolam_International_Airport",
+    "serviceSource": "Wikipedia: List of Air Mauritius destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Air_Mauritius_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "SU": {
     "topDestinations": [
       "DXB",
       "IST",
-      "ALA",
-      "GYD",
-      "TAS",
       "PEK",
-      "PVG",
-      "ICN",
-      "HND"
+      "DEL"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Sheremetyevo International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Sheremetyevo_International_Airport",
+    "serviceSource": "Wikipedia: List of Aeroflot destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Aeroflot_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "S7": {
     "topDestinations": [
-      "ALA",
       "IST",
-      "PEK"
+      "DXB",
+      "TAS"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Domodedovo International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Domodedovo_International_Airport",
+    "serviceSource": "Wikipedia: List of S7 Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_S7_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "KC": {
     "topDestinations": [
       "IST",
       "DXB",
+      "DOH",
       "FRA",
-      "LHR",
-      "CDG",
-      "DEL",
+      "ICN",
       "PEK",
+      "TAS",
       "BKK",
-      "SVO"
+      "DEL"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2022,
+    "source": "Wikipedia: Almaty International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Almaty_International_Airport",
+    "serviceSource": "Wikipedia: List of Air Astana destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Air_Astana_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "HY": {
     "topDestinations": [
       "IST",
       "DXB",
       "FRA",
-      "LHR",
-      "CDG",
       "DEL",
       "BKK",
-      "PEK",
       "ICN",
-      "SVO"
+      "ALA"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Tashkent International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Tashkent_International_Airport",
+    "serviceSource": "Wikipedia: List of Uzbekistan Airways destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Uzbekistan_Airways_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "J2": {
     "topDestinations": [
       "IST",
       "DXB",
-      "LHR",
-      "CDG",
-      "FRA",
-      "FCO",
+      "DOH",
       "PEK",
-      "TLV"
+      "VIE",
+      "DEL"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "QH": {
-    "topDestinations": [
-      "SGN",
-      "BKK",
-      "ICN",
-      "TPE"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Heydar Aliyev International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Heydar_Aliyev_International_Airport",
+    "serviceSource": "Wikipedia: List of Azerbaijan Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Azerbaijan_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "VJ": {
     "topDestinations": [
       "HAN",
       "BKK",
-      "SIN",
-      "KUL",
       "ICN",
-      "HND",
       "TPE",
-      "DEL"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "5J": {
-    "topDestinations": [
       "HKG",
-      "SIN",
-      "BKK",
-      "ICN",
-      "HND",
-      "DXB"
+      "KUL",
+      "HND"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Tan Son Nhat International Airport (airlines: hub fallback)",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Tan_Son_Nhat_International_Airport",
+    "serviceSource": "Wikipedia: List of VietJet Air destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_VietJet_Air_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "BT": {
     "topDestinations": [
-      "LHR",
-      "CDG",
-      "FRA",
-      "AMS",
-      "FCO",
-      "MAD",
-      "BCN",
+      "HEL",
       "OSL",
-      "CPH"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "QS": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
-  },
-  "FB": {
-    "topDestinations": [
       "FRA",
-      "LHR",
-      "CDG",
-      "AMS",
-      "FCO",
-      "MAD",
-      "VIE",
-      "ZRH",
-      "BRU",
-      "TLV"
+      "CPH",
+      "IST"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "RO": {
-    "topDestinations": [
-      "FRA",
-      "LHR",
-      "CDG",
-      "AMS",
-      "FCO",
-      "MAD",
-      "VIE",
-      "BRU",
-      "TLV",
-      "ATH"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "PG": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
-  },
-  "JT": {
-    "topDestinations": [
-      "SIN",
-      "KUL",
-      "BKK"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "SG": {
-    "topDestinations": [
-      "DXB",
-      "BKK",
-      "CMB"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "BI": {
-    "topDestinations": [
-      "SIN",
-      "KUL",
-      "HKG",
-      "BKK",
-      "MNL",
-      "DXB",
-      "LHR",
-      "HND",
-      "ICN"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Riga International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Riga_International_Airport",
+    "serviceSource": "Wikipedia: AirBaltic",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/AirBaltic",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "PK": {
     "topDestinations": [
       "DXB",
-      "DOH",
       "JED",
-      "LHR",
-      "CDG",
-      "FRA",
-      "PEK",
+      "DOH",
+      "AUH",
+      "MCT",
       "BKK",
-      "ICN",
-      "TLV"
+      "KUL"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
+    "source": "Wikipedia: Jinnah International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jinnah_International_Airport",
+    "serviceSource": "Wikipedia: List of Pakistan International Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Pakistan_International_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "OM": {
     "topDestinations": [
-      "PEK",
       "ICN",
-      "HND",
-      "FRA",
-      "IST",
+      "PEK",
       "HKG",
-      "BKK"
+      "FRA",
+      "IST"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "JA": {
-    "topDestinations": [
-      "EZE",
-      "GRU",
-      "BOG"
-    ],
-    "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "H2": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
+    "year": 2021,
+    "source": "Wikipedia: Chinggis Khaan International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Chinggis_Khaan_International_Airport",
+    "serviceSource": "Wikipedia: MIAT Mongolian Airlines",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/MIAT_Mongolian_Airlines",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "BW": {
     "topDestinations": [
@@ -1644,23 +1412,29 @@
       "YYZ"
     ],
     "year": 2023,
-    "source": "manual: common knowledge"
-  },
-  "FA": {
-    "topDestinations": [],
-    "year": 2023,
-    "source": "no ranked data"
+    "source": "Wikipedia: Piarco International Airport",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Piarco_International_Airport",
+    "serviceSource": "Wikipedia: List of Caribbean Airlines destinations",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Caribbean_Airlines_destinations",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   },
   "PX": {
     "topDestinations": [
       "BNE",
       "SYD",
-      "SIN",
       "HKG",
       "MNL",
       "NAN"
     ],
-    "year": 2023,
-    "source": "manual: common knowledge"
+    "year": 2025,
+    "source": "Wikipedia: Jacksons International Airport (airlines: hub fallback)",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jacksons_International_Airport",
+    "serviceSource": "Wikipedia: Air Niugini",
+    "serviceSourceUrl": "https://en.wikipedia.org/wiki/Air_Niugini",
+    "metric": "hub airport ranked destinations",
+    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
+    "confidence": "hub-dominant inference"
   }
 }

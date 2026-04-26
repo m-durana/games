@@ -27,6 +27,7 @@ import urllib.request
 from collections import defaultdict, Counter
 
 from bs4 import BeautifulSoup
+from bs4.exceptions import FeatureNotFound
 
 from sources import (
     PIPE_DIR,
@@ -38,6 +39,13 @@ from sources import (
     topn,
     write_partial,
 )
+
+
+def parse_html(html):
+    try:
+        return BeautifulSoup(html, "lxml")
+    except FeatureNotFound:
+        return BeautifulSoup(html, "html.parser")
 
 CACHE_DIR = os.path.join(PIPE_DIR, "_cache", "wiki")
 os.makedirs(CACHE_DIR, exist_ok=True)
@@ -253,7 +261,7 @@ def _wiki_title_to_iata():
 
 def airport_busiest_routes(html, valid_airports):
     """Return Counter[dest_iata] -> passengers from busiest-routes tables."""
-    soup = BeautifulSoup(html, "lxml")
+    soup = parse_html(html)
     counts = Counter()
     visited = set()
     headings = list(soup.find_all(["h2", "h3", "h4"]))
@@ -359,7 +367,7 @@ def _stop_levels_for(heading):
 def airport_airlines_table(html, valid_airlines):
     """From "Airlines and destinations" tables, return list of carrier IATAs ranked
     by number of destination tokens served (proxy for traffic share)."""
-    soup = BeautifulSoup(html, "lxml")
+    soup = parse_html(html)
     counts = Counter()
     visited = set()
     for h in soup.find_all(["h2", "h3", "h4"]):
@@ -426,7 +434,7 @@ def _airline_name_to_iata(name, valid_airlines):
 
 def airline_destinations(html, valid_airports):
     """Return ordered list of dest IATAs from an airline destinations page."""
-    soup = BeautifulSoup(html, "lxml")
+    soup = parse_html(html)
     seen = []
     seen_set = set()
     title_to_iata = _wiki_title_to_iata()
@@ -436,8 +444,26 @@ def airline_destinations(html, valid_airports):
         rows = table.find_all("tr")
         if not rows:
             continue
+        headers = [c.get_text(" ", strip=True).lower() for c in rows[0].find_all(["th", "td"])]
+        if headers and not any("iata" in h or "airport" in h or "city" in h for h in headers):
+            continue
+        ended_col = None
+        status_col = None
+        for i, h in enumerate(headers):
+            if ended_col is None and ("ended" in h or h in {"end", "end date"}):
+                ended_col = i
+            if status_col is None and "status" in h:
+                status_col = i
         for tr in rows[1:]:
             cells = tr.find_all(["td", "th"])
+            if ended_col is not None and len(cells) > ended_col:
+                ended = cells[ended_col].get_text(" ", strip=True).lower()
+                if ended and not any(word in ended for word in ("present", "current")):
+                    continue
+            if status_col is not None and len(cells) > status_col:
+                status = cells[status_col].get_text(" ", strip=True).lower()
+                if any(word in status for word in ("future", "planned", "terminated", "ended", "suspended")):
+                    continue
             for cell in cells[:4]:
                 iata = None
                 for a in cell.find_all("a"):
