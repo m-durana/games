@@ -42,7 +42,7 @@
     position: relative;
     width: 48px;
     height: 48px;
-    border-radius: 12px;
+    border-radius: 6px;
     background: #fff;
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@
   .logo.big {
     width: clamp(140px, 50vw, 200px);
     height: clamp(140px, 50vw, 200px);
-    border-radius: 24px;
+    border-radius: 8px;
     padding: 1.25rem;
   }
   .logo.big .mono {

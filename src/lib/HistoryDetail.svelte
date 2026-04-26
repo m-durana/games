@@ -100,13 +100,13 @@
     color: var(--muted);
     background: var(--surface-2);
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
   .pill.subtle { background: var(--surface); }
   h1 {
     font-size: 2.25rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
   }
   .of { color: var(--muted); font-size: 1.25rem; }
   .muted { color: var(--muted); text-align: center; padding: 1rem; }
@@ -119,12 +119,12 @@
     padding: 0.625rem 0.75rem;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 6px;
     text-align: left;
     transition: border-color 0.15s, background 0.15s;
   }
-  .row:hover { border-color: #3f3f46; }
-  .row.bad { border-color: rgba(239, 68, 68, 0.35); }
+  .row:hover { border-color: var(--panel-line); }
+  .row.bad { border-color: rgba(255, 107, 95, 0.35); }
   .row.open { background: var(--surface-2); }
   .num {
     width: 1.4rem;
@@ -136,10 +136,10 @@
   .row-body { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
   .airline { font-size: 0.9rem; font-weight: 500; }
   .ans { font-size: 0.8125rem; color: var(--muted); display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
-  .ans.good { color: var(--good, #34d399); }
-  .picked { color: #f87171; text-decoration: line-through; }
+  .ans.good { color: var(--good, var(--good)); }
+  .picked { color: var(--bad); text-decoration: line-through; }
   .arrow { color: var(--muted); }
-  .correct { color: var(--good, #34d399); }
+  .correct { color: var(--good, var(--good)); }
   .chev { color: var(--muted); padding-top: 0.1rem; }
   .explain {
     font-size: 0.8125rem;
@@ -168,7 +168,7 @@
     color: var(--text);
     border: 1px solid var(--border);
     padding: 0.75rem 1rem;
-    border-radius: 12px;
+    border-radius: 6px;
     font-size: 0.9375rem;
   }
 </style>

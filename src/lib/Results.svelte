@@ -98,7 +98,7 @@
 
 
   const isPerfect = score === ROUND_LENGTH;
-  const confettiColors = ['#22c55e', '#fbbf24', '#3b82f6', '#ec4899', '#f5f5f5', '#fb923c'];
+  const confettiColors = ['var(--good)', 'var(--accent)', 'var(--info)', '#ec4899', '#f5f5f5', 'var(--accent)'];
   const confetti = Array.from({ length: 36 }, (_, i) => ({
     color: confettiColors[i % confettiColors.length],
     angle: (i / 36) * 360 + Math.random() * 10,
@@ -249,20 +249,22 @@
   .pills { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; }
   .pill {
     font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--font-main);
+    letter-spacing: 0;
     text-transform: uppercase;
     color: var(--muted);
     background: var(--surface-2);
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
   .pill.subtle { background: transparent; border: 1px solid var(--border); }
-  .pill.daily { color: #fbbf24; background: rgba(251, 191, 36, 0.12); }
-  .pill.mix { color: #a78bfa; background: rgba(167, 139, 250, 0.14); }
+  .pill.daily { color: var(--accent); background: rgba(245, 197, 66, 0.12); }
+  .pill.mix { color: var(--info); background: rgba(98, 183, 216, 0.14); }
   .head h1 {
-    font-size: clamp(3rem, 14vw, 4.5rem);
+    font-family: var(--font-main);
+    font-size: 4rem;
     font-weight: 600;
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
@@ -272,9 +274,9 @@
     margin-top: 0.25rem;
     font-size: 0.75rem;
     color: var(--good);
-    background: rgba(34, 197, 94, 0.12);
+    background: rgba(71, 217, 176, 0.12);
     padding: 0.25rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
 
   .share {
@@ -283,20 +285,23 @@
     border: 1px solid var(--border);
     color: var(--text);
     padding: 0.625rem 1.25rem;
-    border-radius: 999px;
+    border-radius: 4px;
     font-size: 0.875rem;
     transition: background 0.15s, border-color 0.15s, transform 0.1s;
   }
   .share:active { transform: scale(0.97); }
-  .share:hover { border-color: #3f3f46; background: var(--surface-2); }
+  .share:hover { border-color: var(--panel-line); background: var(--surface-2); }
 
   .recap {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    background: var(--surface);
+    background:
+      linear-gradient(rgba(245, 197, 66, 0.04) 1px, transparent 1px),
+      var(--surface);
+    background-size: 100% 34px;
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 8px;
     padding: 0.5rem;
   }
   .row {
@@ -305,11 +310,11 @@
     align-items: flex-start;
     gap: 0.625rem;
     padding: 0.625rem 0.625rem;
-    border-radius: 12px;
+    border-radius: 6px;
     text-align: left;
     transition: background 0.15s;
   }
-  .row:hover { background: var(--surface-2); }
+  .row:hover { background: rgba(245, 197, 66, 0.08); }
   .row.open { background: var(--surface-2); }
 
   .num {
@@ -345,7 +350,8 @@
   .facts > div { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
   .facts dt {
     font-size: 0.6875rem;
-    letter-spacing: 0.06em;
+    font-family: var(--font-main);
+    letter-spacing: 0;
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -360,18 +366,18 @@
   }
   .actions button {
     min-height: 52px;
-    border-radius: 14px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
     transition: transform 0.1s, background 0.15s, border-color 0.15s;
   }
   .actions button:active { transform: scale(0.98); }
-  .primary { background: var(--text); color: var(--bg); }
-  .primary:hover { background: #e5e5e5; }
+  .primary { background: var(--accent); color: var(--bg); }
+  .primary:hover { background: #ffe18a; }
   .secondary {
     background: var(--surface);
     color: var(--text);
     border: 1px solid var(--border);
   }
-  .secondary:hover { border-color: #3f3f46; background: var(--surface-2); }
+  .secondary:hover { border-color: var(--panel-line); background: var(--surface-2); }
 </style>

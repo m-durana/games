@@ -63,17 +63,19 @@
   }
   .pill.speed {
     font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--font-main);
+    letter-spacing: 0;
     text-transform: uppercase;
-    color: #60a5fa;
-    background: rgba(59, 130, 246, 0.15);
+    color: var(--info);
+    background: rgba(98, 183, 216, 0.15);
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
   .head h1 {
-    font-size: clamp(4rem, 22vw, 7rem);
+    font-family: var(--font-main);
+    font-size: 5.5rem;
     font-weight: 600;
-    letter-spacing: -0.04em;
+    letter-spacing: 0;
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
@@ -81,9 +83,9 @@
   .best-flag {
     font-size: 0.75rem;
     color: var(--good);
-    background: rgba(34, 197, 94, 0.12);
+    background: rgba(71, 217, 176, 0.12);
     padding: 0.25rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
 
   .actions {
@@ -94,18 +96,18 @@
   }
   .actions button {
     min-height: 52px;
-    border-radius: 14px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
     transition: transform 0.1s, background 0.15s, border-color 0.15s;
   }
   .actions button:active { transform: scale(0.98); }
-  .primary { background: var(--text); color: var(--bg); }
-  .primary:hover { background: #e5e5e5; }
+  .primary { background: var(--accent); color: var(--bg); }
+  .primary:hover { background: #ffe18a; }
   .secondary {
     background: var(--surface);
     color: var(--text);
     border: 1px solid var(--border);
   }
-  .secondary:hover { border-color: #3f3f46; background: var(--surface-2); }
+  .secondary:hover { border-color: var(--panel-line); background: var(--surface-2); }
 </style>

@@ -54,8 +54,8 @@
     width: calc(100% - 2rem);
     max-width: 420px;
     background: var(--surface);
-    border: 1px solid rgba(251, 191, 36, 0.5);
-    border-radius: 14px;
+    border: 1px solid rgba(245, 197, 66, 0.5);
+    border-radius: 8px;
     padding: 0.75rem 0.875rem;
     display: flex;
     align-items: center;
@@ -77,13 +77,13 @@
     font-size: 0.6875rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #fbbf24;
+    color: var(--accent);
   }
   .name { font-size: 0.9375rem; font-weight: 600; }
   .desc { font-size: 0.75rem; color: var(--muted); }
   button {
     width: 44px; height: 44px;
-    border-radius: 999px;
+    border-radius: 4px;
     color: var(--muted);
     flex-shrink: 0;
     font-size: 1.125rem;

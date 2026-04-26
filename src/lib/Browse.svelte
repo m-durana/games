@@ -76,9 +76,9 @@
 <style>
   .head { padding: 1rem 0.25rem 0.25rem; }
   .head h1 {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    font-size: 2.25rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     margin-bottom: 0.4rem;
   }
   .head p { color: var(--muted); font-size: 0.9375rem; }
@@ -86,7 +86,7 @@
   .search {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 0.75rem 1rem;
     color: var(--text);
     font: inherit;
@@ -96,7 +96,7 @@
   }
   .search:focus {
     outline: none;
-    border-color: #3f3f46;
+    border-color: var(--panel-line);
   }
   .search::placeholder { color: var(--muted); }
 
@@ -108,7 +108,7 @@
   .row {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 6px;
     overflow: hidden;
   }
   summary {
@@ -157,7 +157,7 @@
   .actions button {
     width: 100%;
     min-height: 52px;
-    border-radius: 14px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
     background: var(--surface);
@@ -166,5 +166,5 @@
     transition: background 0.15s, border-color 0.15s, transform 0.1s;
   }
   .actions button:active { transform: scale(0.98); }
-  .actions button:hover { border-color: #3f3f46; background: var(--surface-2); }
+  .actions button:hover { border-color: var(--panel-line); background: var(--surface-2); }
 </style>

@@ -186,7 +186,7 @@
   }
   .quit {
     width: 32px; height: 32px;
-    border-radius: 999px;
+    border-radius: 4px;
     color: var(--muted);
     background: var(--surface);
     display: flex; align-items: center; justify-content: center;
@@ -199,14 +199,14 @@
     height: 28px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: 4px;
     overflow: hidden;
     position: relative;
   }
   .timer-fill {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, var(--good) 0%, #fbbf24 70%, var(--bad) 100%);
+    background: linear-gradient(90deg, var(--good) 0%, var(--accent) 70%, var(--bad) 100%);
     transition: width 0.1s linear;
   }
   .timer-text {
@@ -219,7 +219,8 @@
     font-size: 0.8125rem;
     font-variant-numeric: tabular-nums;
     color: var(--bg);
-    font-weight: 600;
+    font-family: var(--font-main);
+    font-weight: 700;
     mix-blend-mode: lighten;
   }
   .meta {
@@ -228,25 +229,29 @@
     gap: 0.4rem;
     flex-shrink: 0;
   }
-  .streak { color: #fb923c; font-size: 0.875rem; }
+  .streak { color: var(--accent); font-size: 0.875rem; }
   .score {
     background: var(--surface-2);
     border: 1px solid var(--border);
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
     font-size: 0.875rem;
     font-variant-numeric: tabular-nums;
     color: var(--text);
-    font-weight: 600;
+    font-family: var(--font-main);
+    font-weight: 700;
   }
 
   .round { flex: 1; display: flex; align-items: stretch; }
 
   .card {
     width: 100%;
-    background: var(--surface);
+    background:
+      linear-gradient(rgba(245, 197, 66, 0.05) 1px, transparent 1px),
+      var(--surface);
+    background-size: 100% 34px;
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 1.5rem 1.25rem;
     display: flex;
     flex-direction: column;
@@ -256,21 +261,23 @@
   .card-head { display: flex; gap: 0.4rem; flex-wrap: wrap; }
   .speed-pill {
     font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--font-main);
+    letter-spacing: 0;
     text-transform: uppercase;
-    color: #fbbf24;
-    background: rgba(251, 191, 36, 0.12);
+    color: var(--accent);
+    background: rgba(245, 197, 66, 0.12);
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
   .mode-pill {
     font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--font-main);
+    letter-spacing: 0;
     text-transform: uppercase;
     color: var(--muted);
     background: var(--surface-2);
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
 
   .airline {
@@ -281,9 +288,9 @@
   }
   .airline-text { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
   .airline h2 {
-    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    font-size: 1.5rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     line-height: 1.15;
     word-break: break-word;
   }
@@ -297,9 +304,9 @@
     margin-bottom: 0.4rem;
   }
   .prompt-block h2 {
-    font-size: clamp(1.5rem, 6vw, 2rem);
+    font-size: 1.75rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
   }
 
   .logo-stage { display: flex; justify-content: center; padding: 0.5rem 0; }
@@ -314,13 +321,14 @@
     text-align: left;
     background: var(--surface-2);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 8px;
     padding: 0.75rem 1rem;
     min-height: 48px;
     font-size: 1rem;
     transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s, opacity 0.15s;
   }
   .option:not(:disabled):active { transform: scale(0.98); }
+  .option:not(:disabled):hover { border-color: var(--panel-line); background: #1d2a2e; }
   .opt-text { flex: 1; }
   .key {
     width: 22px; height: 22px;
@@ -335,13 +343,13 @@
     flex-shrink: 0;
   }
   .option.correct {
-    background: rgba(34, 197, 94, 0.15);
-    border-color: rgba(34, 197, 94, 0.5);
+    background: rgba(71, 217, 176, 0.15);
+    border-color: rgba(71, 217, 176, 0.5);
     color: var(--good);
   }
   .option.wrong {
-    background: rgba(239, 68, 68, 0.15);
-    border-color: rgba(239, 68, 68, 0.5);
+    background: rgba(255, 107, 95, 0.15);
+    border-color: rgba(255, 107, 95, 0.5);
     color: var(--bad);
   }
   .option.reveal { opacity: 0.45; }

@@ -187,37 +187,38 @@
   .menu-btn {
     width: 30px;
     height: 30px;
-    border-radius: 999px;
+    border-radius: 3px;
     background: var(--surface);
     border: 1px solid var(--border);
     color: var(--muted);
+    font-family: var(--font-main);
     font-size: 1.125rem;
     line-height: 1;
     transition: color 0.15s, border-color 0.15s;
   }
-  .menu-btn:hover { color: var(--text); border-color: #3f3f46; }
+  .menu-btn:hover { color: var(--accent); border-color: var(--panel-line); }
   .menu {
     position: absolute;
     top: calc(100% + 0.4rem);
     right: 0;
-    background: var(--surface);
+    background: rgba(16, 24, 27, 0.98);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 4px;
     padding: 0.25rem;
     display: flex;
     flex-direction: column;
     min-width: 140px;
     z-index: 50;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow);
   }
   .menu button {
     text-align: left;
     padding: 0.625rem 0.875rem;
-    border-radius: 8px;
+    border-radius: 3px;
     font-size: 0.875rem;
     color: var(--text);
     background: none;
     transition: background 0.12s;
   }
-  .menu button:hover { background: var(--surface-2); }
+  .menu button:hover { background: rgba(245, 197, 66, 0.08); color: var(--accent); }
 </style>

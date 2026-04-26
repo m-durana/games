@@ -339,7 +339,7 @@
   }
   .quit {
     width: 32px; height: 32px;
-    border-radius: 999px;
+    border-radius: 4px;
     color: var(--muted);
     background: var(--surface);
     display: flex; align-items: center; justify-content: center;
@@ -347,7 +347,7 @@
     border: 1px solid var(--border);
     flex-shrink: 0;
   }
-  .quit:hover { color: var(--text); }
+  .quit:hover { color: var(--accent); border-color: var(--panel-line); }
   .dots {
     flex: 1;
     display: flex;
@@ -357,14 +357,14 @@
   .dot {
     width: 10px;
     height: 10px;
-    border-radius: 999px;
+    border-radius: 4px;
     background: var(--surface-2);
     transition: background 0.2s, transform 0.2s;
   }
   .dot-correct { background: var(--good); }
   .dot-wrong { background: var(--bad); }
   .dot-now {
-    background: var(--text);
+    background: var(--accent);
     animation: pulse 1.4s ease-in-out infinite;
   }
   @keyframes pulse {
@@ -381,7 +381,7 @@
     flex-shrink: 0;
   }
   .streak {
-    color: #fb923c;
+    color: var(--accent);
     font-size: 0.8125rem;
   }
 
@@ -395,9 +395,12 @@
 
   .card {
     width: 100%;
-    background: var(--surface);
+    background:
+      linear-gradient(rgba(245, 197, 66, 0.05) 1px, transparent 1px),
+      var(--surface);
+    background-size: 100% 34px;
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 1.5rem 1.25rem;
     display: flex;
     flex-direction: column;
@@ -412,25 +415,25 @@
     margin-left: auto;
     width: 26px;
     height: 26px;
-    border-radius: 999px;
+    border-radius: 4px;
     border: 1px solid var(--border);
     background: var(--surface-2);
     color: var(--muted);
     font-size: 0.85rem;
     line-height: 1;
   }
-  .info-btn:hover { color: var(--text); border-color: #3f3f46; }
+  .info-btn:hover { color: var(--accent); border-color: var(--panel-line); }
   .info-btn[aria-expanded="true"] {
-    background: rgba(96, 165, 250, 0.18);
-    border-color: rgba(96, 165, 250, 0.55);
-    color: #cbe2ff;
+    background: rgba(245, 197, 66, 0.14);
+    border-color: rgba(245, 197, 66, 0.55);
+    color: var(--accent);
   }
   .mode-info {
     margin-top: -0.5rem;
     padding: 0.6rem 0.75rem;
-    background: rgba(96, 165, 250, 0.08);
-    border: 1px solid rgba(96, 165, 250, 0.25);
-    border-radius: 10px;
+    background: rgba(245, 197, 66, 0.08);
+    border: 1px solid rgba(245, 197, 66, 0.24);
+    border-radius: 6px;
     font-size: 0.8125rem;
     line-height: 1.45;
     color: var(--muted);
@@ -438,25 +441,27 @@
 
   .mode-pill {
     font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--font-main);
+    letter-spacing: 0;
     text-transform: uppercase;
     color: var(--muted);
     background: var(--surface-2);
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
   .daily-pill {
     font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--font-main);
+    letter-spacing: 0;
     text-transform: uppercase;
-    color: #fbbf24;
-    background: rgba(251, 191, 36, 0.12);
+    color: var(--accent);
+    background: rgba(245, 197, 66, 0.12);
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
   .daily-pill.mix {
-    color: #a78bfa;
-    background: rgba(167, 139, 250, 0.14);
+    color: var(--info);
+    background: rgba(98, 183, 216, 0.14);
   }
 
   .airline {
@@ -467,9 +472,9 @@
   }
   .airline-text { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
   .airline h2 {
-    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    font-size: 1.5rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     line-height: 1.15;
     word-break: break-word;
   }
@@ -483,9 +488,9 @@
     margin-bottom: 0.4rem;
   }
   .prompt-block h2 {
-    font-size: clamp(1.5rem, 6vw, 2rem);
+    font-size: 1.75rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
   }
 
   .logo-stage { display: flex; justify-content: center; padding: 0.5rem 0; }
@@ -493,7 +498,7 @@
   .tail-stage {
     position: relative;
     background: var(--surface-2);
-    border-radius: 14px;
+    border-radius: 8px;
     overflow: hidden;
     max-height: 320px;
     width: 100%;
@@ -538,7 +543,7 @@
     text-align: left;
     background: var(--surface-2);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 8px;
     padding: 0.875rem 1.125rem;
     min-height: 56px;
     font-size: 1rem;
@@ -547,11 +552,11 @@
   .option:not(:disabled):active { transform: scale(0.98); }
   @media (hover: hover) and (pointer: fine) {
     .option:not(:disabled):hover {
-      border-color: #60a5fa;
-      background: #2c2f36;
+      border-color: var(--accent);
+      background: #1d2a2e;
     }
   }
-  .option:not(:disabled):hover { border-color: #3f3f46; background: #2f2f33; }
+  .option:not(:disabled):hover { border-color: var(--panel-line); background: #1d2a2e; }
 
   .kb-legend {
     display: none;
@@ -570,7 +575,7 @@
     border-radius: 4px;
     background: var(--surface-2);
     color: var(--text);
-    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-family: var(--font-main);
     font-size: 0.7rem;
     margin: 0 0.15rem;
   }
@@ -593,29 +598,29 @@
   }
 
   .option.correct {
-    background: rgba(34, 197, 94, 0.15);
-    border-color: rgba(34, 197, 94, 0.5);
+    background: rgba(71, 217, 176, 0.14);
+    border-color: rgba(71, 217, 176, 0.52);
     color: var(--good);
   }
   .option.wrong {
-    background: rgba(239, 68, 68, 0.15);
-    border-color: rgba(239, 68, 68, 0.5);
+    background: rgba(255, 107, 95, 0.14);
+    border-color: rgba(255, 107, 95, 0.52);
     color: var(--bad);
   }
   .option.reveal { opacity: 0.45; }
   .option.selected {
-    background: rgba(96, 165, 250, 0.28);
-    border-color: rgba(96, 165, 250, 0.75);
-    color: #cbe2ff;
+    background: rgba(245, 197, 66, 0.18);
+    border-color: rgba(245, 197, 66, 0.75);
+    color: var(--accent);
   }
   .option.selected:hover {
-    background: rgba(96, 165, 250, 0.32) !important;
-    border-color: rgba(96, 165, 250, 0.85) !important;
+    background: rgba(245, 197, 66, 0.22) !important;
+    border-color: rgba(245, 197, 66, 0.85) !important;
   }
   .check {
     width: 22px;
     height: 22px;
-    border-radius: 999px;
+    border-radius: 4px;
     border: 1.5px solid var(--border);
     display: inline-flex;
     align-items: center;
@@ -626,8 +631,8 @@
     margin-left: auto;
   }
   .option.selected .check {
-    background: #60a5fa;
-    border-color: #60a5fa;
+    background: var(--accent);
+    border-color: var(--accent);
     color: #0b0b0c;
   }
   .option.correct .check {
@@ -641,26 +646,26 @@
     color: #0b0b0c;
   }
   .option.missed {
-    background: rgba(251, 191, 36, 0.12);
-    border-color: rgba(251, 191, 36, 0.55);
-    color: #fbbf24;
+    background: rgba(245, 197, 66, 0.12);
+    border-color: rgba(245, 197, 66, 0.55);
+    color: var(--accent);
   }
   .option.missed .check {
-    background: #fbbf24;
-    border-color: #fbbf24;
+    background: var(--accent);
+    border-color: var(--accent);
     color: #0b0b0c;
   }
-  .opt-explain.missed-note { color: #fbbf24; }
+  .opt-explain.missed-note { color: var(--accent); }
   .option:disabled { cursor: default; }
 
   .confirm {
     margin-top: 0.875rem;
     width: 100%;
-    background: var(--text);
-    color: #0b0b0c;
+    background: var(--accent);
+    color: var(--bg);
     border: none;
     padding: 0.875rem 1rem;
-    border-radius: 12px;
+    border-radius: 6px;
     font-size: 0.9375rem;
     font-weight: 600;
     transition: opacity 0.15s, transform 0.1s;

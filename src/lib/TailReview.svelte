@@ -475,9 +475,9 @@
 <style>
   .head { padding: 0.5rem 0.25rem; }
   .head h1 {
-    font-size: clamp(1.5rem, 7vw, 2rem);
+    font-size: 1.75rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     margin-bottom: 0.4rem;
   }
   .head p { color: var(--muted); font-size: 0.875rem; }
@@ -487,7 +487,7 @@
     gap: 4px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 4px;
   }
   .tabs button {
@@ -500,7 +500,7 @@
   .tabs button.active { background: var(--surface-2); color: var(--text); }
 
   .airline-head { display: flex; flex-direction: column; gap: 0.2rem; }
-  .airline-head h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
+  .airline-head h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: 0; }
   .airline-head .meta { color: var(--muted); font-size: 0.8125rem; }
 
   .search-row { display: flex; gap: 0.5rem; }
@@ -510,7 +510,7 @@
     border: 1px solid var(--border);
     color: var(--text);
     padding: 0.625rem 0.875rem;
-    border-radius: 10px;
+    border-radius: 6px;
     font-size: 0.875rem;
   }
   .search-row button {
@@ -518,7 +518,7 @@
     border: 1px solid var(--border);
     color: var(--text);
     padding: 0.625rem 1rem;
-    border-radius: 10px;
+    border-radius: 6px;
     font-size: 0.875rem;
   }
 
@@ -541,11 +541,11 @@
     padding: 4px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 6px;
     overflow: hidden;
     transition: border-color 0.15s, transform 0.1s;
   }
-  .cand:hover { border-color: rgba(34, 197, 94, 0.55); }
+  .cand:hover { border-color: rgba(71, 217, 176, 0.55); }
   .cand:active { transform: scale(0.98); }
   .cand img {
     width: 100%;
@@ -570,11 +570,11 @@
     border: 1px solid var(--border);
     color: var(--muted);
     padding: 0.625rem 1rem;
-    border-radius: 10px;
+    border-radius: 6px;
     font-size: 0.875rem;
     width: 100%;
   }
-  .ghost:hover { color: var(--text); border-color: #3f3f46; }
+  .ghost:hover { color: var(--text); border-color: var(--panel-line); }
 
   .empty { text-align: center; padding: 2rem 0; }
   .empty h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.4rem; }
@@ -587,7 +587,7 @@
     gap: 0.625rem;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 6px;
     padding: 0.5rem 0.625rem;
   }
   .row .row-thumb {
@@ -605,7 +605,7 @@
     position: relative;
     width: 100%;
     background: var(--surface-2);
-    border-radius: 10px;
+    border-radius: 6px;
     overflow: hidden;
     cursor: crosshair;
     user-select: none;
@@ -613,7 +613,7 @@
   .crop-stage img { width: 100%; height: 100%; display: block; }
   .crop-box {
     position: absolute;
-    border: 2px solid #22c55e;
+    border: 2px solid var(--good);
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55);
     pointer-events: none;
   }
@@ -647,9 +647,9 @@
   .crop-actions { display: flex; gap: 0.5rem; }
   .crop-actions .primary {
     flex: 1;
-    background: var(--text);
+    background: var(--accent);
     color: var(--bg);
-    border-radius: 10px;
+    border-radius: 6px;
     padding: 0.625rem 1rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -658,7 +658,7 @@
   .row-text { flex: 1; display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
   .row-name { font-size: 0.875rem; font-weight: 500; }
   .row-meta { font-size: 0.75rem; color: var(--muted); }
-  .row-link { font-size: 0.6875rem; color: #60a5fa; }
+  .row-link { font-size: 0.6875rem; color: var(--info); }
   .undo {
     background: var(--surface-2);
     border: 1px solid var(--border);
@@ -675,7 +675,7 @@
     border: 1px solid var(--border);
     color: var(--text);
     padding: 0.5rem 0.875rem;
-    border-radius: 10px;
+    border-radius: 6px;
     font-size: 0.8125rem;
   }
   textarea {
@@ -684,8 +684,8 @@
     border: 1px solid var(--border);
     color: var(--text);
     padding: 0.625rem;
-    border-radius: 10px;
-    font-family: ui-monospace, SFMono-Regular, monospace;
+    border-radius: 6px;
+    font-family: var(--font-main);
     font-size: 0.75rem;
     resize: vertical;
   }
@@ -694,9 +694,9 @@
   .footer .primary {
     width: 100%;
     min-height: 48px;
-    background: var(--text);
+    background: var(--accent);
     color: var(--bg);
-    border-radius: 14px;
+    border-radius: 8px;
     font-size: 0.9375rem;
     font-weight: 500;
   }

@@ -88,9 +88,9 @@
 <style>
   .head { padding: 1rem 0.25rem 0.25rem; }
   .head h1 {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    font-size: 2.25rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
   }
 
   .group {
@@ -110,7 +110,7 @@
     list-style: none;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 6px;
     overflow: hidden;
   }
   .group li {
@@ -131,7 +131,7 @@
   .switch {
     width: 44px;
     height: 26px;
-    border-radius: 999px;
+    border-radius: 4px;
     background: var(--surface-2);
     border: 1px solid var(--border);
     position: relative;
@@ -144,13 +144,13 @@
     top: 2px; left: 2px;
     width: 20px;
     height: 20px;
-    border-radius: 999px;
+    border-radius: 4px;
     background: var(--muted);
     transition: transform 0.18s, background 0.18s;
   }
   .switch.on {
-    background: rgba(34, 197, 94, 0.25);
-    border-color: rgba(34, 197, 94, 0.5);
+    background: rgba(71, 217, 176, 0.25);
+    border-color: rgba(71, 217, 176, 0.5);
   }
   .switch.on .thumb {
     transform: translateX(18px);
@@ -160,21 +160,21 @@
   .danger {
     width: 100%;
     padding: 0.875rem 1rem;
-    border-radius: 12px;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 6px;
+    background: rgba(255, 107, 95, 0.1);
+    border: 1px solid rgba(255, 107, 95, 0.4);
     color: var(--bad);
     font-size: 0.9375rem;
     transition: background 0.15s, transform 0.1s;
   }
   .danger:active { transform: scale(0.98); }
-  .danger:hover { background: rgba(239, 68, 68, 0.16); }
+  .danger:hover { background: rgba(255, 107, 95, 0.16); }
 
   .actions { padding-top: 0.75rem; margin-top: auto; }
   .actions button {
     width: 100%;
     min-height: 52px;
-    border-radius: 14px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
     background: var(--surface);
@@ -183,5 +183,5 @@
     transition: background 0.15s, border-color 0.15s, transform 0.1s;
   }
   .actions button:active { transform: scale(0.98); }
-  .actions button:hover { border-color: #3f3f46; background: var(--surface-2); }
+  .actions button:hover { border-color: var(--panel-line); background: var(--surface-2); }
 </style>

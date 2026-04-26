@@ -91,14 +91,14 @@
     color: var(--muted);
     background: var(--surface-2);
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 4px;
   }
   .pill.subtle { background: transparent; border: 1px solid var(--border); }
-  .pill.daily { color: #fbbf24; background: rgba(251, 191, 36, 0.12); }
+  .pill.daily { color: var(--accent); background: rgba(245, 197, 66, 0.12); }
   .head h1 {
-    font-size: clamp(3rem, 14vw, 4.5rem);
+    font-size: 4rem;
     font-weight: 600;
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
@@ -111,7 +111,7 @@
     gap: 0.5rem;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 8px;
     padding: 0.5rem;
   }
   .row {
@@ -120,7 +120,7 @@
     align-items: flex-start;
     gap: 0.625rem;
     padding: 0.625rem 0.625rem;
-    border-radius: 12px;
+    border-radius: 6px;
   }
   .num {
     color: var(--muted);
@@ -132,7 +132,7 @@
   .missing-logo {
     width: 48px;
     height: 48px;
-    border-radius: 12px;
+    border-radius: 6px;
     background: var(--surface-2);
     display: flex;
     align-items: center;
@@ -153,12 +153,12 @@
   .actions button {
     width: 100%;
     min-height: 52px;
-    border-radius: 14px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
     transition: transform 0.1s, background 0.15s;
   }
   .actions button:active { transform: scale(0.98); }
-  .primary { background: var(--text); color: var(--bg); }
-  .primary:hover { background: #e5e5e5; }
+  .primary { background: var(--accent); color: var(--bg); }
+  .primary:hover { background: #ffe18a; }
 </style>

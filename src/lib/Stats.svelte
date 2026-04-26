@@ -152,9 +152,9 @@
 <style>
   .head { padding: 1rem 0.25rem 0.25rem; }
   .head h1 {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    font-size: 2.25rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     margin-bottom: 0.5rem;
   }
   .head p { color: var(--muted); font-size: 0.9375rem; }
@@ -167,7 +167,7 @@
   .cell {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 8px;
     padding: 0.75rem 0.875rem;
     display: flex;
     flex-direction: column;
@@ -189,11 +189,11 @@
   .big {
     font-size: 1.375rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     font-variant-numeric: tabular-nums;
   }
   .muted { color: var(--muted); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
-  .streak { color: #fb923c; }
+  .streak { color: var(--accent); }
 
   .extra-row {
     display: flex;
@@ -203,7 +203,7 @@
     flex: 1;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 0.625rem 0.875rem;
     display: flex;
     flex-direction: column;
@@ -243,14 +243,14 @@
   .ach {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 0.625rem 0.75rem;
     display: flex;
     align-items: center;
     gap: 0.625rem;
     opacity: 0.55;
   }
-  .ach.got { opacity: 1; border-color: rgba(251, 191, 36, 0.3); }
+  .ach.got { opacity: 1; border-color: rgba(245, 197, 66, 0.3); }
   .ach-icon { font-size: 1.5rem; flex-shrink: 0; }
   .ach-text { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
   .ach-name { font-size: 0.8125rem; font-weight: 600; }
@@ -262,7 +262,7 @@
     list-style: none;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 6px;
     overflow: hidden;
   }
   .hardest li {
@@ -275,7 +275,7 @@
   }
   .hardest li:last-child { border-bottom: none; }
   .iata {
-    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-family: var(--font-main);
     font-size: 0.75rem;
     color: var(--muted);
     background: var(--surface-2);
@@ -297,7 +297,7 @@
   .actions button {
     width: 100%;
     min-height: 52px;
-    border-radius: 14px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
     background: var(--surface);
@@ -306,5 +306,5 @@
     transition: background 0.15s, border-color 0.15s, transform 0.1s;
   }
   .actions button:active { transform: scale(0.98); }
-  .actions button:hover { border-color: #3f3f46; background: var(--surface-2); }
+  .actions button:hover { border-color: var(--panel-line); background: var(--surface-2); }
 </style>
