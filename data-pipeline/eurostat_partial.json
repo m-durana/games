@@ -1,0 +1,364 @@
+{
+  "_failed": [
+    [
+      "uk",
+      "no annual columns"
+    ],
+    [
+      "cz",
+      "HTTP Error 404: Not Found"
+    ],
+    [
+      "gr",
+      "HTTP Error 404: Not Found"
+    ]
+  ],
+  "_failed_supplement": [
+    [
+      "lu",
+      "no rows; year=2024"
+    ],
+    [
+      "mt",
+      "no rows; year=2024"
+    ],
+    [
+      "cy",
+      "no rows; year=2024"
+    ],
+    [
+      "si",
+      "no rows; year=2024"
+    ],
+    [
+      "sk",
+      "no rows; year=2024"
+    ],
+    [
+      "se",
+      "no rows; year=2024"
+    ],
+    [
+      "ee",
+      "no rows; year=2024"
+    ],
+    [
+      "lt",
+      "no rows; year=2024"
+    ]
+  ],
+  "airlines": {},
+  "airports": {
+    "AMS": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "BCN",
+        "LHR",
+        "DUB",
+        "MAD",
+        "CPH"
+      ],
+      "year": 2024
+    },
+    "ATH": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "TLV",
+        "IST",
+        "LHR",
+        "FCO",
+        "CDG"
+      ],
+      "year": 2024
+    },
+    "BCN": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "MAD",
+        "FCO",
+        "AMS",
+        "LGW",
+        "LIS"
+      ],
+      "year": 2024
+    },
+    "BRU": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "MAD",
+        "BCN",
+        "FCO",
+        "LHR",
+        "VIE"
+      ],
+      "year": 2024
+    },
+    "BUD": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "IST",
+        "FRA",
+        "BCN",
+        "TLV",
+        "AMS"
+      ],
+      "year": 2024
+    },
+    "CDG": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "JFK",
+        "BCN",
+        "DXB",
+        "LHR",
+        "AMS"
+      ],
+      "year": 2024
+    },
+    "CPH": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "OSL",
+        "AMS",
+        "LHR",
+        "CDG",
+        "HEL"
+      ],
+      "year": 2024
+    },
+    "DUB": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "LHR",
+        "AMS",
+        "LGW",
+        "BCN",
+        "CDG"
+      ],
+      "year": 2024
+    },
+    "DUS": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "SAW",
+        "LHR",
+        "DXB",
+        "IST",
+        "VIE"
+      ],
+      "year": 2024
+    },
+    "FCO": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "MAD",
+        "BCN",
+        "JFK",
+        "CDG",
+        "LGW"
+      ],
+      "year": 2024
+    },
+    "FRA": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "LHR",
+        "VIE",
+        "DXB",
+        "MAD",
+        "IST"
+      ],
+      "year": 2024
+    },
+    "HEL": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "CPH",
+        "AMS",
+        "LHR",
+        "FRA",
+        "CDG"
+      ],
+      "year": 2024
+    },
+    "IST": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "DXB",
+        "LHR",
+        "JED",
+        "CDG",
+        "TAS"
+      ],
+      "year": 2024
+    },
+    "KEF": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "CPH",
+        "AMS",
+        "CDG",
+        "LHR",
+        "OSL"
+      ],
+      "year": 2024
+    },
+    "LBA": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "DUB",
+        "AMS",
+        "LHR",
+        "CDG",
+        "BCN"
+      ],
+      "year": 2019
+    },
+    "LGW": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "BCN",
+        "DUB",
+        "AMS",
+        "MAD",
+        "DXB"
+      ],
+      "year": 2019
+    },
+    "LHR": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "JFK",
+        "DXB",
+        "DUB",
+        "AMS",
+        "SIN"
+      ],
+      "year": 2019
+    },
+    "LIS": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "MAD",
+        "BCN",
+        "LHR",
+        "AMS",
+        "GRU"
+      ],
+      "year": 2024
+    },
+    "MAD": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "BCN",
+        "FCO",
+        "LIS",
+        "LHR",
+        "BOG"
+      ],
+      "year": 2024
+    },
+    "OSL": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "CPH",
+        "AMS",
+        "LHR",
+        "CDG",
+        "FRA"
+      ],
+      "year": 2024
+    },
+    "OTP": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "IST",
+        "VIE",
+        "AMS",
+        "TLV",
+        "FRA"
+      ],
+      "year": 2024
+    },
+    "RIX": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "HEL",
+        "FRA",
+        "OSL",
+        "VIE",
+        "CPH"
+      ],
+      "year": 2024
+    },
+    "SAW": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "DUS",
+        "AMS",
+        "VIE",
+        "JED",
+        "FRA"
+      ],
+      "year": 2024
+    },
+    "SOF": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "VIE",
+        "FRA",
+        "IST",
+        "BCN",
+        "MAD"
+      ],
+      "year": 2024
+    },
+    "VIE": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "FRA",
+        "LHR",
+        "AMS",
+        "ZRH",
+        "BCN"
+      ],
+      "year": 2024
+    },
+    "WAW": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "AMS",
+        "LHR",
+        "CDG",
+        "FRA",
+        "CPH"
+      ],
+      "year": 2024
+    },
+    "ZAG": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "FRA",
+        "AMS",
+        "IST",
+        "CDG",
+        "DOH"
+      ],
+      "year": 2024
+    },
+    "ZRH": {
+      "source": "Eurostat avia_par",
+      "topDestinations": [
+        "LHR",
+        "AMS",
+        "MAD",
+        "VIE",
+        "BCN"
+      ],
+      "year": 2024
+    }
+  },
+  "source": "Eurostat avia_par_*",
+  "version": "1.0",
+  "year": 2024
+}

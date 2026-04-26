@@ -1,0 +1,2045 @@
+{
+  "ADD": {
+    "source": "Wikipedia: Addis Ababa Bole International Airport",
+    "topAirlines": [
+      "ET",
+      "EK",
+      "TK",
+      "QR"
+    ],
+    "topDestinations": [
+      "DXB",
+      "FRA",
+      "LHR",
+      "JFK",
+      "JED",
+      "CAI",
+      "NBO",
+      "JNB",
+      "IST",
+      "BKK"
+    ],
+    "year": 2022
+  },
+  "AKL": {
+    "source": "Wikipedia: Auckland Airport",
+    "topAirlines": [
+      "NZ",
+      "QF",
+      "JQ",
+      "VA"
+    ],
+    "topDestinations": [
+      "SYD",
+      "MEL",
+      "BNE",
+      "SIN",
+      "HKG",
+      "ICN",
+      "DOH"
+    ],
+    "year": 2023
+  },
+  "ALA": {
+    "source": "Wikipedia: Almaty International Airport",
+    "topAirlines": [
+      "KC",
+      "TK",
+      "EK",
+      "QR"
+    ],
+    "topDestinations": [
+      "IST",
+      "DXB",
+      "DOH",
+      "FRA",
+      "ICN",
+      "PEK",
+      "TAS",
+      "BKK",
+      "DEL"
+    ],
+    "year": 2022
+  },
+  "AMM": {
+    "source": "Wikipedia: Queen Alia International Airport",
+    "topAirlines": [
+      "RJ",
+      "EK",
+      "TK",
+      "QR"
+    ],
+    "topDestinations": [
+      "DXB",
+      "JED",
+      "CAI",
+      "IST",
+      "DOH",
+      "KWI",
+      "BAH",
+      "BKK"
+    ],
+    "year": 2023
+  },
+  "AMS": {
+    "source": "Wikipedia: Amsterdam Airport Schiphol",
+    "topAirlines": [
+      "KL",
+      "TO",
+      "U2",
+      "DL",
+      "BA"
+    ],
+    "topDestinations": [
+      "DXB",
+      "JFK",
+      "IST",
+      "LHR",
+      "PVG",
+      "NBO",
+      "DUB",
+      "HKG",
+      "ICN",
+      "ORD"
+    ],
+    "year": 2024
+  },
+  "ATH": {
+    "source": "Wikipedia: Athens International Airport",
+    "topAirlines": [
+      "A3",
+      "FR",
+      "U2",
+      "LH",
+      "TK"
+    ],
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FCO",
+      "FRA",
+      "AMS",
+      "IST",
+      "DXB",
+      "JFK",
+      "VIE"
+    ],
+    "year": 2023
+  },
+  "ATL": {
+    "source": "Wikipedia: Hartsfield-Jackson Atlanta International Airport",
+    "topAirlines": [
+      "DL",
+      "F9",
+      "WN",
+      "AA",
+      "NK",
+      "UA",
+      "B6"
+    ],
+    "topDestinations": [
+      "FLL",
+      "CDG",
+      "DEN",
+      "LAS",
+      "AMS",
+      "LHR",
+      "ICN",
+      "YYZ",
+      "MEX"
+    ],
+    "year": 2023
+  },
+  "AUH": {
+    "source": "Wikipedia: Zayed International Airport",
+    "topAirlines": [
+      "EY",
+      "EK",
+      "QR",
+      "TK"
+    ],
+    "topDestinations": [
+      "DXB",
+      "LHR",
+      "DEL",
+      "JFK",
+      "BKK",
+      "CAI",
+      "FRA",
+      "MNL",
+      "BAH"
+    ],
+    "year": 2023
+  },
+  "BAH": {
+    "source": "Wikipedia: Bahrain International Airport",
+    "topAirlines": [
+      "GF",
+      "EK",
+      "QR",
+      "FZ"
+    ],
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "JED",
+      "KWI",
+      "CAI",
+      "BKK",
+      "DEL",
+      "AMM"
+    ],
+    "year": 2023
+  },
+  "BCN": {
+    "source": "Wikipedia: Barcelona-El Prat Airport",
+    "topAirlines": [
+      "VY",
+      "FR",
+      "U2",
+      "IB",
+      "BA"
+    ],
+    "topDestinations": [
+      "FCO",
+      "AMS",
+      "LIS",
+      "LGW",
+      "CDG",
+      "LHR",
+      "BRU",
+      "DXB",
+      "DOH",
+      "JFK"
+    ],
+    "year": 2023
+  },
+  "BEG": {
+    "source": "Wikipedia: Belgrade Nikola Tesla Airport",
+    "topAirlines": [
+      "JU",
+      "W6",
+      "TK",
+      "LH",
+      "QR"
+    ],
+    "topDestinations": [
+      "IST",
+      "FRA",
+      "VIE",
+      "AMS",
+      "CDG"
+    ],
+    "year": 2023
+  },
+  "BKK": {
+    "source": "Wikipedia: Suvarnabhumi Airport",
+    "topAirlines": [
+      "TG",
+      "EK",
+      "TK",
+      "QR",
+      "AK"
+    ],
+    "topDestinations": [
+      "HKG",
+      "SIN",
+      "ICN",
+      "PEK",
+      "PVG",
+      "HND",
+      "DXB",
+      "KUL",
+      "TPE",
+      "DEL"
+    ],
+    "year": 2023
+  },
+  "BNE": {
+    "source": "Wikipedia: Brisbane Airport",
+    "topAirlines": [
+      "QF",
+      "VA",
+      "JQ"
+    ],
+    "topDestinations": [
+      "SYD",
+      "MEL",
+      "AKL",
+      "SIN",
+      "HKG",
+      "DXB",
+      "DOH"
+    ],
+    "year": 2023
+  },
+  "BOG": {
+    "source": "Wikipedia: El Dorado International Airport",
+    "topAirlines": [
+      "AV",
+      "LA",
+      "CM",
+      "AA"
+    ],
+    "topDestinations": [
+      "PTY",
+      "MEX",
+      "JFK",
+      "MAD",
+      "GRU",
+      "SCL"
+    ],
+    "year": 2022
+  },
+  "BRU": {
+    "source": "Wikipedia: Brussels Airport",
+    "topAirlines": [
+      "SN",
+      "FR",
+      "TP",
+      "U2",
+      "TK"
+    ],
+    "topDestinations": [
+      "MAD",
+      "LIS",
+      "FCO",
+      "BCN",
+      "CDG",
+      "ZRH",
+      "LHR",
+      "GRU",
+      "JFK"
+    ],
+    "year": 2023
+  },
+  "BUD": {
+    "source": "Wikipedia: Budapest Ferenc Liszt International Airport",
+    "topAirlines": [
+      "W6",
+      "FR",
+      "LH",
+      "U2",
+      "TK"
+    ],
+    "topDestinations": [
+      "IST",
+      "FRA",
+      "DXB"
+    ],
+    "year": 2021
+  },
+  "BWN": {
+    "source": "Wikipedia: Brunei International Airport",
+    "topAirlines": [
+      "BI",
+      "AK",
+      "MH"
+    ],
+    "topDestinations": [
+      "KUL",
+      "SIN",
+      "HKG",
+      "BKK",
+      "MNL",
+      "DXB",
+      "CGK",
+      "JED",
+      "TPE",
+      "ICN"
+    ],
+    "year": 2022
+  },
+  "CAI": {
+    "source": "Wikipedia: Cairo International Airport",
+    "topAirlines": [
+      "MS",
+      "EK",
+      "TK",
+      "QR"
+    ],
+    "topDestinations": [
+      "DXB",
+      "JED",
+      "IST",
+      "AMM",
+      "DOH",
+      "KWI",
+      "FRA",
+      "LHR",
+      "CDG"
+    ],
+    "year": 2023
+  },
+  "CAN": {
+    "source": "Wikipedia: Guangzhou Baiyun International Airport",
+    "topAirlines": [
+      "CZ",
+      "MU",
+      "CA",
+      "HU"
+    ],
+    "topDestinations": [
+      "PEK",
+      "PVG",
+      "HKG",
+      "BKK",
+      "ICN"
+    ],
+    "year": 2023
+  },
+  "CDG": {
+    "source": "Wikipedia: Charles de Gaulle Airport",
+    "topAirlines": [
+      "AF",
+      "TO",
+      "U2",
+      "FR",
+      "DL"
+    ],
+    "topDestinations": [
+      "JFK",
+      "DXB",
+      "LHR",
+      "AMS",
+      "IST",
+      "FCO",
+      "ATL",
+      "CPH",
+      "DOH",
+      "ATH"
+    ],
+    "year": 2024
+  },
+  "CGK": {
+    "source": "Wikipedia: Soekarno-Hatta International Airport",
+    "topAirlines": [
+      "GA",
+      "JT",
+      "AK"
+    ],
+    "topDestinations": [
+      "SIN",
+      "KUL",
+      "BKK",
+      "HKG",
+      "ICN",
+      "JED"
+    ],
+    "year": 2023
+  },
+  "CLT": {
+    "source": "Wikipedia: Charlotte Douglas International Airport",
+    "topAirlines": [
+      "AA",
+      "DL",
+      "WN",
+      "UA",
+      "F9"
+    ],
+    "topDestinations": [
+      "ORD",
+      "LHR",
+      "FLL",
+      "YYZ"
+    ],
+    "year": 2023
+  },
+  "CMB": {
+    "source": "Wikipedia: Bandaranaike International Airport",
+    "topAirlines": [
+      "UL",
+      "EK",
+      "QR"
+    ],
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "SIN",
+      "BKK",
+      "DEL",
+      "KUL"
+    ],
+    "year": 2025
+  },
+  "CMN": {
+    "source": "Wikipedia: Mohammed V International Airport",
+    "topAirlines": [
+      "AT",
+      "AF",
+      "FR",
+      "TK"
+    ],
+    "topDestinations": [
+      "CDG",
+      "MAD",
+      "LIS",
+      "FRA",
+      "BRU",
+      "AMS"
+    ],
+    "year": 2022
+  },
+  "CPH": {
+    "source": "Wikipedia: Copenhagen Airport",
+    "topAirlines": [
+      "SK",
+      "DY",
+      "FR",
+      "EW",
+      "BA"
+    ],
+    "topDestinations": [
+      "LHR",
+      "AMS",
+      "OSL",
+      "FRA",
+      "CDG",
+      "BCN",
+      "MAD",
+      "DUB",
+      "JFK"
+    ],
+    "year": 2024
+  },
+  "DAL": {
+    "source": "Wikipedia: Dallas Love Field (airlines: hub fallback)",
+    "topAirlines": [
+      "WN",
+      "DL"
+    ],
+    "topDestinations": [
+      "LAS",
+      "DEN",
+      "ATL",
+      "FLL",
+      "MSP",
+      "ORD",
+      "SEA",
+      "DTW",
+      "JFK",
+      "CLT"
+    ],
+    "year": 2025
+  },
+  "DEL": {
+    "source": "Wikipedia: Indira Gandhi International Airport",
+    "topAirlines": [
+      "AI",
+      "6E",
+      "UK",
+      "EK"
+    ],
+    "topDestinations": [
+      "DXB",
+      "BKK",
+      "SIN",
+      "DOH",
+      "LHR"
+    ],
+    "year": 2024
+  },
+  "DEN": {
+    "source": "Wikipedia: Denver International Airport",
+    "topAirlines": [
+      "WN",
+      "UA",
+      "F9",
+      "AA",
+      "DL"
+    ],
+    "topDestinations": [
+      "ORD",
+      "LAS",
+      "SEA",
+      "MSP",
+      "ATL",
+      "LHR",
+      "FRA",
+      "YYZ",
+      "YYC",
+      "MEX"
+    ],
+    "year": 2024
+  },
+  "DFW": {
+    "source": "Wikipedia: Dallas/Fort Worth International Airport",
+    "topAirlines": [
+      "AA",
+      "WN",
+      "DL",
+      "UA",
+      "AS"
+    ],
+    "topDestinations": [
+      "ATL",
+      "ORD",
+      "LHR",
+      "DEN",
+      "LAS",
+      "SEA",
+      "MEX",
+      "MTY",
+      "YYZ",
+      "ICN"
+    ],
+    "year": 2022
+  },
+  "DME": {
+    "source": "Wikipedia: Domodedovo International Airport",
+    "topAirlines": [
+      "S7",
+      "SU",
+      "TK"
+    ],
+    "topDestinations": [
+      "IST",
+      "DXB",
+      "TAS"
+    ],
+    "year": 2023
+  },
+  "DOH": {
+    "source": "Wikipedia: Hamad International Airport",
+    "topAirlines": [
+      "QR",
+      "EK",
+      "TK",
+      "MS"
+    ],
+    "topDestinations": [
+      "DXB",
+      "LHR",
+      "BKK",
+      "DEL",
+      "JED",
+      "IST",
+      "JFK",
+      "CDG",
+      "FRA"
+    ],
+    "year": 2023
+  },
+  "DTW": {
+    "source": "Wikipedia: Detroit Metropolitan Airport",
+    "topAirlines": [
+      "DL",
+      "WN",
+      "AA",
+      "UA",
+      "AS"
+    ],
+    "topDestinations": [
+      "ATL",
+      "LAS",
+      "DEN",
+      "FLL",
+      "ORD",
+      "AMS",
+      "CDG",
+      "FRA",
+      "YYZ",
+      "HND"
+    ],
+    "year": 2023
+  },
+  "DUB": {
+    "source": "Wikipedia: Dublin Airport",
+    "topAirlines": [
+      "EI",
+      "FR",
+      "U2",
+      "BA",
+      "DL"
+    ],
+    "topDestinations": [
+      "LHR",
+      "AMS",
+      "LGW",
+      "CDG"
+    ],
+    "year": 2023
+  },
+  "DUS": {
+    "source": "Wikipedia: Düsseldorf Airport",
+    "topAirlines": [
+      "EW",
+      "LH",
+      "BA",
+      "TK",
+      "AF"
+    ],
+    "topDestinations": [
+      "FRA",
+      "IST",
+      "LHR",
+      "FCO",
+      "BCN",
+      "VIE"
+    ],
+    "year": 2024
+  },
+  "DXB": {
+    "source": "Wikipedia: Dubai International Airport",
+    "topAirlines": [
+      "EK",
+      "FZ",
+      "QR",
+      "BA",
+      "AI",
+      "SV"
+    ],
+    "topDestinations": [
+      "LHR",
+      "JFK",
+      "BKK",
+      "DEL",
+      "DOH",
+      "CAI",
+      "JED",
+      "SIN",
+      "IST"
+    ],
+    "year": 2023
+  },
+  "EZE": {
+    "source": "Wikipedia: Ministro Pistarini International Airport",
+    "topAirlines": [
+      "AR",
+      "LA",
+      "AA",
+      "IB"
+    ],
+    "topDestinations": [
+      "GRU",
+      "MAD",
+      "JFK",
+      "SCL",
+      "BOG",
+      "FRA",
+      "CDG"
+    ],
+    "year": 2023
+  },
+  "FCO": {
+    "source": "Wikipedia: Leonardo da Vinci-Fiumicino Airport",
+    "topAirlines": [
+      "AZ",
+      "FR",
+      "U2",
+      "VY",
+      "LH"
+    ],
+    "topDestinations": [
+      "JFK",
+      "CDG",
+      "LGW",
+      "ATH",
+      "AMS",
+      "LHR",
+      "BRU",
+      "TLV",
+      "FRA",
+      "VIE"
+    ],
+    "year": 2022
+  },
+  "FLL": {
+    "source": "Wikipedia: Fort Lauderdale-Hollywood International Airport",
+    "topAirlines": [
+      "NK",
+      "B6",
+      "WN",
+      "DL",
+      "AA"
+    ],
+    "topDestinations": [
+      "ATL",
+      "JFK",
+      "CLT",
+      "ORD",
+      "DTW",
+      "YYZ"
+    ],
+    "year": 2023
+  },
+  "FRA": {
+    "source": "Wikipedia: Frankfurt Airport",
+    "topAirlines": [
+      "LH",
+      "EW",
+      "AC",
+      "BA",
+      "OS"
+    ],
+    "topDestinations": [
+      "LHR",
+      "VIE",
+      "DXB",
+      "IST",
+      "YYZ",
+      "CDG",
+      "JFK",
+      "LIS",
+      "ORD",
+      "AMS"
+    ],
+    "year": 2024
+  },
+  "GRU": {
+    "source": "Wikipedia: São Paulo-Guarulhos International Airport",
+    "topAirlines": [
+      "JJ",
+      "G3",
+      "AD",
+      "AA"
+    ],
+    "topDestinations": [
+      "EZE",
+      "JFK",
+      "FRA",
+      "LHR"
+    ],
+    "year": 2023
+  },
+  "GYD": {
+    "source": "Wikipedia: Heydar Aliyev International Airport",
+    "topAirlines": [
+      "J2",
+      "TK",
+      "EK"
+    ],
+    "topDestinations": [
+      "IST",
+      "DXB",
+      "DOH",
+      "FRA",
+      "TLV",
+      "PEK",
+      "VIE",
+      "DEL"
+    ],
+    "year": 2023
+  },
+  "HAK": {
+    "source": "Wikipedia: Haikou Meilan International Airport",
+    "topAirlines": [
+      "HU",
+      "CZ",
+      "MU",
+      "CA"
+    ],
+    "topDestinations": [
+      "PEK",
+      "PVG",
+      "CAN",
+      "HKG",
+      "ICN"
+    ],
+    "year": 2023
+  },
+  "HAN": {
+    "source": "Wikipedia: Noi Bai International Airport (airlines: hub fallback)",
+    "topAirlines": [
+      "VN",
+      "QH",
+      "CA"
+    ],
+    "topDestinations": [
+      "SGN",
+      "BKK",
+      "ICN",
+      "SIN",
+      "HKG",
+      "TPE",
+      "KUL",
+      "DOH",
+      "HND"
+    ],
+    "year": 2023
+  },
+  "HEL": {
+    "source": "Wikipedia: Helsinki Airport",
+    "topAirlines": [
+      "AY",
+      "FR",
+      "DY",
+      "LH",
+      "BA"
+    ],
+    "topDestinations": [
+      "LHR",
+      "AMS",
+      "FRA",
+      "HND",
+      "BKK",
+      "ICN",
+      "SIN",
+      "DOH",
+      "HKG",
+      "JFK"
+    ],
+    "year": 2022
+  },
+  "HKG": {
+    "source": "Wikipedia: Hong Kong International Airport",
+    "topAirlines": [
+      "CX",
+      "HU",
+      "BR",
+      "CI",
+      "TK"
+    ],
+    "topDestinations": [
+      "TPE",
+      "BKK",
+      "ICN",
+      "SIN",
+      "MNL",
+      "PVG",
+      "PEK",
+      "HND",
+      "KUL",
+      "SGN"
+    ],
+    "year": 2023
+  },
+  "HND": {
+    "source": "Wikipedia: Haneda Airport (airlines: hub fallback)",
+    "topAirlines": [
+      "JL",
+      "NH",
+      "AC"
+    ],
+    "topDestinations": [
+      "ICN",
+      "TPE",
+      "HKG",
+      "PVG",
+      "BKK",
+      "SIN"
+    ],
+    "year": 2023
+  },
+  "HNL": {
+    "source": "Wikipedia: Daniel K. Inouye International Airport",
+    "topAirlines": [
+      "HA",
+      "AS",
+      "WN",
+      "DL",
+      "UA"
+    ],
+    "topDestinations": [
+      "SEA",
+      "LAS",
+      "ORD",
+      "DFW",
+      "DEN",
+      "JFK",
+      "HND"
+    ],
+    "year": 2023
+  },
+  "ICN": {
+    "source": "Wikipedia: Incheon International Airport",
+    "topAirlines": [
+      "KE",
+      "OZ",
+      "TK"
+    ],
+    "topDestinations": [
+      "HND",
+      "PVG",
+      "PEK",
+      "TPE",
+      "HKG",
+      "BKK",
+      "SIN",
+      "JFK"
+    ],
+    "year": 2023
+  },
+  "IST": {
+    "source": "Wikipedia: Istanbul Airport",
+    "topAirlines": [
+      "TK",
+      "PC",
+      "EK",
+      "QR",
+      "LH"
+    ],
+    "topDestinations": [
+      "LHR",
+      "FRA",
+      "AMS",
+      "CDG",
+      "DXB",
+      "JFK",
+      "DOH",
+      "VIE",
+      "ZRH"
+    ],
+    "year": 2023
+  },
+  "JED": {
+    "source": "Wikipedia: King Abdulaziz International Airport",
+    "topAirlines": [
+      "SV",
+      "EK",
+      "QR",
+      "MS",
+      "TK"
+    ],
+    "topDestinations": [
+      "DXB",
+      "CAI",
+      "DOH",
+      "AMM",
+      "IST",
+      "BAH",
+      "KWI",
+      "DEL",
+      "BKK"
+    ],
+    "year": 2023
+  },
+  "JFK": {
+    "source": "Wikipedia: John F. Kennedy International Airport",
+    "topAirlines": [
+      "DL",
+      "B6",
+      "AA",
+      "BA",
+      "AV",
+      "AS",
+      "AF"
+    ],
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FCO",
+      "AMS",
+      "MEX",
+      "FRA",
+      "ATL",
+      "LAS",
+      "FLL",
+      "SEA"
+    ],
+    "year": 2023
+  },
+  "JNB": {
+    "source": "Wikipedia: O. R. Tambo International Airport",
+    "topAirlines": [
+      "FA",
+      "SA",
+      "EK",
+      "ET",
+      "QR"
+    ],
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "ADD",
+      "LHR",
+      "FRA",
+      "AMS",
+      "IST",
+      "MRU"
+    ],
+    "year": 2023
+  },
+  "KEF": {
+    "source": "Wikipedia: Keflavík International Airport",
+    "topAirlines": [
+      "FI",
+      "DY",
+      "FR",
+      "U2",
+      "DL"
+    ],
+    "topDestinations": [
+      "CPH",
+      "AMS",
+      "CDG",
+      "LHR",
+      "OSL",
+      "JFK",
+      "FRA"
+    ],
+    "year": 2023
+  },
+  "KGL": {
+    "source": "Wikipedia: Kigali International Airport",
+    "topAirlines": [
+      "WB",
+      "KQ",
+      "ET",
+      "EK",
+      "QR"
+    ],
+    "topDestinations": [
+      "NBO",
+      "DXB",
+      "DOH",
+      "ADD",
+      "JNB",
+      "BRU",
+      "CDG",
+      "JFK"
+    ],
+    "year": 2023
+  },
+  "KHI": {
+    "source": "Wikipedia: Jinnah International Airport",
+    "topAirlines": [
+      "PK",
+      "EK",
+      "QR",
+      "FZ"
+    ],
+    "topDestinations": [
+      "DXB",
+      "JED",
+      "DOH",
+      "AUH",
+      "MCT",
+      "BKK",
+      "KUL"
+    ],
+    "year": 2023
+  },
+  "KUL": {
+    "source": "Wikipedia: Kuala Lumpur International Airport",
+    "topAirlines": [
+      "MH",
+      "AK",
+      "TR"
+    ],
+    "topDestinations": [
+      "SIN",
+      "BKK",
+      "CGK",
+      "HKG",
+      "TPE",
+      "DEL",
+      "ICN",
+      "HAN"
+    ],
+    "year": 2024
+  },
+  "KWI": {
+    "source": "Wikipedia: Kuwait International Airport",
+    "topAirlines": [
+      "KU",
+      "EK",
+      "QR",
+      "TK"
+    ],
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "JED",
+      "BAH",
+      "CAI",
+      "AMM",
+      "IST",
+      "DEL",
+      "BKK"
+    ],
+    "year": 2023
+  },
+  "LAS": {
+    "source": "Wikipedia: Harry Reid International Airport",
+    "topAirlines": [
+      "WN",
+      "DL",
+      "AA",
+      "UA",
+      "F9"
+    ],
+    "topDestinations": [
+      "DEN",
+      "SEA",
+      "ATL",
+      "ORD",
+      "JFK",
+      "YYZ",
+      "LHR",
+      "MEX",
+      "YYC",
+      "AMS"
+    ],
+    "year": 2023
+  },
+  "LBA": {
+    "source": "Wikipedia: Leeds Bradford Airport",
+    "topAirlines": [
+      "LS",
+      "BY",
+      "FR",
+      "U2",
+      "BA"
+    ],
+    "topDestinations": [
+      "DUB",
+      "AMS"
+    ],
+    "year": 2023
+  },
+  "LGW": {
+    "source": "Wikipedia: Gatwick Airport",
+    "topAirlines": [
+      "U2",
+      "BA",
+      "FR",
+      "TK",
+      "EK"
+    ],
+    "topDestinations": [
+      "BCN",
+      "DUB",
+      "DXB",
+      "FCO",
+      "IST",
+      "CPH"
+    ],
+    "year": 2023
+  },
+  "LHR": {
+    "source": "Wikipedia: Heathrow Airport",
+    "topAirlines": [
+      "BA",
+      "AA",
+      "EI",
+      "LH",
+      "AF",
+      "DL",
+      "EK"
+    ],
+    "topDestinations": [
+      "JFK",
+      "DXB",
+      "DOH",
+      "DUB",
+      "DEL",
+      "AMS",
+      "FRA",
+      "IST",
+      "YYZ",
+      "HKG"
+    ],
+    "year": 2024
+  },
+  "LIS": {
+    "source": "Wikipedia: Lisbon Airport",
+    "topAirlines": [
+      "TP",
+      "FR",
+      "U2",
+      "BA",
+      "AF"
+    ],
+    "topDestinations": [
+      "MAD",
+      "LHR",
+      "AMS",
+      "FRA",
+      "FCO",
+      "DXB",
+      "YYZ",
+      "VCP",
+      "JFK"
+    ],
+    "year": 2023
+  },
+  "MAD": {
+    "source": "Wikipedia: Adolfo Suárez Madrid-Barajas Airport",
+    "topAirlines": [
+      "IB",
+      "VY",
+      "FR",
+      "U2",
+      "AF"
+    ],
+    "topDestinations": [
+      "FCO",
+      "LIS",
+      "BOG",
+      "LHR",
+      "AMS",
+      "EZE",
+      "MEX",
+      "BRU",
+      "CDG",
+      "FRA"
+    ],
+    "year": 2023
+  },
+  "MCT": {
+    "source": "Wikipedia: Muscat International Airport",
+    "topAirlines": [
+      "WY",
+      "EK",
+      "FZ",
+      "QR"
+    ],
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "AUH",
+      "DEL",
+      "BKK",
+      "CAI",
+      "KHI",
+      "JED",
+      "IST"
+    ],
+    "year": 2023
+  },
+  "MEL": {
+    "source": "Wikipedia: Melbourne Airport",
+    "topAirlines": [
+      "QF",
+      "JQ",
+      "VA"
+    ],
+    "topDestinations": [
+      "SYD",
+      "BNE",
+      "AKL",
+      "SIN",
+      "HKG",
+      "DOH",
+      "DXB"
+    ],
+    "year": 2025
+  },
+  "MEX": {
+    "source": "Wikipedia: Mexico City International Airport",
+    "topAirlines": [
+      "AM",
+      "Y4",
+      "VB",
+      "AA",
+      "UA"
+    ],
+    "topDestinations": [
+      "MTY",
+      "JFK",
+      "MAD",
+      "CDG",
+      "BOG",
+      "GRU"
+    ],
+    "year": 2025
+  },
+  "MNL": {
+    "source": "Wikipedia: Ninoy Aquino International Airport",
+    "topAirlines": [
+      "PR",
+      "5J",
+      "EK"
+    ],
+    "topDestinations": [
+      "SIN",
+      "HKG",
+      "ICN",
+      "TPE",
+      "BKK",
+      "DXB",
+      "DOH",
+      "HND"
+    ],
+    "year": 2023
+  },
+  "MRU": {
+    "source": "Wikipedia: Sir Seewoosagur Ramgoolam International Airport",
+    "topAirlines": [
+      "MK",
+      "AF",
+      "EK"
+    ],
+    "topDestinations": [
+      "JNB",
+      "CDG",
+      "DXB",
+      "LHR",
+      "FRA",
+      "ZRH",
+      "CMB",
+      "DEL",
+      "NBO"
+    ],
+    "year": 2023
+  },
+  "MSP": {
+    "source": "Wikipedia: Minneapolis-Saint Paul International Airport",
+    "topAirlines": [
+      "DL",
+      "WN",
+      "AA",
+      "UA",
+      "AS"
+    ],
+    "topDestinations": [
+      "DEN",
+      "ORD",
+      "ATL",
+      "AMS",
+      "SEA",
+      "LAS",
+      "CDG",
+      "YYZ",
+      "ICN",
+      "YYC"
+    ],
+    "year": 2023
+  },
+  "MTY": {
+    "source": "Wikipedia: Monterrey International Airport",
+    "topAirlines": [
+      "AM",
+      "Y4",
+      "VB",
+      "AA"
+    ],
+    "topDestinations": [
+      "MEX",
+      "DFW",
+      "ATL",
+      "JFK"
+    ],
+    "year": 2024
+  },
+  "NAN": {
+    "source": "Wikipedia: Nadi International Airport",
+    "topAirlines": [
+      "FJ",
+      "QF",
+      "NZ"
+    ],
+    "topDestinations": [
+      "AKL",
+      "SYD",
+      "BNE",
+      "MEL",
+      "HND",
+      "ICN",
+      "HKG",
+      "SIN"
+    ],
+    "year": 2024
+  },
+  "NBO": {
+    "source": "Wikipedia: Jomo Kenyatta International Airport",
+    "topAirlines": [
+      "KQ",
+      "ET",
+      "EK",
+      "QR"
+    ],
+    "topDestinations": [
+      "DXB",
+      "ADD",
+      "JNB",
+      "DOH",
+      "AMS",
+      "LHR",
+      "CAI",
+      "KGL"
+    ],
+    "year": 2024
+  },
+  "ORD": {
+    "source": "Wikipedia: O'Hare International Airport",
+    "topAirlines": [
+      "UA",
+      "AA",
+      "WN",
+      "DL",
+      "AS"
+    ],
+    "topDestinations": [
+      "LHR",
+      "DEN",
+      "YYZ",
+      "MEX",
+      "FRA",
+      "HND",
+      "CDG",
+      "DUB"
+    ],
+    "year": 2023
+  },
+  "OSL": {
+    "source": "Wikipedia: Oslo Airport",
+    "topAirlines": [
+      "SK",
+      "DY",
+      "FR",
+      "BA",
+      "LH"
+    ],
+    "topDestinations": [
+      "CPH",
+      "AMS",
+      "LHR",
+      "CDG",
+      "FRA",
+      "LGW",
+      "HEL",
+      "BCN",
+      "MAD"
+    ],
+    "year": 2023
+  },
+  "OTP": {
+    "source": "Wikipedia: Bucharest Henri Coandă International Airport",
+    "topAirlines": [
+      "W6",
+      "FR",
+      "RO",
+      "LH",
+      "TK"
+    ],
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "MAD",
+      "AMS",
+      "VIE",
+      "IST",
+      "BCN"
+    ],
+    "year": 2023
+  },
+  "PEK": {
+    "source": "Wikipedia: Beijing Capital International Airport",
+    "topAirlines": [
+      "CA",
+      "MU",
+      "CZ",
+      "HU"
+    ],
+    "topDestinations": [
+      "PVG",
+      "CAN",
+      "ICN",
+      "HKG"
+    ],
+    "year": 2023
+  },
+  "POM": {
+    "source": "Wikipedia: Jacksons International Airport (airlines: hub fallback)",
+    "topAirlines": [
+      "PX",
+      "CZ",
+      "PR"
+    ],
+    "topDestinations": [
+      "BNE",
+      "SYD",
+      "SIN",
+      "HKG",
+      "MNL",
+      "NAN"
+    ],
+    "year": 2025
+  },
+  "POS": {
+    "source": "Wikipedia: Piarco International Airport",
+    "topAirlines": [
+      "BW",
+      "AA",
+      "WS"
+    ],
+    "topDestinations": [
+      "JFK",
+      "FLL",
+      "YYZ"
+    ],
+    "year": 2023
+  },
+  "PRG": {
+    "source": "Wikipedia: Václav Havel Airport Prague",
+    "topAirlines": [
+      "FR",
+      "OK",
+      "W6",
+      "QS",
+      "LH"
+    ],
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "AMS",
+      "FCO",
+      "MAD",
+      "BCN",
+      "DXB",
+      "IST"
+    ],
+    "year": 2022
+  },
+  "PTY": {
+    "source": "Wikipedia: Tocumen International Airport",
+    "topAirlines": [
+      "CM",
+      "AA",
+      "UA"
+    ],
+    "topDestinations": [
+      "BOG",
+      "MEX",
+      "JFK",
+      "GRU",
+      "SCL",
+      "EZE",
+      "FLL"
+    ],
+    "year": 2023
+  },
+  "PVG": {
+    "source": "Wikipedia: Shanghai Pudong International Airport",
+    "topAirlines": [
+      "MU",
+      "CA",
+      "CZ",
+      "HU"
+    ],
+    "topDestinations": [
+      "PEK",
+      "CAN",
+      "TPE",
+      "HKG",
+      "ICN"
+    ],
+    "year": 2021
+  },
+  "RIX": {
+    "source": "Wikipedia: Riga International Airport",
+    "topAirlines": [
+      "BT",
+      "W6",
+      "FR",
+      "LH",
+      "AY"
+    ],
+    "topDestinations": [
+      "HEL",
+      "OSL",
+      "FRA",
+      "WAW",
+      "CPH",
+      "IST"
+    ],
+    "year": 2023
+  },
+  "SAW": {
+    "source": "Wikipedia: Sabiha Gökçen International Airport",
+    "topAirlines": [
+      "PC",
+      "TK",
+      "FZ"
+    ],
+    "topDestinations": [
+      "DXB",
+      "AMS",
+      "FRA",
+      "LHR",
+      "CDG",
+      "DOH",
+      "VIE",
+      "BUD",
+      "JED",
+      "IST"
+    ],
+    "year": 2023
+  },
+  "SCL": {
+    "source": "Wikipedia: Arturo Merino Benítez International Airport",
+    "topAirlines": [
+      "LA",
+      "JA",
+      "H2",
+      "AV",
+      "AR"
+    ],
+    "topDestinations": [
+      "EZE",
+      "GRU",
+      "BOG",
+      "MAD",
+      "MEX",
+      "JFK",
+      "PTY",
+      "CDG"
+    ],
+    "year": 2022
+  },
+  "SEA": {
+    "source": "Wikipedia: Seattle-Tacoma International Airport",
+    "topAirlines": [
+      "AS",
+      "DL",
+      "WN",
+      "AA",
+      "UA"
+    ],
+    "topDestinations": [
+      "DEN",
+      "LAS",
+      "ORD",
+      "TPE",
+      "ATL",
+      "LHR",
+      "ICN",
+      "HND",
+      "CDG",
+      "AMS"
+    ],
+    "year": 2023
+  },
+  "SGN": {
+    "source": "Wikipedia: Tan Son Nhat International Airport (airlines: hub fallback)",
+    "topAirlines": [
+      "VJ",
+      "SU",
+      "CA"
+    ],
+    "topDestinations": [
+      "HAN",
+      "BKK",
+      "SIN",
+      "ICN",
+      "TPE",
+      "HKG",
+      "KUL",
+      "HND",
+      "DOH"
+    ],
+    "year": 2023
+  },
+  "SIN": {
+    "source": "Wikipedia: Singapore Changi Airport",
+    "topAirlines": [
+      "SQ",
+      "TR",
+      "AK",
+      "MH",
+      "QF"
+    ],
+    "topDestinations": [
+      "KUL",
+      "BKK",
+      "HKG",
+      "CGK",
+      "MNL",
+      "TPE",
+      "HND",
+      "ICN",
+      "SYD",
+      "DXB"
+    ],
+    "year": 2025
+  },
+  "SOF": {
+    "source": "Wikipedia: Sofia Airport",
+    "topAirlines": [
+      "W6",
+      "FB",
+      "FR",
+      "LH",
+      "TK"
+    ],
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "AMS",
+      "FCO",
+      "VIE",
+      "MAD",
+      "BCN",
+      "IST"
+    ],
+    "year": 2023
+  },
+  "SVO": {
+    "source": "Wikipedia: Sheremetyevo International Airport",
+    "topAirlines": [
+      "SU",
+      "S7",
+      "TK",
+      "EK"
+    ],
+    "topDestinations": [
+      "DXB",
+      "IST",
+      "PEK",
+      "DEL"
+    ],
+    "year": 2023
+  },
+  "SYD": {
+    "source": "Wikipedia: Sydney Airport",
+    "topAirlines": [
+      "QF",
+      "JQ",
+      "VA"
+    ],
+    "topDestinations": [
+      "MEL",
+      "BNE",
+      "AKL",
+      "SIN",
+      "HKG",
+      "DOH"
+    ],
+    "year": 2024
+  },
+  "TAS": {
+    "source": "Wikipedia: Tashkent International Airport",
+    "topAirlines": [
+      "HY",
+      "TK",
+      "S7"
+    ],
+    "topDestinations": [
+      "IST",
+      "DXB",
+      "FRA",
+      "DEL",
+      "BKK",
+      "ICN",
+      "DOH",
+      "ALA"
+    ],
+    "year": 2023
+  },
+  "TLV": {
+    "source": "Wikipedia: Ben Gurion Airport",
+    "topAirlines": [
+      "LY",
+      "TK",
+      "FR",
+      "U2"
+    ],
+    "topDestinations": [
+      "IST",
+      "LHR",
+      "AMS",
+      "FRA",
+      "CDG",
+      "ATH",
+      "JFK",
+      "DXB",
+      "VIE",
+      "ZRH"
+    ],
+    "year": 2023
+  },
+  "TPE": {
+    "source": "Wikipedia: Taoyuan International Airport",
+    "topAirlines": [
+      "BR",
+      "CI",
+      "CX",
+      "TK"
+    ],
+    "topDestinations": [
+      "HKG",
+      "ICN",
+      "BKK",
+      "HND",
+      "SIN",
+      "PVG",
+      "KUL",
+      "MNL",
+      "CAN",
+      "JFK"
+    ],
+    "year": 2023
+  },
+  "ULN": {
+    "source": "Wikipedia: Chinggis Khaan International Airport",
+    "topAirlines": [
+      "OM",
+      "KE",
+      "TK"
+    ],
+    "topDestinations": [
+      "ICN",
+      "PEK",
+      "HKG",
+      "FRA",
+      "IST",
+      "DXB"
+    ],
+    "year": 2021
+  },
+  "VCP": {
+    "source": "Wikipedia: Viracopos International Airport",
+    "topAirlines": [
+      "AD",
+      "G3",
+      "TP"
+    ],
+    "topDestinations": [
+      "LIS",
+      "FLL",
+      "GRU"
+    ],
+    "year": 2023
+  },
+  "VIE": {
+    "source": "Wikipedia: Vienna International Airport",
+    "topAirlines": [
+      "OS",
+      "FR",
+      "LH",
+      "U2",
+      "TK"
+    ],
+    "topDestinations": [
+      "FRA",
+      "CDG",
+      "AMS",
+      "LHR",
+      "DUS",
+      "TLV",
+      "DXB",
+      "BKK",
+      "DOH",
+      "ORD"
+    ],
+    "year": 2023
+  },
+  "WAW": {
+    "source": "Wikipedia: Warsaw Chopin Airport",
+    "topAirlines": [
+      "LO",
+      "W6",
+      "FR",
+      "U2",
+      "LH"
+    ],
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "AMS"
+    ],
+    "year": 2025
+  },
+  "YTZ": {
+    "source": "Wikipedia: Billy Bishop Toronto City Airport (airlines: hub fallback)",
+    "topAirlines": [
+      "PD",
+      "AC"
+    ],
+    "topDestinations": [
+      "ORD",
+      "JFK",
+      "YYZ"
+    ],
+    "year": 2023
+  },
+  "YYC": {
+    "source": "Wikipedia: Calgary International Airport",
+    "topAirlines": [
+      "WS",
+      "AC",
+      "DL",
+      "AA",
+      "UA"
+    ],
+    "topDestinations": [
+      "YYZ",
+      "LAS",
+      "DEN",
+      "ORD",
+      "SEA",
+      "ATL",
+      "JFK",
+      "DFW",
+      "FRA",
+      "LHR"
+    ],
+    "year": 2022
+  },
+  "YYZ": {
+    "source": "Wikipedia: Toronto Pearson International Airport",
+    "topAirlines": [
+      "AC",
+      "WS",
+      "DL",
+      "AA",
+      "UA"
+    ],
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "LHR",
+      "LGW",
+      "AMS",
+      "CDG",
+      "FRA",
+      "MEX",
+      "FCO",
+      "DXB"
+    ],
+    "year": 2023
+  },
+  "ZAG": {
+    "source": "Wikipedia: Franjo Tuđman Airport",
+    "topAirlines": [
+      "OU",
+      "FR",
+      "LH",
+      "TK",
+      "AF"
+    ],
+    "topDestinations": [
+      "FRA",
+      "IST",
+      "AMS",
+      "CDG",
+      "VIE",
+      "LHR",
+      "FCO",
+      "DUB",
+      "WAW",
+      "CPH"
+    ],
+    "year": 2023
+  },
+  "ZRH": {
+    "source": "Wikipedia: Zürich Airport",
+    "topAirlines": [
+      "LX",
+      "EW",
+      "BA",
+      "AF",
+      "FR"
+    ],
+    "topDestinations": [
+      "LHR",
+      "AMS",
+      "VIE",
+      "LIS",
+      "MAD",
+      "DXB",
+      "FRA",
+      "CDG",
+      "BKK",
+      "JFK"
+    ],
+    "year": 2023
+  }
+}

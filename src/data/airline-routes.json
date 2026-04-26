@@ -1,0 +1,1666 @@
+{
+  "LH": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "PEK",
+      "PVG",
+      "DEL",
+      "BKK",
+      "HND"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: Lufthansa most-flown long-haul + manual"
+  },
+  "OS": {
+    "topDestinations": [
+      "FRA",
+      "JFK",
+      "ORD",
+      "TLV",
+      "CDG",
+      "LHR",
+      "FCO",
+      "ZRH",
+      "AMS",
+      "MAD"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "LX": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "BKK",
+      "HKG",
+      "PEK",
+      "LHR",
+      "FRA",
+      "CDG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "SN": {
+    "topDestinations": [
+      "JFK",
+      "FRA",
+      "LHR",
+      "FCO",
+      "MAD",
+      "NBO",
+      "JNB",
+      "KGL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "EW": {
+    "topDestinations": [
+      "VIE",
+      "BCN",
+      "FCO",
+      "LHR",
+      "MAD",
+      "ATH"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AZ": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "GRU",
+      "EZE",
+      "LHR",
+      "CDG",
+      "FRA",
+      "MAD",
+      "TLV"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "BA": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "DXB",
+      "SIN",
+      "HKG",
+      "JNB",
+      "GRU",
+      "DEL",
+      "DOH"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: British Airways most-flown routes"
+  },
+  "IB": {
+    "topDestinations": [
+      "JFK",
+      "MEX",
+      "GRU",
+      "EZE",
+      "BOG",
+      "SCL",
+      "LHR",
+      "CDG",
+      "FCO",
+      "BCN"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "EI": {
+    "topDestinations": [
+      "LHR",
+      "JFK",
+      "ORD",
+      "AMS",
+      "CDG",
+      "MAD"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "VY": {
+    "topDestinations": [
+      "FCO",
+      "CDG",
+      "LHR",
+      "AMS",
+      "MAD",
+      "LIS",
+      "ATH",
+      "BRU"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "LV": {
+    "topDestinations": [
+      "JFK",
+      "EZE",
+      "SCL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AF": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "ATL",
+      "PEK",
+      "PVG",
+      "HND",
+      "GRU",
+      "MEX",
+      "LHR",
+      "FCO"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: Air France destinations + IR"
+  },
+  "KL": {
+    "topDestinations": [
+      "JFK",
+      "ATL",
+      "ORD",
+      "GRU",
+      "EZE",
+      "PVG",
+      "PEK",
+      "ICN",
+      "HND",
+      "DEL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "TO": {
+    "topDestinations": [
+      "BCN",
+      "LIS",
+      "ATH",
+      "FCO"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "DL": {
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "AMS",
+      "FRA",
+      "FCO",
+      "MEX",
+      "GRU",
+      "HND",
+      "ICN",
+      "DXB"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: Delta Air Lines destinations + IR"
+  },
+  "9E": {
+    "topDestinations": [
+      "ATL",
+      "MSP",
+      "JFK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "UA": {
+    "topDestinations": [
+      "LHR",
+      "FRA",
+      "CDG",
+      "FCO",
+      "AMS",
+      "HND",
+      "PEK",
+      "PVG",
+      "ICN",
+      "HKG"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: United Airlines destinations + IR"
+  },
+  "AA": {
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "MAD",
+      "FCO",
+      "MEX",
+      "GRU",
+      "EZE",
+      "HND",
+      "ICN",
+      "DOH"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: American Airlines destinations + IR"
+  },
+  "MQ": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "OH": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "PT": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "AS": {
+    "topDestinations": [
+      "LAS",
+      "JFK",
+      "ORD",
+      "DFW"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "HA": {
+    "topDestinations": [
+      "SEA",
+      "LAS",
+      "JFK",
+      "ICN",
+      "HND",
+      "SYD",
+      "AKL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "B6": {
+    "topDestinations": [
+      "FLL",
+      "LAS",
+      "LHR"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "WN": {
+    "topDestinations": [
+      "LAS",
+      "DEN",
+      "ATL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "NK": {
+    "topDestinations": [
+      "LAS",
+      "DTW",
+      "ORD",
+      "ATL",
+      "DFW"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "F9": {
+    "topDestinations": [
+      "LAS",
+      "ATL",
+      "ORD",
+      "DFW"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "G4": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "SY": {
+    "topDestinations": [
+      "LAS",
+      "DFW",
+      "JFK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AC": {
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "JFK",
+      "ORD",
+      "HND",
+      "ICN",
+      "PEK",
+      "PVG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "WS": {
+    "topDestinations": [
+      "YYZ",
+      "LAS",
+      "LHR"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "PD": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "AM": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "DFW",
+      "MAD",
+      "CDG",
+      "AMS",
+      "FCO",
+      "HND",
+      "ICN",
+      "GRU"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "Y4": {
+    "topDestinations": [
+      "ORD",
+      "MTY",
+      "DEN"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "VB": {
+    "topDestinations": [
+      "MEX",
+      "LAS",
+      "ORD",
+      "JFK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "LA": {
+    "topDestinations": [
+      "GRU",
+      "EZE",
+      "JFK",
+      "MAD",
+      "CDG",
+      "FCO",
+      "FRA",
+      "MEX",
+      "BOG",
+      "AKL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "JJ": {
+    "topDestinations": [
+      "EZE",
+      "SCL",
+      "BOG",
+      "MEX",
+      "JFK",
+      "MAD",
+      "CDG",
+      "FCO",
+      "FRA",
+      "LHR"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AV": {
+    "topDestinations": [
+      "JFK",
+      "MEX",
+      "MAD",
+      "FCO",
+      "SCL",
+      "EZE",
+      "GRU",
+      "PTY"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "G3": {
+    "topDestinations": [
+      "EZE",
+      "SCL",
+      "BOG",
+      "PTY"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AD": {
+    "topDestinations": [
+      "GRU",
+      "FLL",
+      "JFK",
+      "LIS",
+      "CDG",
+      "EZE"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "CM": {
+    "topDestinations": [
+      "MEX",
+      "BOG",
+      "SCL",
+      "EZE",
+      "GRU",
+      "JFK",
+      "ORD",
+      "JNB"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AR": {
+    "topDestinations": [
+      "JFK",
+      "MAD",
+      "FCO",
+      "GRU",
+      "SCL",
+      "BOG",
+      "MEX"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "FR": {
+    "topDestinations": [
+      "BCN",
+      "MAD",
+      "FCO",
+      "ATH"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "U2": {
+    "topDestinations": [
+      "BCN",
+      "FCO",
+      "AMS",
+      "LIS",
+      "ATH",
+      "CDG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "W6": {
+    "topDestinations": [
+      "WAW",
+      "OTP",
+      "SOF",
+      "FCO",
+      "BCN",
+      "MAD",
+      "TLV",
+      "DXB"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "DY": {
+    "topDestinations": [
+      "LGW",
+      "CPH",
+      "LHR",
+      "BCN",
+      "AMS",
+      "FCO"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "LS": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "BY": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "PC": {
+    "topDestinations": [
+      "IST",
+      "DXB",
+      "LHR",
+      "CDG",
+      "FRA",
+      "AMS"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "TK": {
+    "topDestinations": [
+      "FRA",
+      "LHR",
+      "CDG",
+      "AMS",
+      "JFK",
+      "DXB",
+      "DOH",
+      "PEK",
+      "SIN",
+      "BKK"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: Turkish Airlines destinations"
+  },
+  "TP": {
+    "topDestinations": [
+      "GRU",
+      "JFK",
+      "CDG",
+      "LHR",
+      "FRA",
+      "MAD",
+      "FCO"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "A3": {
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "MAD",
+      "BRU",
+      "AMS",
+      "TLV",
+      "ZRH"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AY": {
+    "topDestinations": [
+      "HND",
+      "ICN",
+      "PEK",
+      "PVG",
+      "HKG",
+      "BKK",
+      "SIN",
+      "DEL",
+      "JFK",
+      "LHR"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "SK": {
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "JFK",
+      "ORD",
+      "PEK",
+      "OSL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "LO": {
+    "topDestinations": [
+      "LHR",
+      "JFK",
+      "ORD",
+      "FRA",
+      "CDG",
+      "AMS",
+      "BUD",
+      "ICN",
+      "HND",
+      "PEK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "OK": {
+    "topDestinations": [
+      "CDG",
+      "MAD",
+      "AMS",
+      "FRA"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "JU": {
+    "topDestinations": [
+      "JFK",
+      "VIE",
+      "FRA",
+      "CDG",
+      "FCO",
+      "ZRH",
+      "IST",
+      "TLV"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "OU": {
+    "topDestinations": [
+      "FRA",
+      "CDG",
+      "AMS",
+      "LHR",
+      "FCO",
+      "ZRH"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "FI": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "MSP",
+      "SEA",
+      "DEN",
+      "LHR",
+      "CPH",
+      "OSL",
+      "AMS",
+      "CDG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "EK": {
+    "topDestinations": [
+      "LHR",
+      "JFK",
+      "BKK",
+      "SIN",
+      "SYD",
+      "MEL",
+      "FRA",
+      "CDG",
+      "FCO",
+      "DEL"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: Emirates most-flown routes"
+  },
+  "EY": {
+    "topDestinations": [
+      "LHR",
+      "JFK",
+      "BKK",
+      "SIN",
+      "SYD",
+      "MEL",
+      "FRA",
+      "CDG",
+      "FCO",
+      "DEL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "QR": {
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "JFK",
+      "ORD",
+      "BKK",
+      "SIN",
+      "HKG",
+      "DEL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "SV": {
+    "topDestinations": [
+      "DXB",
+      "CAI",
+      "IST",
+      "LHR",
+      "CDG",
+      "FRA",
+      "JFK",
+      "MNL",
+      "DEL",
+      "BKK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "FZ": {
+    "topDestinations": [
+      "IST",
+      "JED",
+      "DOH",
+      "MCT",
+      "BKK",
+      "TLV"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "RJ": {
+    "topDestinations": [
+      "DXB",
+      "CAI",
+      "JED",
+      "LHR",
+      "CDG",
+      "FRA",
+      "JFK",
+      "ORD",
+      "BKK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "WY": {
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "JED",
+      "BAH",
+      "BKK",
+      "DEL",
+      "LHR",
+      "CDG",
+      "FRA"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "GF": {
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "JED",
+      "CAI",
+      "AMM",
+      "LHR",
+      "CDG",
+      "FRA",
+      "BKK",
+      "DEL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "KU": {
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "BAH",
+      "JED",
+      "CAI",
+      "LHR",
+      "CDG",
+      "FRA",
+      "JFK",
+      "BKK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "MS": {
+    "topDestinations": [
+      "DXB",
+      "JED",
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "JFK",
+      "BKK",
+      "PEK",
+      "JNB"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AT": {
+    "topDestinations": [
+      "CDG",
+      "MAD",
+      "BCN",
+      "BRU",
+      "FCO",
+      "FRA",
+      "LHR",
+      "JFK",
+      "DXB",
+      "CAI"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "LY": {
+    "topDestinations": [
+      "JFK",
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "AMS",
+      "BKK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "SQ": {
+    "topDestinations": [
+      "BKK",
+      "HKG",
+      "ICN",
+      "HND",
+      "PEK",
+      "PVG",
+      "DEL",
+      "LHR",
+      "CDG",
+      "FRA"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "TR": {
+    "topDestinations": [
+      "BKK",
+      "HKG",
+      "TPE",
+      "ICN",
+      "HND",
+      "PVG",
+      "DEL",
+      "CGK",
+      "MNL",
+      "KUL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "CX": {
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "JFK",
+      "ORD",
+      "HND",
+      "ICN",
+      "PVG",
+      "PEK"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: Cathay Pacific destinations"
+  },
+  "JL": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "LHR",
+      "CDG",
+      "FRA",
+      "BKK",
+      "SIN",
+      "HKG",
+      "ICN",
+      "PEK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "NH": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "FRA",
+      "LHR",
+      "CDG",
+      "BKK",
+      "SIN",
+      "HKG",
+      "ICN",
+      "PEK"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: ANA destinations"
+  },
+  "KE": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "ATL",
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "BKK",
+      "SIN",
+      "HKG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "OZ": {
+    "topDestinations": [
+      "JFK",
+      "ORD",
+      "SEA",
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "BKK",
+      "SIN",
+      "HKG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "CA": {
+    "topDestinations": [
+      "HKG",
+      "HND",
+      "ICN",
+      "BKK",
+      "SIN",
+      "FRA",
+      "CDG",
+      "LHR",
+      "FCO",
+      "JFK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "MU": {
+    "topDestinations": [
+      "HKG",
+      "HND",
+      "ICN",
+      "BKK",
+      "SIN",
+      "FRA",
+      "CDG",
+      "LHR",
+      "JFK",
+      "SYD"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "CZ": {
+    "topDestinations": [
+      "HKG",
+      "BKK",
+      "SIN",
+      "ICN",
+      "HND",
+      "CDG",
+      "LHR",
+      "FRA",
+      "AMS",
+      "JFK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "HU": {
+    "topDestinations": [
+      "PEK",
+      "PVG",
+      "CAN",
+      "HKG",
+      "BKK",
+      "ICN",
+      "HND",
+      "CDG",
+      "LHR",
+      "FRA"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "BR": {
+    "topDestinations": [
+      "HKG",
+      "BKK",
+      "SIN",
+      "ICN",
+      "HND",
+      "PVG",
+      "PEK",
+      "JFK",
+      "SEA",
+      "LHR"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "CI": {
+    "topDestinations": [
+      "HKG",
+      "BKK",
+      "SIN",
+      "ICN",
+      "HND",
+      "PVG",
+      "PEK",
+      "JFK",
+      "AMS",
+      "FRA"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "TG": {
+    "topDestinations": [
+      "HKG",
+      "SIN",
+      "ICN",
+      "HND",
+      "PEK",
+      "PVG",
+      "DEL",
+      "LHR",
+      "CDG",
+      "FRA"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "VN": {
+    "topDestinations": [
+      "SGN",
+      "BKK",
+      "HKG",
+      "SIN",
+      "ICN",
+      "HND",
+      "PVG",
+      "PEK",
+      "CDG",
+      "LHR"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "PR": {
+    "topDestinations": [
+      "JFK",
+      "HNL",
+      "HND",
+      "ICN",
+      "PVG",
+      "PEK",
+      "HKG",
+      "SIN",
+      "BKK",
+      "SYD"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "GA": {
+    "topDestinations": [
+      "SIN",
+      "KUL",
+      "BKK",
+      "HKG",
+      "ICN",
+      "HND",
+      "PVG",
+      "PEK",
+      "AMS",
+      "DXB"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "MH": {
+    "topDestinations": [
+      "SIN",
+      "BKK",
+      "HKG",
+      "ICN",
+      "HND",
+      "PVG",
+      "PEK",
+      "DEL",
+      "LHR",
+      "CDG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AK": {
+    "topDestinations": [
+      "SIN",
+      "BKK",
+      "CGK",
+      "MNL",
+      "HKG",
+      "ICN",
+      "PVG",
+      "PEK",
+      "DEL",
+      "SYD"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "6E": {
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "BKK",
+      "SIN",
+      "KUL",
+      "CMB",
+      "IST"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "AI": {
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "JFK",
+      "ORD",
+      "LHR",
+      "CDG",
+      "FRA",
+      "SIN",
+      "BKK",
+      "HKG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "UK": {
+    "topDestinations": [
+      "DXB",
+      "SIN",
+      "BKK",
+      "LHR",
+      "CDG",
+      "FRA"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "UL": {
+    "topDestinations": [
+      "DEL",
+      "DXB",
+      "DOH",
+      "SIN",
+      "BKK",
+      "KUL",
+      "HKG",
+      "ICN",
+      "LHR",
+      "CDG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "QF": {
+    "topDestinations": [
+      "MEL",
+      "BNE",
+      "AKL",
+      "DFW",
+      "JFK",
+      "LHR",
+      "SIN",
+      "HKG",
+      "HND",
+      "ICN"
+    ],
+    "year": 2023,
+    "source": "Wikipedia: Qantas international destinations"
+  },
+  "JQ": {
+    "topDestinations": [
+      "SYD",
+      "BNE",
+      "AKL",
+      "BKK",
+      "SIN",
+      "HND",
+      "HNL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "VA": {
+    "topDestinations": [
+      "SYD",
+      "MEL",
+      "AKL",
+      "NAN",
+      "HND"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "NZ": {
+    "topDestinations": [
+      "SYD",
+      "MEL",
+      "BNE",
+      "JFK",
+      "ORD",
+      "HND",
+      "ICN",
+      "PVG",
+      "SIN",
+      "HKG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "FJ": {
+    "topDestinations": [
+      "SYD",
+      "MEL",
+      "BNE",
+      "AKL",
+      "HND",
+      "ICN",
+      "HNL",
+      "SIN",
+      "HKG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "SA": {
+    "topDestinations": [
+      "GRU",
+      "FRA",
+      "LHR",
+      "CDG",
+      "DXB",
+      "ADD",
+      "NBO"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "ET": {
+    "topDestinations": [
+      "JNB",
+      "NBO",
+      "DXB",
+      "DOH",
+      "JED",
+      "CDG",
+      "LHR",
+      "FRA",
+      "FCO",
+      "JFK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "KQ": {
+    "topDestinations": [
+      "JNB",
+      "ADD",
+      "DXB",
+      "DOH",
+      "LHR",
+      "CDG",
+      "AMS",
+      "JFK",
+      "BKK",
+      "GRU"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "WB": {
+    "topDestinations": [
+      "NBO",
+      "JNB",
+      "ADD",
+      "DXB",
+      "BRU",
+      "LHR",
+      "CDG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "MK": {
+    "topDestinations": [
+      "JNB",
+      "CDG",
+      "LHR",
+      "FRA",
+      "DXB",
+      "DEL",
+      "SIN",
+      "HKG",
+      "MEL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "SU": {
+    "topDestinations": [
+      "DXB",
+      "IST",
+      "ALA",
+      "GYD",
+      "TAS",
+      "PEK",
+      "PVG",
+      "ICN",
+      "HND"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "S7": {
+    "topDestinations": [
+      "ALA",
+      "IST",
+      "PEK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "KC": {
+    "topDestinations": [
+      "IST",
+      "DXB",
+      "FRA",
+      "LHR",
+      "CDG",
+      "DEL",
+      "PEK",
+      "BKK",
+      "SVO"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "HY": {
+    "topDestinations": [
+      "IST",
+      "DXB",
+      "FRA",
+      "LHR",
+      "CDG",
+      "DEL",
+      "BKK",
+      "PEK",
+      "ICN",
+      "SVO"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "J2": {
+    "topDestinations": [
+      "IST",
+      "DXB",
+      "LHR",
+      "CDG",
+      "FRA",
+      "FCO",
+      "PEK",
+      "TLV"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "QH": {
+    "topDestinations": [
+      "SGN",
+      "BKK",
+      "ICN",
+      "TPE"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "VJ": {
+    "topDestinations": [
+      "HAN",
+      "BKK",
+      "SIN",
+      "KUL",
+      "ICN",
+      "HND",
+      "TPE",
+      "DEL"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "5J": {
+    "topDestinations": [
+      "HKG",
+      "SIN",
+      "BKK",
+      "ICN",
+      "HND",
+      "DXB"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "BT": {
+    "topDestinations": [
+      "LHR",
+      "CDG",
+      "FRA",
+      "AMS",
+      "FCO",
+      "MAD",
+      "BCN",
+      "OSL",
+      "CPH"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "QS": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "FB": {
+    "topDestinations": [
+      "FRA",
+      "LHR",
+      "CDG",
+      "AMS",
+      "FCO",
+      "MAD",
+      "VIE",
+      "ZRH",
+      "BRU",
+      "TLV"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "RO": {
+    "topDestinations": [
+      "FRA",
+      "LHR",
+      "CDG",
+      "AMS",
+      "FCO",
+      "MAD",
+      "VIE",
+      "BRU",
+      "TLV",
+      "ATH"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "PG": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "JT": {
+    "topDestinations": [
+      "SIN",
+      "KUL",
+      "BKK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "SG": {
+    "topDestinations": [
+      "DXB",
+      "BKK",
+      "CMB"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "BI": {
+    "topDestinations": [
+      "SIN",
+      "KUL",
+      "HKG",
+      "BKK",
+      "MNL",
+      "DXB",
+      "LHR",
+      "HND",
+      "ICN"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "PK": {
+    "topDestinations": [
+      "DXB",
+      "DOH",
+      "JED",
+      "LHR",
+      "CDG",
+      "FRA",
+      "PEK",
+      "BKK",
+      "ICN",
+      "TLV"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "OM": {
+    "topDestinations": [
+      "PEK",
+      "ICN",
+      "HND",
+      "FRA",
+      "IST",
+      "HKG",
+      "BKK"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "JA": {
+    "topDestinations": [
+      "EZE",
+      "GRU",
+      "BOG"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "H2": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "BW": {
+    "topDestinations": [
+      "JFK",
+      "FLL",
+      "YYZ"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  },
+  "FA": {
+    "topDestinations": [],
+    "year": 2023,
+    "source": "no ranked data"
+  },
+  "PX": {
+    "topDestinations": [
+      "BNE",
+      "SYD",
+      "SIN",
+      "HKG",
+      "MNL",
+      "NAN"
+    ],
+    "year": 2023,
+    "source": "manual: common knowledge"
+  }
+}

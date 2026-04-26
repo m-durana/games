@@ -1,0 +1,2779 @@
+{
+  "airlines": {
+    "5J": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "BWN",
+        "PEK",
+        "CAN"
+      ],
+      "year": 2023
+    },
+    "6E": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "GYD",
+        "BAH",
+        "CAN",
+        "PVG",
+        "CPH"
+      ],
+      "year": 2023
+    },
+    "A3": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "GYD",
+        "BRU",
+        "ZAG",
+        "PRG"
+      ],
+      "year": 2023
+    },
+    "AC": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE"
+      ],
+      "year": 2023
+    },
+    "AF": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "SYD",
+        "VIE",
+        "BAH",
+        "BRU"
+      ],
+      "year": 2023
+    },
+    "AI": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "VIE",
+        "BAH",
+        "BRU"
+      ],
+      "year": 2023
+    },
+    "AK": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "AUH",
+        "ALA",
+        "AKL",
+        "BAH",
+        "BWN"
+      ],
+      "year": 2023
+    },
+    "AM": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "YYC",
+        "YYZ",
+        "SCL",
+        "PVG"
+      ],
+      "year": 2023
+    },
+    "AR": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "VCP",
+        "YYZ",
+        "SCL"
+      ],
+      "year": 2023
+    },
+    "AS": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "ATL",
+        "YYC",
+        "ORD",
+        "DFW",
+        "DAL"
+      ],
+      "year": 2023
+    },
+    "AT": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "BRU",
+        "YYZ",
+        "CPH",
+        "CAI"
+      ],
+      "year": 2023
+    },
+    "AY": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "LHR",
+        "CDG",
+        "MEL",
+        "VIE",
+        "BAH"
+      ],
+      "year": 2023
+    },
+    "AZ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "EZE",
+        "BRU",
+        "YYZ",
+        "CAI"
+      ],
+      "year": 2023
+    },
+    "B6": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "FLL",
+        "BOG",
+        "CDG",
+        "DUB",
+        "MEX"
+      ],
+      "year": 2023
+    },
+    "BA": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE"
+      ],
+      "year": 2023
+    },
+    "BI": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "PEK",
+        "HAK"
+      ],
+      "year": 2023
+    },
+    "BR": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "YYZ"
+      ],
+      "year": 2023
+    },
+    "BT": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "GYD",
+        "BRU",
+        "PRG",
+        "CPH"
+      ],
+      "year": 2023
+    },
+    "BW": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "YYZ",
+        "LGW",
+        "LHR",
+        "FLL",
+        "JFK"
+      ],
+      "year": 2023
+    },
+    "BY": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "CPH",
+        "HEL",
+        "KEF",
+        "DUB",
+        "MRU"
+      ],
+      "year": 2023
+    },
+    "CA": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "BRU"
+      ],
+      "year": 2023
+    },
+    "CI": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "YYC"
+      ],
+      "year": 2023
+    },
+    "CM": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "YYZ",
+        "SCL",
+        "BOG",
+        "MEX"
+      ],
+      "year": 2023
+    },
+    "CX": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "BAH",
+        "BRU"
+      ],
+      "year": 2023
+    },
+    "CZ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "ADD",
+        "ALA",
+        "AMS",
+        "ATL",
+        "AKL"
+      ],
+      "year": 2023
+    },
+    "DY": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "VIE",
+        "BRU",
+        "ZAG",
+        "PRG"
+      ],
+      "year": 2023
+    },
+    "EI": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "BRU",
+        "YYZ",
+        "PRG",
+        "CPH"
+      ],
+      "year": 2023
+    },
+    "EK": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE"
+      ],
+      "year": 2023
+    },
+    "ET": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "VIE",
+        "BAH",
+        "BRU",
+        "YYZ"
+      ],
+      "year": 2023
+    },
+    "EW": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "BRU",
+        "SOF",
+        "ZAG",
+        "PRG"
+      ],
+      "year": 2023
+    },
+    "EY": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "GYD"
+      ],
+      "year": 2023
+    },
+    "F9": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "YYC",
+        "MTY",
+        "POS",
+        "FLL",
+        "ATL"
+      ],
+      "year": 2023
+    },
+    "FA": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MRU"
+      ],
+      "year": 2023
+    },
+    "FI": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "BRU",
+        "YYZ",
+        "PRG",
+        "CPH"
+      ],
+      "year": 2023
+    },
+    "FJ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "PEK",
+        "PVG"
+      ],
+      "year": 2023
+    },
+    "FR": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BRU",
+        "ZAG",
+        "PRG",
+        "CPH",
+        "HEL"
+      ],
+      "year": 2023
+    },
+    "FZ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "GYD",
+        "BAH",
+        "ZAG",
+        "PRG",
+        "ADD"
+      ],
+      "year": 2023
+    },
+    "G3": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "VCP",
+        "SCL",
+        "BOG",
+        "CDG"
+      ],
+      "year": 2023
+    },
+    "G4": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "DEN",
+        "FLL",
+        "MSP",
+        "HNL"
+      ],
+      "year": 2023
+    },
+    "GA": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "PEK"
+      ],
+      "year": 2023
+    },
+    "GF": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "GYD",
+        "CAN",
+        "PVG"
+      ],
+      "year": 2023
+    },
+    "HA": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "SYD",
+        "PEK",
+        "HND",
+        "AKL"
+      ],
+      "year": 2023
+    },
+    "HU": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "BRU"
+      ],
+      "year": 2023
+    },
+    "HY": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "GYD",
+        "BAH",
+        "PEK",
+        "PVG",
+        "CAI"
+      ],
+      "year": 2023
+    },
+    "IB": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "VIE",
+        "BRU",
+        "YYZ",
+        "SCL"
+      ],
+      "year": 2023
+    },
+    "J2": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "BAH",
+        "PEK",
+        "PRG",
+        "CAI"
+      ],
+      "year": 2023
+    },
+    "JJ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "BRU",
+        "VCP",
+        "YYZ",
+        "SCL"
+      ],
+      "year": 2023
+    },
+    "JL": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "BAH",
+        "VCP"
+      ],
+      "year": 2023
+    },
+    "JQ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "SYD",
+        "PEK",
+        "NAN",
+        "CGK"
+      ],
+      "year": 2023
+    },
+    "JU": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "GYD",
+        "BRU",
+        "YYZ",
+        "CAN"
+      ],
+      "year": 2023
+    },
+    "KC": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "GYD",
+        "PEK",
+        "CAN",
+        "PVG",
+        "CDG"
+      ],
+      "year": 2023
+    },
+    "KE": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "BAH"
+      ],
+      "year": 2023
+    },
+    "KL": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "GYD"
+      ],
+      "year": 2023
+    },
+    "KQ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "PEK",
+        "CAN",
+        "CPH",
+        "CAI",
+        "ADD"
+      ],
+      "year": 2023
+    },
+    "KU": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "GYD",
+        "BAH",
+        "BRU",
+        "YYZ"
+      ],
+      "year": 2023
+    },
+    "LH": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "GYD",
+        "BRU",
+        "GRU",
+        "SOF"
+      ],
+      "year": 2023
+    },
+    "LO": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "GYD",
+        "BRU",
+        "YYZ",
+        "PEK"
+      ],
+      "year": 2023
+    },
+    "LV": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "SCL",
+        "LAS",
+        "JFK",
+        "VIE"
+      ],
+      "year": 2023
+    },
+    "LX": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "VIE",
+        "BRU",
+        "YYZ",
+        "SCL"
+      ],
+      "year": 2023
+    },
+    "LY": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "BRU",
+        "YYZ",
+        "PEK",
+        "ZAG"
+      ],
+      "year": 2023
+    },
+    "MH": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE"
+      ],
+      "year": 2023
+    },
+    "MK": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "VIE",
+        "BRU",
+        "PEK"
+      ],
+      "year": 2023
+    },
+    "MS": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "SYD",
+        "VIE",
+        "BAH",
+        "BRU"
+      ],
+      "year": 2023
+    },
+    "MU": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "AUH",
+        "ADD",
+        "ALA",
+        "AMS",
+        "AKL"
+      ],
+      "year": 2023
+    },
+    "NK": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BOG",
+        "PTY",
+        "POS",
+        "DEN",
+        "ATL"
+      ],
+      "year": 2023
+    },
+    "NZ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "BNE",
+        "MEL",
+        "SYD",
+        "PEK"
+      ],
+      "year": 2023
+    },
+    "OM": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "PEK",
+        "CAN",
+        "PVG",
+        "FRA",
+        "HKG"
+      ],
+      "year": 2023
+    },
+    "OS": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "MEL",
+        "SYD",
+        "GYD",
+        "BRU"
+      ],
+      "year": 2023
+    },
+    "OU": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "BRU",
+        "PRG",
+        "CPH",
+        "CDG"
+      ],
+      "year": 2023
+    },
+    "OZ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "VIE",
+        "BRU",
+        "BWN"
+      ],
+      "year": 2023
+    },
+    "PC": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "GYD",
+        "BAH",
+        "ZAG",
+        "PRG",
+        "CPH"
+      ],
+      "year": 2023
+    },
+    "PD": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "YYC",
+        "YYZ",
+        "FLL",
+        "LAS"
+      ],
+      "year": 2023
+    },
+    "PG": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "HKG",
+        "KUL",
+        "HAN"
+      ],
+      "year": 2023
+    },
+    "PK": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "GYD",
+        "BAH",
+        "YYZ",
+        "PEK"
+      ],
+      "year": 2023
+    },
+    "PR": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "BAH",
+        "BWN"
+      ],
+      "year": 2023
+    },
+    "PX": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "SYD",
+        "NAN",
+        "HKG",
+        "AKL"
+      ],
+      "year": 2023
+    },
+    "QF": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "BNE",
+        "MEL",
+        "VIE",
+        "BAH"
+      ],
+      "year": 2023
+    },
+    "QH": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "FRA",
+        "ICN",
+        "TPE"
+      ],
+      "year": 2023
+    },
+    "QR": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE"
+      ],
+      "year": 2023
+    },
+    "QS": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BAH",
+        "BRU",
+        "CDG",
+        "DUS",
+        "ATH"
+      ],
+      "year": 2023
+    },
+    "RJ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "MEL",
+        "SYD",
+        "BAH",
+        "BRU"
+      ],
+      "year": 2023
+    },
+    "S7": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "GYD",
+        "PEK",
+        "CAN",
+        "PVG"
+      ],
+      "year": 2023
+    },
+    "SA": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "BRU"
+      ],
+      "year": 2023
+    },
+    "SG": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "HKG",
+        "JED",
+        "CMB",
+        "BKK",
+        "DXB"
+      ],
+      "year": 2023
+    },
+    "SN": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "YYZ",
+        "ZAG",
+        "PRG",
+        "CPH",
+        "CDG"
+      ],
+      "year": 2023
+    },
+    "SQ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "BAH"
+      ],
+      "year": 2023
+    },
+    "SU": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "SYD",
+        "VIE",
+        "GYD",
+        "BAH"
+      ],
+      "year": 2023
+    },
+    "SV": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "BAH",
+        "BRU",
+        "YYZ",
+        "CAN"
+      ],
+      "year": 2023
+    },
+    "SY": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "YYZ",
+        "LGW",
+        "DEN",
+        "FLL",
+        "ATL"
+      ],
+      "year": 2023
+    },
+    "TG": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "BAH"
+      ],
+      "year": 2023
+    },
+    "TK": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "MEL",
+        "SYD",
+        "VIE",
+        "GYD"
+      ],
+      "year": 2023
+    },
+    "TO": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BRU",
+        "SOF",
+        "PRG",
+        "CPH",
+        "CAI"
+      ],
+      "year": 2023
+    },
+    "TP": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "VIE",
+        "BRU",
+        "VCP",
+        "YYZ"
+      ],
+      "year": 2023
+    },
+    "TR": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "VIE",
+        "CAN",
+        "HAK"
+      ],
+      "year": 2023
+    },
+    "U2": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "AMS",
+        "CDG",
+        "LIS",
+        "BCN",
+        "PRG"
+      ],
+      "year": 2023
+    },
+    "UA": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "EZE",
+        "SYD",
+        "BNE",
+        "MEL",
+        "BAH"
+      ],
+      "year": 2023
+    },
+    "UL": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "PEK",
+        "CAN",
+        "CDG"
+      ],
+      "year": 2023
+    },
+    "VA": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "NAN",
+        "HKG",
+        "HND"
+      ],
+      "year": 2023
+    },
+    "VJ": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BNE",
+        "MEL",
+        "SYD",
+        "CAN",
+        "HAK"
+      ],
+      "year": 2023
+    },
+    "VN": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "MEL",
+        "SYD",
+        "PEK",
+        "CAN",
+        "HAK"
+      ],
+      "year": 2023
+    },
+    "W6": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "VIE",
+        "GYD",
+        "BAH",
+        "BRU",
+        "ZAG"
+      ],
+      "year": 2023
+    },
+    "WB": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BRU",
+        "CAN",
+        "ADD",
+        "CDG",
+        "TLV"
+      ],
+      "year": 2023
+    },
+    "WN": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "DEN",
+        "LAS",
+        "ATL",
+        "FLL",
+        "HNL"
+      ],
+      "year": 2023
+    },
+    "WS": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "YYZ",
+        "CPH",
+        "CDG",
+        "KEF",
+        "DUB"
+      ],
+      "year": 2023
+    },
+    "WY": {
+      "source": "Wikipedia (unranked)",
+      "topDestinations": [
+        "BAH",
+        "CAN",
+        "CAI",
+        "CDG",
+        "FRA"
+      ],
+      "year": 2023
+    }
+  },
+  "airports": {
+    "ADD": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "ET",
+        "SV",
+        "EK",
+        "TK",
+        "MS"
+      ],
+      "year": 2023
+    },
+    "AKL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "NZ",
+        "QF",
+        "JQ",
+        "SQ",
+        "CA"
+      ],
+      "topDestinations": [
+        "SYD",
+        "MEL",
+        "BNE",
+        "SIN",
+        "NAN"
+      ],
+      "year": 2023
+    },
+    "ALA": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "NH",
+        "CZ",
+        "QR",
+        "HY",
+        "VJ"
+      ],
+      "year": 2023
+    },
+    "AMM": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "RJ",
+        "FR",
+        "PC",
+        "SV",
+        "LH"
+      ],
+      "year": 2023
+    },
+    "AMS": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "KL",
+        "TO",
+        "U2",
+        "BY",
+        "DL"
+      ],
+      "topDestinations": [
+        "BCN",
+        "LHR",
+        "DUB",
+        "MAD",
+        "CPH"
+      ],
+      "year": 2024
+    },
+    "ATH": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "A3",
+        "FR",
+        "U2",
+        "W6",
+        "TO"
+      ],
+      "topDestinations": [
+        "TLV",
+        "IST",
+        "LHR",
+        "FCO",
+        "CDG"
+      ],
+      "year": 2024
+    },
+    "ATL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "DL",
+        "F9",
+        "WN",
+        "AA",
+        "UA"
+      ],
+      "topDestinations": [
+        "FLL",
+        "DFW",
+        "CDG",
+        "DEN",
+        "LAS"
+      ],
+      "year": 2023
+    },
+    "AUH": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "EY",
+        "6E",
+        "AI",
+        "PK",
+        "W6"
+      ],
+      "topDestinations": [
+        "CAI",
+        "DEL"
+      ],
+      "year": 2023
+    },
+    "BAH": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "GF",
+        "AI",
+        "AK",
+        "EK",
+        "PK"
+      ],
+      "year": 2023
+    },
+    "BCN": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "VY",
+        "FR",
+        "W6",
+        "U2",
+        "DY"
+      ],
+      "topDestinations": [
+        "MAD",
+        "FCO",
+        "AMS",
+        "LGW",
+        "LIS"
+      ],
+      "year": 2024
+    },
+    "BEG": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "JU",
+        "W6",
+        "U2",
+        "LH",
+        "TK"
+      ],
+      "topDestinations": [
+        "IST",
+        "FRA",
+        "AMS",
+        "BCN",
+        "CDG"
+      ],
+      "year": 2023
+    },
+    "BKK": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "TG",
+        "CA",
+        "MU",
+        "PG",
+        "SU"
+      ],
+      "topDestinations": [
+        "HKG",
+        "ICN",
+        "TPE",
+        "DXB",
+        "DOH"
+      ],
+      "year": 2023
+    },
+    "BNE": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "QF",
+        "VA",
+        "JQ",
+        "NZ",
+        "MH"
+      ],
+      "topDestinations": [
+        "SYD",
+        "MEL",
+        "AKL",
+        "DXB",
+        "NAN"
+      ],
+      "year": 2023
+    },
+    "BOG": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "AV",
+        "LA",
+        "JA",
+        "TK",
+        "ET"
+      ],
+      "year": 2023
+    },
+    "BRU": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "SN",
+        "BY",
+        "FR",
+        "AT",
+        "SQ"
+      ],
+      "topDestinations": [
+        "MAD",
+        "BCN",
+        "FCO",
+        "LHR",
+        "VIE"
+      ],
+      "year": 2024
+    },
+    "BUD": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "FR",
+        "W6",
+        "QS",
+        "U2",
+        "EW"
+      ],
+      "topDestinations": [
+        "IST",
+        "FRA",
+        "BCN",
+        "TLV",
+        "AMS"
+      ],
+      "year": 2024
+    },
+    "BWN": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "BI",
+        "AK",
+        "5J",
+        "SQ"
+      ],
+      "year": 2023
+    },
+    "CAI": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "MS",
+        "ET",
+        "TO",
+        "SV",
+        "A3"
+      ],
+      "year": 2023
+    },
+    "CAN": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "CZ",
+        "CA",
+        "HU",
+        "MU",
+        "AZ"
+      ],
+      "year": 2023
+    },
+    "CDG": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "AF",
+        "U2",
+        "AZ",
+        "DL",
+        "DY"
+      ],
+      "topDestinations": [
+        "JFK",
+        "BCN",
+        "DXB",
+        "LHR",
+        "AMS"
+      ],
+      "year": 2024
+    },
+    "CGK": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "GA",
+        "JT",
+        "AK",
+        "AZ",
+        "VN"
+      ],
+      "year": 2023
+    },
+    "CLT": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "AA",
+        "F9",
+        "UA",
+        "NK",
+        "WN"
+      ],
+      "topDestinations": [
+        "DFW",
+        "ORD",
+        "LHR",
+        "FLL",
+        "YYZ"
+      ],
+      "year": 2023
+    },
+    "CMB": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "UL",
+        "6E",
+        "TK",
+        "AI",
+        "MH"
+      ],
+      "topDestinations": [
+        "DXB",
+        "DOH",
+        "KUL",
+        "AUH",
+        "DEL"
+      ],
+      "year": 2023
+    },
+    "CPH": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "DY",
+        "FR",
+        "U2",
+        "EK",
+        "W6"
+      ],
+      "topDestinations": [
+        "OSL",
+        "AMS",
+        "LHR",
+        "CDG",
+        "HEL"
+      ],
+      "year": 2024
+    },
+    "DAL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "WN",
+        "DL"
+      ],
+      "topDestinations": [
+        "DEN",
+        "LAS",
+        "ATL"
+      ],
+      "year": 2023
+    },
+    "DEL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "AI",
+        "6E",
+        "SG",
+        "CA",
+        "EK"
+      ],
+      "year": 2023
+    },
+    "DEN": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "UA",
+        "WN",
+        "F9",
+        "DL",
+        "AA"
+      ],
+      "topDestinations": [
+        "ORD",
+        "LAS",
+        "SEA",
+        "DFW",
+        "MSP"
+      ],
+      "year": 2023
+    },
+    "DFW": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "AA",
+        "F9",
+        "NK",
+        "DL",
+        "UA"
+      ],
+      "topDestinations": [
+        "ATL",
+        "ORD",
+        "LHR",
+        "DEN",
+        "LAS"
+      ],
+      "year": 2023
+    },
+    "DME": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "S7",
+        "MS",
+        "J2",
+        "LY",
+        "EK"
+      ],
+      "year": 2023
+    },
+    "DOH": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "QR",
+        "AI",
+        "6E",
+        "PK",
+        "VA"
+      ],
+      "year": 2023
+    },
+    "DTW": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "DL",
+        "NK",
+        "F9",
+        "AA",
+        "WN"
+      ],
+      "topDestinations": [
+        "ATL",
+        "DFW",
+        "LAS",
+        "DEN",
+        "FLL"
+      ],
+      "year": 2023
+    },
+    "DUB": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "FR",
+        "EI",
+        "BY",
+        "DL",
+        "WS"
+      ],
+      "topDestinations": [
+        "LHR",
+        "AMS",
+        "LGW",
+        "BCN",
+        "CDG"
+      ],
+      "year": 2024
+    },
+    "DUS": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "EW",
+        "BY",
+        "PC",
+        "U2",
+        "LH"
+      ],
+      "topDestinations": [
+        "SAW",
+        "LHR",
+        "DXB",
+        "IST",
+        "VIE"
+      ],
+      "year": 2024
+    },
+    "DXB": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "FZ",
+        "EK",
+        "AI",
+        "6E",
+        "SG"
+      ],
+      "year": 2023
+    },
+    "EZE": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "AR",
+        "JA",
+        "G3",
+        "AV",
+        "LA"
+      ],
+      "topDestinations": [
+        "SCL",
+        "GRU",
+        "BOG",
+        "FCO",
+        "JFK"
+      ],
+      "year": 2023
+    },
+    "FCO": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "AZ",
+        "W6",
+        "FR",
+        "U2",
+        "LS"
+      ],
+      "topDestinations": [
+        "MAD",
+        "BCN",
+        "JFK",
+        "CDG",
+        "LGW"
+      ],
+      "year": 2024
+    },
+    "FLL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "NK",
+        "B6",
+        "G4",
+        "WN",
+        "F9"
+      ],
+      "topDestinations": [
+        "ATL",
+        "JFK",
+        "CLT",
+        "ORD",
+        "DTW"
+      ],
+      "year": 2023
+    },
+    "FRA": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "LH",
+        "BY",
+        "CA",
+        "NH",
+        "UA"
+      ],
+      "topDestinations": [
+        "LHR",
+        "VIE",
+        "DXB",
+        "MAD",
+        "IST"
+      ],
+      "year": 2024
+    },
+    "GRU": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "JJ",
+        "G3",
+        "LA",
+        "TK",
+        "AR"
+      ],
+      "topDestinations": [
+        "SCL",
+        "LIS",
+        "CDG",
+        "PTY",
+        "BOG"
+      ],
+      "year": 2023
+    },
+    "GYD": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "J2",
+        "PC",
+        "KC",
+        "PK",
+        "JU"
+      ],
+      "year": 2023
+    },
+    "HAK": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "HU",
+        "AZ",
+        "CZ",
+        "CA",
+        "MU"
+      ],
+      "year": 2023
+    },
+    "HAN": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "VN",
+        "VJ",
+        "KE",
+        "QH",
+        "MU"
+      ],
+      "topDestinations": [
+        "ICN",
+        "SGN",
+        "BKK",
+        "TPE",
+        "KUL"
+      ],
+      "year": 2023
+    },
+    "HEL": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "AY",
+        "DY",
+        "FR",
+        "LH",
+        "TK"
+      ],
+      "topDestinations": [
+        "CPH",
+        "AMS",
+        "LHR",
+        "FRA",
+        "CDG"
+      ],
+      "year": 2024
+    },
+    "HKG": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "CX",
+        "MU",
+        "CA",
+        "KL",
+        "AF"
+      ],
+      "year": 2023
+    },
+    "HND": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "JL",
+        "DL",
+        "UA",
+        "AA",
+        "MU"
+      ],
+      "year": 2023
+    },
+    "HNL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "HA",
+        "WN",
+        "UA",
+        "DL",
+        "AS"
+      ],
+      "topDestinations": [
+        "HND",
+        "SEA",
+        "ICN",
+        "LAS",
+        "SYD"
+      ],
+      "year": 2023
+    },
+    "ICN": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "KE",
+        "OZ",
+        "CZ",
+        "CA",
+        "MU"
+      ],
+      "topDestinations": [
+        "BKK",
+        "HKG",
+        "TPE",
+        "MNL"
+      ],
+      "year": 2023
+    },
+    "IST": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "TK",
+        "SU",
+        "TO",
+        "A3",
+        "SV"
+      ],
+      "topDestinations": [
+        "DXB",
+        "LHR",
+        "JED",
+        "CDG",
+        "TAS"
+      ],
+      "year": 2024
+    },
+    "JED": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "SV",
+        "AI",
+        "W6",
+        "MS",
+        "6E"
+      ],
+      "year": 2023
+    },
+    "JFK": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "DL",
+        "B6",
+        "AA",
+        "AV",
+        "CA"
+      ],
+      "topDestinations": [
+        "LHR",
+        "CDG",
+        "FCO",
+        "AMS",
+        "MEX"
+      ],
+      "year": 2023
+    },
+    "JNB": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "SA",
+        "FA",
+        "H2",
+        "LH",
+        "NH"
+      ],
+      "year": 2023
+    },
+    "KEF": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "FI",
+        "LS",
+        "U2",
+        "W6",
+        "DL"
+      ],
+      "topDestinations": [
+        "CPH",
+        "AMS",
+        "CDG",
+        "LHR",
+        "OSL"
+      ],
+      "year": 2024
+    },
+    "KGL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "WB",
+        "QR",
+        "ET",
+        "KQ",
+        "SN"
+      ],
+      "year": 2023
+    },
+    "KHI": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "PK",
+        "TK",
+        "QR",
+        "SV",
+        "RJ"
+      ],
+      "year": 2023
+    },
+    "KUL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "MH",
+        "AK",
+        "MU",
+        "CZ",
+        "CA"
+      ],
+      "topDestinations": [
+        "TPE",
+        "BKK",
+        "CGK",
+        "HKG",
+        "ICN"
+      ],
+      "year": 2023
+    },
+    "KWI": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "KU",
+        "AI",
+        "PC",
+        "TK",
+        "ET"
+      ],
+      "year": 2023
+    },
+    "LAS": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "WN",
+        "G4",
+        "F9",
+        "DL",
+        "NK"
+      ],
+      "topDestinations": [
+        "DEN",
+        "DFW",
+        "SEA",
+        "ATL",
+        "ORD"
+      ],
+      "year": 2023
+    },
+    "LBA": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "LS",
+        "FR",
+        "U2",
+        "BY",
+        "W6"
+      ],
+      "topDestinations": [
+        "DUB",
+        "AMS",
+        "LHR",
+        "CDG",
+        "BCN"
+      ],
+      "year": 2023
+    },
+    "LGW": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "U2",
+        "BY",
+        "BA",
+        "LS",
+        "W6"
+      ],
+      "topDestinations": [
+        "BCN",
+        "DUB",
+        "AMS",
+        "MAD",
+        "DXB"
+      ],
+      "year": 2023
+    },
+    "LHR": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "BA",
+        "AA",
+        "DL",
+        "UA",
+        "AC"
+      ],
+      "topDestinations": [
+        "JFK",
+        "DXB",
+        "DUB",
+        "AMS",
+        "SIN"
+      ],
+      "year": 2023
+    },
+    "LIS": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "TP",
+        "FR",
+        "U2",
+        "TO",
+        "EW"
+      ],
+      "topDestinations": [
+        "MAD",
+        "BCN",
+        "LHR",
+        "AMS",
+        "GRU"
+      ],
+      "year": 2024
+    },
+    "MAD": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "IB",
+        "FR",
+        "W6",
+        "U2",
+        "CA"
+      ],
+      "topDestinations": [
+        "BCN",
+        "FCO",
+        "LIS",
+        "LHR",
+        "BOG"
+      ],
+      "year": 2024
+    },
+    "MCT": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "WY",
+        "AI",
+        "6E",
+        "TK",
+        "PK"
+      ],
+      "year": 2023
+    },
+    "MEL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "QF",
+        "JQ",
+        "VA",
+        "NZ",
+        "MH"
+      ],
+      "topDestinations": [
+        "SYD",
+        "BNE",
+        "AKL",
+        "HKG",
+        "DXB"
+      ],
+      "year": 2023
+    },
+    "MEX": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "Y4",
+        "VB",
+        "AA",
+        "DL",
+        "UA"
+      ],
+      "topDestinations": [
+        "MTY",
+        "MAD",
+        "BOG",
+        "JFK",
+        "ORD"
+      ],
+      "year": 2023
+    },
+    "MNL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "PR",
+        "5J",
+        "CA",
+        "JL",
+        "UA"
+      ],
+      "year": 2023
+    },
+    "MRU": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "MK",
+        "SA",
+        "SU",
+        "AF",
+        "AI"
+      ],
+      "year": 2023
+    },
+    "MSP": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "DL",
+        "SY",
+        "WN",
+        "UA",
+        "AA"
+      ],
+      "topDestinations": [
+        "DEN",
+        "ORD",
+        "ATL",
+        "AMS",
+        "SEA"
+      ],
+      "year": 2023
+    },
+    "MTY": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "VB",
+        "Y4",
+        "AA",
+        "UA",
+        "AC"
+      ],
+      "topDestinations": [
+        "MEX",
+        "DFW",
+        "ORD",
+        "LAS",
+        "ATL"
+      ],
+      "year": 2023
+    },
+    "NAN": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "FJ",
+        "VA",
+        "PX",
+        "JQ",
+        "NZ"
+      ],
+      "year": 2023
+    },
+    "NBO": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "KQ",
+        "TK",
+        "SV",
+        "SQ",
+        "EK"
+      ],
+      "year": 2023
+    },
+    "ORD": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "UA",
+        "AA",
+        "F9",
+        "CA",
+        "WN"
+      ],
+      "topDestinations": [
+        "LHR",
+        "DEN",
+        "DFW",
+        "YYZ",
+        "MEX"
+      ],
+      "year": 2023
+    },
+    "OSL": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "DY",
+        "W6",
+        "ET",
+        "QR",
+        "FR"
+      ],
+      "topDestinations": [
+        "CPH",
+        "AMS",
+        "LHR",
+        "CDG",
+        "FRA"
+      ],
+      "year": 2024
+    },
+    "OTP": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "W6",
+        "FR",
+        "RO",
+        "LH",
+        "EW"
+      ],
+      "topDestinations": [
+        "IST",
+        "VIE",
+        "AMS",
+        "TLV",
+        "FRA"
+      ],
+      "year": 2024
+    },
+    "PEK": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "CA",
+        "HU",
+        "KE",
+        "VN",
+        "OZ"
+      ],
+      "year": 2023
+    },
+    "POM": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "PX",
+        "QF",
+        "CZ",
+        "PR",
+        "GA"
+      ],
+      "year": 2023
+    },
+    "POS": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "BW",
+        "AC",
+        "AA",
+        "BA",
+        "CM"
+      ],
+      "year": 2023
+    },
+    "PRG": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "QS",
+        "FR",
+        "U2",
+        "EW",
+        "W6"
+      ],
+      "year": 2023
+    },
+    "PTY": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "CM",
+        "AV",
+        "UA",
+        "AF",
+        "AA"
+      ],
+      "topDestinations": [
+        "BOG",
+        "SCL"
+      ],
+      "year": 2023
+    },
+    "PVG": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "MU",
+        "CA",
+        "CZ",
+        "HU",
+        "UA"
+      ],
+      "year": 2023
+    },
+    "RIX": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "BT",
+        "FR",
+        "DY",
+        "A3",
+        "AY"
+      ],
+      "topDestinations": [
+        "HEL",
+        "FRA",
+        "OSL",
+        "VIE",
+        "CPH"
+      ],
+      "year": 2024
+    },
+    "SAW": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "PC",
+        "AK",
+        "J2",
+        "FZ",
+        "KU"
+      ],
+      "topDestinations": [
+        "DUS",
+        "AMS",
+        "VIE",
+        "JED",
+        "FRA"
+      ],
+      "year": 2024
+    },
+    "SCL": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "LA",
+        "JA",
+        "H2",
+        "JJ",
+        "AV"
+      ],
+      "topDestinations": [
+        "BOG",
+        "PTY",
+        "CDG",
+        "EZE"
+      ],
+      "year": 2023
+    },
+    "SEA": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "AS",
+        "DL",
+        "WN",
+        "AA",
+        "F9"
+      ],
+      "topDestinations": [
+        "DEN",
+        "LAS",
+        "DFW",
+        "ORD",
+        "TPE"
+      ],
+      "year": 2023
+    },
+    "SGN": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "VN",
+        "VJ",
+        "QH",
+        "MU",
+        "CZ"
+      ],
+      "year": 2023
+    },
+    "SIN": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "SQ",
+        "AZ",
+        "TR",
+        "MU",
+        "6E"
+      ],
+      "year": 2023
+    },
+    "SOF": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "FR",
+        "W6",
+        "FB",
+        "BY",
+        "LH"
+      ],
+      "topDestinations": [
+        "VIE",
+        "FRA",
+        "IST",
+        "BCN",
+        "MAD"
+      ],
+      "year": 2024
+    },
+    "SVO": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "SU",
+        "CZ",
+        "MU",
+        "CA",
+        "AZ"
+      ],
+      "topDestinations": [
+        "IST"
+      ],
+      "year": 2023
+    },
+    "SYD": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "QF",
+        "JQ",
+        "VA",
+        "MU",
+        "NZ"
+      ],
+      "topDestinations": [
+        "MEL",
+        "BNE",
+        "AKL",
+        "HKG",
+        "DXB"
+      ],
+      "year": 2023
+    },
+    "TAS": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "HY",
+        "CA",
+        "MU",
+        "CZ",
+        "SU"
+      ],
+      "year": 2023
+    },
+    "TLV": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "LY",
+        "W6",
+        "TO",
+        "A3",
+        "LH"
+      ],
+      "topDestinations": [
+        "ATH",
+        "DXB",
+        "CDG",
+        "BUD",
+        "JFK"
+      ],
+      "year": 2023
+    },
+    "TPE": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "BR",
+        "CI",
+        "CA",
+        "TG",
+        "JL"
+      ],
+      "year": 2023
+    },
+    "ULN": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "OM",
+        "CA",
+        "UA",
+        "NH",
+        "KE"
+      ],
+      "topDestinations": [
+        "ICN",
+        "PEK",
+        "IST",
+        "HKG"
+      ],
+      "year": 2023
+    },
+    "VCP": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "LA",
+        "KE",
+        "G3",
+        "LH",
+        "QR"
+      ],
+      "year": 2023
+    },
+    "VIE": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "OS",
+        "FR",
+        "LS",
+        "KE",
+        "U2"
+      ],
+      "topDestinations": [
+        "FRA",
+        "LHR",
+        "AMS",
+        "ZRH",
+        "BCN"
+      ],
+      "year": 2024
+    },
+    "WAW": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "LO",
+        "W6",
+        "QS",
+        "FR",
+        "LH"
+      ],
+      "topDestinations": [
+        "AMS",
+        "LHR",
+        "CDG",
+        "FRA",
+        "CPH"
+      ],
+      "year": 2024
+    },
+    "YTZ": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "PD",
+        "AC"
+      ],
+      "year": 2023
+    },
+    "YYC": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "WS",
+        "AC",
+        "AA",
+        "PD",
+        "UA"
+      ],
+      "topDestinations": [
+        "YYZ",
+        "LAS",
+        "DEN",
+        "FRA",
+        "ORD"
+      ],
+      "year": 2023
+    },
+    "YYZ": {
+      "airlinesUnranked": true,
+      "source": "Wikipedia",
+      "topAirlines": [
+        "AC",
+        "WS",
+        "PD",
+        "AA",
+        "UA"
+      ],
+      "year": 2023
+    },
+    "ZAG": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "FR",
+        "OU",
+        "EW",
+        "LH",
+        "A3"
+      ],
+      "topDestinations": [
+        "FRA",
+        "AMS",
+        "IST",
+        "CDG",
+        "DOH"
+      ],
+      "year": 2024
+    },
+    "ZRH": {
+      "airlinesUnranked": true,
+      "source": "Eurostat avia_par + Wikipedia",
+      "topAirlines": [
+        "LX",
+        "U2",
+        "EW",
+        "KE",
+        "UA"
+      ],
+      "topDestinations": [
+        "LHR",
+        "AMS",
+        "MAD",
+        "VIE",
+        "BCN"
+      ],
+      "year": 2024
+    }
+  },
+  "generatedAt": "2026-04-26",
+  "version": "1.0"
+}
