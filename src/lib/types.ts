@@ -18,6 +18,7 @@ export type Mode =
   | 'airportAirline'
   | 'airlineDest'
   | 'airportConn'
+  | 'code'
   | 'aircraftWordle'
   | 'aircraftIdentify';
 
@@ -68,6 +69,10 @@ export interface Question {
   // the question is about. `airline` is then a contextual associated airline (often
   // the hub carrier) used only for stats/explanations, not as the prompt subject.
   airport?: string;
+  // For 'code' mode: the displayed code/callsign (e.g. "LH", "DLH", "SPEEDBIRD")
+  // and the kind, used to render and explain the prompt.
+  prompt?: string;
+  promptKind?: 'iata' | 'icao' | 'callsign';
 }
 
 export interface RoundResult {

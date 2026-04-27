@@ -16,7 +16,10 @@
   import HistoryDetail from './lib/HistoryDetail.svelte';
   import AircraftWordle from './lib/AircraftWordle.svelte';
   import AircraftIdentify from './lib/AircraftIdentify.svelte';
+  import AtcRound from './lib/AtcRound.svelte';
+  import AtcResults from './lib/AtcResults.svelte';
   import type { Difficulty, HistoryEntry, Mode, RoundResult } from './lib/types';
+  import type { AtcMode, AtcRoundResult } from './lib/atc';
   import { readSharedFromUrl, type SharedRound } from './lib/share';
   import type { Achievement } from './lib/achievements';
   import { evaluateAchievements } from './lib/achievements';
@@ -38,7 +41,9 @@
     | { kind: 'reviewLock'; target: ReviewTarget }
     | { kind: 'historyDetail'; entry: HistoryEntry }
     | { kind: 'aircraftWordle'; difficulty: Difficulty }
-    | { kind: 'aircraftIdentify'; difficulty: Difficulty };
+    | { kind: 'aircraftIdentify'; difficulty: Difficulty }
+    | { kind: 'atcRound'; mode: AtcMode; difficulty: Difficulty }
+    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] };
 
   let view: View = $state({ kind: 'home' });
   let menuOpen = $state(false);
@@ -91,8 +96,18 @@
     view = { kind: 'aircraftIdentify', difficulty };
   }
 
+  function startAtc(mode: AtcMode, difficulty: Difficulty) {
+    clearShareParam();
+    menuOpen = false;
+    view = { kind: 'atcRound', mode, difficulty };
+  }
+
   function finishStandard(mode: Mode, difficulty: Difficulty, daily: boolean, mixed: boolean, results: RoundResult[]) {
     view = { kind: 'results', mode, difficulty, daily, mixed, results };
+  }
+
+  function finishAtc(mode: AtcMode, difficulty: Difficulty, results: AtcRoundResult[]) {
+    view = { kind: 'atcResults', mode, difficulty, results };
   }
 
   function finishSpeed(score: number, isNewBest: boolean) {
@@ -195,6 +210,7 @@
       onStartMix={startMix}
       onStartAircraftWordle={startAircraftWordle}
       onStartAircraftIdentify={startAircraftIdentify}
+      onStartAtc={startAtc}
       onOpenHistory={(entry) => { menuOpen = false; view = { kind: 'historyDetail', entry }; }}
     />
   {:else if view.kind === 'round'}
@@ -247,6 +263,23 @@
     <AircraftWordle difficulty={view.difficulty} onHome={home} />
   {:else if view.kind === 'aircraftIdentify'}
     <AircraftIdentify difficulty={view.difficulty} onHome={home} />
+  {:else if view.kind === 'atcRound'}
+    {@const v = view}
+    <AtcRound
+      mode={v.mode}
+      difficulty={v.difficulty}
+      onFinish={(r) => finishAtc(v.mode, v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'atcResults'}
+    {@const v = view}
+    <AtcResults
+      mode={v.mode}
+      difficulty={v.difficulty}
+      results={v.results}
+      onAgain={() => startAtc(v.mode, v.difficulty)}
+      onHome={home}
+    />
   {:else}
     <Browse onHome={home} />
   {/if}

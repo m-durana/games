@@ -245,6 +245,16 @@
               : airportLabel(current.airport ?? current.airline.hub)}
           </h2>
         </div>
+      {:else if current.mode === 'code'}
+        <div class="prompt-block">
+          <span class="prompt-label">
+            {#if current.promptKind === 'icao'}ICAO code
+            {:else if current.promptKind === 'callsign'}Radio callsign
+            {:else}IATA code{/if}
+          </span>
+          <div class="code-stage">{current.prompt}</div>
+          <p class="ask center">Which airline?</p>
+        </div>
       {:else if current.mode === 'airlineDest'}
         <div class="airline">
           <Logo iata={current.airline.iata} name={current.airline.name} />
@@ -499,6 +509,19 @@
     font-size: 1.75rem;
     font-weight: 600;
     letter-spacing: 0;
+  }
+  .code-stage {
+    display: inline-block;
+    margin: 0.4rem auto 0.6rem;
+    padding: 0.6rem 1.4rem;
+    font-family: var(--font-main);
+    font-size: clamp(2.25rem, 9vw, 3.25rem);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
   }
 
   .logo-stage { display: flex; justify-content: center; padding: 0.5rem 0; }

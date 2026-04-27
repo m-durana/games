@@ -211,7 +211,7 @@ function answerFor(airline: Airline, mode: Mode): string {
   // there depends on a randomly-picked top-3 entry, not on the airline alone).
   // Returning '' here is fine — buildQuestion never falls through to this for them.
   if (mode === 'airportAirline' || mode === 'airlineDest' || mode === 'airportConn') return '';
-  // mode === 'logo' or 'reverseGroup' or 'tail': answer is the airline name
+  // mode === 'logo' or 'reverseGroup' or 'tail' or 'code': answer is the airline name
   return airline.name;
 }
 
@@ -268,7 +268,7 @@ function smartDistractors(
 ): string[] {
   const answer = answerFor(airline, mode);
   const n = distractorCount(mode);
-  if (mode === 'logo' || mode === 'tail') {
+  if (mode === 'logo' || mode === 'tail' || mode === 'code') {
     const same = sourcePool.filter(
       (a) => a.iata !== airline.iata && (a.alliance === airline.alliance || a.country === airline.country),
     );
@@ -470,6 +470,26 @@ function buildQuestion(
       answers: correctNames,
     };
   }
+  if (mode === 'code') {
+    const m = airlineMeta(airline.iata);
+    const variants: Array<{ kind: 'iata' | 'icao' | 'callsign'; value: string }> = [
+      { kind: 'iata', value: airline.iata },
+    ];
+    if (difficulty === 'hard') {
+      if (m.icao) variants.push({ kind: 'icao', value: m.icao });
+      if (m.callsign) variants.push({ kind: 'callsign', value: m.callsign });
+    }
+    const chosen = pick(variants, rng);
+    const distractors = smartDistractors(airline, mode, sourcePool, fallbackPool, rng);
+    return {
+      mode,
+      airline,
+      options: shuffle([answer, ...distractors], rng),
+      answer,
+      prompt: chosen.value,
+      promptKind: chosen.kind,
+    };
+  }
   const useSmart =
     mode === 'logo' || mode === 'tail' ||
     difficulty === 'hard' ||
@@ -607,7 +627,7 @@ export function buildMixedRound(rng: Rng = defaultRng()): Question[] {
   const difficulty: Difficulty = 'medium';
   const sourcePool = pool(difficulty);
   const tailEligible = eligibleFor('tail', sourcePool).length >= 4;
-  const allModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'airportAirline', 'airlineDest', 'airportConn'];
+  const allModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'airportAirline', 'airlineDest', 'airportConn', 'code'];
   if (tailEligible) allModes.push('tail');
   const used = new Set<string>();
   const out: Question[] = [];
@@ -699,6 +719,13 @@ export function explainAnswer(q: Question): string {
     }
     case 'airlineDest':
       return `${airportLabel(q.answer)} is the top sourced destination for ${a.name}.`;
+    case 'code': {
+      const meta = airlineMeta(a.iata);
+      const parts = [`IATA ${a.iata}`];
+      if (meta.icao) parts.push(`ICAO ${meta.icao}`);
+      if (meta.callsign) parts.push(`callsign "${meta.callsign}"`);
+      return `${a.name} — ${parts.join(', ')}.`;
+    }
     case 'aircraftWordle':
     case 'aircraftIdentify':
       return '';
@@ -717,6 +744,7 @@ export function modeLabel(mode: Mode): string {
     case 'airportAirline': return 'Top carrier here';
     case 'airportConn': return 'Busiest destination from here';
     case 'airlineDest': return 'Top sourced destination';
+    case 'code': return 'Which airline?';
     case 'aircraftWordle': return 'Which aircraft?';
     case 'aircraftIdentify': return 'Which aircraft?';
   }
@@ -734,6 +762,7 @@ export function modeTitle(mode: Mode): string {
     case 'airportAirline': return 'Airport Carriers';
     case 'airportConn': return 'Airport Routes';
     case 'airlineDest': return 'Airline Routes';
+    case 'code': return 'Code Guess';
     case 'aircraftWordle': return 'Aircraft Wordle';
     case 'aircraftIdentify': return 'Aircraft Identify';
   }
@@ -751,6 +780,7 @@ export function modeDescription(mode: Mode): string {
     case 'airportAirline': return 'Pick a top carrier at the given airport. Ranked from airport stats where available, with curated fallbacks for airports that lack clean ranked tables.';
     case 'airportConn': return 'Pick the rank-1 destination from the airport route source. Only airports with a ranked public route table are used.';
     case 'airlineDest': return "Pick the top sourced destination served by the airline. Order comes from a public hub-airport route ranking, and each destination is checked against a public airline destination/source page.";
+    case 'code': return 'Identify the airline from its carrier code. Easy and Medium use IATA (e.g. LH); Hard mixes in ICAO codes and radio callsigns.';
     case 'aircraftWordle': return 'Deduce a mystery aircraft from attribute feedback. Type a guess, see how close you are on maker, body, length, engines, tail, and era.';
     case 'aircraftIdentify': return 'Identify an aircraft from a photo. Take optional hints (maker, then family) at a point cost, then read the structured breakdown.';
   }

@@ -13,6 +13,7 @@
     todayKey,
   } from './engine';
   import { loadSpeedBest } from './achievements';
+  import { atcModeDescription, atcModeTitle, loadAtcBest, type AtcMode } from './atc';
 
   interface Props {
     onStart: (mode: Mode, difficulty: Difficulty) => void;
@@ -21,6 +22,7 @@
     onStartMix: () => void;
     onStartAircraftWordle: (difficulty: Difficulty) => void;
     onStartAircraftIdentify: (difficulty: Difficulty) => void;
+    onStartAtc: (mode: AtcMode, difficulty: Difficulty) => void;
     onOpenHistory: (entry: HistoryEntry) => void;
   }
 
@@ -31,11 +33,23 @@
     onStartMix,
     onStartAircraftWordle,
     onStartAircraftIdentify,
+    onStartAtc,
     onOpenHistory,
   }: Props = $props();
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
+  const atcModes: AtcMode[] = ['callsign', 'phraseology', 'readback', 'atcMix'];
+  const ATC_ICONS: Record<AtcMode, string> = {
+    callsign: 'radio',
+    phraseology: 'message-square-text',
+    readback: 'list-checks',
+    atcMix: 'shuffle',
+  };
 
-  const allModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'tail', 'airportAirline', 'airlineDest', 'airportConn'];
+  function atcIcon(m: AtcMode): string {
+    return `https://unpkg.com/lucide-static@0.469.0/icons/${ATC_ICONS[m]}.svg`;
+  }
+
+  const allModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'tail', 'airportAirline', 'airlineDest', 'airportConn', 'code'];
   const modes = $derived(
     allModes
       .filter((m) => m !== 'tail' || tailCount() >= 4)
@@ -53,6 +67,7 @@
     airportAirline: 'tower-control',
     airlineDest: 'route',
     airportConn: 'map-pin',
+    code: 'hash',
     aircraftWordle: 'grid-3x3',
     aircraftIdentify: 'plane',
   };
@@ -74,6 +89,7 @@
       case 'airportAirline': return 'Choose an airline serving the airport.';
       case 'airlineDest': return 'Find its top sourced destination.';
       case 'airportConn': return 'Find the busiest ranked destination from the airport.';
+      case 'code': return 'Guess the airline from its carrier code.';
     }
   }
   const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
@@ -196,6 +212,26 @@
       <span class="tile-title">Aircraft Wordle</span>
       <span class="tile-desc">{difficulty === 'hard' ? '5 guesses' : '6 guesses'}, attribute clues each round.</span>
     </button>
+  </div>
+</section>
+
+<section class="atc-wrap">
+  <span class="atc-label">ATC</span>
+  <div class="atc-grid">
+    {#each atcModes as mode}
+      {@const best = loadAtcBest(mode, difficulty)}
+      <button class="atc-card" class:mix={mode === 'atcMix'} onclick={() => onStartAtc(mode, difficulty)}>
+        <img class="atc-icon" src={atcIcon(mode)} alt="" aria-hidden="true" />
+        <div class="atc-head">
+          <span class="atc-tag">{mode === 'atcMix' ? 'Mix' : 'Radio'}</span>
+          {#if best > 0}
+            <span class="atc-best">Best {best}/10</span>
+          {/if}
+        </div>
+        <h3>{atcModeTitle(mode)}</h3>
+        <p>{atcModeDescription(mode)}</p>
+      </button>
+    {/each}
   </div>
 </section>
 
@@ -515,6 +551,85 @@
     padding: 0.1rem 0.4rem;
     border-radius: 4px;
     font-variant-numeric: tabular-nums;
+  }
+
+  .atc-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .atc-label {
+    font-size: 0.6875rem;
+    font-family: var(--font-main);
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-left: 0.25rem;
+  }
+  .atc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.625rem;
+  }
+  @media (min-width: 720px) {
+    .atc-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.875rem;
+    }
+  }
+  .atc-card {
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    border-left: 5px solid var(--accent);
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s, border-color 0.15s, background 0.15s;
+    min-height: 122px;
+    position: relative;
+  }
+  .atc-card.mix { border-left-color: var(--accent-2); }
+  .atc-card:hover { border-color: var(--panel-line); }
+  .atc-card:active { transform: scale(0.98); }
+  .atc-icon {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    width: 22px;
+    height: 22px;
+    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
+    opacity: 0.8;
+  }
+  .atc-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding-right: 2rem;
+  }
+  .atc-tag {
+    font-size: 0.625rem;
+    font-family: var(--font-main);
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .atc-best {
+    font-size: 0.6875rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .atc-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    padding-right: 1.75rem;
+  }
+  .atc-card p {
+    color: var(--muted);
+    font-size: 0.8125rem;
+    line-height: 1.35;
   }
 
   .recent h3 {
