@@ -59,7 +59,7 @@
       case 'tail': return 'Identify the aircraft tail livery.';
       case 'airportAirline': return 'Choose an airline serving the airport.';
       case 'airlineDest': return 'Find its top sourced destination.';
-      case 'airportConn': return 'Pick a direct airport connection.';
+      case 'airportConn': return 'Find the busiest ranked destination from the airport.';
     }
   }
   const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
@@ -86,11 +86,11 @@
 
 <header class="hero">
   <h1>Airline Trivia</h1>
-  <p>Six modes, three difficulties, one daily challenge.</p>
 </header>
 
 <div class="features">
   <button class="daily-card" class:done={daily !== null} onclick={onStartDaily}>
+    <img class="feature-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/calendar-days.svg" alt="" aria-hidden="true" />
     <div class="daily-head">
       <span class="daily-tag">Daily</span>
       <span class="daily-date">{todayKey()}</span>
@@ -106,6 +106,7 @@
   </button>
 
   <button class="speed-card" onclick={onStartSpeed}>
+    <img class="feature-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/timer.svg" alt="" aria-hidden="true" />
     <div class="speed-head">
       <span class="speed-tag">Speed</span>
       {#if speedBest > 0}
@@ -117,6 +118,7 @@
   </button>
 
   <button class="mix-card" onclick={onStartMix}>
+    <img class="feature-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
     <div class="mix-head">
       <span class="mix-tag">Mix</span>
       {#if mixBest > 0}
@@ -129,7 +131,19 @@
 </div>
 
 <section class="diff">
-  <span class="diff-label">Difficulty (standard rounds)</span>
+  <div class="diff-head">
+    <span class="diff-label">Difficulty</span>
+    <button
+      class="pool-toggle"
+      role="switch"
+      aria-checked={pool === 'us'}
+      class:on={pool === 'us'}
+      onclick={() => setPool(pool === 'us' ? 'all' : 'us')}
+    >
+      <span class="pool-knob"></span>
+      <span class="pool-label">US only</span>
+    </button>
+  </div>
   <div class="diff-toggle" role="tablist">
     {#each difficulties as d}
       <button
@@ -143,17 +157,6 @@
     {/each}
   </div>
 </section>
-
-<button
-  class="pool-toggle"
-  role="switch"
-  aria-checked={pool === 'us'}
-  class:on={pool === 'us'}
-  onclick={() => setPool(pool === 'us' ? 'all' : 'us')}
->
-  <span class="pool-knob"></span>
-  <span class="pool-label">US only</span>
-</button>
 
 <section class="modes-wrap">
   <span class="modes-label">Modes</span>
@@ -195,8 +198,8 @@
 
 <style>
   .hero {
-    padding: 1.25rem 0.25rem 0.25rem;
-    border-left: 3px solid var(--accent);
+    padding: 1rem 0.25rem 0.125rem;
+    border-left: 4px solid var(--accent);
     padding-left: 0.875rem;
   }
   .hero h1 {
@@ -205,13 +208,8 @@
     font-weight: 700;
     letter-spacing: 0;
     text-transform: uppercase;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     color: var(--accent);
-  }
-  .hero p {
-    color: var(--muted);
-    font-size: 1rem;
-    line-height: 1.5;
   }
 
   .features {
@@ -226,27 +224,28 @@
   }
 
   .mix-card {
-    text-align: left;
+    text-align: center;
     border-radius: 8px;
-    padding: 0.875rem 1rem;
+    padding: 0.7rem 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    align-items: center;
+    gap: 0.25rem;
     transition: transform 0.15s, border-color 0.15s, background 0.15s;
-    min-height: 110px;
-    background:
-      linear-gradient(90deg, rgba(98, 183, 216, 0.18), transparent 4px),
-      linear-gradient(180deg, rgba(98, 183, 216, 0.12), rgba(16, 24, 27, 0.92));
-    border: 1px solid rgba(98, 183, 216, 0.36);
+    min-height: 104px;
+    background: var(--surface);
+    border: 1px solid rgba(96, 150, 186, 0.36);
+    border-left: 5px solid var(--accent-2);
     box-shadow: var(--shadow);
   }
-  .mix-card:hover { border-color: rgba(98, 183, 216, 0.72); }
+  .mix-card:hover { border-color: rgba(96, 150, 186, 0.72); }
   .mix-card:active { transform: scale(0.98); }
   .mix-head {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 100%;
   }
   .mix-tag {
     font-size: 0.625rem;
@@ -262,53 +261,58 @@
     font-variant-numeric: tabular-nums;
   }
   .mix-card h2 {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0;
   }
   .mix-card p {
     color: var(--muted);
-    font-size: 0.8125rem;
-    line-height: 1.4;
+    font-size: 0.75rem;
+    line-height: 1.25;
   }
 
   .daily-card,
   .speed-card {
-    text-align: left;
+    text-align: center;
     border-radius: 8px;
-    padding: 0.875rem 1rem;
+    padding: 0.7rem 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    align-items: center;
+    gap: 0.25rem;
     transition: transform 0.15s, border-color 0.15s, background 0.15s;
-    min-height: 130px;
+    min-height: 104px;
   }
   .daily-card {
-    background:
-      linear-gradient(90deg, rgba(245, 197, 66, 0.22), transparent 4px),
-      linear-gradient(180deg, rgba(245, 197, 66, 0.11), rgba(16, 24, 27, 0.92));
-    border: 1px solid rgba(245, 197, 66, 0.34);
+    background: var(--surface);
+    border: 1px solid rgba(39, 76, 119, 0.28);
+    border-left: 5px solid var(--accent);
     box-shadow: var(--shadow);
   }
-  .daily-card:hover { border-color: rgba(245, 197, 66, 0.72); }
+  .daily-card:hover { border-color: rgba(39, 76, 119, 0.6); }
   .daily-card.done { opacity: 0.85; }
 
   .speed-card {
-    background:
-      linear-gradient(90deg, rgba(71, 217, 176, 0.2), transparent 4px),
-      linear-gradient(180deg, rgba(71, 217, 176, 0.1), rgba(16, 24, 27, 0.92));
-    border: 1px solid rgba(71, 217, 176, 0.34);
+    background: var(--surface);
+    border: 1px solid rgba(163, 206, 241, 0.7);
+    border-left: 5px solid var(--info);
     box-shadow: var(--shadow);
   }
-  .speed-card:hover { border-color: rgba(71, 217, 176, 0.72); }
+  .speed-card:hover { border-color: rgba(96, 150, 186, 0.72); }
 
   .daily-card:active, .speed-card:active { transform: scale(0.98); }
 
+  .feature-icon {
+    width: 30px;
+    height: 30px;
+    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
+  }
   .daily-head, .speed-head {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 100%;
   }
   .daily-tag {
     font-size: 0.625rem;
@@ -332,20 +336,26 @@
     font-variant-numeric: tabular-nums;
   }
   .daily-card h2, .speed-card h2 {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0;
   }
   .daily-card p, .speed-card p {
     color: var(--muted);
-    font-size: 0.8125rem;
-    line-height: 1.4;
+    font-size: 0.75rem;
+    line-height: 1.25;
   }
 
   .diff {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+  .diff-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
   }
   .diff-label {
     font-size: 0.6875rem;
@@ -359,7 +369,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4px;
-    background: rgba(16, 24, 27, 0.92);
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 4px;
@@ -377,7 +387,7 @@
   }
 
   .pool-toggle {
-    align-self: flex-start;
+    align-self: center;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -399,8 +409,8 @@
   }
   .pool-toggle.on {
     color: var(--text);
-    border-color: rgba(71, 217, 176, 0.62);
-    background: rgba(71, 217, 176, 0.12);
+    border-color: rgba(96, 150, 186, 0.62);
+    background: rgba(163, 206, 241, 0.42);
   }
   .pool-toggle.on .pool-knob {
     background: var(--accent-2);
@@ -433,9 +443,7 @@
   }
   .mode-tile {
     min-height: 148px;
-    background:
-      linear-gradient(180deg, rgba(245, 197, 66, 0.04), transparent 50%),
-      var(--surface);
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0.75rem;
@@ -454,7 +462,7 @@
     width: 28px;
     height: 28px;
     margin-bottom: 0.2rem;
-    filter: invert(84%) sepia(56%) saturate(617%) hue-rotate(349deg) brightness(104%) contrast(92%);
+    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
   }
   .tile-title {
     font-size: 0.8125rem;
@@ -476,8 +484,8 @@
     right: 0.4rem;
     font-size: 0.625rem;
     color: var(--muted);
-    background: rgba(245, 197, 66, 0.12);
-    border: 1px solid rgba(245, 197, 66, 0.24);
+    background: rgba(163, 206, 241, 0.45);
+    border: 1px solid rgba(96, 150, 186, 0.32);
     font-family: var(--font-main);
     padding: 0.1rem 0.4rem;
     border-radius: 4px;
@@ -496,7 +504,7 @@
   }
   .recent ul {
     list-style: none;
-    background: rgba(16, 24, 27, 0.94);
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 6px;
     overflow: hidden;
@@ -517,7 +525,7 @@
     text-align: left;
     transition: background 0.12s;
   }
-  .row-btn:not(:disabled):hover { background: rgba(245, 197, 66, 0.08); }
+  .row-btn:not(:disabled):hover { background: var(--surface-2); }
   .row-btn:disabled { cursor: default; opacity: 0.7; }
   .chev { color: var(--muted); font-size: 1rem; line-height: 1; }
   .dot {

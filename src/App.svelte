@@ -11,12 +11,16 @@
   import SpeedResults from './lib/SpeedResults.svelte';
   import AchievementToast from './lib/AchievementToast.svelte';
   import TailReview from './lib/TailReview.svelte';
+  import LogoReview from './lib/LogoReview.svelte';
+  import ReviewLock from './lib/ReviewLock.svelte';
   import HistoryDetail from './lib/HistoryDetail.svelte';
   import type { Difficulty, HistoryEntry, Mode, RoundResult } from './lib/types';
   import { readSharedFromUrl, type SharedRound } from './lib/share';
   import type { Achievement } from './lib/achievements';
   import { evaluateAchievements } from './lib/achievements';
+  import { loadSettings } from './lib/engine';
 
+  type ReviewTarget = 'tails' | 'logos';
   type View =
     | { kind: 'home' }
     | { kind: 'round'; mode: Mode; difficulty: Difficulty; daily: boolean; mixed?: boolean }
@@ -28,11 +32,15 @@
     | { kind: 'settings' }
     | { kind: 'browse' }
     | { kind: 'tailReview' }
+    | { kind: 'logoReview' }
+    | { kind: 'reviewLock'; target: ReviewTarget }
     | { kind: 'historyDetail'; entry: HistoryEntry };
 
   let view: View = $state({ kind: 'home' });
   let menuOpen = $state(false);
   let toastQueue: Achievement[] = $state([]);
+  const REVIEW_AUTH_KEY = 'review-pin-ok';
+  const REVIEW_PIN = import.meta.env.VITE_REVIEW_PIN || 'miro-review';
 
   function clearShareParam() {
     if (typeof window === 'undefined') return;
@@ -87,6 +95,28 @@
   function showSettings() { menuOpen = false; view = { kind: 'settings' }; }
   function showBrowse() { menuOpen = false; view = { kind: 'browse' }; }
 
+  function reviewView(target: ReviewTarget): View {
+    return target === 'logos' ? { kind: 'logoReview' } : { kind: 'tailReview' };
+  }
+
+  function isReviewUnlocked() {
+    if (typeof localStorage === 'undefined') return false;
+    return localStorage.getItem(REVIEW_AUTH_KEY) === '1';
+  }
+
+  function openReview(target: ReviewTarget) {
+    clearShareParam();
+    menuOpen = false;
+    view = isReviewUnlocked() ? reviewView(target) : { kind: 'reviewLock', target };
+  }
+
+  function unlockReview(target: ReviewTarget, pin: string) {
+    if (pin !== REVIEW_PIN) return false;
+    localStorage.setItem(REVIEW_AUTH_KEY, '1');
+    view = reviewView(target);
+    return true;
+  }
+
   function onAchievements(a: Achievement[]) {
     toastQueue = [...toastQueue, ...a];
   }
@@ -96,11 +126,14 @@
   }
 
   onMount(() => {
+    document.documentElement.dataset.theme = loadSettings().darkMode ? 'dark' : 'light';
     const shared = readSharedFromUrl();
     if (shared) view = { kind: 'shared', data: shared };
     if (typeof window !== 'undefined') {
       const params = new URL(window.location.href).searchParams;
-      if (params.get('review') === 'tails') view = { kind: 'tailReview' };
+      const review = params.get('review');
+      if (params.get('pin') === REVIEW_PIN) localStorage.setItem(REVIEW_AUTH_KEY, '1');
+      if (review === 'tails' || review === 'logos') openReview(review);
     }
   });
 </script>
@@ -109,7 +142,18 @@
 
 <main class="shell">
   <div class="brand">
-    <a href="/">← miro.build</a>
+    <div class="brand-left">
+      <a href="/">← miro.build</a>
+      {#if view.kind !== 'home'}
+        <button class="home-link" type="button" onclick={home} aria-label="Game home" title="Game home">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 10.8 12 3l9 7.8" />
+            <path d="M5.5 9.5V21h13V9.5" />
+            <path d="M9.5 21v-6h5v6" />
+          </svg>
+        </button>
+      {/if}
+    </div>
     <div class="brand-right">
       {#if view.kind === 'home'}
         <button class="menu-btn" onclick={() => (menuOpen = !menuOpen)} aria-label="Menu" aria-expanded={menuOpen}>
@@ -170,6 +214,15 @@
     <Settings onHome={home} />
   {:else if view.kind === 'tailReview'}
     <TailReview onHome={home} />
+  {:else if view.kind === 'logoReview'}
+    <LogoReview onHome={home} />
+  {:else if view.kind === 'reviewLock'}
+    {@const v = view}
+    <ReviewLock
+      label={v.target === 'logos' ? 'Logo review' : 'Tail review'}
+      onUnlock={(pin) => unlockReview(v.target, pin)}
+      onHome={home}
+    />
   {:else if view.kind === 'historyDetail'}
     <HistoryDetail entry={view.entry} onHome={home} />
   {:else}
@@ -178,6 +231,36 @@
 </main>
 
 <style>
+  .brand-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .home-link {
+    color: var(--text);
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 4px;
+  }
+  .home-link svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .home-link:hover {
+    color: var(--accent);
+    background: var(--surface);
+  }
+  .home-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
   .brand-right {
     display: flex;
     align-items: center;
@@ -201,7 +284,7 @@
     position: absolute;
     top: calc(100% + 0.4rem);
     right: 0;
-    background: rgba(16, 24, 27, 0.98);
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
     padding: 0.25rem;
@@ -220,5 +303,5 @@
     background: none;
     transition: background 0.12s;
   }
-  .menu button:hover { background: rgba(245, 197, 66, 0.08); color: var(--accent); }
+  .menu button:hover { background: var(--surface-2); color: var(--accent); }
 </style>

@@ -30,6 +30,7 @@ export interface Settings {
   sound: boolean;
   haptics: boolean;
   keyboardHints: boolean;
+  darkMode: boolean;
 }
 
 export interface Question {

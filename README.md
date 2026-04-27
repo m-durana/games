@@ -40,6 +40,10 @@ Airline route answers live in `src/data/airline-routes.json`. Each entry should
 have a public ranked airport-route source plus a public airline destination
 source. Do not use vague labels like common knowledge or unsourced manual data.
 
+Airport route answers live in `src/data/airport-routes.json`. The game only uses
+entries marked `destinationRanked: true` for Airport Routes, and those entries
+must come from ranked public airport route tables.
+
 Regenerate and validate airline route data:
 
 ```sh

@@ -40,7 +40,7 @@
       <span class="name">{active.name}</span>
       <span class="desc">{active.desc}</span>
     </div>
-    <button onclick={dismiss} aria-label="Dismiss">✕</button>
+    <button type="button" onclick={(event) => { event.stopPropagation(); dismiss(); }} aria-label="Dismiss">✕</button>
   </div>
 {/if}
 
@@ -54,7 +54,7 @@
     width: calc(100% - 2rem);
     max-width: 420px;
     background: var(--surface);
-    border: 1px solid rgba(245, 197, 66, 0.5);
+    border: 1px solid rgba(96, 150, 186, 0.5);
     border-radius: 8px;
     padding: 0.75rem 0.875rem;
     display: flex;

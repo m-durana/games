@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
   import { logoUrl } from './engine';
 
   interface Props {
@@ -11,12 +12,31 @@
 
   let failed = $state(false);
   let loaded = $state(false);
+  let timeoutId: number | null = null;
 
   function initials(s: string) {
     const parts = s.split(/\s+/).filter(Boolean);
     if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
     return (parts[0][0] + parts[1][0]).toUpperCase();
   }
+
+  $effect(() => {
+    const src = logoUrl(iata);
+    failed = false;
+    loaded = false;
+    if (timeoutId !== null) clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => {
+      if (!loaded) failed = true;
+    }, 2500);
+    return () => {
+      if (timeoutId !== null) clearTimeout(timeoutId);
+      timeoutId = null;
+    };
+  });
+
+  onDestroy(() => {
+    if (timeoutId !== null) clearTimeout(timeoutId);
+  });
 </script>
 
 <div class="logo" class:big aria-hidden="true">

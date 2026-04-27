@@ -2,7 +2,7 @@
   import { fly } from 'svelte/transition';
   import { onDestroy, onMount } from 'svelte';
   import type { Question } from './types';
-  import { airportLabel, buildSpeedQuestion, loadSettings, modeLabel, modeTitle } from './engine';
+  import { airportLabel, airportLabelWithCountry, buildSpeedQuestion, loadSettings, modeLabel, modeTitle } from './engine';
   import { saveSpeedBest } from './achievements';
   import * as Sound from './sound';
   import Logo from './Logo.svelte';
@@ -137,6 +137,11 @@
           <span class="prompt-label">Which airline belongs to</span>
           <h2>{current.airline.group}</h2>
         </div>
+      {:else if current.mode === 'airportConn'}
+        <div class="prompt-block">
+          <span class="prompt-label">{modeLabel(current.mode)}</span>
+          <h2>{airportLabelWithCountry(current.airport ?? current.airline.hub)}</h2>
+        </div>
       {:else}
         <div class="airline">
           <Logo iata={current.airline.iata} name={current.airline.name} />
@@ -165,6 +170,8 @@
             {#if current.mode === 'alliance'}
               <AllianceLogo alliance={option} />
               <span class="opt-text">{option}</span>
+            {:else if current.mode === 'airportConn'}
+              <span class="opt-text">{airportLabelWithCountry(option)}</span>
             {:else if current.mode === 'hub'}
               <span class="opt-text">{airportLabel(option)}</span>
             {:else}
@@ -206,7 +213,7 @@
   .timer-fill {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, var(--good) 0%, var(--accent) 70%, var(--bad) 100%);
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 65%, var(--bad) 100%);
     transition: width 0.1s linear;
   }
   .timer-text {
@@ -218,10 +225,9 @@
     height: 100%;
     font-size: 0.8125rem;
     font-variant-numeric: tabular-nums;
-    color: var(--bg);
+    color: #fff;
     font-family: var(--font-main);
     font-weight: 700;
-    mix-blend-mode: lighten;
   }
   .meta {
     display: flex;
@@ -246,10 +252,7 @@
 
   .card {
     width: 100%;
-    background:
-      linear-gradient(rgba(245, 197, 66, 0.05) 1px, transparent 1px),
-      var(--surface);
-    background-size: 100% 34px;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 1.5rem 1.25rem;
@@ -265,7 +268,7 @@
     letter-spacing: 0;
     text-transform: uppercase;
     color: var(--accent);
-    background: rgba(245, 197, 66, 0.12);
+    background: rgba(163, 206, 241, 0.42);
     padding: 0.3rem 0.6rem;
     border-radius: 4px;
   }
@@ -328,7 +331,7 @@
     transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s, opacity 0.15s;
   }
   .option:not(:disabled):active { transform: scale(0.98); }
-  .option:not(:disabled):hover { border-color: var(--panel-line); background: #1d2a2e; }
+  .option:not(:disabled):hover { border-color: var(--panel-line); background: var(--surface-3); }
   .opt-text { flex: 1; }
   .key {
     width: 22px; height: 22px;
@@ -343,13 +346,13 @@
     flex-shrink: 0;
   }
   .option.correct {
-    background: rgba(71, 217, 176, 0.15);
-    border-color: rgba(71, 217, 176, 0.5);
+    background: rgba(34, 197, 94, 0.14);
+    border-color: rgba(34, 197, 94, 0.55);
     color: var(--good);
   }
   .option.wrong {
-    background: rgba(255, 107, 95, 0.15);
-    border-color: rgba(255, 107, 95, 0.5);
+    background: rgba(239, 68, 68, 0.14);
+    border-color: rgba(239, 68, 68, 0.55);
     color: var(--bad);
   }
   .option.reveal { opacity: 0.45; }

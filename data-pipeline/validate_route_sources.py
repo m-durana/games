@@ -37,8 +37,31 @@ def validate_airline_routes() -> None:
             fail(f"{iata}: missing serviceSourceUrl")
 
 
+def validate_airport_routes() -> None:
+    data = json.loads((DATA / "airport-routes.json").read_text(encoding="utf-8"))
+    ranked = 0
+    for iata, entry in data.items():
+        if not entry.get("source"):
+            fail(f"{iata}: missing airport route source")
+        if not entry.get("sourceUrl"):
+            fail(f"{iata}: missing airport route sourceUrl")
+        if entry.get("destinationRanked") is not True:
+            continue
+        ranked += 1
+        dests = entry.get("topDestinations") or []
+        if len(dests) < 3:
+            fail(f"{iata}: ranked airport route entry has fewer than 3 destinations")
+        if not entry.get("destinationMetric"):
+            fail(f"{iata}: ranked airport route entry missing destinationMetric")
+        if not entry.get("destinationBasis"):
+            fail(f"{iata}: ranked airport route entry missing destinationBasis")
+    if ranked < 40:
+        fail(f"airport routes: only {ranked} ranked destination entries")
+
+
 def main() -> int:
     validate_airline_routes()
+    validate_airport_routes()
     print("Route source validation passed.")
     return 0
 

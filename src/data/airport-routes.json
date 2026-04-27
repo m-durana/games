@@ -19,7 +19,11 @@
       "IST",
       "BKK"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Addis_Ababa_Bole_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "AKL": {
     "source": "Wikipedia: Auckland Airport",
@@ -34,11 +38,17 @@
       "MEL",
       "BNE",
       "SIN",
+      "NAN",
+      "PVG",
       "HKG",
-      "ICN",
-      "DOH"
+      "CAN",
+      "KUL"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Auckland_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "ALA": {
     "source": "Wikipedia: Almaty International Airport",
@@ -59,7 +69,11 @@
       "BKK",
       "DEL"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Almaty_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "AMM": {
     "source": "Wikipedia: Queen Alia International Airport",
@@ -79,7 +93,11 @@
       "BAH",
       "BKK"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Queen_Alia_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "AMS": {
     "source": "Wikipedia: Amsterdam Airport Schiphol",
@@ -102,7 +120,11 @@
       "ICN",
       "ORD"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Amsterdam_Airport_Schiphol",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "ATH": {
     "source": "Wikipedia: Athens International Airport",
@@ -124,7 +146,11 @@
       "JFK",
       "VIE"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Athens_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "ATL": {
     "source": "Wikipedia: Hartsfield-Jackson Atlanta International Airport",
@@ -148,7 +174,11 @@
       "YYZ",
       "MEX"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Hartsfield-Jackson_Atlanta_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "AUH": {
     "source": "Wikipedia: Zayed International Airport",
@@ -169,7 +199,11 @@
       "MNL",
       "BAH"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Zayed_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "BAH": {
     "source": "Wikipedia: Bahrain International Airport",
@@ -189,7 +223,11 @@
       "DEL",
       "AMM"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Bahrain_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "BCN": {
     "source": "Wikipedia: Barcelona-El Prat Airport",
@@ -212,7 +250,11 @@
       "DOH",
       "JFK"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Barcelona-El_Prat_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "BEG": {
     "source": "Wikipedia: Belgrade Nikola Tesla Airport",
@@ -230,7 +272,11 @@
       "AMS",
       "CDG"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Belgrade_Nikola_Tesla_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "BKK": {
     "source": "Wikipedia: Suvarnabhumi Airport",
@@ -243,17 +289,21 @@
     ],
     "topDestinations": [
       "HKG",
-      "SIN",
       "ICN",
-      "PEK",
-      "PVG",
-      "HND",
-      "DXB",
-      "KUL",
       "TPE",
-      "DEL"
+      "DXB",
+      "DOH",
+      "PVG",
+      "SGN",
+      "HND",
+      "DEL",
+      "MNL"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Suvarnabhumi_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "BNE": {
     "source": "Wikipedia: Brisbane Airport",
@@ -266,12 +316,17 @@
       "SYD",
       "MEL",
       "AKL",
-      "SIN",
-      "HKG",
       "DXB",
-      "DOH"
+      "NAN",
+      "HKG",
+      "DOH",
+      "TPE"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Brisbane_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "BOG": {
     "source": "Wikipedia: El Dorado International Airport",
@@ -289,7 +344,11 @@
       "GRU",
       "SCL"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/El_Dorado_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "BRU": {
     "source": "Wikipedia: Brussels Airport",
@@ -311,7 +370,11 @@
       "GRU",
       "JFK"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Brussels_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "BUD": {
     "source": "Wikipedia: Budapest Ferenc Liszt International Airport",
@@ -327,7 +390,11 @@
       "FRA",
       "DXB"
     ],
-    "year": 2021
+    "year": 2021,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Budapest_Ferenc_Liszt_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "BWN": {
     "source": "Wikipedia: Brunei International Airport",
@@ -348,7 +415,11 @@
       "TPE",
       "ICN"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Brunei_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "CAI": {
     "source": "Wikipedia: Cairo International Airport",
@@ -369,7 +440,11 @@
       "LHR",
       "CDG"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Cairo_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "CAN": {
     "source": "Wikipedia: Guangzhou Baiyun International Airport",
@@ -386,7 +461,11 @@
       "BKK",
       "ICN"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Guangzhou_Baiyun_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "CDG": {
     "source": "Wikipedia: Charles de Gaulle Airport",
@@ -409,7 +488,11 @@
       "DOH",
       "ATH"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Charles_de_Gaulle_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "CGK": {
     "source": "Wikipedia: Soekarno-Hatta International Airport",
@@ -426,7 +509,11 @@
       "ICN",
       "JED"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soekarno-Hatta_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "CLT": {
     "source": "Wikipedia: Charlotte Douglas International Airport",
@@ -443,7 +530,11 @@
       "FLL",
       "YYZ"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Charlotte_Douglas_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "CMB": {
     "source": "Wikipedia: Bandaranaike International Airport",
@@ -455,12 +546,16 @@
     "topDestinations": [
       "DXB",
       "DOH",
-      "SIN",
-      "BKK",
+      "KUL",
+      "AUH",
       "DEL",
-      "KUL"
+      "SIN"
     ],
-    "year": 2025
+    "year": 2025,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Bandaranaike_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "CMN": {
     "source": "Wikipedia: Mohammed V International Airport",
@@ -478,7 +573,11 @@
       "BRU",
       "AMS"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mohammed_V_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "CPH": {
     "source": "Wikipedia: Copenhagen Airport",
@@ -500,7 +599,11 @@
       "DUB",
       "JFK"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Copenhagen_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "DAL": {
     "source": "Wikipedia: Dallas Love Field (airlines: hub fallback)",
@@ -509,18 +612,15 @@
       "DL"
     ],
     "topDestinations": [
-      "LAS",
       "DEN",
-      "ATL",
-      "FLL",
-      "MSP",
-      "ORD",
-      "SEA",
-      "DTW",
-      "JFK",
-      "CLT"
+      "LAS",
+      "ATL"
     ],
-    "year": 2025
+    "year": 2025,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Dallas_Love_Field",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "DEL": {
     "source": "Wikipedia: Indira Gandhi International Airport",
@@ -537,7 +637,11 @@
       "DOH",
       "LHR"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Indira_Gandhi_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "DEN": {
     "source": "Wikipedia: Denver International Airport",
@@ -560,7 +664,11 @@
       "YYC",
       "MEX"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Denver_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "DFW": {
     "source": "Wikipedia: Dallas/Fort Worth International Airport",
@@ -583,7 +691,11 @@
       "YYZ",
       "ICN"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Dallas/Fort_Worth_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "DME": {
     "source": "Wikipedia: Domodedovo International Airport",
@@ -597,7 +709,11 @@
       "DXB",
       "TAS"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Domodedovo_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "DOH": {
     "source": "Wikipedia: Hamad International Airport",
@@ -618,7 +734,11 @@
       "CDG",
       "FRA"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Hamad_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "DTW": {
     "source": "Wikipedia: Detroit Metropolitan Airport",
@@ -641,7 +761,11 @@
       "YYZ",
       "HND"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Detroit_Metropolitan_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "DUB": {
     "source": "Wikipedia: Dublin Airport",
@@ -658,7 +782,11 @@
       "LGW",
       "CDG"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Dublin_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "DUS": {
     "source": "Wikipedia: Düsseldorf Airport",
@@ -677,7 +805,11 @@
       "BCN",
       "VIE"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/D%C3%BCsseldorf_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "DXB": {
     "source": "Wikipedia: Dubai International Airport",
@@ -700,7 +832,11 @@
       "SIN",
       "IST"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Dubai_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "EZE": {
     "source": "Wikipedia: Ministro Pistarini International Airport",
@@ -711,15 +847,19 @@
       "IB"
     ],
     "topDestinations": [
-      "GRU",
-      "MAD",
-      "JFK",
       "SCL",
+      "MAD",
+      "GRU",
       "BOG",
-      "FRA",
-      "CDG"
+      "FCO",
+      "JFK",
+      "PTY"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Ministro_Pistarini_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "FCO": {
     "source": "Wikipedia: Leonardo da Vinci-Fiumicino Airport",
@@ -742,7 +882,11 @@
       "FRA",
       "VIE"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Leonardo_da_Vinci-Fiumicino_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "FLL": {
     "source": "Wikipedia: Fort Lauderdale-Hollywood International Airport",
@@ -761,7 +905,11 @@
       "DTW",
       "YYZ"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Fort_Lauderdale-Hollywood_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "FRA": {
     "source": "Wikipedia: Frankfurt Airport",
@@ -784,7 +932,11 @@
       "ORD",
       "AMS"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Frankfurt_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "GRU": {
     "source": "Wikipedia: São Paulo-Guarulhos International Airport",
@@ -795,12 +947,22 @@
       "AA"
     ],
     "topDestinations": [
-      "EZE",
+      "SCL",
+      "LIS",
+      "CDG",
+      "PTY",
+      "BOG",
       "JFK",
+      "FCO",
       "FRA",
-      "LHR"
+      "LHR",
+      "EZE"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/S%C3%A3o_Paulo-Guarulhos_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "GYD": {
     "source": "Wikipedia: Heydar Aliyev International Airport",
@@ -819,7 +981,11 @@
       "VIE",
       "DEL"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Heydar_Aliyev_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "HAK": {
     "source": "Wikipedia: Haikou Meilan International Airport",
@@ -836,7 +1002,11 @@
       "HKG",
       "ICN"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Haikou_Meilan_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "HAN": {
     "source": "Wikipedia: Noi Bai International Airport (airlines: hub fallback)",
@@ -846,17 +1016,20 @@
       "CA"
     ],
     "topDestinations": [
+      "ICN",
       "SGN",
       "BKK",
-      "ICN",
-      "SIN",
-      "HKG",
       "TPE",
       "KUL",
-      "DOH",
-      "HND"
+      "HND",
+      "CAN",
+      "HKG"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Noi_Bai_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "HEL": {
     "source": "Wikipedia: Helsinki Airport",
@@ -879,7 +1052,11 @@
       "HKG",
       "JFK"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Helsinki_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "HKG": {
     "source": "Wikipedia: Hong Kong International Airport",
@@ -902,7 +1079,11 @@
       "KUL",
       "SGN"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Hong_Kong_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "HND": {
     "source": "Wikipedia: Haneda Airport (airlines: hub fallback)",
@@ -919,7 +1100,11 @@
       "BKK",
       "SIN"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Haneda_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "HNL": {
     "source": "Wikipedia: Daniel K. Inouye International Airport",
@@ -931,15 +1116,20 @@
       "UA"
     ],
     "topDestinations": [
+      "HND",
       "SEA",
+      "ICN",
       "LAS",
-      "ORD",
-      "DFW",
-      "DEN",
-      "JFK",
-      "HND"
+      "SYD",
+      "MNL",
+      "AKL",
+      "MEL"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Daniel_K._Inouye_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "ICN": {
     "source": "Wikipedia: Incheon International Airport",
@@ -949,16 +1139,16 @@
       "TK"
     ],
     "topDestinations": [
-      "HND",
-      "PVG",
-      "PEK",
-      "TPE",
-      "HKG",
       "BKK",
-      "SIN",
-      "JFK"
+      "HKG",
+      "TPE",
+      "MNL"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Incheon_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "IST": {
     "source": "Wikipedia: Istanbul Airport",
@@ -980,7 +1170,11 @@
       "VIE",
       "ZRH"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Istanbul_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "JED": {
     "source": "Wikipedia: King Abdulaziz International Airport",
@@ -1002,7 +1196,11 @@
       "DEL",
       "BKK"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/King_Abdulaziz_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "JFK": {
     "source": "Wikipedia: John F. Kennedy International Airport",
@@ -1027,7 +1225,11 @@
       "FLL",
       "SEA"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/John_F._Kennedy_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "JNB": {
     "source": "Wikipedia: O. R. Tambo International Airport",
@@ -1048,7 +1250,11 @@
       "IST",
       "MRU"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/O._R._Tambo_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "KEF": {
     "source": "Wikipedia: Keflavík International Airport",
@@ -1068,7 +1274,11 @@
       "JFK",
       "FRA"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Keflav%C3%ADk_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "KGL": {
     "source": "Wikipedia: Kigali International Airport",
@@ -1089,7 +1299,11 @@
       "CDG",
       "JFK"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kigali_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "KHI": {
     "source": "Wikipedia: Jinnah International Airport",
@@ -1108,7 +1322,11 @@
       "BKK",
       "KUL"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jinnah_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "KUL": {
     "source": "Wikipedia: Kuala Lumpur International Airport",
@@ -1118,16 +1336,22 @@
       "TR"
     ],
     "topDestinations": [
-      "SIN",
+      "TPE",
       "BKK",
       "CGK",
       "HKG",
-      "TPE",
-      "DEL",
       "ICN",
-      "HAN"
+      "DOH",
+      "SYD",
+      "MEL",
+      "PVG",
+      "SGN"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kuala_Lumpur_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "KWI": {
     "source": "Wikipedia: Kuwait International Airport",
@@ -1148,7 +1372,11 @@
       "DEL",
       "BKK"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kuwait_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "LAS": {
     "source": "Wikipedia: Harry Reid International Airport",
@@ -1171,7 +1399,11 @@
       "YYC",
       "AMS"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Harry_Reid_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "LBA": {
     "source": "Wikipedia: Leeds Bradford Airport",
@@ -1186,7 +1418,11 @@
       "DUB",
       "AMS"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Leeds_Bradford_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "LGW": {
     "source": "Wikipedia: Gatwick Airport",
@@ -1205,7 +1441,11 @@
       "IST",
       "CPH"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Gatwick_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "LHR": {
     "source": "Wikipedia: Heathrow Airport",
@@ -1230,7 +1470,11 @@
       "YYZ",
       "HKG"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Heathrow_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "LIS": {
     "source": "Wikipedia: Lisbon Airport",
@@ -1252,7 +1496,11 @@
       "VCP",
       "JFK"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Lisbon_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "MAD": {
     "source": "Wikipedia: Adolfo Suárez Madrid-Barajas Airport",
@@ -1275,7 +1523,11 @@
       "CDG",
       "FRA"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Adolfo_Su%C3%A1rez_Madrid-Barajas_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "MCT": {
     "source": "Wikipedia: Muscat International Airport",
@@ -1296,7 +1548,11 @@
       "JED",
       "IST"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Muscat_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "MEL": {
     "source": "Wikipedia: Melbourne Airport",
@@ -1308,13 +1564,20 @@
     "topDestinations": [
       "SYD",
       "BNE",
-      "AKL",
-      "SIN",
       "HKG",
+      "DXB",
+      "KUL",
       "DOH",
-      "DXB"
+      "CAN",
+      "PVG",
+      "SIN",
+      "AKL"
     ],
-    "year": 2025
+    "year": 2025,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Melbourne_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "MEX": {
     "source": "Wikipedia: Mexico City International Airport",
@@ -1327,13 +1590,18 @@
     ],
     "topDestinations": [
       "MTY",
-      "JFK",
       "MAD",
-      "CDG",
       "BOG",
-      "GRU"
+      "JFK",
+      "ORD",
+      "PTY",
+      "CDG"
     ],
-    "year": 2025
+    "year": 2025,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mexico_City_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "MNL": {
     "source": "Wikipedia: Ninoy Aquino International Airport",
@@ -1352,7 +1620,11 @@
       "DOH",
       "HND"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Ninoy_Aquino_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "MRU": {
     "source": "Wikipedia: Sir Seewoosagur Ramgoolam International Airport",
@@ -1372,7 +1644,11 @@
       "DEL",
       "NBO"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Sir_Seewoosagur_Ramgoolam_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "MSP": {
     "source": "Wikipedia: Minneapolis-Saint Paul International Airport",
@@ -1395,7 +1671,11 @@
       "ICN",
       "YYC"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Minneapolis-Saint_Paul_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "MTY": {
     "source": "Wikipedia: Monterrey International Airport",
@@ -1407,11 +1687,15 @@
     ],
     "topDestinations": [
       "MEX",
-      "DFW",
-      "ATL",
-      "JFK"
+      "ORD",
+      "LAS",
+      "ATL"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Monterrey_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "NAN": {
     "source": "Wikipedia: Nadi International Airport",
@@ -1430,7 +1714,11 @@
       "HKG",
       "SIN"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nadi_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "NBO": {
     "source": "Wikipedia: Jomo Kenyatta International Airport",
@@ -1450,7 +1738,11 @@
       "CAI",
       "KGL"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jomo_Kenyatta_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "ORD": {
     "source": "Wikipedia: O'Hare International Airport",
@@ -1471,7 +1763,11 @@
       "CDG",
       "DUB"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/O'Hare_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "OSL": {
     "source": "Wikipedia: Oslo Airport",
@@ -1491,9 +1787,14 @@
       "LGW",
       "HEL",
       "BCN",
-      "MAD"
+      "KEF",
+      "BRU"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Oslo_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "OTP": {
     "source": "Wikipedia: Bucharest Henri Coandă International Airport",
@@ -1515,7 +1816,11 @@
       "IST",
       "BCN"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Bucharest_Henri_Coand%C4%83_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "PEK": {
     "source": "Wikipedia: Beijing Capital International Airport",
@@ -1531,7 +1836,11 @@
       "ICN",
       "HKG"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Beijing_Capital_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "POM": {
     "source": "Wikipedia: Jacksons International Airport (airlines: hub fallback)",
@@ -1548,7 +1857,11 @@
       "MNL",
       "NAN"
     ],
-    "year": 2025
+    "year": 2025,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jacksons_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "POS": {
     "source": "Wikipedia: Piarco International Airport",
@@ -1562,7 +1875,11 @@
       "FLL",
       "YYZ"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Piarco_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "PRG": {
     "source": "Wikipedia: Václav Havel Airport Prague",
@@ -1584,7 +1901,11 @@
       "DXB",
       "IST"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/V%C3%A1clav_Havel_Airport_Prague",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "PTY": {
     "source": "Wikipedia: Tocumen International Airport",
@@ -1602,7 +1923,11 @@
       "EZE",
       "FLL"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Tocumen_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "PVG": {
     "source": "Wikipedia: Shanghai Pudong International Airport",
@@ -1619,7 +1944,11 @@
       "HKG",
       "ICN"
     ],
-    "year": 2021
+    "year": 2021,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Shanghai_Pudong_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "RIX": {
     "source": "Wikipedia: Riga International Airport",
@@ -1638,7 +1967,11 @@
       "CPH",
       "IST"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Riga_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "SAW": {
     "source": "Wikipedia: Sabiha Gökçen International Airport",
@@ -1659,7 +1992,11 @@
       "JED",
       "IST"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Sabiha_G%C3%B6k%C3%A7en_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "SCL": {
     "source": "Wikipedia: Arturo Merino Benítez International Airport",
@@ -1672,15 +2009,16 @@
     ],
     "topDestinations": [
       "EZE",
-      "GRU",
       "BOG",
-      "MAD",
-      "MEX",
-      "JFK",
       "PTY",
+      "MAD",
       "CDG"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Arturo_Merino_Ben%C3%ADtez_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "SEA": {
     "source": "Wikipedia: Seattle-Tacoma International Airport",
@@ -1703,7 +2041,11 @@
       "CDG",
       "AMS"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Seattle-Tacoma_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "SGN": {
     "source": "Wikipedia: Tan Son Nhat International Airport (airlines: hub fallback)",
@@ -1723,7 +2065,11 @@
       "HND",
       "DOH"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Tan_Son_Nhat_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "SIN": {
     "source": "Wikipedia: Singapore Changi Airport",
@@ -1746,7 +2092,11 @@
       "SYD",
       "DXB"
     ],
-    "year": 2025
+    "year": 2025,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Singapore_Changi_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "SOF": {
     "source": "Wikipedia: Sofia Airport",
@@ -1768,7 +2118,11 @@
       "BCN",
       "IST"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Sofia_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "SVO": {
     "source": "Wikipedia: Sheremetyevo International Airport",
@@ -1784,7 +2138,11 @@
       "PEK",
       "DEL"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Sheremetyevo_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "SYD": {
     "source": "Wikipedia: Sydney Airport",
@@ -1797,11 +2155,17 @@
       "MEL",
       "BNE",
       "AKL",
-      "SIN",
       "HKG",
-      "DOH"
+      "DXB",
+      "NAN",
+      "KUL",
+      "CAN"
     ],
-    "year": 2024
+    "year": 2024,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Sydney_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "TAS": {
     "source": "Wikipedia: Tashkent International Airport",
@@ -1820,7 +2184,11 @@
       "DOH",
       "ALA"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Tashkent_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "TLV": {
     "source": "Wikipedia: Ben Gurion Airport",
@@ -1831,18 +2199,19 @@
       "U2"
     ],
     "topDestinations": [
-      "IST",
-      "LHR",
-      "AMS",
-      "FRA",
-      "CDG",
       "ATH",
-      "JFK",
       "DXB",
-      "VIE",
-      "ZRH"
+      "CDG",
+      "BUD",
+      "JFK",
+      "FCO",
+      "OTP"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Ben_Gurion_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "TPE": {
     "source": "Wikipedia: Taoyuan International Airport",
@@ -1864,7 +2233,11 @@
       "CAN",
       "JFK"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Taoyuan_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "ULN": {
     "source": "Wikipedia: Chinggis Khaan International Airport",
@@ -1876,12 +2249,14 @@
     "topDestinations": [
       "ICN",
       "PEK",
-      "HKG",
-      "FRA",
       "IST",
-      "DXB"
+      "HKG"
     ],
-    "year": 2021
+    "year": 2021,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Chinggis_Khaan_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "VCP": {
     "source": "Wikipedia: Viracopos International Airport",
@@ -1895,7 +2270,11 @@
       "FLL",
       "GRU"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Viracopos_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "VIE": {
     "source": "Wikipedia: Vienna International Airport",
@@ -1918,7 +2297,11 @@
       "DOH",
       "ORD"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Vienna_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "WAW": {
     "source": "Wikipedia: Warsaw Chopin Airport",
@@ -1935,7 +2318,11 @@
       "FRA",
       "AMS"
     ],
-    "year": 2025
+    "year": 2025,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Warsaw_Chopin_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "YTZ": {
     "source": "Wikipedia: Billy Bishop Toronto City Airport (airlines: hub fallback)",
@@ -1948,7 +2335,11 @@
       "JFK",
       "YYZ"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Billy_Bishop_Toronto_City_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "YYC": {
     "source": "Wikipedia: Calgary International Airport",
@@ -1963,15 +2354,16 @@
       "YYZ",
       "LAS",
       "DEN",
+      "FRA",
       "ORD",
       "SEA",
-      "ATL",
-      "JFK",
-      "DFW",
-      "FRA",
-      "LHR"
+      "ATL"
     ],
-    "year": 2022
+    "year": 2022,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Calgary_International_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "YYZ": {
     "source": "Wikipedia: Toronto Pearson International Airport",
@@ -1994,7 +2386,11 @@
       "FCO",
       "DXB"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Toronto_Pearson_International_Airport",
+    "destinationRanked": false,
+    "destinationMetric": "insufficient ranked airport route table",
+    "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "ZAG": {
     "source": "Wikipedia: Franjo Tuđman Airport",
@@ -2017,7 +2413,11 @@
       "WAW",
       "CPH"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Franjo_Tu%C4%91man_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "ZRH": {
     "source": "Wikipedia: Zürich Airport",
@@ -2040,6 +2440,10 @@
       "BKK",
       "JFK"
     ],
-    "year": 2023
+    "year": 2023,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Z%C3%BCrich_Airport",
+    "destinationRanked": true,
+    "destinationMetric": "ranked airport route passenger table",
+    "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   }
 }

@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #060b0d;
-  --surface: #10181b;
-  --surface-2: #172226;
-  --surface-3: #203035;
-  --border: #2a3b40;
-  --text: #f4f7ef;
-  --muted: #8fa1a6;
-  --accent: #f5c542;
-  --accent-2: #47d9b0;
-  --info: #62b7d8;
-  --good: #47d9b0;
-  --bad: #ff6b5f;
-  --warn: #f5c542;
-  --panel-line: rgba(245, 197, 66, 0.22);
-  --shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+  --bg: #03070a;
+  --surface: #111820;
+  --surface-2: #182331;
+  --surface-3: #223346;
+  --border: #2a4054;
+  --text: #e7ecef;
+  --muted: #a9b6bd;
+  --accent: #a3cef1;
+  --accent-2: #6096ba;
+  --info: #274c77;
+  --good: #22c55e;
+  --bad: #ef4444;
+  --warn: #6096ba;
+  --panel-line: rgba(163, 206, 241, 0.24);
+  --shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
   --radius: 8px;
   --font-main: "League Spartan", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -28,17 +28,30 @@
   color-scheme: dark;
 }
 
+:root[data-theme='light'] {
+  --bg: #e7ecef;
+  --surface: #dfe3e6;
+  --surface-2: #d1d9de;
+  --surface-3: #c3d1db;
+  --border: #c6d0d6;
+  --text: #03070a;
+  --muted: #3e4b59;
+  --accent: #274c77;
+  --accent-2: #6096ba;
+  --info: #a3cef1;
+  --good: #16a34a;
+  --bad: #dc2626;
+  --panel-line: rgba(39, 76, 119, 0.24);
+  --shadow: 0 10px 26px rgba(39, 76, 119, 0.12);
+  color-scheme: light;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body { height: 100%; }
 
 body {
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    radial-gradient(circle at 30% 0%, rgba(71, 217, 176, 0.08), transparent 30rem),
-    var(--bg);
-  background-size: 100% 48px, 48px 100%, auto, auto;
+  background: var(--bg);
   color: var(--text);
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: none;
@@ -95,7 +108,7 @@ a:focus-visible,
   align-items: center;
   justify-content: space-between;
   padding: 0.25rem 0.25rem 0.25rem;
-  border-bottom: 1px solid rgba(245, 197, 66, 0.18);
+  border-bottom: 1px solid rgba(39, 76, 119, 0.18);
 }
 
 .brand a {

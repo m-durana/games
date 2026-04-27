@@ -545,7 +545,7 @@
     overflow: hidden;
     transition: border-color 0.15s, transform 0.1s;
   }
-  .cand:hover { border-color: rgba(71, 217, 176, 0.55); }
+  .cand:hover { border-color: rgba(96, 150, 186, 0.55); }
   .cand:active { transform: scale(0.98); }
   .cand img {
     width: 100%;

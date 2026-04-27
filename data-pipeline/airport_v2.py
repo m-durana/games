@@ -23,7 +23,7 @@ passenger count" tables. This version is strict:
     3. Last resort: home/national carrier first, then up to 2 obvious
        hub-residents from airlines.json (limit 3 entries) — flag in source.
 
-Output: /srv/miro/games/src/data/airport-routes.json
+Output: src/data/airport-routes.json
 """
 from __future__ import annotations
 
@@ -38,7 +38,7 @@ from collections import Counter, defaultdict
 
 from bs4 import BeautifulSoup
 
-ROOT = "/srv/miro/games"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PIPE_DIR = os.path.join(ROOT, "data-pipeline")
 CACHE_DIR = os.path.join(PIPE_DIR, "_cache", "wiki")
 os.makedirs(CACHE_DIR, exist_ok=True)
@@ -182,6 +182,11 @@ def fetch_wiki(title):
     url = f"https://en.wikipedia.org/wiki/{safe}"
     key = "page_" + re.sub(r"[^A-Za-z0-9]+", "_", title)[:120] + ".html"
     return http_get(url, key)
+
+
+def wiki_url(title):
+    safe = urllib.parse.quote(title.replace(" ", "_"))
+    return f"https://en.wikipedia.org/wiki/{safe}"
 
 
 # ----- Title -> IATA mapping -----
@@ -1017,16 +1022,22 @@ def main():
             out[iata] = {"topAirlines": [], "topDestinations": [], "year": 2023, "source": "no data found"}
             continue
 
-        soup = BeautifulSoup(html, "lxml")
+        soup = BeautifulSoup(html, "html.parser")
         dest_counts, airlines_from_routes = _re_extract_sum(
             soup, valid_airports, title_to_iata, iata, airline_lookup, valid_airlines)
 
-        # Curated overrides take priority for both dimensions
+        # Ranked route tables take priority for destinations. Curated lists are
+        # retained for display/data coverage, but are marked so exact-busiest
+        # gameplay can exclude them.
         cur_dests, cur_airlines = curated.get(iata, ([], []))
-        if cur_dests:
+        ranked_dests = topn(dest_counts, 10)
+        destination_ranked = len(ranked_dests) >= 3
+        if ranked_dests:
+            top_dests = ranked_dests
+        elif cur_dests:
             top_dests = cur_dests[:10]
         else:
-            top_dests = topn(dest_counts, 10)
+            top_dests = []
 
         ranked_airlines = extract_top_airlines(soup, valid_airlines, airline_lookup)
         if cur_airlines:
@@ -1069,6 +1080,14 @@ def main():
             "topDestinations": top_dests[:10] if len(top_dests) >= 5 else top_dests,
             "year": year,
             "source": source + (" (airlines: hub fallback)" if airline_fallback_used else ""),
+            "sourceUrl": wiki_url(title),
+            "destinationRanked": destination_ranked,
+            "destinationMetric": "ranked airport route passenger table" if destination_ranked else "insufficient ranked airport route table",
+            "destinationBasis": (
+                "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
+                if destination_ranked
+                else "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
+            ),
         }
         # If <5 dests we still emit what we have (rare case)
         out[iata] = entry

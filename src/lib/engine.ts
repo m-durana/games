@@ -50,6 +50,10 @@ interface AirportRouteEntry {
   topDestinations?: string[];
   year?: number;
   source?: string;
+  sourceUrl?: string;
+  destinationRanked?: boolean;
+  destinationMetric?: string;
+  destinationBasis?: string;
   airlinesUnranked?: boolean;
 }
 interface AirlineRouteEntry {
@@ -71,6 +75,10 @@ export function airportRoutes(iata: string): AirportRouteEntry | null {
 }
 export function airlineRoutes(iata: string): AirlineRouteEntry | null {
   return airlineRoutesMap[iata] ?? null;
+}
+
+function hasRankedAirportDestinations(r: AirportRouteEntry | null): r is AirportRouteEntry {
+  return !!r && r.destinationRanked === true && Array.isArray(r.topDestinations) && r.topDestinations.length >= 3;
 }
 
 export interface TailCrop { x: number; y: number; w: number; h: number }
@@ -112,6 +120,14 @@ export function airportName(iata: string): string {
 export function airportLabel(iata: string): string {
   const n = airports[iata];
   return n ? `${n} · ${iata}` : iata;
+}
+
+export function airportLabelWithCountry(iata: string): string {
+  const n = airports[iata];
+  const country = airportCountry[iata];
+  if (n && country) return `${n} · ${iata} · ${country}`;
+  if (n) return `${n} · ${iata}`;
+  return iata;
 }
 
 const TIER_1 = new Set([
@@ -174,6 +190,14 @@ function shuffle<T>(arr: T[], rng: Rng): T[] {
 
 function pick<T>(arr: T[], rng: Rng): T {
   return arr[Math.floor(rng() * arr.length)];
+}
+
+function groupOptions(answer: string, distractors: string[], rng: Rng): string[] {
+  const options = shuffle([answer, ...distractors], rng);
+  return [
+    ...options.filter((o) => o !== INDEPENDENT),
+    ...options.filter((o) => o === INDEPENDENT),
+  ];
 }
 
 // --- Question construction --------------------------------------------
@@ -350,8 +374,8 @@ function buildQuestion(
   if (mode === 'airportConn') {
     const airportIata = airline.hub;
     const r = airportRoutes(airportIata)!;
-    const top = (r.topDestinations ?? []).slice(0, 3);
-    const correct = pick(top, rng);
+    const top = r.topDestinations ?? [];
+    const correct = top[0];
     const exclude = new Set(r.topDestinations ?? []);
     exclude.add(airportIata); // never offer the airport itself as a destination
     const apCountry = airportCountry[airportIata];
@@ -453,10 +477,13 @@ function buildQuestion(
   const distractors = useSmart
     ? smartDistractors(airline, mode, sourcePool, fallbackPool, rng)
     : shuffle(fallbackPool.filter((p) => p !== answer), rng).slice(0, distractorCount(mode));
+  const options = mode === 'group'
+    ? groupOptions(answer, distractors, rng)
+    : shuffle([answer, ...distractors], rng);
   return {
     mode,
     airline,
-    options: shuffle([answer, ...distractors], rng),
+    options,
     answer,
   };
 }
@@ -528,7 +555,7 @@ function eligibleFor(mode: Mode, sourcePool: Airline[]): Airline[] {
   if (mode === 'airportConn') {
     return sourcePool.filter((a) => {
       const r = airportRoutes(a.hub);
-      return !!r && Array.isArray(r.topDestinations) && r.topDestinations.length > 0;
+      return hasRankedAirportDestinations(r);
     });
   }
   if (mode === 'airlineDest') {
@@ -668,7 +695,7 @@ export function explainAnswer(q: Question): string {
     }
     case 'airportConn': {
       const ap = q.airport ?? a.hub;
-      return `${airportLabel(q.answer)} is one of the busiest connections from ${airportLabel(ap)}.`;
+      return `${airportLabelWithCountry(q.answer)} is the busiest ranked destination from ${airportLabelWithCountry(ap)} in the airport route source.`;
     }
     case 'airlineDest':
       return `${airportLabel(q.answer)} is the top sourced destination for ${a.name}.`;
@@ -685,7 +712,7 @@ export function modeLabel(mode: Mode): string {
     case 'reverseGroup': return 'Which airline?';
     case 'tail': return 'Which airline?';
     case 'airportAirline': return 'Top carrier here';
-    case 'airportConn': return 'Major destination from here';
+    case 'airportConn': return 'Busiest destination from here';
     case 'airlineDest': return 'Top sourced destination';
   }
 }
@@ -698,7 +725,7 @@ export function modeTitle(mode: Mode): string {
     case 'logo': return 'Logo Quiz';
     case 'country': return 'Country Guess';
     case 'reverseGroup': return 'Reverse Group';
-    case 'tail': return 'Livery Spotter';
+    case 'tail': return 'Tail Livery Spotter';
     case 'airportAirline': return 'Airport Carriers';
     case 'airportConn': return 'Airport Routes';
     case 'airlineDest': return 'Airline Routes';
@@ -715,7 +742,7 @@ export function modeDescription(mode: Mode): string {
     case 'reverseGroup': return 'Given a group (e.g. Lufthansa Group), select every airline that belongs to it. There may be one correct answer or several.';
     case 'tail': return 'Identify the airline from a photo of its tail livery.';
     case 'airportAirline': return 'Pick a top carrier at the given airport. Ranked from airport stats where available, with curated fallbacks for airports that lack clean ranked tables.';
-    case 'airportConn': return 'Pick a major destination served from the given airport. Ranked from busiest-route tables where available, with curated fallbacks for sparse airport pages.';
+    case 'airportConn': return 'Pick the rank-1 destination from the airport route source. Only airports with a ranked public route table are used.';
     case 'airlineDest': return "Pick the top sourced destination served by the airline. Order comes from a public hub-airport route ranking, and each destination is checked against a public airline destination/source page.";
   }
 }
@@ -832,7 +859,7 @@ export function saveDailyDone(score: number) {
 
 // Settings
 const SETTINGS_KEY = 'settings';
-const DEFAULT_SETTINGS: Settings = { sound: true, haptics: true, keyboardHints: true };
+const DEFAULT_SETTINGS: Settings = { sound: true, haptics: true, keyboardHints: true, darkMode: true };
 
 export function loadSettings(): Settings {
   try {

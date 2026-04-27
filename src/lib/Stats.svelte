@@ -250,7 +250,7 @@
     gap: 0.625rem;
     opacity: 0.55;
   }
-  .ach.got { opacity: 1; border-color: rgba(245, 197, 66, 0.3); }
+  .ach.got { opacity: 1; border-color: rgba(96, 150, 186, 0.3); }
   .ach-icon { font-size: 1.5rem; flex-shrink: 0; }
   .ach-text { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
   .ach-name { font-size: 0.8125rem; font-weight: 600; }

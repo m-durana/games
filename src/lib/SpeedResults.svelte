@@ -67,7 +67,7 @@
     letter-spacing: 0;
     text-transform: uppercase;
     color: var(--info);
-    background: rgba(98, 183, 216, 0.15);
+    background: rgba(96, 150, 186, 0.16);
     padding: 0.3rem 0.6rem;
     border-radius: 4px;
   }
@@ -83,7 +83,7 @@
   .best-flag {
     font-size: 0.75rem;
     color: var(--good);
-    background: rgba(71, 217, 176, 0.12);
+    background: rgba(163, 206, 241, 0.42);
     padding: 0.25rem 0.6rem;
     border-radius: 4px;
   }
@@ -103,7 +103,7 @@
   }
   .actions button:active { transform: scale(0.98); }
   .primary { background: var(--accent); color: var(--bg); }
-  .primary:hover { background: #ffe18a; }
+  .primary:hover { background: #a3cef1; }
   .secondary {
     background: var(--surface);
     color: var(--text);

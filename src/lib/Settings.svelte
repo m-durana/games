@@ -15,6 +15,9 @@
   function toggle(key: keyof Settings) {
     settings = { ...settings, [key]: !settings[key] };
     saveSettings(settings);
+    if (key === 'darkMode') {
+      document.documentElement.dataset.theme = settings.darkMode ? 'dark' : 'light';
+    }
   }
 
   function doReset() {
@@ -52,6 +55,15 @@
         <span class="hint">Subtle vibration on answer (mobile only).</span>
       </div>
       <button class="switch" class:on={settings.haptics} onclick={() => toggle('haptics')} aria-pressed={settings.haptics} aria-label="Toggle haptics">
+        <span class="thumb"></span>
+      </button>
+    </li>
+    <li>
+      <div class="row-text">
+        <span class="label">Dark mode</span>
+        <span class="hint">Use the darker standard theme.</span>
+      </div>
+      <button class="switch" class:on={settings.darkMode} onclick={() => toggle('darkMode')} aria-pressed={settings.darkMode} aria-label="Toggle dark mode">
         <span class="thumb"></span>
       </button>
     </li>
@@ -149,8 +161,8 @@
     transition: transform 0.18s, background 0.18s;
   }
   .switch.on {
-    background: rgba(71, 217, 176, 0.25);
-    border-color: rgba(71, 217, 176, 0.5);
+    background: rgba(163, 206, 241, 0.55);
+    border-color: rgba(96, 150, 186, 0.52);
   }
   .switch.on .thumb {
     transform: translateX(18px);
@@ -161,14 +173,14 @@
     width: 100%;
     padding: 0.875rem 1rem;
     border-radius: 6px;
-    background: rgba(255, 107, 95, 0.1);
-    border: 1px solid rgba(255, 107, 95, 0.4);
+    background: rgba(139, 140, 137, 0.16);
+    border: 1px solid rgba(139, 140, 137, 0.4);
     color: var(--bad);
     font-size: 0.9375rem;
     transition: background 0.15s, transform 0.1s;
   }
   .danger:active { transform: scale(0.98); }
-  .danger:hover { background: rgba(255, 107, 95, 0.16); }
+  .danger:hover { background: rgba(139, 140, 137, 0.22); }
 
   .actions { padding-top: 0.75rem; margin-top: auto; }
   .actions button {

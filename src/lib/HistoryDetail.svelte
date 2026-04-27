@@ -2,6 +2,7 @@
   import type { HistoryEntry, Mode } from './types';
   import {
     airportLabel,
+    airportLabelWithCountry,
     difficultyLabel,
     explainAnswer,
     modeTitle,
@@ -18,6 +19,7 @@
   let expanded: number | null = $state(null);
 
   function fmt(v: string, m: Mode): string {
+    if (m === 'airportConn') return airportLabelWithCountry(v);
     return m === 'hub' ? airportLabel(v) : v;
   }
 
@@ -124,7 +126,7 @@
     transition: border-color 0.15s, background 0.15s;
   }
   .row:hover { border-color: var(--panel-line); }
-  .row.bad { border-color: rgba(255, 107, 95, 0.35); }
+  .row.bad { border-color: rgba(139, 140, 137, 0.35); }
   .row.open { background: var(--surface-2); }
   .num {
     width: 1.4rem;

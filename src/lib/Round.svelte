@@ -4,6 +4,7 @@
   import type { Difficulty, Mode, Question, RoundResult } from './types';
   import {
     airportLabel,
+    airportLabelWithCountry,
     buildDailyRound,
     buildMixedRound,
     buildRound,
@@ -56,6 +57,7 @@
   const showKeys = loadSettings().keyboardHints;
 
   const score = $derived(results.filter((r) => r.correct).length);
+  const explainModes = new Set<Mode>(['country', 'reverseGroup', 'tail']);
 
   // svelte-ignore state_referenced_locally
   if (!daily) recordModePlayed(mode);
@@ -84,8 +86,9 @@
       Sound.wrong();
       Sound.vibrate(35);
     }
-    results = [...results, { question: current, picked: option, correct }];
-    advanceTimer = window.setTimeout(advance, 1400);
+    const nextResults = [...results, { question: current, picked: option, correct }];
+    results = nextResults;
+    advanceTimer = window.setTimeout(() => advance(nextResults), 1400);
   }
 
   function submitMulti() {
@@ -105,13 +108,14 @@
       Sound.wrong();
       Sound.vibrate(35);
     }
-    results = [...results, { question: current, picked: selected.join(', '), correct }];
-    advanceTimer = window.setTimeout(advance, 1800);
+    const nextResults = [...results, { question: current, picked: selected.join(', '), correct }];
+    results = nextResults;
+    advanceTimer = window.setTimeout(() => advance(nextResults), 1800);
   }
 
-  function advance() {
+  function advance(finalResults = results) {
     if (index + 1 >= questions.length) {
-      onFinish(results);
+      onFinish(finalResults);
       return;
     }
     index += 1;
@@ -212,12 +216,14 @@
         {@const t = tailEntry(current.airline.iata)}
         {#if t}
           {#if t.crop}
-            <div class="tail-stage" style="aspect-ratio: {t.crop.w / t.crop.h};">
+            <div class="tail-stage">
               <img
                 src={t.thumb ?? t.url}
                 alt="Aircraft tail"
+                class="tail-crop"
                 style="width:{100 / t.crop.w}%; height:{100 / t.crop.h}%; left:{(-t.crop.x / t.crop.w) * 100}%; top:{(-t.crop.y / t.crop.h) * 100}%;"
               />
+              <img src={t.thumb ?? t.url} alt="" class="tail-full" aria-hidden="true" />
             </div>
           {:else}
             <div class="tail-stage">
@@ -234,7 +240,11 @@
       {:else if current.mode === 'airportAirline' || current.mode === 'airportConn'}
         <div class="prompt-block">
           <span class="prompt-label">{modeLabel(current.mode)}</span>
-          <h2>{airportLabel(current.airport ?? current.airline.hub)}</h2>
+          <h2>
+            {current.mode === 'airportConn'
+              ? airportLabelWithCountry(current.airport ?? current.airline.hub)
+              : airportLabel(current.airport ?? current.airline.hub)}
+          </h2>
         </div>
       {:else if current.mode === 'airlineDest'}
         <div class="airline">
@@ -281,7 +291,9 @@
             {#if current.mode === 'alliance'}
               <AllianceLogo alliance={option} />
               <span class="opt-text">{option}</span>
-            {:else if current.mode === 'hub' || current.mode === 'airlineDest' || current.mode === 'airportConn'}
+            {:else if current.mode === 'airportConn'}
+              <span class="opt-text">{airportLabelWithCountry(option)}</span>
+            {:else if current.mode === 'hub' || current.mode === 'airlineDest'}
               <span class="opt-text">{airportLabel(option)}</span>
             {:else if current.mode === 'airportAirline'}
               {@const airlineForOpt = allAirlines.find((x) => x.iata === option)}
@@ -304,7 +316,7 @@
             {#if isMulti && submitted && s === 'missed'}
               <span class="opt-explain missed-note">You missed this one</span>
             {/if}
-            {#if !isMulti && picked !== null && picked !== current.answer && option === current.answer}
+            {#if !isMulti && explainModes.has(current.mode) && picked !== null && picked !== current.answer && option === current.answer}
               <span class="opt-explain">{explainAnswer(current)}</span>
             {/if}
           </button>
@@ -395,10 +407,7 @@
 
   .card {
     width: 100%;
-    background:
-      linear-gradient(rgba(245, 197, 66, 0.05) 1px, transparent 1px),
-      var(--surface);
-    background-size: 100% 34px;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 1.5rem 1.25rem;
@@ -424,15 +433,15 @@
   }
   .info-btn:hover { color: var(--accent); border-color: var(--panel-line); }
   .info-btn[aria-expanded="true"] {
-    background: rgba(245, 197, 66, 0.14);
-    border-color: rgba(245, 197, 66, 0.55);
+    background: rgba(163, 206, 241, 0.45);
+    border-color: rgba(96, 150, 186, 0.65);
     color: var(--accent);
   }
   .mode-info {
     margin-top: -0.5rem;
     padding: 0.6rem 0.75rem;
-    background: rgba(245, 197, 66, 0.08);
-    border: 1px solid rgba(245, 197, 66, 0.24);
+    background: rgba(163, 206, 241, 0.35);
+    border: 1px solid rgba(96, 150, 186, 0.28);
     border-radius: 6px;
     font-size: 0.8125rem;
     line-height: 1.45;
@@ -455,13 +464,13 @@
     letter-spacing: 0;
     text-transform: uppercase;
     color: var(--accent);
-    background: rgba(245, 197, 66, 0.12);
+    background: rgba(163, 206, 241, 0.42);
     padding: 0.3rem 0.6rem;
     border-radius: 4px;
   }
   .daily-pill.mix {
     color: var(--info);
-    background: rgba(98, 183, 216, 0.14);
+    background: rgba(96, 150, 186, 0.16);
   }
 
   .airline {
@@ -500,8 +509,13 @@
     background: var(--surface-2);
     border-radius: 8px;
     overflow: hidden;
-    max-height: 320px;
+    height: clamp(220px, 42vh, 360px);
     width: 100%;
+  }
+  @media (min-width: 720px) {
+    .tail-stage {
+      height: clamp(340px, 52vh, 540px);
+    }
   }
   .tail-stage img {
     position: absolute;
@@ -513,6 +527,23 @@
     position: static;
     width: 100%;
     height: 100%;
+    object-fit: contain;
+  }
+  .tail-stage .tail-full {
+    display: none;
+  }
+  @media (min-width: 720px) {
+    .tail-stage .tail-crop {
+      display: none;
+    }
+    .tail-stage .tail-full {
+      display: block;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 0.5rem;
+    }
   }
 
   .ask { color: var(--muted); font-size: 0.9375rem; }
@@ -532,7 +563,7 @@
     font-size: 0.75rem;
     font-weight: 400;
     line-height: 1.35;
-    color: rgba(255, 255, 255, 0.78);
+    color: var(--muted);
     letter-spacing: 0;
   }
   .option {
@@ -553,10 +584,10 @@
   @media (hover: hover) and (pointer: fine) {
     .option:not(:disabled):hover {
       border-color: var(--accent);
-      background: #1d2a2e;
+      background: var(--surface-3);
     }
   }
-  .option:not(:disabled):hover { border-color: var(--panel-line); background: #1d2a2e; }
+  .option:not(:disabled):hover { border-color: var(--panel-line); background: var(--surface-3); }
 
   .kb-legend {
     display: none;
@@ -598,24 +629,24 @@
   }
 
   .option.correct {
-    background: rgba(71, 217, 176, 0.14);
-    border-color: rgba(71, 217, 176, 0.52);
+    background: rgba(34, 197, 94, 0.14);
+    border-color: rgba(34, 197, 94, 0.55);
     color: var(--good);
   }
   .option.wrong {
-    background: rgba(255, 107, 95, 0.14);
-    border-color: rgba(255, 107, 95, 0.52);
+    background: rgba(239, 68, 68, 0.14);
+    border-color: rgba(239, 68, 68, 0.55);
     color: var(--bad);
   }
   .option.reveal { opacity: 0.45; }
   .option.selected {
-    background: rgba(245, 197, 66, 0.18);
-    border-color: rgba(245, 197, 66, 0.75);
+    background: rgba(163, 206, 241, 0.5);
+    border-color: rgba(96, 150, 186, 0.75);
     color: var(--accent);
   }
   .option.selected:hover {
-    background: rgba(245, 197, 66, 0.22) !important;
-    border-color: rgba(245, 197, 66, 0.85) !important;
+    background: rgba(163, 206, 241, 0.62) !important;
+    border-color: rgba(96, 150, 186, 0.85) !important;
   }
   .check {
     width: 22px;
@@ -633,27 +664,27 @@
   .option.selected .check {
     background: var(--accent);
     border-color: var(--accent);
-    color: #0b0b0c;
+    color: #fff;
   }
   .option.correct .check {
     background: var(--good);
     border-color: var(--good);
-    color: #0b0b0c;
+    color: #fff;
   }
   .option.wrong .check {
     background: var(--bad);
     border-color: var(--bad);
-    color: #0b0b0c;
+    color: #fff;
   }
   .option.missed {
-    background: rgba(245, 197, 66, 0.12);
-    border-color: rgba(245, 197, 66, 0.55);
+    background: rgba(163, 206, 241, 0.38);
+    border-color: rgba(96, 150, 186, 0.55);
     color: var(--accent);
   }
   .option.missed .check {
     background: var(--accent);
     border-color: var(--accent);
-    color: #0b0b0c;
+    color: #fff;
   }
   .opt-explain.missed-note { color: var(--accent); }
   .option:disabled { cursor: default; }

@@ -3,6 +3,7 @@
   import type { Difficulty, Mode, RoundResult } from './types';
   import {
     airportLabel,
+    airportLabelWithCountry,
     difficultyLabel,
     modeTitle,
     recordRoundStats,
@@ -74,6 +75,7 @@
   }
 
   function fmt(v: string, m: Mode): string {
+    if (m === 'airportConn') return airportLabelWithCountry(v);
     return m === 'hub' ? airportLabel(v) : v;
   }
 
@@ -98,7 +100,7 @@
 
 
   const isPerfect = score === ROUND_LENGTH;
-  const confettiColors = ['var(--good)', 'var(--accent)', 'var(--info)', '#ec4899', '#f5f5f5', 'var(--accent)'];
+  const confettiColors = ['var(--accent)', 'var(--accent-2)', 'var(--info)', 'var(--bad)', 'var(--surface)', 'var(--accent)'];
   const confetti = Array.from({ length: 36 }, (_, i) => ({
     color: confettiColors[i % confettiColors.length],
     angle: (i / 36) * 360 + Math.random() * 10,
@@ -258,8 +260,8 @@
     border-radius: 4px;
   }
   .pill.subtle { background: transparent; border: 1px solid var(--border); }
-  .pill.daily { color: var(--accent); background: rgba(245, 197, 66, 0.12); }
-  .pill.mix { color: var(--info); background: rgba(98, 183, 216, 0.14); }
+  .pill.daily { color: var(--accent); background: rgba(163, 206, 241, 0.42); }
+  .pill.mix { color: var(--accent-2); background: rgba(96, 150, 186, 0.16); }
   .head h1 {
     font-family: var(--font-main);
     font-size: 4rem;
@@ -274,7 +276,7 @@
     margin-top: 0.25rem;
     font-size: 0.75rem;
     color: var(--good);
-    background: rgba(71, 217, 176, 0.12);
+    background: rgba(163, 206, 241, 0.42);
     padding: 0.25rem 0.6rem;
     border-radius: 4px;
   }
@@ -296,10 +298,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    background:
-      linear-gradient(rgba(245, 197, 66, 0.04) 1px, transparent 1px),
-      var(--surface);
-    background-size: 100% 34px;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0.5rem;
@@ -314,7 +313,7 @@
     text-align: left;
     transition: background 0.15s;
   }
-  .row:hover { background: rgba(245, 197, 66, 0.08); }
+  .row:hover { background: var(--surface-2); }
   .row.open { background: var(--surface-2); }
 
   .num {
@@ -373,7 +372,7 @@
   }
   .actions button:active { transform: scale(0.98); }
   .primary { background: var(--accent); color: var(--bg); }
-  .primary:hover { background: #ffe18a; }
+  .primary:hover { background: #a3cef1; }
   .secondary {
     background: var(--surface);
     color: var(--text);

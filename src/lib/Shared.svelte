@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { SharedRound } from './share';
-  import { airlines, airportLabel, difficultyLabel, modeTitle } from './engine';
+  import { airlines, airportLabel, airportLabelWithCountry, difficultyLabel, modeTitle } from './engine';
   import Logo from './Logo.svelte';
 
   interface Props {
@@ -20,6 +20,7 @@
   }
 
   function fmt(v: string, m: string): string {
+    if (m === 'airportConn') return airportLabelWithCountry(v);
     return m === 'hub' ? airportLabel(v) : v;
   }
 </script>
@@ -94,7 +95,7 @@
     border-radius: 4px;
   }
   .pill.subtle { background: transparent; border: 1px solid var(--border); }
-  .pill.daily { color: var(--accent); background: rgba(245, 197, 66, 0.12); }
+  .pill.daily { color: var(--accent); background: rgba(163, 206, 241, 0.42); }
   .head h1 {
     font-size: 4rem;
     font-weight: 600;
@@ -160,5 +161,5 @@
   }
   .actions button:active { transform: scale(0.98); }
   .primary { background: var(--accent); color: var(--bg); }
-  .primary:hover { background: #ffe18a; }
+  .primary:hover { background: #a3cef1; }
 </style>
