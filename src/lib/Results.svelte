@@ -63,7 +63,6 @@
   });
 
   let expanded: number | null = $state(null);
-  let displayScore = $state(0);
   let shareState: 'idle' | 'copied' = $state('idle');
 
   function verdict() {
@@ -85,17 +84,6 @@
 
   onMount(() => {
     if (score === ROUND_LENGTH) Sound.perfect();
-    const start = performance.now();
-    const dur = 700;
-    let raf = 0;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / dur);
-      const eased = 1 - Math.pow(1 - t, 3);
-      displayScore = Math.round(score * eased);
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
   });
 
 
@@ -159,7 +147,7 @@
       <span class="pill subtle">{difficultyLabel(difficulty)}</span>
     {/if}
   </div>
-  <h1>{displayScore}<span class="of">/{ROUND_LENGTH}</span></h1>
+  <h1>{score}<span class="of">/{ROUND_LENGTH}</span></h1>
   <p class="pct">{pct}% · {verdict()}</p>
   {#if isNewBest && score > 0}
     <span class="best-flag">New best</span>

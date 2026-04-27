@@ -14,6 +14,8 @@
   import LogoReview from './lib/LogoReview.svelte';
   import ReviewLock from './lib/ReviewLock.svelte';
   import HistoryDetail from './lib/HistoryDetail.svelte';
+  import AircraftWordle from './lib/AircraftWordle.svelte';
+  import AircraftIdentify from './lib/AircraftIdentify.svelte';
   import type { Difficulty, HistoryEntry, Mode, RoundResult } from './lib/types';
   import { readSharedFromUrl, type SharedRound } from './lib/share';
   import type { Achievement } from './lib/achievements';
@@ -34,7 +36,9 @@
     | { kind: 'tailReview' }
     | { kind: 'logoReview' }
     | { kind: 'reviewLock'; target: ReviewTarget }
-    | { kind: 'historyDetail'; entry: HistoryEntry };
+    | { kind: 'historyDetail'; entry: HistoryEntry }
+    | { kind: 'aircraftWordle'; difficulty: Difficulty }
+    | { kind: 'aircraftIdentify'; difficulty: Difficulty };
 
   let view: View = $state({ kind: 'home' });
   let menuOpen = $state(false);
@@ -73,6 +77,18 @@
     clearShareParam();
     menuOpen = false;
     view = { kind: 'speed' };
+  }
+
+  function startAircraftWordle(difficulty: Difficulty) {
+    clearShareParam();
+    menuOpen = false;
+    view = { kind: 'aircraftWordle', difficulty };
+  }
+
+  function startAircraftIdentify(difficulty: Difficulty) {
+    clearShareParam();
+    menuOpen = false;
+    view = { kind: 'aircraftIdentify', difficulty };
   }
 
   function finishStandard(mode: Mode, difficulty: Difficulty, daily: boolean, mixed: boolean, results: RoundResult[]) {
@@ -177,6 +193,8 @@
       onStartDaily={startDaily}
       onStartSpeed={startSpeed}
       onStartMix={startMix}
+      onStartAircraftWordle={startAircraftWordle}
+      onStartAircraftIdentify={startAircraftIdentify}
       onOpenHistory={(entry) => { menuOpen = false; view = { kind: 'historyDetail', entry }; }}
     />
   {:else if view.kind === 'round'}
@@ -225,6 +243,10 @@
     />
   {:else if view.kind === 'historyDetail'}
     <HistoryDetail entry={view.entry} onHome={home} />
+  {:else if view.kind === 'aircraftWordle'}
+    <AircraftWordle difficulty={view.difficulty} onHome={home} />
+  {:else if view.kind === 'aircraftIdentify'}
+    <AircraftIdentify difficulty={view.difficulty} onHome={home} />
   {:else}
     <Browse onHome={home} />
   {/if}

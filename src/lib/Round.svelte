@@ -223,7 +223,6 @@
                 class="tail-crop"
                 style="width:{100 / t.crop.w}%; height:{100 / t.crop.h}%; left:{(-t.crop.x / t.crop.w) * 100}%; top:{(-t.crop.y / t.crop.h) * 100}%;"
               />
-              <img src={t.thumb ?? t.url} alt="" class="tail-full" aria-hidden="true" />
             </div>
           {:else}
             <div class="tail-stage">
@@ -511,11 +510,8 @@
     overflow: hidden;
     height: clamp(220px, 42vh, 360px);
     width: 100%;
-  }
-  @media (min-width: 720px) {
-    .tail-stage {
-      height: clamp(340px, 52vh, 540px);
-    }
+    max-width: 420px;
+    margin-inline: auto;
   }
   .tail-stage img {
     position: absolute;
@@ -528,22 +524,6 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-  }
-  .tail-stage .tail-full {
-    display: none;
-  }
-  @media (min-width: 720px) {
-    .tail-stage .tail-crop {
-      display: none;
-    }
-    .tail-stage .tail-full {
-      display: block;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 0.5rem;
-    }
   }
 
   .ask { color: var(--muted); font-size: 0.9375rem; }

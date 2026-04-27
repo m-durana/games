@@ -699,6 +699,9 @@ export function explainAnswer(q: Question): string {
     }
     case 'airlineDest':
       return `${airportLabel(q.answer)} is the top sourced destination for ${a.name}.`;
+    case 'aircraftWordle':
+    case 'aircraftIdentify':
+      return '';
   }
 }
 
@@ -714,6 +717,8 @@ export function modeLabel(mode: Mode): string {
     case 'airportAirline': return 'Top carrier here';
     case 'airportConn': return 'Busiest destination from here';
     case 'airlineDest': return 'Top sourced destination';
+    case 'aircraftWordle': return 'Which aircraft?';
+    case 'aircraftIdentify': return 'Which aircraft?';
   }
 }
 
@@ -729,6 +734,8 @@ export function modeTitle(mode: Mode): string {
     case 'airportAirline': return 'Airport Carriers';
     case 'airportConn': return 'Airport Routes';
     case 'airlineDest': return 'Airline Routes';
+    case 'aircraftWordle': return 'Aircraft Wordle';
+    case 'aircraftIdentify': return 'Aircraft Identify';
   }
 }
 
@@ -744,6 +751,8 @@ export function modeDescription(mode: Mode): string {
     case 'airportAirline': return 'Pick a top carrier at the given airport. Ranked from airport stats where available, with curated fallbacks for airports that lack clean ranked tables.';
     case 'airportConn': return 'Pick the rank-1 destination from the airport route source. Only airports with a ranked public route table are used.';
     case 'airlineDest': return "Pick the top sourced destination served by the airline. Order comes from a public hub-airport route ranking, and each destination is checked against a public airline destination/source page.";
+    case 'aircraftWordle': return 'Deduce a mystery aircraft from attribute feedback. Type a guess, see how close you are on maker, body, length, engines, tail, and era.';
+    case 'aircraftIdentify': return 'Identify an aircraft from a photo. Take optional hints (maker, then family) at a point cost, then read the structured breakdown.';
   }
 }
 

@@ -17,7 +17,32 @@ export type Mode =
   | 'tail'
   | 'airportAirline'
   | 'airlineDest'
-  | 'airportConn';
+  | 'airportConn'
+  | 'aircraftWordle'
+  | 'aircraftIdentify';
+
+import type { AttributeFeedback } from './aircraft';
+
+export interface AircraftWordleResult {
+  type: 'wordle';
+  aircraftId: string;
+  aircraftName: string;
+  guesses: { id: string; name: string; feedback: AttributeFeedback[] }[];
+  solved: boolean;
+  earned: number;
+}
+
+export interface AircraftIdentifyResult {
+  type: 'identify';
+  aircraftId: string;
+  aircraftName: string;
+  picked: string | null;
+  hintStage: number;
+  correct: boolean;
+  earned: number;
+}
+
+export type AircraftRoundResult = AircraftWordleResult | AircraftIdentifyResult;
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export interface AirlineMeta {
@@ -58,4 +83,5 @@ export interface HistoryEntry {
   total: number;
   ts: number;
   results?: RoundResult[];
+  aircraftResults?: AircraftRoundResult[];
 }

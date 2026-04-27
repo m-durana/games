@@ -9,6 +9,8 @@
     ROUND_LENGTH,
   } from './engine';
   import Logo from './Logo.svelte';
+  import AircraftReveal from './AircraftReveal.svelte';
+  import { aircraftById } from './aircraft';
 
   interface Props {
     entry: HistoryEntry;
@@ -45,7 +47,48 @@
   <h1>{entry.score}<span class="of">/{entry.total ?? ROUND_LENGTH}</span></h1>
 </header>
 
-{#if !entry.results || entry.results.length === 0}
+{#if entry.aircraftResults && entry.aircraftResults.length > 0}
+  <section class="recap">
+    {#each entry.aircraftResults as r, i}
+      {@const plane = aircraftById(r.aircraftId)}
+      <button class="row" class:bad={!(r.type === 'wordle' ? r.solved : r.correct)} class:open={expanded === i} onclick={() => toggle(i)}>
+        <span class="num">{i + 1}</span>
+        <div class="row-body">
+          <span class="airline">{r.aircraftName}</span>
+          {#if r.type === 'wordle'}
+            <span class="ans" class:good={r.solved}>
+              {r.solved ? `Solved in ${r.guesses.length} ${r.guesses.length === 1 ? 'guess' : 'guesses'}` : `Failed (${r.guesses.length} guesses)`}
+              <span class="arrow">·</span>
+              <span>{r.earned} pts</span>
+            </span>
+          {:else}
+            <span class="ans" class:good={r.correct}>
+              {r.correct ? `Correct at stage ${r.hintStage + 1} (+${r.earned} pt${r.earned === 1 ? '' : 's'})` : `Wrong — picked ${r.picked ?? '—'}`}
+            </span>
+          {/if}
+          {#if expanded === i}
+            {#if r.type === 'wordle' && r.guesses.length > 0}
+              <div class="wordle-recap">
+                {#each r.guesses as g}
+                  <div class="wordle-row">
+                    <span class="wordle-name">{g.name}</span>
+                    {#each g.feedback as fb}
+                      <span class="wordle-cell wordle-{fb.match}">{fb.guessValue}</span>
+                    {/each}
+                  </div>
+                {/each}
+              </div>
+            {/if}
+            {#if plane}
+              <AircraftReveal plane={plane} correct={r.type === 'wordle' ? r.solved : r.correct} />
+            {/if}
+          {/if}
+        </div>
+        <span class="chev" aria-hidden="true">{expanded === i ? '▴' : '▾'}</span>
+      </button>
+    {/each}
+  </section>
+{:else if !entry.results || entry.results.length === 0}
   <p class="muted">No per-question detail saved for this round.</p>
 {:else}
   <section class="recap">
@@ -162,6 +205,56 @@
   .facts div { display: flex; flex-direction: column; }
   .facts dt { color: var(--muted); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.06em; }
   .facts dd { color: var(--text); }
+
+  .wordle-recap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+    overflow-x: auto;
+  }
+  .wordle-row {
+    display: flex;
+    gap: 0.25rem;
+    align-items: stretch;
+    min-width: max-content;
+  }
+  .wordle-name {
+    min-width: 130px;
+    padding: 0.3rem 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+  .wordle-cell {
+    padding: 0.3rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.6875rem;
+    font-family: var(--font-main);
+    text-align: center;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wordle-hit {
+    background: rgba(34, 197, 94, 0.22);
+    color: var(--good);
+    border: 1px solid rgba(34, 197, 94, 0.55);
+  }
+  .wordle-close {
+    background: rgba(234, 179, 8, 0.22);
+    color: #b45309;
+    border: 1px solid rgba(234, 179, 8, 0.55);
+  }
+  :global([data-theme='dark']) .wordle-close { color: #facc15; }
+  .wordle-miss {
+    background: var(--surface);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
 
   .actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
   .secondary {

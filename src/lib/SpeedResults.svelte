@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   interface Props {
     score: number;
     isNewBest: boolean;
@@ -10,8 +8,6 @@
 
   let { score, isNewBest, onAgain, onHome }: Props = $props();
 
-  let displayScore = $state(0);
-
   function verdict(s: number) {
     if (s >= 40) return 'Lightning fast.';
     if (s >= 30) return 'Caffeinated.';
@@ -19,26 +15,11 @@
     if (s >= 10) return 'Warming up.';
     return 'Try again — combos pay off.';
   }
-
-  onMount(() => {
-    const start = performance.now();
-    const dur = 700;
-    let raf = 0;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / dur);
-      const eased = 1 - Math.pow(1 - t, 3);
-      // svelte-ignore state_referenced_locally
-      displayScore = Math.round(score * eased);
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  });
 </script>
 
 <header class="head">
   <span class="pill speed">Speed Round · 60s</span>
-  <h1>{displayScore}</h1>
+  <h1>{score}</h1>
   <p class="verdict">{verdict(score)}</p>
   {#if isNewBest && score > 0}
     <span class="best-flag">New best</span>

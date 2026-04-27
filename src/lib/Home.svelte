@@ -19,10 +19,20 @@
     onStartDaily: () => void;
     onStartSpeed: () => void;
     onStartMix: () => void;
+    onStartAircraftWordle: (difficulty: Difficulty) => void;
+    onStartAircraftIdentify: (difficulty: Difficulty) => void;
     onOpenHistory: (entry: HistoryEntry) => void;
   }
 
-  let { onStart, onStartDaily, onStartSpeed, onStartMix, onOpenHistory }: Props = $props();
+  let {
+    onStart,
+    onStartDaily,
+    onStartSpeed,
+    onStartMix,
+    onStartAircraftWordle,
+    onStartAircraftIdentify,
+    onOpenHistory,
+  }: Props = $props();
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
 
   const allModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'tail', 'airportAirline', 'airlineDest', 'airportConn'];
@@ -43,6 +53,8 @@
     airportAirline: 'tower-control',
     airlineDest: 'route',
     airportConn: 'map-pin',
+    aircraftWordle: 'grid-3x3',
+    aircraftIdentify: 'plane',
   };
   function modeIcon(m: Mode): string {
     return `https://unpkg.com/lucide-static@0.469.0/icons/${ICONS[m]}.svg`;
@@ -57,6 +69,8 @@
       case 'country': return 'Match the airline to its country.';
       case 'reverseGroup': return 'Select every airline in the group.';
       case 'tail': return 'Identify the aircraft tail livery.';
+      case 'aircraftWordle': return 'Deduce a mystery aircraft.';
+      case 'aircraftIdentify': return 'Spot a plane from a photo.';
       case 'airportAirline': return 'Choose an airline serving the airport.';
       case 'airlineDest': return 'Find its top sourced destination.';
       case 'airportConn': return 'Find the busiest ranked destination from the airport.';
@@ -172,6 +186,16 @@
         {/if}
       </button>
     {/each}
+    <button class="mode-tile" onclick={() => onStartAircraftIdentify(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/plane.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Aircraft Identify</span>
+      <span class="tile-desc">Photo of a plane — guess with hints.</span>
+    </button>
+    <button class="mode-tile" onclick={() => onStartAircraftWordle(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/grid-3x3.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Aircraft Wordle</span>
+      <span class="tile-desc">{difficulty === 'hard' ? '5 guesses' : '6 guesses'}, attribute clues each round.</span>
+    </button>
   </div>
 </section>
 
@@ -180,8 +204,9 @@
     <h3>Recent rounds</h3>
     <ul>
       {#each history.slice(0, 5) as h}
+        {@const hasDetail = (h.results && h.results.length > 0) || (h.aircraftResults && h.aircraftResults.length > 0)}
         <li>
-          <button class="row-btn" disabled={!h.results || h.results.length === 0} onclick={() => onOpenHistory(h)}>
+          <button class="row-btn" disabled={!hasDetail} onclick={() => onOpenHistory(h)}>
             <span class="dot" class:strong={h.score >= 7}></span>
             <span class="name">{modeTitle(h.mode)}</span>
             <span class="diff-pill">{difficultyLabel(h.difficulty)}</span>

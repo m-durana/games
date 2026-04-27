@@ -1,0 +1,569 @@
+<script lang="ts">
+  import { fly } from 'svelte/transition';
+  import { onMount } from 'svelte';
+  import {
+    aircraft,
+    aircraftForDifficulty,
+    fetchAircraftImages,
+    pickRoundAircraft,
+    AIRCRAFT_ROUND_LENGTH,
+    type Aircraft,
+    type AircraftDifficulty,
+  } from './aircraft';
+  import AircraftReveal from './AircraftReveal.svelte';
+  import * as Sound from './sound';
+  import { saveHistoryEntry } from './engine';
+  import type { AircraftIdentifyResult } from './types';
+
+  interface Props {
+    difficulty: AircraftDifficulty;
+    onHome: () => void;
+  }
+
+  let { difficulty, onHome }: Props = $props();
+
+  const aircraftPool = $derived(aircraftForDifficulty(difficulty));
+  // svelte-ignore state_referenced_locally
+  let answers: Aircraft[] = $state(pickRoundAircraft(AIRCRAFT_ROUND_LENGTH, difficulty));
+  let index = $state(0);
+  // stage: 0 = photo only, 1 = + manufacturer, 2 = + family, 3 = multiple choice
+  let stage = $state(0);
+  let picked: string | null = $state(null);
+  let guessId = $state('');
+  let revealed = $state(false);
+  let totalScore = $state(0);
+  let scores: number[] = $state([]);
+  let done = $state(false);
+  let photoUrls: string[] = $state([]);
+  let photoIndex = $state(0);
+  let photoLoading = $state(true);
+
+  const photoUrl = $derived(photoUrls.length > 0 ? photoUrls[photoIndex % photoUrls.length] : null);
+  const hasMultiplePhotos = $derived(photoUrls.length > 1);
+
+  const current = $derived(answers[index]);
+
+  // Stage points: 0=4, 1=3, 2=2, 3=1 if correct, 0 wrong
+  const stagePoints = [4, 3, 2, 1];
+
+  // Grouped dropdown options — full aircraft list (a guess outside the easy pool is allowed but limits learning).
+  const groupedOptions = $derived(groupByManufacturer(aircraft));
+
+  function groupByManufacturer(list: Aircraft[]): { manufacturer: string; planes: Aircraft[] }[] {
+    const map = new Map<string, Aircraft[]>();
+    for (const a of list) {
+      if (!map.has(a.manufacturer)) map.set(a.manufacturer, []);
+      map.get(a.manufacturer)!.push(a);
+    }
+    return [...map.entries()]
+      .map(([manufacturer, planes]) => ({ manufacturer, planes }))
+      .sort((a, b) => a.manufacturer.localeCompare(b.manufacturer));
+  }
+
+  // Distractors for stage 3 multiple choice — prefer same family or same body class
+  const choices = $derived(buildChoices(current));
+
+  function buildChoices(answer: Aircraft): string[] {
+    if (!answer) return [];
+    const pool = aircraftPool;
+    const sameFamily = pool.filter((a) => a.id !== answer.id && a.family === answer.family);
+    const sameBody = pool.filter(
+      (a) => a.id !== answer.id && a.body === answer.body && a.family !== answer.family,
+    );
+    const others = pool.filter(
+      (a) => a.id !== answer.id && a.family !== answer.family && a.body !== answer.body,
+    );
+    const ranked = [...shuffle(sameFamily), ...shuffle(sameBody), ...shuffle(others)];
+    const distractors = ranked.slice(0, 3).map((a) => a.name);
+    return shuffle([answer.name, ...distractors]);
+  }
+
+  function shuffle<T>(arr: T[]): T[] {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function shufflePhotos(urls: string[]): string[] {
+    const a = [...urls];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  async function loadPhoto(plane: Aircraft) {
+    photoLoading = true;
+    photoUrls = [];
+    photoIndex = 0;
+    const urls = await fetchAircraftImages(plane);
+    if (plane.id === current?.id) {
+      photoUrls = shufflePhotos(urls);
+      photoLoading = false;
+    }
+  }
+
+  function cyclePhoto() {
+    if (photoUrls.length > 1) photoIndex = (photoIndex + 1) % photoUrls.length;
+  }
+
+  $effect(() => {
+    if (current) loadPhoto(current);
+  });
+
+  function nextHint() {
+    if (stage < 3) stage += 1;
+  }
+
+  function pickChoice(option: string) {
+    if (picked) return;
+    picked = option;
+    const correct = option === current.name;
+    const earned = correct ? stagePoints[stage] : 0;
+    totalScore += earned;
+    revealed = true;
+    if (correct) {
+      Sound.correct();
+      Sound.vibrate(15);
+    } else {
+      Sound.wrong();
+      Sound.vibrate(35);
+    }
+  }
+
+  function submitDropdownGuess() {
+    if (!guessId || picked) return;
+    const guess = aircraft.find((a) => a.id === guessId);
+    if (!guess) return;
+    pickChoice(guess.name);
+  }
+
+  let recorded: AircraftIdentifyResult[] = $state([]);
+
+  function nextQuestion() {
+    const isCorrect = picked === current.name;
+    const earned = isCorrect ? stagePoints[stage] : 0;
+    const result: AircraftIdentifyResult = {
+      type: 'identify',
+      aircraftId: current.id,
+      aircraftName: current.name,
+      picked,
+      hintStage: stage,
+      correct: isCorrect,
+      earned,
+    };
+    const nextRecorded = [...recorded, result];
+    scores = [...scores, earned];
+    recorded = nextRecorded;
+    if (index + 1 >= answers.length) {
+      done = true;
+      saveHistoryEntry({
+        mode: 'aircraftIdentify',
+        difficulty,
+        score: nextRecorded.filter((r) => r.correct).length,
+        total: answers.length,
+        ts: Date.now(),
+        aircraftResults: nextRecorded,
+      });
+      return;
+    }
+    index += 1;
+    stage = 0;
+    picked = null;
+    guessId = '';
+    revealed = false;
+  }
+
+  function playAgain() {
+    answers = pickRoundAircraft(AIRCRAFT_ROUND_LENGTH, difficulty);
+    index = 0;
+    stage = 0;
+    picked = null;
+    guessId = '';
+    revealed = false;
+    totalScore = 0;
+    scores = [];
+    recorded = [];
+    done = false;
+  }
+
+  function dotState(i: number): 'todo' | 'now' | 'correct' | 'wrong' | 'partial' {
+    if (i < scores.length) {
+      if (scores[i] === 0) return 'wrong';
+      if (scores[i] >= 3) return 'correct';
+      return 'partial';
+    }
+    if (i === index) return 'now';
+    return 'todo';
+  }
+
+  const correct = $derived(picked === current?.name);
+  const maxScore = AIRCRAFT_ROUND_LENGTH * 4;
+
+  function isTypingTarget(target: EventTarget | null): boolean {
+    if (!(target instanceof HTMLElement)) return false;
+    const tag = target.tagName;
+    return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
+  }
+
+  onMount(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (isTypingTarget(e.target)) return;
+      if (e.key === 'Escape') onHome();
+      if (e.key === 'Enter' && revealed) {
+        e.preventDefault();
+        nextQuestion();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  });
+</script>
+
+<header class="bar">
+  <button class="quit" onclick={onHome} aria-label="Quit">✕</button>
+  <div class="dots" aria-label="Progress">
+    {#each answers as _, i}
+      {@const s = dotState(i)}
+      <span class="dot dot-{s}"></span>
+    {/each}
+  </div>
+  <span class="meta">{totalScore} pts</span>
+</header>
+
+<section class="round">
+  {#if done}
+    <div class="card finale" in:fly={{ y: 16, duration: 220 }}>
+      <h2>Round complete</h2>
+      <p class="finale-score">{totalScore} / {maxScore}</p>
+      <p class="finale-sub">{scores.filter((s) => s > 0).length} of {answers.length} identified</p>
+      <div class="finale-actions">
+        <button class="btn-primary" onclick={playAgain}>Play again</button>
+        <button class="btn-ghost" onclick={onHome}>Home</button>
+      </div>
+    </div>
+  {:else}
+    {#key index}
+      <div class="card" in:fly={{ y: 16, duration: 220 }}>
+        <div class="card-head">
+          <span class="mode-pill">Aircraft Identify</span>
+          <span class="round-pill">{index + 1} / {answers.length}</span>
+          <span class="points-pill">
+            {revealed ? `+${picked === current.name ? stagePoints[stage] : 0}` : `+${stagePoints[stage]} pts`}
+          </span>
+        </div>
+
+        <div class="photo-stage">
+          {#if photoUrl}
+            <img src={photoUrl} alt="Aircraft to identify" class="photo" />
+            {#if hasMultiplePhotos && !revealed}
+              <button class="photo-cycle" onclick={cyclePhoto} aria-label="Show a different photo of this aircraft">
+                Different photo ({(photoIndex % photoUrls.length) + 1}/{photoUrls.length})
+              </button>
+            {/if}
+          {:else if photoLoading}
+            <div class="photo-loading">Loading photo…</div>
+          {:else}
+            <div class="photo-loading">No photo available — see <a href="https://en.wikipedia.org/wiki/{current.wikipedia.replaceAll(' ', '_')}" target="_blank" rel="noreferrer">Wikipedia</a>.</div>
+          {/if}
+        </div>
+
+        {#if !revealed}
+          <div class="hints">
+            {#if stage >= 1}
+              <div class="hint">
+                <span class="hint-tag">Hint 1 — Maker</span>
+                <p>This is a <strong>{current.manufacturer}</strong>.</p>
+              </div>
+            {/if}
+            {#if stage >= 2}
+              <div class="hint">
+                <span class="hint-tag">Hint 2 — Family</span>
+                <p>It belongs to the <strong>{current.family}</strong> family.</p>
+              </div>
+            {/if}
+          </div>
+
+          <div class="prompt-row">
+            <p class="ask">Which aircraft is this?</p>
+            {#if stage < 3}
+              <button class="btn-ghost hint-btn" onclick={nextHint}>
+                {stage === 0 ? 'Show maker (−1 pt)' : stage === 1 ? 'Show family (−1 pt)' : 'Narrow to 4 choices (−1 pt)'}
+              </button>
+            {/if}
+          </div>
+
+          {#if stage < 3}
+            <div class="guess-row">
+              <select bind:value={guessId} class="guess-select">
+                <option value="">Pick an aircraft…</option>
+                {#each groupedOptions as group}
+                  <optgroup label={group.manufacturer}>
+                    {#each group.planes as a}
+                      <option value={a.id}>{a.name}</option>
+                    {/each}
+                  </optgroup>
+                {/each}
+              </select>
+              <button class="btn-primary" disabled={!guessId} onclick={submitDropdownGuess}>Guess</button>
+            </div>
+          {:else}
+            <p class="ask">Pick the correct aircraft:</p>
+            <div class="options">
+              {#each choices as option}
+                <button class="option" onclick={() => pickChoice(option)}>
+                  <span class="opt-text">{option}</span>
+                </button>
+              {/each}
+            </div>
+          {/if}
+        {:else}
+          <AircraftReveal plane={current} {correct} photoUrl={null} />
+          <button class="btn-primary next-btn" onclick={nextQuestion}>
+            {index + 1 >= answers.length ? 'Finish round' : 'Next aircraft'}
+          </button>
+        {/if}
+      </div>
+    {/key}
+  {/if}
+</section>
+
+<style>
+  .bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0 0.25rem;
+  }
+  .quit {
+    width: 32px; height: 32px;
+    border-radius: 4px;
+    color: var(--muted);
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.875rem;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .quit:hover { color: var(--accent); border-color: var(--panel-line); }
+  .dots {
+    flex: 1;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+  }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .dot-correct { background: var(--good); }
+  .dot-wrong { background: var(--bad); }
+  .dot-partial { background: var(--accent); opacity: 0.7; }
+  .dot-now {
+    background: var(--accent);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.4); opacity: 0.65; }
+  }
+  .meta {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  .round {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .card {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  @media (min-width: 720px) {
+    .card { padding: 1.75rem 2rem; }
+  }
+  .card-head {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .mode-pill, .round-pill, .points-pill {
+    font-size: 0.6875rem;
+    font-family: var(--font-main);
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+  }
+  .mode-pill { color: var(--muted); background: var(--surface-2); }
+  .round-pill { color: var(--accent); background: rgba(163, 206, 241, 0.42); }
+  .points-pill {
+    color: var(--good);
+    background: rgba(34, 197, 94, 0.16);
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .photo-stage {
+    position: relative;
+    width: 100%;
+    height: clamp(220px, 42vh, 380px);
+    background: var(--surface-2);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-cycle {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background: rgba(3, 7, 10, 0.72);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.35rem 0.625rem;
+    font-size: 0.75rem;
+    font-family: var(--font-main);
+    backdrop-filter: blur(4px);
+  }
+  .photo-cycle:hover { border-color: var(--accent); color: var(--accent); }
+  .photo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .photo-loading {
+    color: var(--muted);
+    font-size: 0.875rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .hints { display: flex; flex-direction: column; gap: 0.5rem; }
+  .hint {
+    padding: 0.625rem 0.75rem;
+    background: rgba(163, 206, 241, 0.18);
+    border: 1px solid rgba(96, 150, 186, 0.32);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .hint-tag {
+    font-family: var(--font-main);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .hint p { font-size: 0.875rem; color: var(--text); }
+
+  .prompt-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .ask { color: var(--muted); font-size: 0.9375rem; }
+  .hint-btn { font-size: 0.8125rem; padding: 0.5rem 0.75rem; }
+
+  .guess-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  .guess-select {
+    flex: 1;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.7rem 0.75rem;
+    font-size: 0.9375rem;
+    font-family: inherit;
+  }
+  .guess-select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 0.5rem; }
+  @media (min-width: 720px) {
+    .options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.625rem; }
+  }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: left;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.875rem 1.125rem;
+    min-height: 52px;
+    font-size: 1rem;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  }
+  .option:hover { border-color: var(--panel-line); background: var(--surface-3, var(--surface-2)); }
+  .option:active { transform: scale(0.98); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 0.7rem 1.1rem;
+    border-radius: 6px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn-primary:not(:disabled):active { transform: scale(0.98); }
+  .btn-ghost {
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.875rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+  }
+  .btn-ghost:hover { border-color: var(--panel-line); }
+
+  .next-btn { align-self: stretch; }
+
+  .finale {
+    text-align: center;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .finale h2 { font-size: 1.5rem; font-weight: 600; }
+  .finale-score {
+    font-family: var(--font-main);
+    font-size: 1.75rem;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .finale-sub { color: var(--muted); font-size: 0.9375rem; }
+  .finale-actions { display: flex; gap: 0.625rem; margin-top: 0.5rem; }
+</style>

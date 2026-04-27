@@ -1,0 +1,572 @@
+[
+  {
+    "id": "a310",
+    "name": "Airbus A310",
+    "manufacturer": "Airbus",
+    "family": "A300/A310",
+    "body": "Wide",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 46.7,
+    "tail": "Conventional",
+    "generation": 1980,
+    "wikipedia": "Airbus A310",
+    "identification": {
+      "manufacturer": "Airbus radome and clean fairings — but in an older 1980s style.",
+      "family": "The A300/A310 is the original Airbus widebody — the world's first twin-engine widebody. Look for an older-style small upturned winglet (not a sharklet, not an A350 scimitar) and a less swept wing than modern Airbus widebodies.",
+      "variant": "The A310 is a shortened A300 with a smaller wing — about 46.7m, noticeably stubbier than an A330."
+    },
+    "keyTell": "Twin-engine widebody but visibly older — smaller upturned winglet, shorter and less swept wing than an A330."
+  },
+  {
+    "id": "a319",
+    "name": "Airbus A319",
+    "manufacturer": "Airbus",
+    "family": "A320 family",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 33.8,
+    "tail": "Conventional",
+    "generation": 1990,
+    "wikipedia": "Airbus A319",
+    "identification": {
+      "manufacturer": "Airbus radome, four-pane V-bottom cockpit window, clean wing-body fairing.",
+      "family": "A320 family — single-aisle twin sitting noticeably high on its gear, with full-round engine inlets (not the 737's flat bottom).",
+      "variant": "The A319 is the SHORT member of the family — about 33.8m, with just one pair of overwing exits and a fuselage that looks visibly stubby relative to the wing. Often only three pairs of doors instead of the A320's four."
+    },
+    "keyTell": "Short, stubby A320-family fuselage with one pair of overwing exits."
+  },
+  {
+    "id": "a220",
+    "name": "Airbus A220-300",
+    "manufacturer": "Airbus",
+    "family": "A220",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 38.7,
+    "tail": "Conventional",
+    "generation": 2010,
+    "wikipedia": "Airbus A220",
+    "identification": {
+      "manufacturer": "Originally a Bombardier CSeries before Airbus took over in 2018, but it carries Airbus-style smooth lines: rounded radome, clean wing-to-body fairing.",
+      "family": "The A220 is its own family — a clean-sheet narrowbody with very large geared turbofans (Pratt & Whitney PW1500G) that look oversized relative to the slim fuselage. Five-abreast seating (2-3) makes the cabin notably narrower than the A320 family's six-abreast.",
+      "variant": "The A220-300 is the longer of the two variants — about 38.7m, with three pairs of overwing exits arranged in a distinctive triple cluster."
+    },
+    "keyTell": "Disproportionately large engines slung under a slim fuselage, plus a pointier nose than the A320 family."
+  },
+  {
+    "id": "a320",
+    "name": "Airbus A320",
+    "manufacturer": "Airbus",
+    "family": "A320 family",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 37.6,
+    "tail": "Conventional",
+    "generation": 1980,
+    "wikipedia": "Airbus A320",
+    "identification": {
+      "manufacturer": "Airbus jets have a smoothly rounded radome (nose), a four-pane cockpit window where the lower edges form a soft V, and a clean blended fairing where the wing meets the fuselage.",
+      "family": "The A320 family is single-aisle with two underwing turbofans. It sits noticeably higher off the ground than the 737 (longer gear) and lacks the 737's pointed nose and dorsal fin extension.",
+      "variant": "The A320 is the middle length — one pair of overwing exits (vs two on the A321, vs the markedly shorter A319). At 37.6m it's the original/baseline of the family."
+    },
+    "keyTell": "Single pair of overwing exits, A320-family nose, sits high on its gear."
+  },
+  {
+    "id": "a321",
+    "name": "Airbus A321",
+    "manufacturer": "Airbus",
+    "family": "A320 family",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 44.5,
+    "tail": "Conventional",
+    "generation": 1990,
+    "wikipedia": "Airbus A321",
+    "identification": {
+      "manufacturer": "Airbus jets have a smoothly rounded radome, a four-pane cockpit window where the lower edges form a soft V, and a clean blended fairing where the wing meets the fuselage.",
+      "family": "The A320 family is single-aisle with two underwing turbofans, sitting higher off the ground than the 737 and lacking the 737's pointed nose.",
+      "variant": "The A321 is the longest A320-family jet — long enough to need TWO pairs of overwing exits (the A319 and A320 only have one pair). At 44.5m it's noticeably longer than the A320 (37.6m), so the gap between wing and tail looks proportionally large."
+    },
+    "keyTell": "Two pairs of overwing emergency exits — the dead giveaway for an A321."
+  },
+  {
+    "id": "a330",
+    "name": "Airbus A330-300",
+    "manufacturer": "Airbus",
+    "family": "A330",
+    "body": "Wide",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 63.7,
+    "tail": "Conventional",
+    "generation": 1990,
+    "wikipedia": "Airbus A330",
+    "identification": {
+      "manufacturer": "Airbus radome and cockpit window shape — a more rounded, less aggressive nose than Boeing's widebodies.",
+      "family": "The A330 is a twin-engine widebody. Compared to the A340 (its visual twin) it has only TWO engines instead of four. Compared to the A350 it has more sharply curved wingtips (no scimitar/curved-up tip — the A330 has a small upturned winglet) and a less stretched, less swept wing.",
+      "variant": "The A330-300 is the longer variant (~63.7m) with four pairs of doors. The A330-200 is shorter with a taller tail (for range balance)."
+    },
+    "keyTell": "Twin-engine widebody with a small upturned winglet — distinguish from the A350 by its older-style winglet (not a curved scimitar)."
+  },
+  {
+    "id": "a340-600",
+    "name": "Airbus A340-600",
+    "manufacturer": "Airbus",
+    "family": "A340",
+    "body": "Wide",
+    "engines": 4,
+    "engineType": "Turbofan",
+    "length": 75.4,
+    "tail": "Conventional",
+    "generation": 2000,
+    "wikipedia": "Airbus A340",
+    "identification": {
+      "manufacturer": "Airbus widebody — visually IDENTICAL to the A330 in fuselage shape, nose, and tail.",
+      "family": "The A340 is the four-engine sibling of the A330. Same body, same nose, same tail — but FOUR underwing turbofans instead of two. The only Airbus quad still flying alongside the A380.",
+      "variant": "The A340-600 is the extreme stretch — 75.4m, briefly the longest airliner in the world. It needs an extra four-wheel center main gear leg under the fuselage to spread its weight."
+    },
+    "keyTell": "Four engines + Airbus widebody nose = A340. The -600 has an extra center main gear leg under the belly."
+  },
+  {
+    "id": "a350",
+    "name": "Airbus A350-900",
+    "manufacturer": "Airbus",
+    "family": "A350",
+    "body": "Wide",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 66.8,
+    "tail": "Conventional",
+    "generation": 2010,
+    "wikipedia": "Airbus A350 XWB",
+    "identification": {
+      "manufacturer": "Smooth Airbus nose and clean wing-body fairing. The A350's signature 'panda eye' black cockpit window mask is one of the most recognizable Airbus features.",
+      "family": "The A350 is a clean-sheet composite widebody twin. Its wingtips curve gracefully upward in a continuous scimitar (no separate winglet) — the easiest tell vs the A330. The cockpit windows have a distinctive dark surround that sweeps back like sunglasses.",
+      "variant": "The A350-900 is the baseline (~66.8m). The -1000 is a stretch with a six-wheel main bogie instead of four-wheel."
+    },
+    "keyTell": "Curved scimitar wingtips (no separate winglet) and the black 'panda eye' cockpit window mask."
+  },
+  {
+    "id": "a380",
+    "name": "Airbus A380",
+    "manufacturer": "Airbus",
+    "family": "A380",
+    "body": "Wide",
+    "engines": 4,
+    "engineType": "Turbofan",
+    "length": 72.7,
+    "tail": "Conventional",
+    "generation": 2000,
+    "wikipedia": "Airbus A380",
+    "identification": {
+      "manufacturer": "Unmistakably Airbus — but in a class of its own.",
+      "family": "The A380 is the world's only full-length double-decker. Two passenger decks run the entire length of the fuselage, giving it a tall, oval cross-section. Four engines, massive wing.",
+      "variant": "Only one passenger variant produced (the A380-800)."
+    },
+    "keyTell": "Full-length double deck — no other airliner has this. The 747 has only a partial upper deck."
+  },
+  {
+    "id": "b727",
+    "name": "Boeing 727-200",
+    "manufacturer": "Boeing",
+    "family": "727",
+    "body": "Narrow",
+    "engines": 3,
+    "engineType": "Turbofan",
+    "length": 46.7,
+    "tail": "T-tail",
+    "generation": 1960,
+    "wikipedia": "Boeing 727",
+    "identification": {
+      "manufacturer": "Boeing classic-era jet — pointed nose, swept tail.",
+      "family": "The 727 is a TRIJET with a T-TAIL. Two engines hang from the rear sides of the fuselage; the third is buried in the tail with an S-duct intake mounted ABOVE the fuselage at the base of the fin. No engines under the wing.",
+      "variant": "The 727-200 is the long stretch — ~46.7m, the most produced variant."
+    },
+    "keyTell": "Three engines arranged trijet (two side-mounted at the rear, one in the tail above the fuselage). T-tail."
+  },
+  {
+    "id": "b737classic",
+    "name": "Boeing 737-400 (Classic)",
+    "manufacturer": "Boeing",
+    "family": "737",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 36.4,
+    "tail": "Conventional",
+    "generation": 1980,
+    "wikipedia": "Boeing 737 Classic",
+    "identification": {
+      "manufacturer": "Pointed Boeing nose, angular cockpit window, dorsal fin extension at the base of the tail.",
+      "family": "737 hallmarks: sits LOW to the ground with flat-bottom engine inlets. The Classic generation (-300/-400/-500) lacks the modern blended winglets of the NG, and the engines are smaller (CFM56-3) than NG engines.",
+      "variant": "The 737-400 is the longest Classic — ~36.4m, with one pair of overwing exits."
+    },
+    "keyTell": "737 with NO winglets and smaller, more cylindrical engines — Classic generation."
+  },
+  {
+    "id": "b737-700",
+    "name": "Boeing 737-700",
+    "manufacturer": "Boeing",
+    "family": "737",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 33.6,
+    "tail": "Conventional",
+    "generation": 1990,
+    "wikipedia": "Boeing 737 Next Generation",
+    "identification": {
+      "manufacturer": "Pointed Boeing nose with the classic 737 silhouette.",
+      "family": "737 NG — flat-bottom engine inlets, low to the ground, blended winglets on most.",
+      "variant": "The 737-700 is the SHORT NG — about 33.6m, with only one pair of overwing exits and a noticeably stubby look compared to the much more common -800."
+    },
+    "keyTell": "NG winglets and engines, but a short stubby fuselage — basically a compact -800."
+  },
+  {
+    "id": "b737ng",
+    "name": "Boeing 737-800",
+    "manufacturer": "Boeing",
+    "family": "737",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 39.5,
+    "tail": "Conventional",
+    "generation": 1990,
+    "wikipedia": "Boeing 737 Next Generation",
+    "identification": {
+      "manufacturer": "Boeing jets have a more pointed radome than Airbus, an angular cockpit window with a swept-back vertical pillar, and a tail fin that meets the fuselage with a small dorsal fillet.",
+      "family": "The 737 sits noticeably LOW to the ground (it predates large turbofans, so the engines were squashed under short legs). Its engines have a flat-bottom inlet to clear the ground — a unique 737 trait. NG (Next Generation) variants have blended winglets that angle up at ~45°.",
+      "variant": "The 737-800 is the most common NG variant — about 39.5m, with one pair of overwing exits and a single forward and rear door per side."
+    },
+    "keyTell": "Flat-bottom engine nacelles that look 'squashed' against the ground, plus blended winglets on most -800s."
+  },
+  {
+    "id": "b737max",
+    "name": "Boeing 737 MAX 8",
+    "manufacturer": "Boeing",
+    "family": "737",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 39.5,
+    "tail": "Conventional",
+    "generation": 2010,
+    "wikipedia": "Boeing 737 MAX",
+    "identification": {
+      "manufacturer": "Pointed Boeing nose and angular cockpit window.",
+      "family": "Still a 737 — sits low to the ground with flat-bottom engine inlets. The MAX has BIGGER engines than the NG (LEAP-1B), pushed forward and slightly up to clear the ground.",
+      "variant": "The MAX 8's giveaway is the split-tip Advanced Technology winglets — a forked / dual-tip winglet that splits up AND down. It also has a small chined extension at the tail cone (the EE-bay vent), and the engines look noticeably larger than NG engines."
+    },
+    "keyTell": "Split-tip 'AT' winglets that fork up and down — the easiest way to tell a MAX from an NG."
+  },
+  {
+    "id": "b747",
+    "name": "Boeing 747",
+    "manufacturer": "Boeing",
+    "family": "747",
+    "body": "Wide",
+    "engines": 4,
+    "engineType": "Turbofan",
+    "length": 70.6,
+    "tail": "Conventional",
+    "generation": 1970,
+    "wikipedia": "Boeing 747",
+    "identification": {
+      "manufacturer": "Boeing widebody — pointed nose, swept tail.",
+      "family": "The 747 is the only airliner with a HUMP — a partial upper deck stretching from the cockpit roughly a third of the way down the fuselage. Four engines, distinctive wing-to-fuselage anhedral. The 747-8 has a longer hump and raked wingtips; older variants (-400) have winglets.",
+      "variant": "Major passenger variants: 747-400 (winglets, classic hump length), 747-8 (longer hump, raked wingtips, no winglets)."
+    },
+    "keyTell": "Partial upper-deck hump behind the cockpit — no other airliner has it."
+  },
+  {
+    "id": "b757",
+    "name": "Boeing 757",
+    "manufacturer": "Boeing",
+    "family": "757",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 47.3,
+    "tail": "Conventional",
+    "generation": 1980,
+    "wikipedia": "Boeing 757",
+    "identification": {
+      "manufacturer": "Pointed Boeing nose. Tail fin meets the fuselage with a tall, narrow profile.",
+      "family": "The 757 looks like a stretched 737 but ISN'T — it sits MUCH higher off the ground (full-size landing gear), has round engine inlets (no flat bottom), and a distinctive long, narrow fuselage. The wing is more swept and the engines are mounted higher.",
+      "variant": "The 757-200 is by far the most common (~47.3m); the -300 is a rare longer stretch (~54m)."
+    },
+    "keyTell": "Looks like a 'stretched 737 on stilts' — round engine inlets and tall landing gear separate it from any 737."
+  },
+  {
+    "id": "b767",
+    "name": "Boeing 767-300ER",
+    "manufacturer": "Boeing",
+    "family": "767",
+    "body": "Wide",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 54.9,
+    "tail": "Conventional",
+    "generation": 1980,
+    "wikipedia": "Boeing 767",
+    "identification": {
+      "manufacturer": "Pointed Boeing nose, angular cockpit window — a more squared-off look than the 777 or 787.",
+      "family": "The 767 is a TWIN-engine widebody — but a smaller one than the 777. Engines are noticeably smaller than 777 engines, the fuselage is narrower (7-abreast 2-3-2 instead of 9 or 10 across), and the wing is less swept. Bridges the gap between 757 and 777.",
+      "variant": "The 767-300ER is the most common variant — ~54.9m, often with winglets retrofitted."
+    },
+    "keyTell": "Twin-engine widebody, but visibly smaller and slimmer than the 777 — smaller engines and a narrower fuselage."
+  },
+  {
+    "id": "b777",
+    "name": "Boeing 777-300ER",
+    "manufacturer": "Boeing",
+    "family": "777",
+    "body": "Wide",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 73.9,
+    "tail": "Conventional",
+    "generation": 1990,
+    "wikipedia": "Boeing 777",
+    "identification": {
+      "manufacturer": "Boeing widebody nose and angular cockpit window.",
+      "family": "The 777 is a twin-engine widebody with the LARGEST turbofans in commercial service (GE90 / GE9X). The engines look enormous — wider than a 737 fuselage cross-section. The wing has a raked wingtip on later variants, with no winglet on earlier ones. A telltale flat-bottom tail cone (the APU section) ends in a cut-off, blade-like profile.",
+      "variant": "The 777-300ER is the most common long stretch (~73.9m) with raked wingtips and a six-wheel main bogie — very distinctive vs four-wheel widebodies."
+    },
+    "keyTell": "Massive engines (GE90 family) plus a flat-bladed APU tail cone and six-wheel main gear bogies on the 300ER."
+  },
+  {
+    "id": "b787",
+    "name": "Boeing 787 Dreamliner",
+    "manufacturer": "Boeing",
+    "family": "787",
+    "body": "Wide",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 62.8,
+    "tail": "Conventional",
+    "generation": 2010,
+    "wikipedia": "Boeing 787 Dreamliner",
+    "identification": {
+      "manufacturer": "Boeing nose, but smoother and more rounded than older Boeings (composite fuselage allows the curve).",
+      "family": "The 787's signature feature is its WING — graceful raked tips that flex visibly upward in flight. The engine nacelles have a chevron (sawtooth) trailing edge for noise reduction, unique to the 787. The cockpit windows have a four-pane layout that wraps further around the nose than the 777's.",
+      "variant": "The 787-9 is the most common middle-length variant (~62.8m). The -8 is shorter, the -10 is longer."
+    },
+    "keyTell": "Chevron sawtooth engine nacelle trailing edges, plus extreme wing flex on takeoff."
+  },
+  {
+    "id": "b717",
+    "name": "Boeing 717",
+    "manufacturer": "Boeing",
+    "family": "717",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 37.8,
+    "tail": "T-tail",
+    "generation": 2000,
+    "wikipedia": "Boeing 717",
+    "identification": {
+      "manufacturer": "Boeing inherited the 717 from McDonnell Douglas at the merger — the design is essentially an MD-95.",
+      "family": "Direct descendant of the DC-9/MD-80 family. T-TAIL with REAR-FUSELAGE engines, but shorter than the MD-80 series and with modern Rolls-Royce BR715 engines that look proportionally large for the small fuselage.",
+      "variant": "Only one variant produced — about 37.8m."
+    },
+    "keyTell": "Looks like a stubbier MD-80 with relatively large round engines on the rear fuselage; T-tail."
+  },
+  {
+    "id": "md83",
+    "name": "McDonnell Douglas MD-83",
+    "manufacturer": "McDonnell Douglas",
+    "family": "MD-80",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 45.1,
+    "tail": "T-tail",
+    "generation": 1980,
+    "wikipedia": "McDonnell Douglas MD-80",
+    "identification": {
+      "manufacturer": "McDonnell Douglas inherited the DC-9 family — a long, slender fuselage with rear-mounted engines and a T-tail.",
+      "family": "The MD-80 series has TWO ENGINES MOUNTED ON THE REAR FUSELAGE (not under the wing) and a T-TAIL (horizontal stabilizer at the top of the vertical fin). Five-abreast seating in a narrow tube, very long and tube-like.",
+      "variant": "The MD-83 is the most common MD-80 variant — ~45.1m with extended-range fuel."
+    },
+    "keyTell": "Rear-fuselage engines + T-tail + long slim body. No wing-mounted engines."
+  },
+  {
+    "id": "e170",
+    "name": "Embraer E170",
+    "manufacturer": "Embraer",
+    "family": "E-Jet",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 29.9,
+    "tail": "Conventional",
+    "generation": 2000,
+    "wikipedia": "Embraer E-Jet family",
+    "identification": {
+      "manufacturer": "Embraer regional jets — slim fuselage with a relatively pointed nose and a sharp angle where the cockpit windows meet the radome.",
+      "family": "E-Jet — 4-abreast (2-2) seating, underwing engines, conventional tail on a tall fin. The E170/E175 share a fuselage cross-section; the E190/E195 are longer and have a slightly larger cross-section.",
+      "variant": "The E170 is the SMALLEST E-Jet — ~29.9m. Visually almost identical to the E175 (the E175 is a small stretch of the E170)."
+    },
+    "keyTell": "Smallest E-Jet — extremely short fuselage relative to wing. Easy to confuse with E175."
+  },
+  {
+    "id": "e175",
+    "name": "Embraer E175",
+    "manufacturer": "Embraer",
+    "family": "E-Jet",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 31.7,
+    "tail": "Conventional",
+    "generation": 2000,
+    "wikipedia": "Embraer E-Jet family",
+    "identification": {
+      "manufacturer": "Embraer regional jet with the slim 4-abreast fuselage and pointed nose.",
+      "family": "E-Jet — 4-abreast (2-2), underwing engines, conventional tail. E170/E175 share a fuselage cross-section.",
+      "variant": "The E175 is a small stretch of the E170 — about 31.7m. Often confused with the E190; the E175 is shorter and uses the smaller E170/E175 cross-section. The most common regional jet at US carriers."
+    },
+    "keyTell": "E-Jet, longer than E170 but shorter than E190 — a small stretch over the E170 with the same nose/tail."
+  },
+  {
+    "id": "e190",
+    "name": "Embraer E190",
+    "manufacturer": "Embraer",
+    "family": "E-Jet",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 36.2,
+    "tail": "Conventional",
+    "generation": 2000,
+    "wikipedia": "Embraer E-Jet family",
+    "identification": {
+      "manufacturer": "Embraer regional jets have a slim fuselage with a relatively pointed nose and a distinctive sharp angle where the cockpit windows meet the radome.",
+      "family": "The E-Jet (E170/175/190/195) is a small narrowbody with FOUR-ABREAST seating (2-2, no middle seat). It has a T-tail-ish look but actually a conventional low-mounted tailplane on a tall fin. Engines are slung underwing and look proportionally large vs the narrow fuselage.",
+      "variant": "The E190 has one pair of overwing exits and a fuselage of ~36.2m — a bigger cross-section than the E170/E175."
+    },
+    "keyTell": "Slim 4-abreast fuselage with relatively large underwing engines — looks 'pinched' compared to A320/737."
+  },
+  {
+    "id": "e195e2",
+    "name": "Embraer E195-E2",
+    "manufacturer": "Embraer",
+    "family": "E-Jet E2",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 41.5,
+    "tail": "Conventional",
+    "generation": 2010,
+    "wikipedia": "Embraer E-Jet E2 family",
+    "identification": {
+      "manufacturer": "Embraer — same lineage as the E190.",
+      "family": "E-Jet E2 generation. Unmistakable cue: HUGE Pratt & Whitney geared turbofans (PW1900G), much larger than the original E-Jet engines. Plus a redesigned wing with a CURVED SCIMITAR wingtip (no separate winglet) — the only E-Jet wingtip style like that.",
+      "variant": "The E195-E2 is the largest E-Jet ever made — ~41.5m."
+    },
+    "keyTell": "E-Jet shape but with disproportionately large engines and a curved scimitar wingtip — that combo only appears on E2."
+  },
+  {
+    "id": "crj200",
+    "name": "Bombardier CRJ200",
+    "manufacturer": "Bombardier",
+    "family": "CRJ",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 26.8,
+    "tail": "T-tail",
+    "generation": 1990,
+    "wikipedia": "Bombardier CRJ100/200",
+    "identification": {
+      "manufacturer": "Bombardier CRJs descend from the Challenger business jet — very low-slung fuselage and tiny landing gear.",
+      "family": "T-TAIL with REAR-MOUNTED engines. Cabin is so narrow there's no real overhead bin clearance — passengers stoop to walk down the aisle.",
+      "variant": "The CRJ200 is the smallest current CRJ — ~26.8m, ~50 seats, no real overwing exits (just a small emergency hatch). Tiny rectangular engine inlets."
+    },
+    "keyTell": "Tiny T-tail rear-engine jet with no real overwing exits — the smallest mainline regional jet you'll see."
+  },
+  {
+    "id": "crj700",
+    "name": "Bombardier CRJ700",
+    "manufacturer": "Bombardier",
+    "family": "CRJ",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 32.5,
+    "tail": "T-tail",
+    "generation": 2000,
+    "wikipedia": "Bombardier CRJ700 series",
+    "identification": {
+      "manufacturer": "Bombardier Canadian regional jet.",
+      "family": "T-tail, rear-mounted engines, very low to the ground. The 700/900/1000 share a larger fuselage cross-section than the CRJ200 (real overhead bins, ~70+ seats) and a LED light extension at the leading-edge wing root.",
+      "variant": "The CRJ700 is the shortest of the larger CRJs — ~32.5m. Visibly between the tiny CRJ200 and the longer CRJ900."
+    },
+    "keyTell": "T-tail rear-engine jet, larger than CRJ200 but visibly shorter than CRJ900."
+  },
+  {
+    "id": "crj900",
+    "name": "Bombardier CRJ900",
+    "manufacturer": "Bombardier",
+    "family": "CRJ",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 36.2,
+    "tail": "T-tail",
+    "generation": 2000,
+    "wikipedia": "Bombardier CRJ700 series",
+    "identification": {
+      "manufacturer": "Bombardier CRJs descend from the Challenger business jet — very low-slung fuselage, tiny landing gear, and a T-TAIL with engines mounted on the rear fuselage.",
+      "family": "T-tail (horizontal stabilizer high on the fin), TAIL-MOUNTED engines, extremely low ground clearance — passengers walk up just a few steps. Four-abreast seating.",
+      "variant": "The CRJ900 has ~36.2m length with one pair of overwing exits — visibly longer than the CRJ700 and much longer than the CRJ200."
+    },
+    "keyTell": "T-tail with rear-fuselage engines, ground-hugging stance, fuselage length between CRJ700 and the rare CRJ1000."
+  },
+  {
+    "id": "atr72",
+    "name": "ATR 72",
+    "manufacturer": "ATR",
+    "family": "ATR",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turboprop",
+    "length": 27.2,
+    "tail": "Conventional",
+    "generation": 1980,
+    "wikipedia": "ATR 72",
+    "identification": {
+      "manufacturer": "ATR is a Franco-Italian turboprop maker. Their planes look like high-wing turboprops with a flat-bottomed fuselage.",
+      "family": "Two giveaways: HIGH-MOUNTED WING (mounted on top of the fuselage rather than below) and TURBOPROP engines with six-blade propellers. Conventional tail (not T-tail). Sits very low to the ground, often with airstairs built into the rear door.",
+      "variant": "The ATR 72 is the longer of the two ATR models (~27.2m). The ATR 42 is shorter with a stubbier look."
+    },
+    "keyTell": "High wing + propellers + conventional tail — instantly distinguishes it from any jet, and the conventional tail separates it from the Dash 8."
+  },
+  {
+    "id": "dash8q400",
+    "name": "De Havilland Dash 8 Q400",
+    "manufacturer": "Bombardier",
+    "family": "Dash 8",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turboprop",
+    "length": 32.8,
+    "tail": "T-tail",
+    "generation": 1990,
+    "wikipedia": "De Havilland Canada Dash 8",
+    "identification": {
+      "manufacturer": "Originally de Havilland Canada, then Bombardier, now back to De Havilland — a Canadian high-wing turboprop.",
+      "family": "Like the ATR, the Dash 8 is a HIGH-WING TURBOPROP. The Q400 distinguishes itself with a T-TAIL (horizontal stabilizer at the top of the fin — ATR is conventional), six-blade props, and a more pointed nose. Faster than ATR (jet-like cruise speed gives it the 'Q' for Quiet branding).",
+      "variant": "The Q400 is the long stretch (~32.8m); Dash 8-100/200/300 are shorter classic variants."
+    },
+    "keyTell": "High wing + T-tail + props — that combination uniquely names the Dash 8 Q400."
+  }
+]

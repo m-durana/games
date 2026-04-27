@@ -2,7 +2,7 @@
   import { fly } from 'svelte/transition';
   import { onDestroy, onMount } from 'svelte';
   import type { Question } from './types';
-  import { airportLabel, airportLabelWithCountry, buildSpeedQuestion, loadSettings, modeLabel, modeTitle } from './engine';
+  import { airlines as allAirlines, airportLabel, airportLabelWithCountry, buildSpeedQuestion, loadSettings, modeLabel, modeTitle } from './engine';
   import { saveSpeedBest } from './achievements';
   import * as Sound from './sound';
   import Logo from './Logo.svelte';
@@ -174,6 +174,12 @@
               <span class="opt-text">{airportLabelWithCountry(option)}</span>
             {:else if current.mode === 'hub'}
               <span class="opt-text">{airportLabel(option)}</span>
+            {:else if current.mode === 'airportAirline'}
+              {@const airlineForOpt = allAirlines.find((x) => x.iata === option)}
+              {#if airlineForOpt}
+                <Logo iata={airlineForOpt.iata} name={airlineForOpt.name} />
+              {/if}
+              <span class="opt-text">{airlineForOpt?.name ?? option}</span>
             {:else}
               <span class="opt-text">{option}</span>
             {/if}

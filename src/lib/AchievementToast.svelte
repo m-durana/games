@@ -25,15 +25,15 @@
   }
 
   function dismiss() {
-    active = null;
     if (timer !== null) clearTimeout(timer);
     timer = null;
-    setTimeout(onClear, 200);
+    active = null;
+    onClear();
   }
 </script>
 
 {#if active}
-  <div class="toast" transition:fly={{ y: -20, duration: 220 }}>
+  <div class="toast" transition:fly={{ y: 20, duration: 220 }}>
     <span class="icon">{active.icon}</span>
     <div class="text">
       <span class="label">Achievement unlocked</span>
@@ -47,7 +47,7 @@
 <style>
   .toast {
     position: fixed;
-    top: max(1rem, env(safe-area-inset-top));
+    bottom: max(1rem, env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
