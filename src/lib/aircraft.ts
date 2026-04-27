@@ -1,4 +1,5 @@
 import aircraftData from '../data/aircraft.json';
+import { loadPool } from './engine';
 
 export interface AircraftIdentification {
   manufacturer: string;
@@ -37,17 +38,91 @@ export type AircraftDifficulty = 'easy' | 'medium' | 'hard';
 
 export const aircraft = aircraftData as Aircraft[];
 
-// Curated iconic types for Easy mode — visually distinct, no confusable variants.
+// Easy: visually distinct, no confusable variants. The classic widebodies +
+// the dominant single-aisle families.
 const EASY_IDS = new Set([
-  'a320', 'a321', 'a330', 'a350', 'a380',
-  'b737ng', 'b747', 'b777', 'b787',
-  'e190', 'atr72', 'crj900',
+  'a320', 'a330', 'a350', 'a380',
+  'b737ng', 'b747', 'b757', 'b767', 'b777', 'b787',
+  'e190', 'atr72',
 ]);
 
-export function aircraftForDifficulty(difficulty: AircraftDifficulty): Aircraft[] {
-  if (difficulty === 'easy') return aircraft.filter((a) => EASY_IDS.has(a.id));
-  return aircraft;
+// Hard: only the confusable variants — same family or near-twin to something
+// in Easy. Forces the player to actually distinguish A319 vs A320 vs A321,
+// 737 Classic vs NG vs MAX, CRJ200 vs 700 vs 900, E170 vs E175, etc. Cuts
+// out the easy iconic aircraft so Hard isn't just "Medium + a few extras".
+const HARD_IDS = new Set([
+  // Airbus narrow-body variants and older widebody
+  'a319', 'a321', 'a220', 'a310', 'a340-600',
+  // 737 family + close cousins + retired
+  'b737classic', 'b737-700', 'b737max', 'b717', 'b727', 'md83',
+  // Embraer regional family
+  'e170', 'e175', 'e195e2',
+  // CRJ family
+  'crj200', 'crj700', 'crj900',
+  // Turboprops
+  'dash8q400',
+]);
+
+const US_AIRCRAFT_MAKERS = new Set(['Boeing', 'McDonnell Douglas']);
+function applyPool(list: Aircraft[]): Aircraft[] {
+  return loadPool() === 'us' ? list.filter((a) => US_AIRCRAFT_MAKERS.has(a.manufacturer)) : list;
 }
+
+export function pooledAircraft(): Aircraft[] {
+  return applyPool(aircraft);
+}
+
+export function aircraftForDifficulty(difficulty: AircraftDifficulty): Aircraft[] {
+  if (difficulty === 'easy') return applyPool(aircraft.filter((a) => EASY_IDS.has(a.id)));
+  if (difficulty === 'hard') return applyPool(aircraft.filter((a) => HARD_IDS.has(a.id)));
+  return applyPool(aircraft);
+}
+
+// Human-readable explanation of each Wordle attribute and the values it can
+// take. Surfaced from the wordle UI when the player taps a column header.
+export interface AttributeInfo {
+  label: string;
+  description: string;
+  values: string[];
+}
+
+export const ATTRIBUTE_INFO: AttributeInfo[] = [
+  {
+    label: 'Maker',
+    description: 'The aircraft manufacturer.',
+    values: ['Airbus', 'Boeing', 'Embraer', 'Bombardier', 'McDonnell Douglas', 'ATR', 'De Havilland'],
+  },
+  {
+    label: 'Body',
+    description: 'Single-aisle (narrow) or twin-aisle (wide) cabin.',
+    values: ['Narrow', 'Wide'],
+  },
+  {
+    label: 'Length',
+    description: 'Overall length, bucketed. ▲ / ▼ on a "close" hint mean the answer is one bucket up or down.',
+    values: ['Short (<35 m)', 'Medium (35–45 m)', 'Long (45–60 m)', 'XL (60 m+)'],
+  },
+  {
+    label: 'Engines',
+    description: 'Number of engines on the aircraft.',
+    values: ['2', '3', '4'],
+  },
+  {
+    label: 'Engine',
+    description: 'Engine type — turbofan jets vs turboprops.',
+    values: ['Turbofan', 'Turboprop'],
+  },
+  {
+    label: 'Tail',
+    description: 'Tail configuration.',
+    values: ['Conventional', 'T-tail'],
+  },
+  {
+    label: 'Era',
+    description: 'Decade of service entry. ▲ / ▼ on a "close" hint mean the answer is within ~10 years.',
+    values: ['1960s', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'],
+  },
+];
 
 export function aircraftById(id: string): Aircraft | null {
   return aircraft.find((a) => a.id === id) ?? null;
@@ -161,6 +236,12 @@ interface CommonsPage {
   imageinfo?: CommonsImageInfo[];
 }
 
+function fetchWithTimeout(url: string, ms = 12000): Promise<Response> {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), ms);
+  return fetch(url, { signal: ctl.signal }).finally(() => clearTimeout(t));
+}
+
 async function fetchFromCommonsCategory(category: string): Promise<string[]> {
   const url =
     `https://commons.wikimedia.org/w/api.php?action=query&format=json` +
@@ -168,7 +249,7 @@ async function fetchFromCommonsCategory(category: string): Promise<string[]> {
     `&gcmtype=file&gcmlimit=50` +
     `&prop=imageinfo&iiprop=url&iiurlwidth=1200&origin=*`;
   try {
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url);
     if (!res.ok) return [];
     const json = await res.json();
     const pages: Record<string, CommonsPage> = json?.query?.pages ?? {};
@@ -190,7 +271,7 @@ async function fetchFromCommonsCategory(category: string): Promise<string[]> {
 async function fetchFromWikiMediaList(wikiTitle: string): Promise<string[]> {
   try {
     const url = `https://en.wikipedia.org/api/rest_v1/page/media-list/${encodeURIComponent(wikiTitle)}`;
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url);
     if (!res.ok) return [];
     const json = await res.json();
     const items: { type: string; title?: string; srcset?: { src: string; scale?: string }[] }[] = json?.items ?? [];
@@ -232,7 +313,8 @@ export async function fetchAircraftImages(plane: Aircraft): Promise<string[]> {
         combined.push(src);
       }
     }
-    imageListCache.set(cacheKey, combined);
+    // Don't cache empty results — likely a transient timeout / rate-limit.
+    if (combined.length > 0) imageListCache.set(cacheKey, combined);
     inFlight.delete(cacheKey);
     return combined;
   })();

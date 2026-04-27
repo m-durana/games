@@ -52,7 +52,7 @@
       "JFK"
     ],
     "year": 2023,
-    "source": "Wikipedia: Zürich Airport",
+    "source": "Wikipedia: Z\u00fcrich Airport",
     "sourceUrl": "https://en.wikipedia.org/wiki/Z%C3%BCrich_Airport",
     "serviceSource": "Wikipedia: List of Swiss International Air Lines destinations",
     "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Swiss_International_Air_Lines_destinations",
@@ -85,7 +85,7 @@
       "VIE"
     ],
     "year": 2024,
-    "source": "Wikipedia: Düsseldorf Airport",
+    "source": "Wikipedia: D\u00fcsseldorf Airport",
     "sourceUrl": "https://en.wikipedia.org/wiki/D%C3%BCsseldorf_Airport",
     "serviceSource": "Wikipedia: List of Eurowings destinations",
     "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Eurowings_destinations",
@@ -148,7 +148,7 @@
       "FRA"
     ],
     "year": 2023,
-    "source": "Wikipedia: Adolfo Suárez Madrid-Barajas Airport",
+    "source": "Wikipedia: Adolfo Su\u00e1rez Madrid-Barajas Airport",
     "sourceUrl": "https://en.wikipedia.org/wiki/Adolfo_Su%C3%A1rez_Madrid-Barajas_Airport",
     "serviceSource": "Wikipedia: List of Iberia destinations",
     "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Iberia_destinations",
@@ -362,22 +362,6 @@
     "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
     "confidence": "hub-dominant inference"
   },
-  "JJ": {
-    "topDestinations": [
-      "EZE",
-      "JFK",
-      "FRA",
-      "LHR"
-    ],
-    "year": 2023,
-    "source": "Wikipedia: São Paulo-Guarulhos International Airport",
-    "sourceUrl": "https://en.wikipedia.org/wiki/S%C3%A3o_Paulo-Guarulhos_International_Airport",
-    "serviceSource": "Wikipedia: LATAM Brasil",
-    "serviceSourceUrl": "https://en.wikipedia.org/wiki/LATAM_Brasil",
-    "metric": "hub airport ranked destinations",
-    "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
-    "confidence": "hub-dominant inference"
-  },
   "CM": {
     "topDestinations": [
       "BOG",
@@ -407,7 +391,7 @@
     "year": 2023,
     "source": "Wikipedia: Ministro Pistarini International Airport",
     "sourceUrl": "https://en.wikipedia.org/wiki/Ministro_Pistarini_International_Airport",
-    "serviceSource": "Wikipedia: List of Aerolíneas Argentinas destinations",
+    "serviceSource": "Wikipedia: List of Aerol\u00edneas Argentinas destinations",
     "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Aerol%C3%ADneas_Argentinas_destinations",
     "metric": "hub airport ranked destinations",
     "basis": "Airline is the #1 listed carrier at its hub; ordering comes from the hub airport route table; each destination is also present in the airline's public destination list.",
@@ -440,7 +424,7 @@
       "IST"
     ],
     "year": 2023,
-    "source": "Wikipedia: Sabiha Gökçen International Airport",
+    "source": "Wikipedia: Sabiha G\u00f6k\u00e7en International Airport",
     "sourceUrl": "https://en.wikipedia.org/wiki/Sabiha_G%C3%B6k%C3%A7en_International_Airport",
     "serviceSource": "Wikipedia: List of Pegasus Airlines destinations",
     "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Pegasus_Airlines_destinations",
@@ -572,7 +556,7 @@
       "CPH"
     ],
     "year": 2023,
-    "source": "Wikipedia: Franjo Tuđman Airport",
+    "source": "Wikipedia: Franjo Tu\u0111man Airport",
     "sourceUrl": "https://en.wikipedia.org/wiki/Franjo_Tu%C4%91man_Airport",
     "serviceSource": "Wikipedia: Croatia Airlines",
     "serviceSourceUrl": "https://en.wikipedia.org/wiki/Croatia_Airlines",
@@ -591,7 +575,7 @@
       "FRA"
     ],
     "year": 2023,
-    "source": "Wikipedia: Keflavík International Airport",
+    "source": "Wikipedia: Keflav\u00edk International Airport",
     "sourceUrl": "https://en.wikipedia.org/wiki/Keflav%C3%ADk_International_Airport",
     "serviceSource": "Wikipedia: List of Icelandair destinations",
     "serviceSourceUrl": "https://en.wikipedia.org/wiki/List_of_Icelandair_destinations",

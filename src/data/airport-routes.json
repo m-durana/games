@@ -789,7 +789,7 @@
     "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "DUS": {
-    "source": "Wikipedia: Düsseldorf Airport",
+    "source": "Wikipedia: D\u00fcsseldorf Airport",
     "topAirlines": [
       "EW",
       "LH",
@@ -939,9 +939,8 @@
     "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "GRU": {
-    "source": "Wikipedia: São Paulo-Guarulhos International Airport",
+    "source": "Wikipedia: S\u00e3o Paulo-Guarulhos International Airport",
     "topAirlines": [
-      "JJ",
       "G3",
       "AD",
       "AA"
@@ -1257,7 +1256,7 @@
     "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "KEF": {
-    "source": "Wikipedia: Keflavík International Airport",
+    "source": "Wikipedia: Keflav\u00edk International Airport",
     "topAirlines": [
       "FI",
       "DY",
@@ -1503,7 +1502,7 @@
     "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "MAD": {
-    "source": "Wikipedia: Adolfo Suárez Madrid-Barajas Airport",
+    "source": "Wikipedia: Adolfo Su\u00e1rez Madrid-Barajas Airport",
     "topAirlines": [
       "IB",
       "VY",
@@ -1797,7 +1796,7 @@
     "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "OTP": {
-    "source": "Wikipedia: Bucharest Henri Coandă International Airport",
+    "source": "Wikipedia: Bucharest Henri Coand\u0103 International Airport",
     "topAirlines": [
       "W6",
       "FR",
@@ -1882,7 +1881,7 @@
     "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "PRG": {
-    "source": "Wikipedia: Václav Havel Airport Prague",
+    "source": "Wikipedia: V\u00e1clav Havel Airport Prague",
     "topAirlines": [
       "FR",
       "OK",
@@ -1974,7 +1973,7 @@
     "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "SAW": {
-    "source": "Wikipedia: Sabiha Gökçen International Airport",
+    "source": "Wikipedia: Sabiha G\u00f6k\u00e7en International Airport",
     "topAirlines": [
       "PC",
       "TK",
@@ -1999,7 +1998,7 @@
     "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "SCL": {
-    "source": "Wikipedia: Arturo Merino Benítez International Airport",
+    "source": "Wikipedia: Arturo Merino Ben\u00edtez International Airport",
     "topAirlines": [
       "LA",
       "JA",
@@ -2393,7 +2392,7 @@
     "destinationBasis": "Not used by Airport Routes exact-busiest mode; the validator did not find a ranked airport route table with at least three in-scope destinations."
   },
   "ZAG": {
-    "source": "Wikipedia: Franjo Tuđman Airport",
+    "source": "Wikipedia: Franjo Tu\u0111man Airport",
     "topAirlines": [
       "OU",
       "FR",
@@ -2420,7 +2419,7 @@
     "destinationBasis": "Extracted from a Wikipedia airport statistics table with route/destination rank or passenger columns."
   },
   "ZRH": {
-    "source": "Wikipedia: Zürich Airport",
+    "source": "Wikipedia: Z\u00fcrich Airport",
     "topAirlines": [
       "LX",
       "EW",

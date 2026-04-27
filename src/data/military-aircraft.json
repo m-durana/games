@@ -1,0 +1,800 @@
+[
+  {
+    "id": "f16",
+    "name": "F-16 Fighting Falcon",
+    "manufacturer": "Lockheed Martin",
+    "origin": "United States",
+    "role": "Fighter",
+    "introduction": 1978,
+    "engines": 1,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "General Dynamics F-16 Fighting Falcon",
+    "commonsCategory": "F-16 Fighting Falcon",
+    "identification": {
+      "manufacturer": "General Dynamics design (now Lockheed Martin); single-engine, bubble canopy with no centerline frame.",
+      "family": "Single-engine multirole fighter \u2014 light, agile, with a chin-mounted air intake and a frameless bubble canopy.",
+      "variant": "F-16 baseline jet \u2014 most-produced fighter of its generation."
+    },
+    "keyTell": "Single chin intake, frameless bubble canopy, single tailfin."
+  },
+  {
+    "id": "f22",
+    "name": "F-22 Raptor",
+    "manufacturer": "Lockheed Martin",
+    "origin": "United States",
+    "role": "Fighter",
+    "introduction": 2005,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "Lockheed Martin F-22 Raptor",
+    "commonsCategory": "Lockheed Martin F-22 Raptor",
+    "identification": {
+      "manufacturer": "Lockheed Martin stealth lineage shared with F-117/F-35.",
+      "family": "5th-generation air-superiority fighter \u2014 twin-engine, twin-tail, faceted stealth fuselage.",
+      "variant": "F-22A \u2014 only operational variant, retired from production."
+    },
+    "keyTell": "Twin canted tails, diamond-shape wing planform, internal weapons bays."
+  },
+  {
+    "id": "f35",
+    "name": "F-35 Lightning II",
+    "manufacturer": "Lockheed Martin",
+    "origin": "United States",
+    "role": "Fighter",
+    "introduction": 2015,
+    "engines": 1,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "Lockheed Martin F-35 Lightning II",
+    "commonsCategory": "Lockheed Martin F-35 Lightning II",
+    "identification": {
+      "manufacturer": "Lockheed Martin's family of stealth multirole fighters built around a single F135 engine.",
+      "family": "5th-generation single-engine stealth strike fighter; chunky fuselage to fit the lift fan / fuel.",
+      "variant": "Common F-35 silhouette across A/B/C variants; B has the lift-fan door behind the cockpit."
+    },
+    "keyTell": "Single engine, fat fuselage, twin tails, chined nose."
+  },
+  {
+    "id": "fa18",
+    "name": "F/A-18 Hornet",
+    "manufacturer": "Boeing",
+    "origin": "United States",
+    "role": "Fighter",
+    "introduction": 1983,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "McDonnell Douglas F/A-18 Hornet",
+    "commonsCategory": "F/A-18 Hornet",
+    "identification": {
+      "manufacturer": "McDonnell Douglas design now sustained by Boeing \u2014 twin-engine carrier fighter.",
+      "family": "Carrier-based multirole fighter: twin canted tails, leading-edge root extensions running to the canopy.",
+      "variant": "Legacy Hornet (A/B/C/D); Super Hornet is a separate, larger airframe."
+    },
+    "keyTell": "Twin canted tails, prominent LERX, dual underwing intakes."
+  },
+  {
+    "id": "a10",
+    "name": "A-10 Thunderbolt II",
+    "manufacturer": "Fairchild Republic",
+    "origin": "United States",
+    "role": "Attack",
+    "introduction": 1977,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "Fairchild Republic A-10 Thunderbolt II",
+    "commonsCategory": "Fairchild Republic A-10 Thunderbolt II",
+    "identification": {
+      "manufacturer": "Fairchild Republic \u2014 purpose-built around the GAU-8 Avenger 30 mm cannon.",
+      "family": "Close-air-support attack jet, straight wings, twin engines mounted high at the rear.",
+      "variant": "Single A-10 design (A-10A baseline, A-10C upgrade)."
+    },
+    "keyTell": "Straight wings, rear-mounted engines, twin tails, nose cannon."
+  },
+  {
+    "id": "b52",
+    "name": "B-52 Stratofortress",
+    "manufacturer": "Boeing",
+    "origin": "United States",
+    "role": "Bomber",
+    "introduction": 1955,
+    "engines": 8,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "Boeing B-52 Stratofortress",
+    "commonsCategory": "Boeing B-52 Stratofortress",
+    "identification": {
+      "manufacturer": "Boeing \u2014 long-running strategic bomber from the 1950s, still in service.",
+      "family": "Eight-engine swept-wing strategic bomber, tall single tail.",
+      "variant": "B-52H \u2014 only operational variant."
+    },
+    "keyTell": "Eight engines in four paired pods, drooping wings, tall single tail."
+  },
+  {
+    "id": "b2",
+    "name": "B-2 Spirit",
+    "manufacturer": "Northrop Grumman",
+    "origin": "United States",
+    "role": "Bomber",
+    "introduction": 1997,
+    "engines": 4,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "Northrop Grumman B-2 Spirit",
+    "commonsCategory": "B-2 Spirit",
+    "identification": {
+      "manufacturer": "Northrop Grumman \u2014 flying-wing stealth lineage from the YB-49.",
+      "family": "Stealth strategic bomber, flying-wing planform, no vertical tail.",
+      "variant": "Single B-2A design."
+    },
+    "keyTell": "All-wing stealth bomber, no tail, sawtooth trailing edge."
+  },
+  {
+    "id": "c130",
+    "name": "C-130 Hercules",
+    "manufacturer": "Lockheed Martin",
+    "origin": "United States",
+    "role": "Transport",
+    "introduction": 1956,
+    "engines": 4,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "Lockheed C-130 Hercules",
+    "commonsCategory": "Lockheed C-130 Hercules",
+    "identification": {
+      "manufacturer": "Lockheed (now Lockheed Martin) \u2014 defining tactical airlifter since the 1950s.",
+      "family": "Four-engine high-wing turboprop tactical transport with rear loading ramp.",
+      "variant": "Many sub-variants (E/H/J); J-model has six-blade scimitar props."
+    },
+    "keyTell": "High-wing turboprop, four props, rear ramp, slab-side fuselage."
+  },
+  {
+    "id": "c17",
+    "name": "C-17 Globemaster III",
+    "manufacturer": "Boeing",
+    "origin": "United States",
+    "role": "Transport",
+    "introduction": 1995,
+    "engines": 4,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "Boeing C-17 Globemaster III",
+    "commonsCategory": "Boeing C-17 Globemaster III",
+    "identification": {
+      "manufacturer": "McDonnell Douglas design now built and sustained by Boeing.",
+      "family": "Four-engine high-wing strategic airlifter, T-tail, large winglets.",
+      "variant": "Single C-17A design."
+    },
+    "keyTell": "Big T-tail, four high-bypass turbofans, prominent blended winglets."
+  },
+  {
+    "id": "ah64",
+    "name": "AH-64 Apache",
+    "manufacturer": "Boeing",
+    "origin": "United States",
+    "role": "Helicopter",
+    "introduction": 1986,
+    "engines": 2,
+    "wings": "Rotary",
+    "speed": "Subsonic",
+    "wikipedia": "Boeing AH-64 Apache",
+    "commonsCategory": "AH-64 Apache",
+    "identification": {
+      "manufacturer": "Hughes/McDonnell Douglas/Boeing lineage \u2014 Apache first flew 1975.",
+      "family": "Tandem-seat attack helicopter, four-blade main rotor, stub-wing weapons pylons.",
+      "variant": "AH-64D Longbow has the mast-mounted radar dome; AH-64E is the latest."
+    },
+    "keyTell": "Tandem cockpit, chin-mounted gun, stub wings with weapons pylons."
+  },
+  {
+    "id": "uh60",
+    "name": "UH-60 Black Hawk",
+    "manufacturer": "Sikorsky",
+    "origin": "United States",
+    "role": "Helicopter",
+    "introduction": 1979,
+    "engines": 2,
+    "wings": "Rotary",
+    "speed": "Subsonic",
+    "wikipedia": "Sikorsky UH-60 Black Hawk",
+    "commonsCategory": "Sikorsky UH-60 Black Hawk",
+    "identification": {
+      "manufacturer": "Sikorsky \u2014 utility helicopter family that replaced the UH-1 Huey.",
+      "family": "Twin-engine medium utility helicopter, four-blade main rotor, stabilator at the tail.",
+      "variant": "UH-60 baseline; HH-60 search-and-rescue, MH-60 special ops, etc."
+    },
+    "keyTell": "Squat fuselage, sliding cabin doors, large stabilator on tail boom."
+  },
+  {
+    "id": "mq9",
+    "name": "MQ-9 Reaper",
+    "manufacturer": "General Atomics",
+    "origin": "United States",
+    "role": "UAV",
+    "introduction": 2007,
+    "engines": 1,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "General Atomics MQ-9 Reaper",
+    "commonsCategory": "MQ-9 Reaper",
+    "identification": {
+      "manufacturer": "General Atomics \u2014 successor to the MQ-1 Predator.",
+      "family": "Long-endurance armed UAV, V-tail, single rear-mounted turboprop pusher.",
+      "variant": "MQ-9A baseline; MQ-9B SkyGuardian variant for civil airspace."
+    },
+    "keyTell": "Pusher prop on the tail, V-tail, bulged sensor nose."
+  },
+  {
+    "id": "su27",
+    "name": "Su-27 Flanker",
+    "manufacturer": "Sukhoi",
+    "origin": "Russia",
+    "role": "Fighter",
+    "introduction": 1985,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "Sukhoi Su-27",
+    "commonsCategory": "Sukhoi Su-27",
+    "identification": {
+      "manufacturer": "Sukhoi \u2014 basis for an entire family of derivatives (Su-30/33/34/35).",
+      "family": "Long-fuselage twin-engine air-superiority fighter, leading-edge root extension, twin tails.",
+      "variant": "Baseline Su-27 / Su-27S; many evolved variants follow."
+    },
+    "keyTell": "Long sleek fuselage, twin engines spaced apart with a sting between, twin tails."
+  },
+  {
+    "id": "mig29",
+    "name": "MiG-29 Fulcrum",
+    "manufacturer": "Mikoyan",
+    "origin": "Russia",
+    "role": "Fighter",
+    "introduction": 1982,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "Mikoyan MiG-29",
+    "commonsCategory": "Mikoyan MiG-29",
+    "identification": {
+      "manufacturer": "Mikoyan-Gurevich \u2014 front-line tactical fighter contemporary of the Su-27.",
+      "family": "Twin-engine tactical fighter, leading-edge root extensions, intakes with blow-in doors for grass-strip ops.",
+      "variant": "Many sub-variants; later versions add helmet-mounted sights and AESA upgrades."
+    },
+    "keyTell": "Twin engines close together, twin canted tails, large LERX, smaller than a Flanker."
+  },
+  {
+    "id": "typhoon",
+    "name": "Eurofighter Typhoon",
+    "manufacturer": "Eurofighter",
+    "origin": "United Kingdom",
+    "role": "Fighter",
+    "introduction": 2003,
+    "engines": 2,
+    "wings": "Delta",
+    "speed": "Supersonic",
+    "wikipedia": "Eurofighter Typhoon",
+    "commonsCategory": "Eurofighter Typhoon",
+    "identification": {
+      "manufacturer": "Multinational program (UK / Germany / Italy / Spain) under the Eurofighter consortium.",
+      "family": "Delta-canard 4.5-generation fighter, twin engines, single fin.",
+      "variant": "Tranche 1/2/3 with progressively newer avionics and radar (CAPTOR-E AESA)."
+    },
+    "keyTell": "Cropped delta wing with large forward canards, chin intake, single tail."
+  },
+  {
+    "id": "rafale",
+    "name": "Dassault Rafale",
+    "manufacturer": "Dassault",
+    "origin": "France",
+    "role": "Fighter",
+    "introduction": 2001,
+    "engines": 2,
+    "wings": "Delta",
+    "speed": "Supersonic",
+    "wikipedia": "Dassault Rafale",
+    "commonsCategory": "Dassault Rafale",
+    "identification": {
+      "manufacturer": "Dassault \u2014 France's omnirole 4.5-generation fighter, sized between Mirage 2000 and Typhoon.",
+      "family": "Delta-canard fighter with twin engines and oval intakes mounted under the canard root.",
+      "variant": "C (single-seat AdA) / B (two-seat) / M (carrier)."
+    },
+    "keyTell": "Smaller than Typhoon, oval intakes under the canards, twin engines close-coupled."
+  },
+  {
+    "id": "gripen",
+    "name": "Saab JAS 39 Gripen",
+    "manufacturer": "Saab",
+    "origin": "Sweden",
+    "role": "Fighter",
+    "introduction": 1996,
+    "engines": 1,
+    "wings": "Delta",
+    "speed": "Supersonic",
+    "wikipedia": "Saab JAS 39 Gripen",
+    "commonsCategory": "Saab JAS 39 Gripen",
+    "identification": {
+      "manufacturer": "Saab \u2014 Sweden's lightweight delta-canard multirole fighter.",
+      "family": "Single-engine delta-canard, designed for short austere runways.",
+      "variant": "C/D legacy and the larger E/F (Gripen E)."
+    },
+    "keyTell": "Single engine, small delta-canard, looks compact and light next to Rafale/Typhoon."
+  },
+  {
+    "id": "f14",
+    "name": "F-14 Tomcat",
+    "manufacturer": "Grumman",
+    "origin": "United States",
+    "role": "Fighter",
+    "introduction": 1974,
+    "engines": 2,
+    "wings": "Swing",
+    "speed": "Supersonic",
+    "wikipedia": "Grumman F-14 Tomcat",
+    "commonsCategory": "Grumman F-14 Tomcat",
+    "identification": {
+      "manufacturer": "Grumman \u2014 the iconic carrier interceptor of the late Cold War.",
+      "family": "Twin-engine variable-sweep wing fleet defender, two-seat tandem cockpit.",
+      "variant": "F-14A/B/D \u2014 retired from US service in 2006."
+    },
+    "keyTell": "Variable-sweep wings, twin tails, widely-spaced engine nacelles, two-seat cockpit."
+  },
+  {
+    "id": "f15c",
+    "name": "F-15C Eagle",
+    "manufacturer": "Boeing",
+    "origin": "United States",
+    "role": "Fighter",
+    "introduction": 1979,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "McDonnell Douglas F-15 Eagle",
+    "commonsCategory": "F-15 Eagle",
+    "identification": {
+      "manufacturer": "McDonnell Douglas (now Boeing) air-superiority Eagle.",
+      "family": "Large twin-engine air-superiority fighter, twin tails, big intakes.",
+      "variant": "F-15C single-seat air-to-air variant \u2014 no conformal fuel tanks, lighter than the Strike Eagle."
+    },
+    "keyTell": "Big twin tails, no CFTs on the fuselage, single-seat canopy."
+  },
+  {
+    "id": "f15e",
+    "name": "F-15E Strike Eagle",
+    "manufacturer": "Boeing",
+    "origin": "United States",
+    "role": "Attack",
+    "introduction": 1989,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "McDonnell Douglas F-15E Strike Eagle",
+    "commonsCategory": "F-15E Strike Eagle",
+    "identification": {
+      "manufacturer": "McDonnell Douglas / Boeing \u2014 strike-optimized Eagle derivative.",
+      "family": "Two-seat all-weather strike fighter built on the F-15 airframe.",
+      "variant": "F-15E adds conformal fuel tanks and a back-seat WSO; F-15EX is a newer derivative."
+    },
+    "keyTell": "Two-seat tandem canopy plus conformal fuel tanks down the fuselage flanks."
+  },
+  {
+    "id": "mig21",
+    "name": "MiG-21 Fishbed",
+    "manufacturer": "Mikoyan",
+    "origin": "Russia",
+    "role": "Fighter",
+    "introduction": 1959,
+    "engines": 1,
+    "wings": "Delta",
+    "speed": "Supersonic",
+    "wikipedia": "Mikoyan-Gurevich MiG-21",
+    "commonsCategory": "Mikoyan-Gurevich MiG-21",
+    "identification": {
+      "manufacturer": "Mikoyan-Gurevich \u2014 most-produced supersonic jet of all time.",
+      "family": "Single-engine tailed-delta interceptor, nose intake with shock cone.",
+      "variant": "Many variants; late versions have larger spine and broader nose."
+    },
+    "keyTell": "Tiny tailed-delta with circular nose intake and shock cone."
+  },
+  {
+    "id": "mig23",
+    "name": "MiG-23 Flogger",
+    "manufacturer": "Mikoyan",
+    "origin": "Russia",
+    "role": "Fighter",
+    "introduction": 1970,
+    "engines": 1,
+    "wings": "Swing",
+    "speed": "Supersonic",
+    "wikipedia": "Mikoyan-Gurevich MiG-23",
+    "commonsCategory": "Mikoyan-Gurevich MiG-23",
+    "identification": {
+      "manufacturer": "Mikoyan-Gurevich \u2014 variable-geometry follow-on to the MiG-21.",
+      "family": "Single-engine variable-sweep fighter with side intakes (unlike the MiG-21's nose intake).",
+      "variant": "MS/MF/ML for fighter, MiG-27 is the strike-optimized derivative."
+    },
+    "keyTell": "Variable-sweep wings on a slab-sided fuselage with rectangular side intakes."
+  },
+  {
+    "id": "su30",
+    "name": "Sukhoi Su-30",
+    "manufacturer": "Sukhoi",
+    "origin": "Russia",
+    "role": "Fighter",
+    "introduction": 1996,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "Sukhoi Su-30",
+    "commonsCategory": "Sukhoi Su-30",
+    "identification": {
+      "manufacturer": "Sukhoi \u2014 multirole twin-seat development of the Su-27.",
+      "family": "Two-seat tandem Flanker derivative; Su-30MKI/SM versions add canards and thrust-vectoring.",
+      "variant": "MKI (India) and SM (Russia) are the most common."
+    },
+    "keyTell": "Flanker silhouette but with a tandem two-seat canopy; some variants have canards."
+  },
+  {
+    "id": "su35",
+    "name": "Sukhoi Su-35",
+    "manufacturer": "Sukhoi",
+    "origin": "Russia",
+    "role": "Fighter",
+    "introduction": 2014,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "Sukhoi Su-35",
+    "commonsCategory": "Sukhoi Su-35",
+    "identification": {
+      "manufacturer": "Sukhoi \u2014 single-seat 4.5-gen Flanker with thrust-vectoring AL-41F1S engines.",
+      "family": "Heavily refined Flanker with no canards but new larger tail and reinforced airframe.",
+      "variant": "Su-35S is the production variant."
+    },
+    "keyTell": "Single-seat Flanker silhouette, no canards, very tall pitot tube on the nose."
+  },
+  {
+    "id": "tornado",
+    "name": "Panavia Tornado IDS",
+    "manufacturer": "Panavia",
+    "origin": "United Kingdom",
+    "role": "Attack",
+    "introduction": 1980,
+    "engines": 2,
+    "wings": "Swing",
+    "speed": "Supersonic",
+    "wikipedia": "Panavia Tornado",
+    "commonsCategory": "Panavia Tornado",
+    "identification": {
+      "manufacturer": "Panavia \u2014 joint UK / Germany / Italy program for a low-level strike aircraft.",
+      "family": "Two-seat variable-sweep all-weather strike jet, twin engines under a slab fuselage.",
+      "variant": "IDS strike, ECR SEAD, ADV (UK air-defence variant with longer fuselage)."
+    },
+    "keyTell": "Variable-sweep wings, two-seat tandem canopy, single tall fin, low-set engines."
+  },
+  {
+    "id": "mirage2000",
+    "name": "Dassault Mirage 2000",
+    "manufacturer": "Dassault",
+    "origin": "France",
+    "role": "Fighter",
+    "introduction": 1984,
+    "engines": 1,
+    "wings": "Delta",
+    "speed": "Supersonic",
+    "wikipedia": "Dassault Mirage 2000",
+    "commonsCategory": "Dassault Mirage 2000",
+    "identification": {
+      "manufacturer": "Dassault \u2014 pure delta-wing fighter without canards (unlike the Rafale).",
+      "family": "Single-engine tailless delta with a pronounced cropped delta planform.",
+      "variant": "C/D/N/-5/-9 spanning interception, strike, and nuclear-strike roles."
+    },
+    "keyTell": "Pure delta wing, no canards, single engine, single tail \u2014 looks like a flatter, simpler design than the Rafale."
+  },
+  {
+    "id": "f4",
+    "name": "F-4 Phantom II",
+    "manufacturer": "McDonnell Douglas",
+    "origin": "United States",
+    "role": "Fighter",
+    "introduction": 1961,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "McDonnell Douglas F-4 Phantom II",
+    "commonsCategory": "McDonnell Douglas F-4 Phantom II",
+    "identification": {
+      "manufacturer": "McDonnell Douglas \u2014 Cold War twin-engine multirole that served US and many allies.",
+      "family": "Large twin-engine two-seat fighter with anhedral horizontal stabilator and dihedral outer wing panels.",
+      "variant": "F-4B / E / G / J \u2014 many subvariants across services."
+    },
+    "keyTell": "Drooping horizontal stabilator, upward-cocked outer wings, two-seat tandem cockpit."
+  },
+  {
+    "id": "f5",
+    "name": "F-5 Tiger II",
+    "manufacturer": "Northrop",
+    "origin": "United States",
+    "role": "Fighter",
+    "introduction": 1972,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "Northrop F-5",
+    "commonsCategory": "Northrop F-5",
+    "identification": {
+      "manufacturer": "Northrop \u2014 small twin-engine lightweight fighter exported widely.",
+      "family": "Compact supersonic fighter with sharp pointed nose and long LERX.",
+      "variant": "F-5E Tiger II is the most common; F-5F is the two-seat trainer."
+    },
+    "keyTell": "Tiny twin-engine fighter with pointy nose and prominent LERX \u2014 much smaller than an F-15."
+  },
+  {
+    "id": "j20",
+    "name": "Chengdu J-20",
+    "manufacturer": "Chengdu",
+    "origin": "China",
+    "role": "Fighter",
+    "introduction": 2017,
+    "engines": 2,
+    "wings": "Delta",
+    "speed": "Supersonic",
+    "wikipedia": "Chengdu J-20",
+    "commonsCategory": "Chengdu J-20",
+    "identification": {
+      "manufacturer": "Chengdu Aircraft Corporation \u2014 China's first 5th-generation stealth fighter.",
+      "family": "Twin-engine stealth fighter with a long fuselage, canards, and delta wings.",
+      "variant": "J-20A baseline; J-20B with thrust-vectoring engines is the latest."
+    },
+    "keyTell": "Long stealth airframe with both canards and a delta wing \u2014 the only operational stealth fighter with canards."
+  },
+  {
+    "id": "tu95",
+    "name": "Tu-95 Bear",
+    "manufacturer": "Tupolev",
+    "origin": "Russia",
+    "role": "Bomber",
+    "introduction": 1956,
+    "engines": 4,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "Tupolev Tu-95",
+    "commonsCategory": "Tupolev Tu-95",
+    "identification": {
+      "manufacturer": "Tupolev \u2014 Soviet strategic bomber, the only swept-wing turboprop bomber in service.",
+      "family": "Four-engine swept-wing strategic bomber with contra-rotating turboprops.",
+      "variant": "Tu-95MS is the modern cruise-missile carrier variant."
+    },
+    "keyTell": "Four turboprops with massive contra-rotating propellers \u2014 the only swept-wing turboprop bomber."
+  },
+  {
+    "id": "a400m",
+    "name": "Airbus A400M Atlas",
+    "manufacturer": "Airbus",
+    "origin": "Germany",
+    "role": "Transport",
+    "introduction": 2013,
+    "engines": 4,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "Airbus A400M Atlas",
+    "commonsCategory": "Airbus A400M",
+    "identification": {
+      "manufacturer": "Airbus Defence & Space \u2014 Europe's tactical/strategic airlifter program.",
+      "family": "Four-engine high-wing turboprop tactical transport, between the C-130 and the C-17 in size.",
+      "variant": "Single A400M design across operators."
+    },
+    "keyTell": "Four eight-blade scimitar-style turboprops; props on inboard and outboard engines turn opposite directions."
+  },
+  {
+    "id": "v22",
+    "name": "V-22 Osprey",
+    "manufacturer": "Bell Boeing",
+    "origin": "United States",
+    "role": "Transport",
+    "introduction": 2007,
+    "engines": 2,
+    "wings": "Tilt",
+    "speed": "Subsonic",
+    "wikipedia": "Bell Boeing V-22 Osprey",
+    "commonsCategory": "Bell-Boeing V-22 Osprey",
+    "identification": {
+      "manufacturer": "Bell Helicopter and Boeing joint program \u2014 first operational tiltrotor.",
+      "family": "Tiltrotor that takes off like a helicopter and cruises like a turboprop.",
+      "variant": "MV-22 (USMC), CV-22 (USAF special ops), HV-22 (search & rescue)."
+    },
+    "keyTell": "Wings tip with massive proprotor nacelles that swivel between vertical and horizontal."
+  },
+  {
+    "id": "ch47",
+    "name": "CH-47 Chinook",
+    "manufacturer": "Boeing",
+    "origin": "United States",
+    "role": "Helicopter",
+    "introduction": 1962,
+    "engines": 2,
+    "wings": "Rotary",
+    "speed": "Subsonic",
+    "wikipedia": "Boeing CH-47 Chinook",
+    "commonsCategory": "Boeing CH-47 Chinook",
+    "identification": {
+      "manufacturer": "Boeing \u2014 heavy-lift tandem-rotor helicopter in service since the 1960s.",
+      "family": "Twin tandem-rotor heavy-lift helicopter, no tail rotor.",
+      "variant": "CH-47D / F (Army), MH-47 special ops; F-model is the current production variant."
+    },
+    "keyTell": "Two large overlapping rotors front and rear \u2014 no tail rotor at all."
+  },
+  {
+    "id": "f117",
+    "name": "F-117 Nighthawk",
+    "manufacturer": "Lockheed",
+    "origin": "United States",
+    "role": "Attack",
+    "introduction": 1983,
+    "engines": 2,
+    "wings": "Delta",
+    "speed": "Subsonic",
+    "wikipedia": "Lockheed F-117 Nighthawk",
+    "commonsCategory": "Lockheed F-117 Nighthawk",
+    "identification": {
+      "manufacturer": "Lockheed Skunk Works \u2014 first operational stealth attack jet.",
+      "family": "Faceted-stealth subsonic strike aircraft, V-tail, twin engines buried in the fuselage.",
+      "variant": "F-117A \u2014 retired in 2008, occasionally flown for research."
+    },
+    "keyTell": "Highly faceted black airframe with a V-tail and screened intakes \u2014 classic 'stealth' look."
+  },
+  {
+    "id": "b1b",
+    "name": "B-1B Lancer",
+    "manufacturer": "Rockwell",
+    "origin": "United States",
+    "role": "Bomber",
+    "introduction": 1986,
+    "engines": 4,
+    "wings": "Swing",
+    "speed": "Supersonic",
+    "wikipedia": "Rockwell B-1 Lancer",
+    "commonsCategory": "B-1 Lancer",
+    "identification": {
+      "manufacturer": "Rockwell International (now part of Boeing) \u2014 strategic supersonic bomber.",
+      "family": "Variable-sweep four-engine heavy bomber.",
+      "variant": "B-1B \u2014 only operational variant; A-model was a different program."
+    },
+    "keyTell": "Sleek blended fuselage with variable-sweep wings; engines paired in two underwing pods."
+  },
+  {
+    "id": "e3",
+    "name": "E-3 Sentry (AWACS)",
+    "manufacturer": "Boeing",
+    "origin": "United States",
+    "role": "ISR",
+    "introduction": 1977,
+    "engines": 4,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "Boeing E-3 Sentry",
+    "commonsCategory": "Boeing E-3 Sentry",
+    "identification": {
+      "manufacturer": "Boeing \u2014 based on the 707 airframe, the iconic AWACS platform.",
+      "family": "Four-engine airborne early-warning aircraft with a rotating radar dome on top.",
+      "variant": "E-3A/B/C/D/F \u2014 used by USAF, NATO, UK, France, Saudi Arabia."
+    },
+    "keyTell": "Rotating radar disc mounted on twin pylons above a 707-style fuselage."
+  },
+  {
+    "id": "kc135",
+    "name": "KC-135 Stratotanker",
+    "manufacturer": "Boeing",
+    "origin": "United States",
+    "role": "Tanker",
+    "introduction": 1957,
+    "engines": 4,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "Boeing KC-135 Stratotanker",
+    "commonsCategory": "Boeing KC-135 Stratotanker",
+    "identification": {
+      "manufacturer": "Boeing \u2014 the original four-engine USAF tanker, ancestor of the 707.",
+      "family": "Four-engine swept-wing aerial refueling tanker with a flying boom under the tail.",
+      "variant": "KC-135R is the re-engined modern fleet."
+    },
+    "keyTell": "Looks like a Boeing 707 but with a flying boom hanging from the rear fuselage."
+  },
+  {
+    "id": "mi24",
+    "name": "Mi-24 Hind",
+    "manufacturer": "Mil",
+    "origin": "Russia",
+    "role": "Helicopter",
+    "introduction": 1972,
+    "engines": 2,
+    "wings": "Rotary",
+    "speed": "Subsonic",
+    "wikipedia": "Mil Mi-24",
+    "commonsCategory": "Mil Mi-24",
+    "identification": {
+      "manufacturer": "Mil Moscow Helicopter Plant \u2014 Soviet attack/transport hybrid.",
+      "family": "Heavy attack helicopter that also carries up to eight troops; stub wings with weapons pylons.",
+      "variant": "Mi-24/35 series; tandem cockpit and bubble canopies on later variants."
+    },
+    "keyTell": "Tandem stepped cockpit with bubble canopies, stub wings with rocket pods, troop cabin behind."
+  },
+  {
+    "id": "av8b",
+    "name": "AV-8B Harrier II",
+    "manufacturer": "McDonnell Douglas",
+    "origin": "United States",
+    "role": "Attack",
+    "introduction": 1985,
+    "engines": 1,
+    "wings": "Fixed",
+    "speed": "Subsonic",
+    "wikipedia": "McDonnell Douglas AV-8B Harrier II",
+    "commonsCategory": "AV-8B Harrier II",
+    "identification": {
+      "manufacturer": "McDonnell Douglas / British Aerospace \u2014 second-generation Harrier.",
+      "family": "Single-engine subsonic V/STOL attack aircraft with vectored thrust.",
+      "variant": "AV-8B (USMC) and Harrier GR.7/9 (UK, retired)."
+    },
+    "keyTell": "Single Pegasus engine with four rotating exhaust nozzles low on the fuselage; high-mounted swept wing."
+  },
+  {
+    "id": "su57",
+    "name": "Sukhoi Su-57 Felon",
+    "manufacturer": "Sukhoi",
+    "origin": "Russia",
+    "role": "Fighter",
+    "introduction": 2020,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "Sukhoi Su-57",
+    "commonsCategory": "Sukhoi Su-57",
+    "identification": {
+      "manufacturer": "Sukhoi \u2014 Russia's first operational 5th-generation stealth fighter.",
+      "family": "Twin-engine 5th-generation stealth fighter with widely-spaced engines (LERX-style fuselage).",
+      "variant": "Su-57 baseline; production has been slow, fielded in limited numbers."
+    },
+    "keyTell": "Looks like a stealthier Flanker \u2014 twin engines spaced far apart, faceted nose, twin canted tails."
+  },
+  {
+    "id": "tu160",
+    "name": "Tu-160 Blackjack",
+    "manufacturer": "Tupolev",
+    "origin": "Russia",
+    "role": "Bomber",
+    "introduction": 1987,
+    "engines": 4,
+    "wings": "Swing",
+    "speed": "Supersonic",
+    "wikipedia": "Tupolev Tu-160",
+    "commonsCategory": "Tupolev Tu-160",
+    "identification": {
+      "manufacturer": "Tupolev \u2014 Soviet/Russian variable-geometry strategic bomber.",
+      "family": "Largest, heaviest variable-sweep aircraft ever built; visually similar to a B-1B but bigger and white.",
+      "variant": "Tu-160M is the modernized Russian variant."
+    },
+    "keyTell": "Like a B-1B in shape but larger, painted bright white, with engines in widely separated nacelles."
+  },
+  {
+    "id": "t38",
+    "name": "T-38 Talon",
+    "manufacturer": "Northrop",
+    "origin": "United States",
+    "role": "Trainer",
+    "introduction": 1961,
+    "engines": 2,
+    "wings": "Fixed",
+    "speed": "Supersonic",
+    "wikipedia": "Northrop T-38 Talon",
+    "commonsCategory": "Northrop T-38 Talon",
+    "identification": {
+      "manufacturer": "Northrop \u2014 twin-engine supersonic jet trainer derived from the F-5 lineage.",
+      "family": "Compact twin-engine tandem trainer, sharp pointed nose and slim fuselage.",
+      "variant": "T-38A is the standard USAF trainer; AT-38 has gun and pylons for weapons training."
+    },
+    "keyTell": "Looks like a slimmer F-5 with a tandem cockpit \u2014 twin engines, pointed nose, no wing pylons by default."
+  }
+]

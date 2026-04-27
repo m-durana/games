@@ -22,6 +22,10 @@
     onStartMix: () => void;
     onStartAircraftWordle: (difficulty: Difficulty) => void;
     onStartAircraftIdentify: (difficulty: Difficulty) => void;
+    onStartMilitaryWordle: (difficulty: Difficulty) => void;
+    onStartMilitaryIdentify: (difficulty: Difficulty) => void;
+    onStartAirportWordle: (difficulty: Difficulty) => void;
+    onStartAirportIdentify: (difficulty: Difficulty) => void;
     onStartAtc: (mode: AtcMode, difficulty: Difficulty) => void;
     onOpenHistory: (entry: HistoryEntry) => void;
   }
@@ -33,15 +37,19 @@
     onStartMix,
     onStartAircraftWordle,
     onStartAircraftIdentify,
+    onStartMilitaryWordle,
+    onStartMilitaryIdentify,
+    onStartAirportWordle,
+    onStartAirportIdentify,
     onStartAtc,
     onOpenHistory,
   }: Props = $props();
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
-  const atcModes: AtcMode[] = ['callsign', 'phraseology', 'readback', 'atcMix'];
+  const atcModes: AtcMode[] = ['callsign', 'decode', 'compose', 'atcMix'];
   const ATC_ICONS: Record<AtcMode, string> = {
     callsign: 'radio',
-    phraseology: 'message-square-text',
-    readback: 'list-checks',
+    decode: 'message-square-text',
+    compose: 'spell-check',
     atcMix: 'shuffle',
   };
 
@@ -49,7 +57,7 @@
     return `https://unpkg.com/lucide-static@0.469.0/icons/${ATC_ICONS[m]}.svg`;
   }
 
-  const allModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'tail', 'airportAirline', 'airlineDest', 'airportConn', 'code'];
+  const allModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'tail', 'airportAirline', 'airlineDest', 'airportConn', 'code', 'whereAmI', 'hubOf'];
   const modes = $derived(
     allModes
       .filter((m) => m !== 'tail' || tailCount() >= 4)
@@ -68,8 +76,14 @@
     airlineDest: 'route',
     airportConn: 'map-pin',
     code: 'hash',
+    whereAmI: 'map-pinned',
+    hubOf: 'building',
     aircraftWordle: 'grid-3x3',
     aircraftIdentify: 'plane',
+    militaryWordle: 'swords',
+    militaryIdentify: 'crosshair',
+    airportWordle: 'tower-control',
+    airportIdentify: 'camera',
   };
   function modeIcon(m: Mode): string {
     return `https://unpkg.com/lucide-static@0.469.0/icons/${ICONS[m]}.svg`;
@@ -90,6 +104,12 @@
       case 'airlineDest': return 'Find its top sourced destination.';
       case 'airportConn': return 'Find the busiest ranked destination from the airport.';
       case 'code': return 'Guess the airline from its carrier code.';
+      case 'whereAmI': return 'Deduce the airport from its top destinations.';
+      case 'hubOf': return 'Pick the airline that hubs here.';
+      case 'militaryWordle': return 'Deduce a mystery military aircraft.';
+      case 'militaryIdentify': return 'Spot a military aircraft from a photo.';
+      case 'airportWordle': return 'Deduce a mystery airport.';
+      case 'airportIdentify': return 'Spot an airport from a photo.';
     }
   }
   const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
@@ -211,6 +231,26 @@
       <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/grid-3x3.svg" alt="" aria-hidden="true" />
       <span class="tile-title">Aircraft Wordle</span>
       <span class="tile-desc">{difficulty === 'hard' ? '5 guesses' : '6 guesses'}, attribute clues each round.</span>
+    </button>
+    <button class="mode-tile" onclick={() => onStartMilitaryWordle(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/swords.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Military Wordle</span>
+      <span class="tile-desc">Fighters, bombers, helos. {difficulty === 'hard' ? '5 guesses' : '6 guesses'}, seven attributes.</span>
+    </button>
+    <button class="mode-tile" onclick={() => onStartMilitaryIdentify(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/crosshair.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Military Identify</span>
+      <span class="tile-desc">Photo of a military aircraft — guess with progressive hints.</span>
+    </button>
+    <button class="mode-tile" onclick={() => onStartAirportWordle(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/tower-control.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Airport Wordle</span>
+      <span class="tile-desc">Deduce a mystery airport from country, traffic tier, runways, alliance.</span>
+    </button>
+    <button class="mode-tile" onclick={() => onStartAirportIdentify(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/camera.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Airport Identify</span>
+      <span class="tile-desc">Photo of an airport — guess with progressive hints.</span>
     </button>
     {#each atcModes as mode}
       {@const best = loadAtcBest(mode, difficulty)}

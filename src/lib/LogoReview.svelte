@@ -13,6 +13,10 @@
     title: string;
     descriptionUrl?: string;
     crop?: Crop;
+    // True if the logo is a wordmark (the airline name is visible in it).
+    // Filtered out of the logo quiz on hard difficulty so the game tests
+    // visual recognition, not reading.
+    wordmark?: boolean;
   }
   interface Candidate extends Approved {
     pageid: number;
@@ -38,6 +42,11 @@
   let error = $state('');
   let tab: 'review' | 'approved' | 'skipped' = $state('review');
   let exportText = $state('');
+  let sharing = $state(false);
+  let shareUrl = $state('');
+  let shareError = $state('');
+  let showImport = $state(false);
+  let importText = $state('');
   let cropping: Candidate | null = $state(null);
   let cropCx = $state(0.5);
   let cropCy = $state(0.5);
@@ -182,6 +191,16 @@
     localStorage.setItem(APPROVED_KEY, JSON.stringify(approved));
   }
 
+  function toggleWordmark(iata: string) {
+    const cur = approved[iata];
+    if (!cur) return;
+    approved = {
+      ...approved,
+      [iata]: { ...cur, wordmark: !cur.wordmark },
+    };
+    localStorage.setItem(APPROVED_KEY, JSON.stringify(approved));
+  }
+
   function unskip(iata: string) {
     const next = { ...skipped };
     delete next[iata];
@@ -206,6 +225,50 @@
     link.download = 'logos-review.json';
     link.click();
     URL.revokeObjectURL(url);
+  }
+
+  function applyImport() {
+    try {
+      const data = JSON.parse(importText) as Record<string, { url: string; thumb?: string; title?: string; descriptionUrl?: string; crop?: Crop; wordmark?: boolean }>;
+      const merged: Record<string, Approved> = { ...approved };
+      for (const [iata, v] of Object.entries(data)) {
+        merged[iata] = {
+          url: v.url,
+          thumb: v.thumb ?? v.url,
+          title: v.title ?? '',
+          ...(v.descriptionUrl ? { descriptionUrl: v.descriptionUrl } : {}),
+          ...(v.crop ? { crop: v.crop } : {}),
+          ...(v.wordmark ? { wordmark: true } : {}),
+        };
+      }
+      approved = merged;
+      localStorage.setItem(APPROVED_KEY, JSON.stringify(approved));
+      importText = '';
+      showImport = false;
+    } catch (e: any) {
+      error = 'Invalid JSON: ' + (e?.message ?? '');
+    }
+  }
+
+  async function shareToLuke() {
+    sharing = true;
+    shareError = '';
+    shareUrl = '';
+    try {
+      const json = JSON.stringify(buildExport(), null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const fd = new FormData();
+      fd.append('file', blob, 'logos-review.json');
+      const res = await fetch('https://tmpfiles.org/api/v1/upload', { method: 'POST', body: fd });
+      if (!res.ok) throw new Error(`upload failed: ${res.status}`);
+      const data = await res.json();
+      const u: string = data?.data?.url ?? '';
+      shareUrl = u.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+    } catch (e) {
+      shareError = (e as Error).message || 'upload failed';
+    } finally {
+      sharing = false;
+    }
   }
 </script>
 
@@ -334,6 +397,12 @@
             <a href={v.descriptionUrl} target="_blank" rel="noopener">source</a>
           {/if}
         </div>
+        <button
+          class="wordmark-toggle"
+          class:on={v.wordmark}
+          onclick={() => toggleWordmark(a.iata)}
+          title="Mark as wordmark logo (filtered out of the logo quiz on hard difficulty)"
+        >{v.wordmark ? '✓ wordmark' : 'wordmark?'}</button>
         <button class="undo" onclick={() => unapprove(a.iata)}>Undo</button>
       </div>
     {:else}
@@ -360,9 +429,21 @@
   <div class="export-actions">
     <button onclick={exportData}>Copy JSON</button>
     <button onclick={downloadJson}>Download logos-review.json</button>
+    <button onclick={shareToLuke} disabled={sharing}>{sharing ? 'Uploading…' : 'Share to Luke'}</button>
+    <button class="ghost" onclick={() => (showImport = !showImport)}>{showImport ? 'Hide import' : 'Import'}</button>
   </div>
+  {#if shareUrl}
+    <p class="share-url">Send Luke this URL: <a href={shareUrl} target="_blank" rel="noopener">{shareUrl}</a></p>
+  {/if}
+  {#if shareError}
+    <p class="share-err">Upload failed: {shareError}</p>
+  {/if}
   {#if exportText}
     <textarea readonly rows="7">{exportText}</textarea>
+  {/if}
+  {#if showImport}
+    <textarea bind:value={importText} rows="6" placeholder="Paste logos-review.json here to merge…"></textarea>
+    <button onclick={applyImport} disabled={!importText.trim()}>Apply import</button>
   {/if}
 </section>
 
@@ -586,6 +667,20 @@
   .row-meta { color: var(--muted); font-size: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .row a { color: var(--info); font-size: 0.75rem; }
   .undo { flex: 0 0 auto; color: var(--muted); font-size: 0.75rem; }
+  .wordmark-toggle {
+    flex: 0 0 auto;
+    color: var(--muted);
+    font-size: 0.7rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+  }
+  .wordmark-toggle.on {
+    background: rgba(163, 206, 241, 0.4);
+    border-color: rgba(96, 150, 186, 0.65);
+    color: var(--accent);
+  }
 
   .empty { text-align: center; padding: 2rem 0; }
   .empty h2 { font-size: 1.25rem; margin-bottom: 0.35rem; }

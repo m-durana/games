@@ -501,17 +501,6 @@
       ],
       "year": 2023
     },
-    "JJ": {
-      "source": "Wikipedia (unranked)",
-      "topDestinations": [
-        "EZE",
-        "BRU",
-        "VCP",
-        "YYZ",
-        "SCL"
-      ],
-      "year": 2023
-    },
     "JL": {
       "source": "Wikipedia (unranked)",
       "topDestinations": [
@@ -1775,7 +1764,6 @@
       "airlinesUnranked": true,
       "source": "Wikipedia",
       "topAirlines": [
-        "JJ",
         "G3",
         "LA",
         "TK",
@@ -2477,7 +2465,6 @@
         "LA",
         "JA",
         "H2",
-        "JJ",
         "AV"
       ],
       "topDestinations": [

@@ -288,14 +288,6 @@
     "hub": "SCL"
   },
   {
-    "name": "LATAM Brasil",
-    "iata": "JJ",
-    "country": "Brazil",
-    "group": "LATAM Airlines Group",
-    "alliance": "Oneworld",
-    "hub": "GRU"
-  },
-  {
     "name": "Avianca",
     "iata": "AV",
     "country": "Colombia",
@@ -304,7 +296,7 @@
     "hub": "BOG"
   },
   {
-    "name": "GOL Linhas Aéreas",
+    "name": "GOL Linhas A\u00e9reas",
     "iata": "G3",
     "country": "Brazil",
     "group": "Abra Group",
@@ -312,7 +304,7 @@
     "hub": "GRU"
   },
   {
-    "name": "Azul Linhas Aéreas",
+    "name": "Azul Linhas A\u00e9reas",
     "iata": "AD",
     "country": "Brazil",
     "group": null,
@@ -328,7 +320,7 @@
     "hub": "PTY"
   },
   {
-    "name": "Aerolíneas Argentinas",
+    "name": "Aerol\u00edneas Argentinas",
     "iata": "AR",
     "country": "Argentina",
     "group": null,

@@ -32,6 +32,9 @@
   let showInfo = $state(false);
   let advanceTimer: number | null = null;
 
+  // Compose-mode state: which token-bank indices have been placed (in order).
+  let placedIdx: number[] = $state([]);
+
   const current = $derived(questions[index]);
   const score = $derived(results.filter((r) => r.correct).length);
   // svelte-ignore state_referenced_locally
@@ -53,6 +56,46 @@
     advanceTimer = window.setTimeout(() => advance(nextResults), 1400);
   }
 
+  function placeToken(i: number) {
+    if (picked !== null) return;
+    if (placedIdx.includes(i)) return;
+    placedIdx = [...placedIdx, i];
+  }
+
+  function unplaceToken(i: number) {
+    if (picked !== null) return;
+    placedIdx = placedIdx.filter((j) => j !== i);
+  }
+
+  function clearComposed() {
+    if (picked !== null) return;
+    placedIdx = [];
+  }
+
+  function normalizeReadback(s: string): string {
+    return s.toLowerCase().replace(/\s+/g, ' ').trim();
+  }
+
+  function confirmCompose() {
+    if (picked !== null) return;
+    if (placedIdx.length === 0) return;
+    const tokens = current.tokens ?? [];
+    const assembled = placedIdx.map((j) => tokens[j]).join(' ');
+    const valid = (current.answers ?? [current.answer]).map(normalizeReadback);
+    const correct = valid.includes(normalizeReadback(assembled));
+    picked = assembled;
+    if (correct) {
+      Sound.correct();
+      Sound.vibrate(15);
+    } else {
+      Sound.wrong();
+      Sound.vibrate(35);
+    }
+    const nextResults = [...results, { question: current, picked: assembled, correct }];
+    results = nextResults;
+    advanceTimer = window.setTimeout(() => advance(nextResults), 2400);
+  }
+
   function advance(finalResults = results) {
     if (index + 1 >= questions.length) {
       onFinish(finalResults);
@@ -60,6 +103,7 @@
     }
     index += 1;
     picked = null;
+    placedIdx = [];
   }
 
   function statusFor(option: string): 'idle' | 'correct' | 'wrong' | 'reveal' {
@@ -82,6 +126,8 @@
         return;
       }
       if (picked !== null) return;
+      // Chip-builder modes are touch/click only — no number-key shortcuts.
+      if (current.mode === 'compose') return;
       const n = parseInt(e.key, 10);
       if (n >= 1 && n <= current.options.length) choose(current.options[n - 1]);
     };
@@ -130,31 +176,106 @@
         <h2>{current.prompt}</h2>
       </div>
 
-      <div class="options" class:disabled={picked !== null}>
-        {#each current.options as option, i}
-          {@const s = statusFor(option)}
-          <button
-            class="option"
-            class:correct={s === 'correct'}
-            class:wrong={s === 'wrong'}
-            class:reveal={s === 'reveal'}
-            disabled={picked !== null}
-            onclick={() => choose(option)}
+      {#if current.mode === 'compose' && current.tokens}
+        {@const tokens = current.tokens}
+        {@const composed = placedIdx.map((j) => tokens[j]).join(' ')}
+        {@const isCorrect = picked !== null && picked === current.answer}
+        {@const isWrong = picked !== null && !isCorrect}
+        <div class="compose-stage">
+          <div
+            class="compose-line"
+            class:correct={isCorrect}
+            class:wrong={isWrong}
           >
-            {#if showKeys}
-              <span class="key" aria-hidden="true">{i + 1}</span>
+            {#if placedIdx.length === 0}
+              <span class="compose-hint">Tap words below in order</span>
+            {:else}
+              {#each placedIdx as i}
+                <button
+                  class="chip placed"
+                  disabled={picked !== null}
+                  onclick={() => unplaceToken(i)}
+                >{tokens[i]}</button>
+              {/each}
             {/if}
-            <span class="opt-text">{option}</span>
-            {#if picked !== null && option === current.answer}
-              <span class="opt-explain">{current.explanation}</span>
+          </div>
+          {#if placedIdx.length > 0 && picked === null}
+            <button class="compose-clear" onclick={clearComposed}>Clear</button>
+          {/if}
+        </div>
+
+        <div class="compose-bank" class:disabled={picked !== null}>
+          {#each tokens as tok, i}
+            <button
+              class="chip"
+              class:used={placedIdx.includes(i)}
+              disabled={picked !== null || placedIdx.includes(i)}
+              onclick={() => placeToken(i)}
+            >{tok}</button>
+          {/each}
+        </div>
+
+        {#if picked === null}
+          <button
+            class="compose-confirm"
+            disabled={placedIdx.length === 0}
+            onclick={confirmCompose}
+          >Confirm readback</button>
+        {/if}
+
+        {#if picked !== null}
+          <div class="compose-feedback" class:good={isCorrect} class:bad={isWrong}>
+            {#if !isCorrect}
+              <div class="fb-row"><span class="fb-label">Your answer</span><span class="fb-val">{picked}</span></div>
+              <div class="fb-row"><span class="fb-label">A correct readback</span><span class="fb-val correct-val">{current.answer}</span></div>
+              {#if current.answers && current.answers.length > 1}
+                <div class="fb-row">
+                  <span class="fb-label">Other valid forms</span>
+                  {#each current.answers.slice(1) as alt}
+                    <span class="fb-alt">· {alt}</span>
+                  {/each}
+                </div>
+              {/if}
+            {:else if current.answers && current.answers.length > 1}
+              <div class="fb-row">
+                <span class="fb-label">Other valid forms</span>
+                {#each current.answers.filter((a) => normalizeReadback(a) !== normalizeReadback(picked)) as alt}
+                  <span class="fb-alt">· {alt}</span>
+                {/each}
+              </div>
             {/if}
-          </button>
-        {/each}
-      </div>
+            <p class="compose-explain">{current.explanation}</p>
+          </div>
+        {/if}
+      {:else}
+        <div class="options" class:disabled={picked !== null}>
+          {#each current.options as option, i}
+            {@const s = statusFor(option)}
+            <button
+              class="option"
+              class:correct={s === 'correct'}
+              class:wrong={s === 'wrong'}
+              class:reveal={s === 'reveal'}
+              disabled={picked !== null}
+              onclick={() => choose(option)}
+            >
+              {#if showKeys}
+                <span class="key" aria-hidden="true">{i + 1}</span>
+              {/if}
+              <span class="opt-text">{option}</span>
+              {#if picked !== null && option === current.answer}
+                <span class="opt-explain">{current.explanation}</span>
+              {/if}
+            </button>
+          {/each}
+        </div>
+      {/if}
     </div>
   {/key}
   <div class="kb-legend" aria-hidden="true">
-    <span><kbd>1</kbd>-<kbd>{current?.options.length ?? 4}</kbd> pick</span>
+    {#if current?.mode !== 'compose'}
+      <span><kbd>1</kbd>-<kbd>{current?.options.length ?? 4}</kbd> pick</span>
+    {/if}
     <span><kbd>Esc</kbd> quit</span>
   </div>
 </section>
@@ -357,6 +478,156 @@
     justify-content: center;
     flex-shrink: 0;
   }
+  .compose-stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .compose-line {
+    width: 100%;
+    min-height: 64px;
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .compose-line.correct {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.55);
+    border-style: solid;
+  }
+  .compose-line.wrong {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.55);
+    border-style: solid;
+  }
+  .compose-hint {
+    color: var(--muted);
+    font-size: 0.875rem;
+    font-style: italic;
+  }
+  .compose-clear {
+    align-self: flex-end;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+  }
+  .compose-clear:hover { color: var(--accent); }
+
+  .compose-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.25rem 0;
+    justify-content: center;
+  }
+  .compose-bank.disabled { opacity: 0.85; }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    transition: transform 0.08s, background 0.15s, border-color 0.15s, opacity 0.15s;
+    line-height: 1.1;
+  }
+  .chip:not(:disabled):hover {
+    border-color: var(--panel-line);
+    background: var(--surface-3);
+  }
+  .chip:not(:disabled):active { transform: translateY(1px); border-bottom-width: 1px; }
+  .chip.placed {
+    background: rgba(163, 206, 241, 0.22);
+    border-color: rgba(96, 150, 186, 0.55);
+    color: var(--accent);
+  }
+  .chip.used {
+    visibility: hidden;
+  }
+
+  .compose-confirm {
+    align-self: stretch;
+    min-height: 48px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: background 0.15s, transform 0.1s, opacity 0.15s;
+  }
+  .compose-confirm:not(:disabled):hover { background: #a3cef1; }
+  .compose-confirm:not(:disabled):active { transform: scale(0.99); }
+  .compose-confirm:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .fb-alt {
+    display: block;
+    color: var(--muted);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    padding-left: 0.25rem;
+  }
+
+  .compose-feedback {
+    border-radius: 8px;
+    padding: 0.75rem 0.875rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .compose-feedback.good {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.45);
+  }
+  .compose-feedback.bad {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.45);
+  }
+  .fb-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 0.8125rem;
+  }
+  .fb-label {
+    color: var(--muted);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .fb-val {
+    color: var(--bad);
+    text-decoration: line-through;
+    line-height: 1.35;
+  }
+  .fb-val.correct-val {
+    color: var(--good);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .compose-explain {
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
   .kb-legend {
     display: none;
     width: 100%;

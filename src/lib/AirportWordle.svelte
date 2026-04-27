@@ -2,49 +2,51 @@
   import { fly } from 'svelte/transition';
   import { onMount } from 'svelte';
   import {
-    pooledAircraft,
-    aircraftForDifficulty,
+    airports as airportList,
+    airportsForDifficulty,
     compareAttributes,
-    fetchAircraftImages,
-    pickRoundAircraft,
-    AIRCRAFT_ROUND_LENGTH,
-    WORDLE_MAX_GUESSES,
-    WORDLE_HARD_MAX_GUESSES,
+    fetchAirportImages,
+    pickRoundAirport,
+    AIRPORT_ROUND_LENGTH,
+    AIRPORT_WORDLE_MAX_GUESSES,
+    AIRPORT_WORDLE_HARD_MAX_GUESSES,
     ATTRIBUTE_INFO,
-    type Aircraft,
-    type AircraftDifficulty,
+    regionOf,
+    regionLabel,
+    type AirportEntry,
+    type AirportDifficulty,
     type AttributeFeedback,
-  } from './aircraft';
-  import AircraftReveal from './AircraftReveal.svelte';
+  } from './airports-game';
+  import AirportReveal from './AirportReveal.svelte';
   import * as Sound from './sound';
   import { saveHistoryEntry } from './engine';
-  import type { AircraftWordleResult } from './types';
+  import type { AirportWordleResult } from './types';
 
   interface Props {
-    difficulty: AircraftDifficulty;
+    difficulty: AirportDifficulty;
     onHome: () => void;
   }
 
   let { difficulty, onHome }: Props = $props();
 
   // svelte-ignore state_referenced_locally
-  const maxGuesses = difficulty === 'hard' ? WORDLE_HARD_MAX_GUESSES : WORDLE_MAX_GUESSES;
+  const maxGuesses = difficulty === 'hard' ? AIRPORT_WORDLE_HARD_MAX_GUESSES : AIRPORT_WORDLE_MAX_GUESSES;
   const guessableSet = $derived(
-    difficulty === 'easy' ? aircraftForDifficulty('easy') : pooledAircraft(),
+    difficulty === 'easy' ? airportsForDifficulty('easy') : airportList,
   );
 
   // svelte-ignore state_referenced_locally
   // svelte-ignore state_referenced_locally
-  let answers: Aircraft[] = $state(pickRoundAircraft(AIRCRAFT_ROUND_LENGTH, difficulty));
+  let answers: AirportEntry[] = $state(pickRoundAirport(AIRPORT_ROUND_LENGTH, difficulty));
   let index = $state(0);
   let query = $state('');
   let highlight = $state(0);
-  let guesses: { aircraft: Aircraft; feedback: AttributeFeedback[] }[] = $state([]);
+  let guesses: { airport: AirportEntry; feedback: AttributeFeedback[] }[] = $state([]);
   let solved = $state(false);
   let exhausted = $state(false);
   let score = $state(0);
   let scores: number[] = $state([]);
-  let recorded: AircraftWordleResult[] = $state([]);
+  let recorded: AirportWordleResult[] = $state([]);
   let done = $state(false);
 
   let inputEl: HTMLInputElement | null = $state(null);
@@ -52,7 +54,10 @@
   let infoLabel: string | null = $state(null);
   let showAllInfo = $state(false);
 
-  // When the round ends, fetch a photo of the answer to show in the reveal.
+  const current = $derived(answers[index]);
+  const remaining = $derived(maxGuesses - guesses.length);
+  const finished = $derived(solved || exhausted);
+
   $effect(() => {
     if (!finished) return;
     const target = current;
@@ -60,9 +65,9 @@
     let cancelled = false;
     revealPhoto = null;
     void (async () => {
-      const urls = await fetchAircraftImages(target);
+      const urls = await fetchAirportImages(target);
       if (cancelled) return;
-      if (target.id !== current?.id) return;
+      if (target.iata !== current?.iata) return;
       revealPhoto = urls[Math.floor(Math.random() * urls.length)] ?? null;
     })();
     return () => { cancelled = true; };
@@ -72,12 +77,8 @@
     infoLabel = infoLabel === label ? null : label;
   }
 
-  const current = $derived(answers[index]);
-  const remaining = $derived(maxGuesses - guesses.length);
-  const finished = $derived(solved || exhausted);
-
-  const guessedIds = $derived(new Set(guesses.map((g) => g.aircraft.id)));
-  const availableOptions = $derived(guessableSet.filter((a) => !guessedIds.has(a.id)));
+  const guessedIds = $derived(new Set(guesses.map((g) => g.airport.iata)));
+  const availableOptions = $derived(guessableSet.filter((a) => !guessedIds.has(a.iata)));
 
   function normalize(s: string): string {
     return s.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -85,31 +86,34 @@
 
   const suggestions = $derived.by(() => {
     const q = normalize(query);
-    if (!q) return [] as Aircraft[];
-    const scored: { plane: Aircraft; rank: number }[] = [];
+    if (!q) return [] as AirportEntry[];
+    const scored: { ap: AirportEntry; rank: number }[] = [];
     for (const a of availableOptions) {
       const n = normalize(a.name);
-      const m = normalize(a.manufacturer);
-      const f = normalize(a.family);
-      const nameStarts = n.startsWith(q);
-      const nameHas = n.includes(q);
-      const otherHas = m.includes(q) || f.includes(q);
-      if (!nameHas && !otherHas) continue;
-      const rank = nameStarts ? 0 : nameHas ? 1 : 2;
-      scored.push({ plane: a, rank });
+      const c = normalize(a.city);
+      const co = normalize(a.country);
+      const i = normalize(a.iata);
+      const iataExact = i === q;
+      const iataStart = i.startsWith(q);
+      const nameStarts = n.startsWith(q) || c.startsWith(q);
+      const nameHas = n.includes(q) || c.includes(q);
+      const otherHas = co.includes(q);
+      if (!iataStart && !nameHas && !otherHas) continue;
+      const rank = iataExact ? -1 : iataStart ? 0 : nameStarts ? 1 : nameHas ? 2 : 3;
+      scored.push({ ap: a, rank });
     }
-    scored.sort((a, b) => a.rank - b.rank || a.plane.name.localeCompare(b.plane.name));
-    return scored.slice(0, 8).map((s) => s.plane);
+    scored.sort((a, b) => a.rank - b.rank || a.ap.name.localeCompare(b.ap.name));
+    return scored.slice(0, 8).map((s) => s.ap);
   });
 
-  function commitGuess(plane: Aircraft) {
+  function commitGuess(ap: AirportEntry) {
     if (finished) return;
-    const feedback = compareAttributes(plane, current);
-    guesses = [...guesses, { aircraft: plane, feedback }];
+    const feedback = compareAttributes(ap, current);
+    guesses = [...guesses, { airport: ap, feedback }];
     query = '';
     highlight = 0;
 
-    if (plane.id === current.id) {
+    if (ap.iata === current.iata) {
       solved = true;
       const earned = Math.max(1, maxGuesses - guesses.length + 1);
       score += earned;
@@ -133,16 +137,13 @@
 
   function onKeydown(e: KeyboardEvent) {
     if (e.key === 'Enter') {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault(); e.stopPropagation();
       if (suggestions.length > 0) submitFromInput();
       return;
     }
     if (e.key === 'Escape') {
-      e.preventDefault();
-      e.stopPropagation();
-      query = '';
-      highlight = 0;
+      e.preventDefault(); e.stopPropagation();
+      query = ''; highlight = 0;
       return;
     }
     if (suggestions.length === 0) return;
@@ -162,11 +163,11 @@
 
   function next() {
     const earned = solved ? Math.max(1, maxGuesses - guesses.length + 1) : 0;
-    const result: AircraftWordleResult = {
-      type: 'wordle',
-      aircraftId: current.id,
-      aircraftName: current.name,
-      guesses: guesses.map((g) => ({ id: g.aircraft.id, name: g.aircraft.name, feedback: g.feedback })),
+    const result: AirportWordleResult = {
+      type: 'apt-wordle',
+      airportIata: current.iata,
+      airportName: current.name,
+      guesses: guesses.map((g) => ({ iata: g.airport.iata, name: g.airport.name, feedback: g.feedback })),
       solved,
       earned,
     };
@@ -176,12 +177,12 @@
     if (index + 1 >= answers.length) {
       done = true;
       saveHistoryEntry({
-        mode: 'aircraftWordle',
+        mode: 'airportWordle',
         difficulty,
         score: nextRecorded.filter((r) => r.solved).length,
         total: answers.length,
         ts: Date.now(),
-        aircraftResults: nextRecorded,
+        airportResults: nextRecorded,
       });
       return;
     }
@@ -196,7 +197,7 @@
   }
 
   function playAgain() {
-    answers = pickRoundAircraft(AIRCRAFT_ROUND_LENGTH, difficulty);
+    answers = pickRoundAirport(AIRPORT_ROUND_LENGTH, difficulty);
     index = 0;
     guesses = [];
     solved = false;
@@ -262,13 +263,13 @@
     {#key index}
       <div class="card" in:fly={{ y: 16, duration: 220 }}>
         <div class="card-head">
-          <span class="mode-pill">Aircraft Wordle</span>
+          <span class="mode-pill">Airport Wordle</span>
           <span class="round-pill">{index + 1} / {answers.length}</span>
           <span class="diff-pill diff-{difficulty}">{difficulty}</span>
         </div>
 
         <p class="prompt">
-          Guess the mystery aircraft. Each guess reveals how close you are on six attributes.
+          Guess the mystery airport. Each guess reveals how close you are on seven attributes.
           {#if !finished}
             <span class="remaining">{remaining} {remaining === 1 ? 'guess' : 'guesses'} left.</span>
           {/if}
@@ -277,7 +278,7 @@
         {#if guesses.length > 0}
           <div class="board">
             <div class="board-head">
-              <span class="cell-label">Plane</span>
+              <span class="cell-label">Airport</span>
               {#each guesses[0].feedback as fb}
                 <button
                   type="button"
@@ -302,7 +303,7 @@
             {/if}
             {#each guesses as g}
               <div class="board-row">
-                <span class="guess-name">{g.aircraft.name}</span>
+                <span class="guess-name">{g.airport.name} ({g.airport.iata})</span>
                 {#each g.feedback as fb}
                   <span class="cell cell-{fb.match}" title={fb.guessValue}>
                     <span class="cell-mobile-label">{fb.label}</span>
@@ -348,7 +349,7 @@
               bind:value={query}
               onkeydown={onKeydown}
               type="text"
-              placeholder="Type to search aircraft (e.g. A321, 737, Embraer)"
+              placeholder="Type to search airports (e.g. JFK, Heathrow, Tokyo)"
               autocomplete="off"
               spellcheck="false"
               class="combobox-input"
@@ -363,8 +364,8 @@
                     onmouseenter={() => (highlight = i)}
                     onmousedown={(e) => { e.preventDefault(); commitGuess(s); }}
                   >
-                    <span class="sugg-name">{s.name}</span>
-                    <span class="sugg-meta">{s.manufacturer} · {s.family}</span>
+                    <span class="sugg-name">{s.name} ({s.iata})</span>
+                    <span class="sugg-meta">{s.city} · {s.country}{regionOf(s.country) ? ` · ${regionLabel(regionOf(s.country)!)}` : ''}</span>
                   </li>
                 {/each}
               </ul>
@@ -374,13 +375,13 @@
           </div>
           <p class="legend">
             <span class="swatch swatch-hit"></span> match
-            <span class="swatch swatch-close"></span> close (±1)
+            <span class="swatch swatch-close"></span> close
             <span class="swatch swatch-miss"></span> off
           </p>
         {:else}
-          <AircraftReveal plane={current} correct={solved} photoUrl={revealPhoto} />
+          <AirportReveal airport={current} correct={solved} photoUrl={revealPhoto} />
           <button class="btn-primary next-btn" onclick={next}>
-            {index + 1 >= answers.length ? 'Finish round' : 'Next aircraft'}
+            {index + 1 >= answers.length ? 'Finish round' : 'Next airport'}
           </button>
         {/if}
       </div>
@@ -389,13 +390,7 @@
 </section>
 
 <style>
-  .bar {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0 0.25rem;
-  }
+  .bar { width: 100%; display: flex; align-items: center; gap: 0.625rem; padding: 0 0.25rem; }
   .quit {
     width: 32px; height: 32px;
     border-radius: 4px;
@@ -407,12 +402,7 @@
     flex-shrink: 0;
   }
   .quit:hover { color: var(--accent); border-color: var(--panel-line); }
-  .dots {
-    flex: 1;
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-  }
+  .dots { flex: 1; display: flex; gap: 5px; justify-content: center; }
   .dot {
     width: 10px; height: 10px;
     border-radius: 4px;
@@ -421,27 +411,13 @@
   }
   .dot-correct { background: var(--good); }
   .dot-wrong { background: var(--bad); }
-  .dot-now {
-    background: var(--accent);
-    animation: pulse 1.4s ease-in-out infinite;
-  }
+  .dot-now { background: var(--accent); animation: pulse 1.4s ease-in-out infinite; }
   @keyframes pulse {
     0%, 100% { transform: scale(1); opacity: 1; }
     50%      { transform: scale(1.4); opacity: 0.65; }
   }
-  .meta {
-    font-size: 0.8125rem;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
-  }
-
-  .round {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+  .meta { font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+  .round { flex: 1; display: flex; flex-direction: column; width: 100%; }
   .card {
     width: 100%;
     background: var(--surface);
@@ -455,12 +431,7 @@
   @media (min-width: 720px) {
     .card { padding: 1.75rem 2rem; }
   }
-  .card-head {
-    display: flex;
-    gap: 0.4rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+  .card-head { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
   .mode-pill, .round-pill, .diff-pill {
     font-size: 0.6875rem;
     font-family: var(--font-main);
@@ -473,20 +444,9 @@
   .diff-pill { color: var(--muted); background: var(--surface-2); margin-left: auto; }
   .diff-easy { color: var(--good); background: rgba(34, 197, 94, 0.16); }
   .diff-hard { color: var(--bad); background: rgba(239, 68, 68, 0.12); }
-
-  .prompt {
-    font-size: 0.9375rem;
-    color: var(--muted);
-    line-height: 1.45;
-  }
+  .prompt { font-size: 0.9375rem; color: var(--muted); line-height: 1.45; }
   .remaining { color: var(--accent); font-weight: 600; }
-
-  .board {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    overflow-x: auto;
-  }
+  .board { display: flex; flex-direction: column; gap: 0.35rem; overflow-x: auto; }
   .board-head, .board-row {
     display: grid;
     grid-template-columns: minmax(140px, 1.4fr) repeat(7, minmax(54px, 1fr));
@@ -504,10 +464,8 @@
   }
   .cell-label:first-child { text-align: left; padding-left: 0.4rem; }
   .cell-label-btn {
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    font: inherit;
+    background: transparent; border: none;
+    color: var(--muted); font: inherit;
     cursor: pointer;
     padding: 0.2rem 0.1rem;
     border-radius: 4px;
@@ -518,9 +476,7 @@
   .info-mark { font-size: 0.7em; opacity: 0.6; margin-left: 0.1em; }
   .attr-info {
     grid-column: 1 / -1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+    display: flex; flex-direction: column; gap: 0.4rem;
     margin: 0.5rem 0;
     padding: 0.7rem 0.85rem;
     background: rgba(163, 206, 241, 0.18);
@@ -534,16 +490,8 @@
     color: var(--accent);
     font-weight: 600;
   }
-  .attr-info-desc {
-    font-size: 0.875rem;
-    color: var(--text);
-    line-height: 1.4;
-  }
-  .attr-info-values {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
+  .attr-info-desc { font-size: 0.875rem; color: var(--text); line-height: 1.4; }
+  .attr-info-values { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .attr-info-chip {
     font-size: 0.75rem;
     padding: 0.15rem 0.5rem;
@@ -579,12 +527,7 @@
     line-height: 1.15;
     min-height: 44px;
   }
-  .cell-val {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100%;
-  }
+  .cell-val { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
   .cell-mobile-label {
     display: none;
     font-size: 0.55rem;
@@ -638,12 +581,7 @@
     color: var(--muted);
     border: 1px solid var(--border);
   }
-
-  .combobox {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
+  .combobox { position: relative; display: flex; flex-direction: column; }
   .combobox-input {
     width: 100%;
     background: var(--surface-2);
@@ -654,10 +592,7 @@
     font-size: 0.9375rem;
     font-family: inherit;
   }
-  .combobox-input:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
-  }
+  .combobox-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
   .suggestions {
     list-style: none;
     margin: 0.35rem 0 0;
@@ -684,22 +619,14 @@
     border: 1px solid rgba(96, 150, 186, 0.5);
     padding: calc(0.5rem - 1px) calc(0.625rem - 1px);
   }
-  .sugg-name {
-    font-size: 0.875rem;
-    color: var(--text);
-    font-weight: 500;
-  }
-  .sugg-meta {
-    font-size: 0.6875rem;
-    color: var(--muted);
-  }
+  .sugg-name { font-size: 0.875rem; color: var(--text); font-weight: 500; }
+  .sugg-meta { font-size: 0.6875rem; color: var(--muted); }
   .no-match {
     margin-top: 0.35rem;
     color: var(--muted);
     font-size: 0.8125rem;
     padding: 0.4rem 0.625rem;
   }
-
   .btn-primary {
     background: var(--accent);
     color: var(--bg);
@@ -721,13 +648,9 @@
     font-size: 0.9375rem;
   }
   .next-btn { align-self: stretch; }
-
   .legend {
-    display: flex;
-    gap: 0.875rem;
-    align-items: center;
-    font-size: 0.75rem;
-    color: var(--muted);
+    display: flex; gap: 0.875rem; align-items: center;
+    font-size: 0.75rem; color: var(--muted);
     flex-wrap: wrap;
   }
   .swatch {
@@ -740,16 +663,8 @@
   .swatch-hit { background: rgba(34, 197, 94, 0.55); }
   .swatch-close { background: rgba(234, 179, 8, 0.55); }
   .swatch-miss { background: var(--surface-2); border: 1px solid var(--border); }
-
-  .finale {
-    text-align: center;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .finale h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
+  .finale { text-align: center; align-items: center; gap: 0.75rem; }
+  .finale h2 { font-size: 1.5rem; font-weight: 600; }
   .finale-score {
     font-family: var(--font-main);
     font-size: 1.75rem;
@@ -757,9 +672,5 @@
     font-variant-numeric: tabular-nums;
   }
   .finale-sub { color: var(--muted); font-size: 0.9375rem; }
-  .finale-actions {
-    display: flex;
-    gap: 0.625rem;
-    margin-top: 0.5rem;
-  }
+  .finale-actions { display: flex; gap: 0.625rem; margin-top: 0.5rem; }
 </style>

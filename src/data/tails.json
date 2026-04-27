@@ -277,7 +277,7 @@
   "Y4": {
     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Airbus_A320-232%28w%29_%E2%80%98N520VL%E2%80%99_Volaris_%2827824039144%29.jpg",
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Airbus_A320-232%28w%29_%E2%80%98N520VL%E2%80%99_Volaris_%2827824039144%29.jpg/500px-Airbus_A320-232%28w%29_%E2%80%98N520VL%E2%80%99_Volaris_%2827824039144%29.jpg",
-    "title": "File:Airbus A320-232(w) ‘N520VL’ Volaris (27824039144).jpg",
+    "title": "File:Airbus A320-232(w) \u2018N520VL\u2019 Volaris (27824039144).jpg",
     "crop": {
       "x": 0.7548296608800037,
       "y": 0.16782534694946322,
@@ -305,17 +305,6 @@
       "y": 0.22748265025533587,
       "w": 0.26,
       "h": 0.39
-    }
-  },
-  "JJ": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Tam.a330-200.pt-mvl.arp.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Tam.a330-200.pt-mvl.arp.jpg/500px-Tam.a330-200.pt-mvl.arp.jpg",
-    "title": "File:Tam.a330-200.pt-mvl.arp.jpg",
-    "crop": {
-      "x": 0.7391256776329402,
-      "y": 0.2669985532026832,
-      "w": 0.22565925925925928,
-      "h": 0.34
     }
   },
   "G3": {

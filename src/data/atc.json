@@ -4,291 +4,1334 @@
       "tier": "easy",
       "prompt": "Hold short",
       "answer": "Stop before entering or crossing the runway or taxiway.",
+      "distractors": [
+        "Slow down before entering or crossing the runway or taxiway.",
+        "Stop only after entering and crossing the runway or taxiway.",
+        "Hold a short distance past the runway or taxiway hold line."
+      ],
       "explanation": "A hold-short instruction means the aircraft must stop at the hold line and wait for another clearance."
     },
     {
       "tier": "easy",
       "prompt": "Cleared to land",
       "answer": "Authorized to land on the assigned runway.",
+      "distractors": [
+        "Authorized to approach but not yet to land on the assigned runway.",
+        "Authorized to taxi onto the assigned runway and land at pilot's discretion.",
+        "Authorized to land on any available runway, not just the assigned one."
+      ],
       "explanation": "The aircraft may continue the approach and land on the runway named in the clearance."
     },
     {
       "tier": "easy",
       "prompt": "Go around",
       "answer": "Abort the landing and climb away for another attempt.",
+      "distractors": [
+        "Continue the landing but circle the field after touchdown.",
+        "Abort the landing and taxi back around for another attempt.",
+        "Climb away from the runway after landing for a low approach."
+      ],
       "explanation": "A go-around sends the aircraft back into the traffic pattern or missed approach flow."
     },
     {
       "tier": "easy",
       "prompt": "Say again",
       "answer": "Repeat the last transmission.",
+      "distractors": [
+        "Transmit the last message to the next controller.",
+        "Repeat back the last transmission to confirm it was received.",
+        "Say the last transmission louder for clarity."
+      ],
       "explanation": "This is the standard way to ask for a radio message to be repeated."
     },
     {
       "tier": "easy",
       "prompt": "Roger",
       "answer": "The transmission was received.",
+      "distractors": [
+        "The transmission is approved.",
+        "The instruction was received and will be complied with.",
+        "Repeat the last transmission so it can be received."
+      ],
       "explanation": "Roger confirms receipt, but it does not mean yes, approved, or cleared."
     },
     {
       "tier": "easy",
       "prompt": "Wilco",
       "answer": "The instruction was received and will be complied with.",
+      "distractors": [
+        "The instruction was received but cannot be complied with.",
+        "The instruction will be complied with after the next transmission.",
+        "The instruction was received; compliance is at pilot's discretion."
+      ],
       "explanation": "Wilco is short for will comply."
     },
     {
       "tier": "easy",
       "prompt": "Stand by",
       "answer": "Wait; more information or instructions will follow.",
+      "distractors": [
+        "Wait on the current frequency and transmit a position report.",
+        "Stop transmitting permanently; no further instructions will follow.",
+        "Hold position on the ground until further information is provided."
+      ],
       "explanation": "Stand by tells the pilot not to transmit again immediately unless needed."
     },
     {
       "tier": "easy",
       "prompt": "Cleared for takeoff",
       "answer": "Authorized to begin the takeoff roll.",
+      "distractors": [
+        "Authorized to line up on the runway and wait for the takeoff roll.",
+        "Authorized to begin the takeoff roll once the preceding aircraft has landed.",
+        "Authorized to begin taxi to the runway for an imminent takeoff roll."
+      ],
       "explanation": "This is the specific clearance that allows an aircraft to take off."
     },
     {
       "tier": "easy",
       "prompt": "Affirmative",
       "answer": "Yes.",
+      "distractors": [
+        "Acknowledged.",
+        "Approved.",
+        "Maybe."
+      ],
       "explanation": "Affirmative is the standard radio word for yes."
     },
     {
       "tier": "easy",
       "prompt": "Negative",
       "answer": "No.",
+      "distractors": [
+        "Unable.",
+        "Disregard.",
+        "Not yet."
+      ],
       "explanation": "Negative is the standard radio word for no."
     },
     {
       "tier": "medium",
       "prompt": "Line up and wait",
       "answer": "Enter the runway and wait for takeoff clearance.",
+      "distractors": [
+        "Enter the runway and begin the takeoff roll without further clearance.",
+        "Hold short of the runway and wait for takeoff clearance.",
+        "Enter the runway, line up, and expect immediate takeoff clearance shortly."
+      ],
       "explanation": "The aircraft may position on the runway, but it is not cleared for takeoff yet."
     },
     {
       "tier": "medium",
       "prompt": "Contact departure",
       "answer": "Switch to the departure controller's frequency.",
+      "distractors": [
+        "Monitor the departure controller's frequency without checking in.",
+        "Remain on tower frequency until the departure controller calls you.",
+        "Switch to the departure controller's frequency only after passing 1,000 feet."
+      ],
       "explanation": "Contact means change frequency and establish communication with the named controller."
     },
     {
       "tier": "medium",
       "prompt": "Squawk 4321",
       "answer": "Set transponder code 4321.",
+      "distractors": [
+        "Verify transponder code 4321 is already set.",
+        "Set transponder code 4321 only when airborne.",
+        "Read back transponder code 4321 without changing the current code."
+      ],
       "explanation": "Squawk instructions tell the pilot which transponder code to enter."
     },
     {
       "tier": "medium",
       "prompt": "Ident",
       "answer": "Press the transponder ident button.",
+      "distractors": [
+        "Identify the aircraft by callsign on the next transmission.",
+        "Press the transponder standby button to drop off the radar display.",
+        "Confirm the transponder code currently set in the aircraft."
+      ],
       "explanation": "Ident highlights the aircraft on the controller's radar display."
     },
     {
       "tier": "medium",
       "prompt": "Maintain runway heading",
       "answer": "Fly the runway's heading after departure.",
+      "distractors": [
+        "Fly the runway's heading until reaching pattern altitude, then turn crosswind.",
+        "Track the extended centerline of the runway using GPS guidance.",
+        "Fly the reciprocal of the runway's heading after departure."
+      ],
       "explanation": "The aircraft should continue straight out along the runway heading until instructed otherwise."
     },
     {
       "tier": "medium",
       "prompt": "Traffic in sight",
       "answer": "The pilot sees the referenced aircraft.",
+      "distractors": [
+        "The pilot has the referenced traffic on TCAS but not visually.",
+        "The pilot is searching for the referenced aircraft and does not yet see it.",
+        "The pilot sees an aircraft but cannot confirm it is the referenced traffic."
+      ],
       "explanation": "This tells ATC the pilot has visually acquired the traffic."
     },
     {
       "tier": "medium",
       "prompt": "Unable",
       "answer": "The pilot cannot comply with the instruction.",
+      "distractors": [
+        "The pilot will comply with the instruction after a short delay.",
+        "The pilot did not understand the instruction and requests it again.",
+        "The pilot can comply with the instruction only partially."
+      ],
       "explanation": "Unable is the concise standard response when a clearance or instruction cannot be followed."
     },
     {
       "tier": "medium",
       "prompt": "Cleared direct",
       "answer": "Proceed straight to the named fix or waypoint.",
+      "distractors": [
+        "Proceed via the previous route segments to the named fix or waypoint.",
+        "Proceed direct to the named fix or waypoint after crossing the next fix.",
+        "Proceed direct to the named fix or waypoint at pilot's discretion only."
+      ],
       "explanation": "Direct means navigate to the specified point without following the previous route segments."
     },
     {
       "tier": "hard",
-      "prompt": "Expedite climb",
-      "answer": "Climb promptly, faster than a normal climb if safely able.",
-      "explanation": "Expedite asks for prompt compliance, often to maintain separation."
+      "prompt": "Descend via the BIGGY THREE arrival, except maintain FL240",
+      "answer": "Follow the published vertical profile of the BIGGY THREE STAR, but do not descend below FL240 regardless of crossing restrictions.",
+      "distractors": [
+        "Follow the published vertical profile of the BIGGY THREE STAR and descend through FL240 only when crossing restrictions require it.",
+        "Ignore the published crossing restrictions on the BIGGY THREE STAR and descend directly to FL240.",
+        "Follow the lateral path of the BIGGY THREE STAR but maintain FL240 throughout, disregarding all published speeds."
+      ],
+      "explanation": "Descend via authorizes the published vertical path; an except clause overrides the bottom altitude until further amendment."
     },
     {
       "tier": "hard",
-      "prompt": "Resume own navigation",
-      "answer": "Stop following ATC vectors and navigate on the assigned route.",
-      "explanation": "The pilot returns to navigating by the filed or cleared route instead of radar vectors."
+      "prompt": "Cross LENDY at and maintain 11,000, Mach .78",
+      "answer": "Be level at 11,000 feet by the LENDY waypoint and fly Mach 0.78 from now on.",
+      "distractors": [
+        "Cross LENDY at or above 11,000 feet and accelerate to Mach 0.78 after the fix.",
+        "Be level at 11,000 feet by LENDY and reduce to Mach 0.78 only when LENDY is crossed.",
+        "Be at or below 11,000 feet by LENDY, then climb back up while maintaining Mach 0.78."
+      ],
+      "explanation": "Crossing restrictions combine an altitude constraint at a fix with a speed assignment in Mach number for high-altitude ops."
     },
     {
       "tier": "hard",
-      "prompt": "Cleared visual approach",
-      "answer": "Proceed visually to the airport and land when cleared.",
-      "explanation": "A visual approach uses outside visual reference rather than a full instrument approach."
+      "prompt": "Hold east of WINDR on the 090 radial, left turns, 10-mile legs, EFC 1845Z",
+      "answer": "Enter a holding pattern east of WINDR along the 090 radial with left turns and 10-mile legs; expect further clearance at 18:45 UTC.",
+      "distractors": [
+        "Hold west of WINDR along the 090 radial with right turns and 10-mile legs; expect further clearance at 18:45 UTC.",
+        "Enter a holding pattern east of WINDR along the 270 radial with left turns and 10-mile legs; expect further clearance at 18:45 UTC.",
+        "Enter a holding pattern east of WINDR along the 090 radial with left turns and 10-mile legs; clearance limit is 18:45 UTC and the aircraft must depart by then."
+      ],
+      "explanation": "A non-standard holding clearance specifies side, fix, inbound course or radial, turn direction, leg length, and the EFC time."
     },
     {
       "tier": "hard",
-      "prompt": "Maintain visual separation",
-      "answer": "Keep the other aircraft in sight and remain safely separated from it.",
-      "explanation": "The pilot accepts responsibility for spacing from the referenced traffic."
+      "prompt": "Resume normal speed",
+      "answer": "End any prior ATC speed restriction and operate at the company or planned speed schedule.",
+      "distractors": [
+        "End any prior ATC speed restriction and accelerate to maximum operating speed immediately.",
+        "Maintain the previously assigned ATC speed restriction until reaching the next fix.",
+        "Resume the previously assigned ATC speed after a temporary reduction for spacing."
+      ],
+      "explanation": "Resume normal speed cancels previously issued speed assignments; the pilot reverts to nominal operating speed."
     },
     {
       "tier": "hard",
-      "prompt": "Cancel takeoff clearance",
-      "answer": "Do not take off; stop or hold position as appropriate.",
-      "explanation": "This withdraws a previously issued takeoff clearance."
+      "prompt": "Climb via the SID, except maintain 5,000",
+      "answer": "Follow all altitude and speed restrictions published on the departure procedure, but stop the climb at 5,000 feet.",
+      "distractors": [
+        "Ignore all altitude restrictions on the SID and climb directly to 5,000 feet.",
+        "Follow all altitude and speed restrictions on the SID and continue to the published top altitude, expecting 5,000 next.",
+        "Follow the lateral path of the SID only, climbing freely to 5,000 feet without observing speed restrictions."
+      ],
+      "explanation": "Climb via authorizes published SID restrictions; the except clause caps the climb until ATC issues a higher altitude."
     },
     {
       "tier": "hard",
-      "prompt": "Read back hold short instructions",
-      "answer": "Repeat any instruction to hold short of a runway.",
-      "explanation": "Runway hold-short instructions require a readback because mistakes are high risk."
+      "prompt": "Unable RNP, request vectors",
+      "answer": "Pilot reports the aircraft cannot meet the required navigation performance and is asking ATC for radar vectors.",
+      "distractors": [
+        "Pilot reports the aircraft can meet RNP but is requesting radar vectors anyway for traffic spacing.",
+        "Pilot reports loss of RNP capability and is asking ATC for an RNP approach to a different runway.",
+        "Pilot reports the aircraft cannot meet RNP and is requesting vectors clear of the approach for troubleshooting."
+      ],
+      "explanation": "RNP approaches require a specified containment value; if the FMS or GPS can't certify it, the crew must decline and request alternate guidance."
     },
     {
       "tier": "hard",
-      "prompt": "Report established",
-      "answer": "Tell ATC when aligned on the approach course.",
-      "explanation": "Established means the aircraft is tracking the relevant final approach course."
+      "prompt": "Reduce to minimum clean speed",
+      "answer": "Slow to the lowest speed achievable without extending flaps or slats.",
+      "distractors": [
+        "Slow to the minimum approach speed with flaps and slats fully extended.",
+        "Slow to the minimum maneuvering speed and extend flaps to the first setting.",
+        "Slow to the minimum speed at which the aircraft is still cleanly controllable in the current configuration."
+      ],
+      "explanation": "Minimum clean is the lowest maneuvering speed in the clean configuration; below it the crew would have to deploy high-lift devices."
     },
     {
       "tier": "hard",
-      "prompt": "Caution wake turbulence",
-      "answer": "Be alert for wake turbulence from another aircraft.",
-      "explanation": "This warns the pilot about disturbed air left behind by preceding traffic."
+      "prompt": "Position and hold runway 27L",
+      "answer": "Taxi onto runway 27L in line-up position and stop; the takeoff clearance has not been issued.",
+      "distractors": [
+        "Taxi to the hold-short line of runway 27L and stop without entering the runway.",
+        "Taxi onto runway 27L, line up, and begin the takeoff roll without delay.",
+        "Taxi onto runway 27L in line-up position; takeoff clearance is implicitly issued."
+      ],
+      "explanation": "This is the older U.S. wording for line up and wait \u2014 still heard in legacy training material and on older recordings."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Caution wake turbulence, departing heavy",
+      "answer": "ATC is warning that the preceding departure was a heavy-category aircraft that may have produced significant wake; plan spacing or rotation timing accordingly.",
+      "distractors": [
+        "ATC is informing the pilot that the preceding traffic was a light aircraft and will produce minimal wake on departure.",
+        "ATC is requiring the pilot to delay departure until wake turbulence from prior traffic dissipates.",
+        "ATC is advising that the pilot must produce reduced wake on departure to protect following traffic."
+      ],
+      "explanation": "Wake categories \u2014 Light, Medium, Heavy, Super \u2014 drive separation minima; heavies create the strongest wake on takeoff."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Cleared for the approach, circle to land runway 33",
+      "answer": "Fly the published instrument approach to the primary runway, then maneuver visually within the circling area to land on runway 33.",
+      "distractors": [
+        "Fly the published instrument approach to runway 33 directly without circling.",
+        "Fly the published instrument approach to the primary runway, then enter a holding circle before landing on runway 33.",
+        "Fly a visual circling pattern only, ignoring the published instrument approach, and land on runway 33."
+      ],
+      "explanation": "A circling approach uses the instrument procedure for descent, then a visual circuit at MDA to a different runway."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Pilot's discretion descend to FL280",
+      "answer": "You may begin the descent to FL280 at any time of your choosing and at any rate; you may also level off at intermediate altitudes.",
+      "distractors": [
+        "Begin the descent to FL280 immediately at the pilot's preferred rate; intermediate level-offs are not permitted.",
+        "You may descend below FL280 at your discretion, leveling off at any altitude of your choosing.",
+        "Begin the descent to FL280 when crossing the next fix; the timing is at the pilot's discretion afterward."
+      ],
+      "explanation": "Pilot's discretion gives the crew control of when and how to descend, unlike a standard descent clearance which begins immediately."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Free call",
+      "answer": "Call the named controller without ATC having coordinated a handoff in advance.",
+      "distractors": [
+        "Call the named controller only after ATC has coordinated a handoff in advance.",
+        "Call the named controller without using your callsign on the initial transmission.",
+        "Call the named controller on the published frequency; no readback of the frequency is required."
+      ],
+      "explanation": "A free call is when the previous controller hasn't transferred radar identification, so the new controller doesn't yet know who you are."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Maintain own separation, VMC",
+      "answer": "Continue under visual meteorological conditions and accept responsibility for separating from the referenced traffic yourself.",
+      "distractors": [
+        "Continue under visual meteorological conditions while ATC retains responsibility for separating you from the referenced traffic.",
+        "Maintain visual meteorological conditions and request separation from the referenced traffic when needed.",
+        "Continue under visual meteorological conditions and accept responsibility for separating from terrain along the route."
+      ],
+      "explanation": "ATC offloads separation duty to the pilot once VMC is reported \u2014 common in U.S. visual approach setups."
     }
   ],
   "readback": [
     {
       "tier": "easy",
       "prompt": "Tower: Delta 482, cleared to land runway 27.",
-      "answer": "Delta 482 may land on runway 27.",
+      "answer": "Cleared to land on runway 27.",
+      "distractors": [
+        "Cleared for the approach to runway 27 but not yet cleared to land.",
+        "Cleared to taxi to runway 27 for departure.",
+        "Cleared to land on runway 22, not runway 27."
+      ],
       "explanation": "The clearance authorizes landing on the runway named by tower."
     },
     {
       "tier": "easy",
       "prompt": "Ground: United 115, hold short runway 18.",
-      "answer": "United 115 must stop before runway 18.",
+      "answer": "Stop before crossing or entering runway 18.",
+      "distractors": [
+        "Cross runway 18 without stopping and continue to the next taxiway.",
+        "Stop on runway 18 once you have entered it and await further instruction.",
+        "Stop before runway 36, the reciprocal of runway 18."
+      ],
       "explanation": "Hold short means stop before entering or crossing the runway."
     },
     {
       "tier": "easy",
       "prompt": "Tower: JetBlue 64, go around.",
-      "answer": "JetBlue 64 must abandon the landing and climb away.",
+      "answer": "Abandon the landing and climb away for another attempt.",
+      "distractors": [
+        "Continue the landing but go around the aircraft ahead on the runway.",
+        "Circle the airport once at pattern altitude before being cleared to land.",
+        "Abandon the landing and divert to the alternate airport."
+      ],
       "explanation": "Go around cancels the landing attempt."
     },
     {
       "tier": "easy",
       "prompt": "Departure: Southwest 22, contact center.",
-      "answer": "Southwest 22 should switch to center frequency.",
+      "answer": "Switch frequency to the center controller.",
+      "distractors": [
+        "Monitor the center frequency but remain with departure for now.",
+        "Stay on the departure frequency until center calls you.",
+        "Switch frequency to the tower controller, not center."
+      ],
       "explanation": "Contact means change to the named controller."
     },
     {
       "tier": "easy",
       "prompt": "Tower: Alaska 9, cleared for takeoff runway 16L.",
-      "answer": "Alaska 9 may take off from runway 16L.",
+      "answer": "Cleared to begin the takeoff roll on runway 16L.",
+      "distractors": [
+        "Line up on runway 16L and wait for takeoff clearance.",
+        "Cleared to begin the takeoff roll on runway 16R, not 16L.",
+        "Cleared to taxi onto runway 16L and hold short of the intersecting runway."
+      ],
       "explanation": "Cleared for takeoff is the authorization to begin the takeoff roll."
     },
     {
       "tier": "easy",
       "prompt": "Ground: American 40, stand by.",
-      "answer": "American 40 should wait for more instructions.",
+      "answer": "Wait without transmitting until further instructions.",
+      "distractors": [
+        "Stand by for an immediate taxi clearance and be ready to move.",
+        "Acknowledge ground and continue with the previous taxi instructions.",
+        "Switch to a standby ground frequency and wait for further calls."
+      ],
       "explanation": "Stand by tells the pilot to wait; it is not a clearance."
     },
     {
       "tier": "easy",
       "prompt": "Tower: United 19, say again.",
-      "answer": "United 19 should repeat the last transmission.",
+      "answer": "Repeat the last transmission for tower.",
+      "distractors": [
+        "Tower asks the pilot to confirm the last transmission was received.",
+        "Tower asks the pilot to transmit their callsign again on this frequency.",
+        "Tower instructs the pilot to repeat the transmission to the next controller."
+      ],
       "explanation": "Say again asks for the previous radio call to be repeated."
     },
     {
       "tier": "easy",
       "prompt": "Approach: Air Canada 5, traffic in sight?",
-      "answer": "ATC is asking whether Air Canada 5 sees the other aircraft.",
+      "answer": "ATC is asking whether the pilot can visually see the other aircraft.",
+      "distractors": [
+        "ATC is reporting that the other aircraft has the traffic in sight.",
+        "ATC is asking whether the pilot has the traffic on TCAS, not visually.",
+        "ATC is informing the pilot that traffic is now in sight on radar."
+      ],
       "explanation": "Traffic in sight means the pilot can visually identify the referenced traffic."
     },
     {
       "tier": "easy",
       "prompt": "Tower: Delta 77, wind calm, runway 04 cleared to land.",
-      "answer": "Delta 77 may land on runway 04 with calm wind reported.",
+      "answer": "Cleared to land on runway 04 with calm wind reported.",
+      "distractors": [
+        "Cleared for the approach to runway 04, hold landing clearance until wind picks up.",
+        "Cleared to land on runway 04 only if winds remain calm; otherwise go around.",
+        "Cleared to land on runway 22 because of calm wind, runway 04 not in use."
+      ],
       "explanation": "Wind calm is information; cleared to land is the authorization."
     },
     {
       "tier": "easy",
       "prompt": "Ground: Southwest 8, taxi to runway 12.",
-      "answer": "Southwest 8 may taxi toward runway 12.",
+      "answer": "Taxi toward runway 12.",
+      "distractors": [
+        "Taxi onto runway 12 and hold for takeoff clearance.",
+        "Taxi to runway 30, the reciprocal end opposite runway 12.",
+        "Hold short of runway 12 at the current position until further notice."
+      ],
       "explanation": "This taxi instruction names the runway the aircraft should taxi to."
     },
     {
       "tier": "medium",
       "prompt": "Ground: Speedbird 27, taxi to runway 09 via Alpha, hold short runway 15.",
       "answer": "Taxi toward runway 09 via Alpha, but stop before runway 15.",
+      "distractors": [
+        "Taxi toward runway 09 via Alpha and cross runway 15 without stopping.",
+        "Taxi toward runway 15 via Alpha, holding short of runway 09.",
+        "Taxi toward runway 09 via taxiway 15, holding short of Alpha."
+      ],
       "explanation": "The taxi route is Alpha; the hold-short restriction applies at runway 15."
     },
     {
       "tier": "medium",
       "prompt": "Tower: American 310, line up and wait runway 22R.",
       "answer": "Enter runway 22R and wait there; do not take off yet.",
+      "distractors": [
+        "Enter runway 22R and begin the takeoff roll without delay.",
+        "Hold short of runway 22R and wait for line-up clearance.",
+        "Enter runway 22L instead of 22R and wait for takeoff clearance."
+      ],
       "explanation": "Line up and wait is not a takeoff clearance."
     },
     {
       "tier": "medium",
       "prompt": "Departure: Lufthansa 441, climb and maintain one two thousand.",
       "answer": "Climb to and maintain 12,000 feet.",
+      "distractors": [
+        "Climb to and maintain 1,200 feet.",
+        "Climb to and maintain FL120, then expect 12,000 feet later.",
+        "Climb at 1,200 feet per minute and maintain present altitude."
+      ],
       "explanation": "One two thousand means twelve thousand feet in this altitude instruction."
     },
     {
       "tier": "medium",
       "prompt": "Approach: Air Canada 83, turn left heading 270.",
       "answer": "Turn left to fly heading 270 degrees.",
+      "distractors": [
+        "Turn right to fly heading 270 degrees by the shortest direction.",
+        "Turn left 270 degrees from the current heading.",
+        "Turn left to intercept the 270 radial inbound."
+      ],
       "explanation": "Heading assignments are compass headings in degrees."
     },
     {
       "tier": "medium",
       "prompt": "Tower: Emirates 204, wind 280 at 12, runway 27 cleared to land.",
-      "answer": "The wind is from 280 degrees at 12 knots, and landing is cleared on runway 27.",
+      "answer": "Wind is from 280 degrees at 12 knots, cleared to land on runway 27.",
+      "distractors": [
+        "Wind is toward 280 degrees at 12 knots, cleared to land on runway 27.",
+        "Wind is from 280 degrees at 12 knots, cleared for the approach to runway 27.",
+        "Wind is from 280 degrees gusting 12 knots, cleared to land on runway 28."
+      ],
       "explanation": "Wind information can accompany the landing clearance."
     },
     {
       "tier": "medium",
       "prompt": "Ground: Air France 7, squawk 4621.",
       "answer": "Set transponder code 4621.",
+      "distractors": [
+        "Verify transponder code 4621 is already set and report back.",
+        "Set transponder code 4621 only once airborne, not on the ground.",
+        "Set transponder code 4612, not 4621."
+      ],
       "explanation": "Squawk assigns the aircraft's transponder code."
     },
     {
       "tier": "hard",
-      "prompt": "Approach: Qatari 12, descend and maintain six thousand, reduce speed to 180.",
-      "answer": "Descend to 6,000 feet and slow to 180 knots.",
-      "explanation": "This combines altitude and speed instructions."
+      "prompt": "Center: Speedbird 219, cross LENDY at and maintain FL240, then descend via the BIGGY THREE, Mach .80.",
+      "answer": "Be at FL240 by LENDY, then follow the BIGGY THREE arrival's descent profile, all at Mach 0.80.",
+      "distractors": [
+        "Cross LENDY at any altitude above FL240, then continue descent on the BIGGY THREE arrival at Mach 0.80.",
+        "Be at FL240 by LENDY, then expect the BIGGY THREE arrival on next frequency, maintaining Mach 0.80 in the meantime.",
+        "Be at FL240 by LENDY, then follow the BIGGY THREE arrival profile but ignore Mach 0.80 once below FL240."
+      ],
+      "explanation": "A crossing restriction at the entry fix, then descend-via authorization for the rest of the STAR, with a speed assignment in Mach."
     },
     {
       "tier": "hard",
-      "prompt": "Tower: Delta 88, cancel takeoff clearance, hold position.",
-      "answer": "Delta 88 must not take off and should stay where it is.",
-      "explanation": "The previous takeoff clearance is withdrawn."
+      "prompt": "Approach: Shamrock 104, cleared VOR runway 04 approach, maintain 4,000 until established, report procedure turn inbound.",
+      "answer": "Fly the VOR approach to runway 04, hold 4,000 feet until intercepting the final segment, and call when turning inbound from the procedure turn.",
+      "distractors": [
+        "Fly the VOR approach to runway 04, descend to 4,000 once established, and report passing the procedure turn outbound.",
+        "Fly the VOR approach to runway 04, maintain 4,000 throughout the approach, and report procedure turn inbound only if requested.",
+        "Fly the VOR approach to runway 22, maintain 4,000 until established, and report when turning inbound from the procedure turn."
+      ],
+      "explanation": "A non-precision approach with an intermediate altitude floor and a position report tied to the procedure turn \u2014 three separate compliance items."
     },
     {
       "tier": "hard",
-      "prompt": "Approach: Shamrock 52, cleared ILS runway 04 approach, report established.",
-      "answer": "Fly the ILS approach to runway 04 and report when on the approach course.",
-      "explanation": "The pilot is cleared for the approach and must call once established."
+      "prompt": "Departure: Cactus 401, climb via the SID, except maintain 8,000, expect FL230 ten minutes after departure.",
+      "answer": "Follow all SID altitude and speed restrictions, level off at 8,000 feet, and anticipate FL230 about ten minutes after takeoff.",
+      "distractors": [
+        "Ignore SID altitude restrictions and climb directly to 8,000 feet, then to FL230 in ten minutes.",
+        "Follow SID altitude and speed restrictions, climb to FL230 at the SID top, and expect 8,000 feet ten minutes after departure.",
+        "Follow SID restrictions but disregard speed limits, level at 8,000 feet, and climb to FL230 in ten minutes without further clearance."
+      ],
+      "explanation": "Climb via authorizes the published profile; the except cap overrides the SID top, and the expect clause is forecast information, not a clearance."
     },
     {
       "tier": "hard",
-      "prompt": "Departure: United 91, fly runway heading, maintain 5,000.",
-      "answer": "Continue straight out on runway heading and maintain 5,000 feet.",
-      "explanation": "This combines heading after departure with an altitude restriction."
+      "prompt": "Center: Singapore 25, hold east of ORION on the 090 radial, left turns, 15-mile legs, expect further clearance at 2310 Zulu, time now 2245.",
+      "answer": "Enter a holding pattern east of ORION along the 090 radial, left turns, 15-mile legs; expect further clearance at 23:10 UTC; current time is 22:45.",
+      "distractors": [
+        "Enter a holding pattern east of ORION along the 090 radial, right turns, 15-mile legs; expect further clearance at 23:10 UTC; current time is 22:45.",
+        "Enter a holding pattern west of ORION along the 090 radial, left turns, 15 minutes per leg; expect further clearance at 23:10 UTC.",
+        "Enter a holding pattern east of ORION along the 090 radial, left turns, 15-mile legs; depart the hold at 23:10 UTC regardless of further clearance."
+      ],
+      "explanation": "A non-standard hold spelled out fully: side, fix, radial, turn direction, leg length, and EFC time, plus a current time check."
     },
     {
       "tier": "hard",
-      "prompt": "Tower: Southwest 18, cleared to land runway 31, caution wake turbulence.",
-      "answer": "Southwest 18 may land on runway 31 and should watch for wake turbulence.",
-      "explanation": "The warning does not cancel the landing clearance."
+      "prompt": "Tower: Speedbird 88, cancel takeoff clearance, cancel takeoff clearance, hold position, traffic on the runway.",
+      "answer": "Reject the takeoff and stop where you are; the previous clearance is withdrawn because of conflicting traffic on the runway.",
+      "distractors": [
+        "Continue the takeoff but expect to cancel the departure clearance after liftoff because of traffic on the runway.",
+        "Reject the takeoff, exit the runway at the next taxiway, and hold position because of traffic on the runway.",
+        "Reduce takeoff thrust and hold runway centerline; the takeoff clearance is reissued once traffic clears the runway."
+      ],
+      "explanation": "Doubled cancellation phrasing is used for emphasis on a safety-critical instruction; the reason is appended."
     },
     {
       "tier": "hard",
-      "prompt": "Center: Singapore 25, proceed direct ORION, resume own navigation.",
-      "answer": "Go direct to ORION, then continue navigating the assigned route.",
-      "explanation": "Direct gives the next waypoint; resume own navigation ends ATC vectoring."
+      "prompt": "Center: Norstar 71, when able direct ORION, then via flight-planned route, maintain FL360, Mach .82 or greater.",
+      "answer": "When you are able, proceed direct to ORION and then resume the filed route at FL360, flying at least Mach 0.82.",
+      "distractors": [
+        "Proceed direct to ORION immediately, then via flight-planned route at FL360 holding Mach 0.82 exactly.",
+        "When able, proceed direct to ORION, then via flight-planned route, climb to FL360 once at Mach 0.82 or greater.",
+        "When able, proceed direct to ORION, hold at FL360 until further clearance, and reduce to Mach 0.82 or less."
+      ],
+      "explanation": "When able defers the routing change to crew capability; combined with a filed-route rejoin, an altitude, and a minimum Mach."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Approach: Sunturk 233, vectors for the visual to runway 27R, follow the heavy Boeing seven-eight-seven five-mile final, caution wake turbulence, maintain visual separation.",
+      "answer": "Accept radar vectors to a visual approach for runway 27R behind a heavy 787 already on a five-mile final; you are responsible for spacing and wake separation.",
+      "distractors": [
+        "Accept radar vectors to a visual approach for runway 27R ahead of the heavy 787 on a five-mile final; ATC will provide wake separation.",
+        "Accept radar vectors to the ILS approach for runway 27R behind a heavy 787 on a five-mile final; maintain visual separation only above the wake.",
+        "Accept radar vectors to a visual approach for runway 27L behind a heavy 787 on a five-mile final to 27R; maintain visual separation between the two."
+      ],
+      "explanation": "Visual approach with traffic to follow plus a transfer of separation responsibility to the crew under VMC."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Tower: Channex 422, line up and wait runway 22L, traffic will land short, be ready immediate departure.",
+      "answer": "Enter runway 22L and hold; landing traffic will stop short of an intersection (LAHSO), and an immediate takeoff will be required when cleared.",
+      "distractors": [
+        "Enter runway 22L and begin an immediate takeoff roll before the landing traffic touches down.",
+        "Hold short of runway 22L because traffic is landing on 22L; expect immediate departure once it clears.",
+        "Enter runway 22L and hold; landing traffic will roll out past your position, and a delayed departure should be expected."
+      ],
+      "explanation": "Line up and wait combined with land-and-hold-short context and a request for an immediate departure on subsequent clearance."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Center: Aerolineas Argentinas 1304, unable higher due weight, request block FL340 to FL360.",
+      "answer": "The crew cannot climb above the current altitude because of aircraft weight and is asking for a block altitude clearance between FL340 and FL360.",
+      "distractors": [
+        "The crew is unable to descend below FL360 due to weight and requests a hard altitude of FL340 once burned down.",
+        "The crew can climb higher but requests a block altitude of FL340 to FL360 to reduce fuel burn.",
+        "The crew reports unable RVSM between FL340 and FL360 due to weight and requests a non-RVSM block above FL360."
+      ],
+      "explanation": "A block altitude lets the aircraft fly anywhere within the band \u2014 typical for performance-limited cruise climbs or turbulence."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Tower: Itarrow 7, go around, fly heading 250, climb and maintain 4,000, contact departure on 124.35, squawk 4621.",
+      "answer": "Abort the landing, turn to heading 250, climb to 4,000 feet, switch to departure on 124.35, and set transponder code 4621.",
+      "distractors": [
+        "Abort the landing, turn to heading 250, climb to FL240, monitor departure on 124.35, and verify squawk 4621 is already set.",
+        "Continue the landing, plan a missed approach to heading 250 at 4,000 feet, contact departure on 124.35, and squawk 4621.",
+        "Abort the landing, turn to heading 205, climb to 4,000 feet, switch to departure on 134.25, and set transponder code 4612."
+      ],
+      "explanation": "A full go-around package: missed-approach heading and altitude, a frequency change, and a new squawk \u2014 five compliance items in one transmission."
+    }
+  ],
+  "compose": [
+    {
+      "tier": "easy",
+      "prompt": "Tower: Delta 482, cleared to land runway 27.",
+      "answers": [
+        "Cleared to land runway 27 Delta 482",
+        "Delta 482 cleared to land runway 27"
+      ],
+      "tokens": [
+        "Cleared",
+        "to",
+        "land",
+        "runway",
+        "27",
+        "Delta",
+        "482",
+        "hold",
+        "short"
+      ],
+      "explanation": "Read back the landing clearance and the runway, ending with your callsign. Either order (clearance-first or callsign-first) is accepted."
+    },
+    {
+      "tier": "easy",
+      "prompt": "Ground: United 115, hold short runway 18.",
+      "answers": [
+        "Hold short runway 18 United 115",
+        "United 115 hold short runway 18"
+      ],
+      "tokens": [
+        "Hold",
+        "short",
+        "runway",
+        "18",
+        "United",
+        "115",
+        "land",
+        "cross"
+      ],
+      "explanation": "Hold-short instructions are mandatory readbacks. Repeat the runway number and finish with your callsign."
+    },
+    {
+      "tier": "easy",
+      "prompt": "Tower: Alaska 9, cleared for takeoff runway 16L.",
+      "answers": [
+        "Cleared for takeoff runway 16L Alaska 9",
+        "Alaska 9 cleared for takeoff runway 16L"
+      ],
+      "tokens": [
+        "Cleared",
+        "for",
+        "takeoff",
+        "runway",
+        "16L",
+        "Alaska",
+        "9",
+        "land",
+        "to",
+        "wait"
+      ],
+      "explanation": "Takeoff clearance and runway are read back verbatim, then your callsign."
+    },
+    {
+      "tier": "easy",
+      "prompt": "Ground: Southwest 8, taxi to runway 12 via Alpha.",
+      "answers": [
+        "Taxi runway 12 via Alpha Southwest 8",
+        "Taxi to runway 12 via Alpha Southwest 8"
+      ],
+      "tokens": [
+        "Taxi",
+        "to",
+        "runway",
+        "12",
+        "via",
+        "Alpha",
+        "Southwest",
+        "8",
+        "Bravo",
+        "hold"
+      ],
+      "explanation": "Read back the destination runway and any taxi route assigned, then your callsign."
+    },
+    {
+      "tier": "easy",
+      "prompt": "Departure: JetBlue 64, climb and maintain 5,000.",
+      "answers": [
+        "Climb and maintain 5000 JetBlue 64",
+        "Maintain 5000 JetBlue 64"
+      ],
+      "tokens": [
+        "Climb",
+        "and",
+        "maintain",
+        "5000",
+        "JetBlue",
+        "64",
+        "descend",
+        "3000"
+      ],
+      "explanation": "Altitude assignments require a readback. Either the full climb-and-maintain phrasing or the abbreviated maintain form is acceptable."
+    },
+    {
+      "tier": "easy",
+      "prompt": "Tower: American 40, contact ground 121.9.",
+      "answers": [
+        "Ground 121.9 American 40",
+        "Contact ground 121.9 American 40"
+      ],
+      "tokens": [
+        "Contact",
+        "ground",
+        "121.9",
+        "American",
+        "40",
+        "tower",
+        "departure",
+        "118.7"
+      ],
+      "explanation": "Read back the new frequency with your callsign. The word \"contact\" can be omitted."
+    },
+    {
+      "tier": "easy",
+      "prompt": "Ground: Air Canada 5, squawk 4621.",
+      "answers": [
+        "Squawk 4621 Air Canada 5",
+        "Air Canada 5 squawk 4621"
+      ],
+      "tokens": [
+        "Squawk",
+        "4621",
+        "Air",
+        "Canada",
+        "5",
+        "ident",
+        "1200"
+      ],
+      "explanation": "Always read back transponder code assignments to confirm the digits."
+    },
+    {
+      "tier": "easy",
+      "prompt": "Approach: Delta 77, turn left heading 270.",
+      "answers": [
+        "Left heading 270 Delta 77",
+        "Turn left heading 270 Delta 77"
+      ],
+      "tokens": [
+        "Turn",
+        "Left",
+        "heading",
+        "270",
+        "Delta",
+        "77",
+        "right",
+        "180"
+      ],
+      "explanation": "Read back the turn direction and the assigned heading, then callsign. \"Turn\" is optional."
+    },
+    {
+      "tier": "easy",
+      "prompt": "Approach: Southwest 22, reduce speed to 180 knots.",
+      "answers": [
+        "Speed 180 Southwest 22",
+        "Reduce speed to 180 knots Southwest 22"
+      ],
+      "tokens": [
+        "Reduce",
+        "speed",
+        "to",
+        "180",
+        "knots",
+        "Southwest",
+        "22",
+        "210",
+        "increase"
+      ],
+      "explanation": "Read back the speed value with your callsign. Either the full or the abbreviated \"speed 180\" form is accepted."
+    },
+    {
+      "tier": "easy",
+      "prompt": "Tower: Air France 7, line up and wait runway 22R.",
+      "answers": [
+        "Line up and wait runway 22R Air France 7",
+        "Air France 7 line up and wait runway 22R"
+      ],
+      "tokens": [
+        "Line",
+        "up",
+        "and",
+        "wait",
+        "runway",
+        "22R",
+        "Air",
+        "France",
+        "7",
+        "cleared",
+        "for",
+        "takeoff"
+      ],
+      "explanation": "Line-up-and-wait clearances are mandatory readbacks because they put you on an active runway."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Departure: Lufthansa 441, climb and maintain one two thousand, fly heading 080.",
+      "answers": [
+        "Climb and maintain 12000 heading 080 Lufthansa 441",
+        "Maintain 12000 heading 080 Lufthansa 441"
+      ],
+      "tokens": [
+        "Climb",
+        "and",
+        "maintain",
+        "12000",
+        "heading",
+        "080",
+        "Lufthansa",
+        "441",
+        "descend",
+        "260",
+        "right"
+      ],
+      "explanation": "Read back both clauses: altitude assignment plus heading, with callsign at the end."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Ground: Speedbird 27, taxi to runway 09 via Alpha, hold short runway 15.",
+      "answers": [
+        "Taxi runway 09 via Alpha hold short runway 15 Speedbird 27",
+        "Taxi to runway 09 via Alpha hold short runway 15 Speedbird 27"
+      ],
+      "tokens": [
+        "Taxi",
+        "to",
+        "runway",
+        "09",
+        "via",
+        "Alpha",
+        "hold",
+        "short",
+        "15",
+        "Speedbird",
+        "27",
+        "Bravo",
+        "cross"
+      ],
+      "explanation": "Both the taxi route and any hold-short restriction are mandatory readback items."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Approach: Emirates 204, descend and maintain 8,000, reduce speed to 250 knots.",
+      "answers": [
+        "Descend and maintain 8000 speed 250 Emirates 204",
+        "Maintain 8000 speed 250 Emirates 204"
+      ],
+      "tokens": [
+        "Descend",
+        "and",
+        "maintain",
+        "8000",
+        "speed",
+        "250",
+        "Emirates",
+        "204",
+        "knots",
+        "Climb",
+        "5000"
+      ],
+      "explanation": "Altitude and speed are both mandatory readback items. Either full or abbreviated speed form works."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Tower: American 310, line up and wait runway 22R, traffic on three-mile final.",
+      "answers": [
+        "Line up and wait runway 22R American 310"
+      ],
+      "tokens": [
+        "Line",
+        "up",
+        "and",
+        "wait",
+        "runway",
+        "22R",
+        "American",
+        "310",
+        "cleared",
+        "takeoff",
+        "for",
+        "traffic",
+        "sight"
+      ],
+      "explanation": "Read back the line-up-and-wait clearance and runway. Traffic information is informational and is not part of the required readback."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Approach: Shamrock 52, cleared ILS runway 04 approach, maintain 3,000 until established.",
+      "answers": [
+        "Cleared ILS runway 04 approach maintain 3000 until established Shamrock 52"
+      ],
+      "tokens": [
+        "Cleared",
+        "ILS",
+        "runway",
+        "04",
+        "approach",
+        "maintain",
+        "3000",
+        "until",
+        "established",
+        "Shamrock",
+        "52",
+        "visual",
+        "RNAV"
+      ],
+      "explanation": "Read back the approach type, the runway, and any altitude restriction until established on the final segment."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Tower: Delta 88, contact departure 124.35, squawk 4621.",
+      "answers": [
+        "Departure 124.35 squawk 4621 Delta 88",
+        "Contact departure 124.35 squawk 4621 Delta 88"
+      ],
+      "tokens": [
+        "Contact",
+        "departure",
+        "124.35",
+        "squawk",
+        "4621",
+        "Delta",
+        "88",
+        "tower",
+        "ident",
+        "1200"
+      ],
+      "explanation": "Both frequency change and squawk code are mandatory readback items."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Departure: Cactus 401, fly runway heading, climb and maintain 3,000.",
+      "answers": [
+        "Runway heading climb and maintain 3000 Cactus 401",
+        "Fly runway heading climb and maintain 3000 Cactus 401",
+        "Runway heading maintain 3000 Cactus 401"
+      ],
+      "tokens": [
+        "Fly",
+        "runway",
+        "heading",
+        "climb",
+        "and",
+        "maintain",
+        "3000",
+        "Cactus",
+        "401",
+        "descend",
+        "180",
+        "left"
+      ],
+      "explanation": "Read back both the heading instruction and the altitude. \"Fly\" is optional in the heading readback."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Center: Itarrow 7, cross WINDR at and maintain FL240.",
+      "answers": [
+        "Cross WINDR at FL240 Itarrow 7",
+        "Cross WINDR at and maintain FL240 Itarrow 7"
+      ],
+      "tokens": [
+        "Cross",
+        "WINDR",
+        "at",
+        "and",
+        "maintain",
+        "FL240",
+        "Itarrow",
+        "7",
+        "FL280",
+        "above",
+        "below"
+      ],
+      "explanation": "Crossing restrictions name the fix and the altitude. The \"at and maintain\" wording is optional in the readback."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Tower: Channex 422, go around, fly heading 250, climb and maintain 4,000.",
+      "answers": [
+        "Going around heading 250 climb 4000 Channex 422",
+        "Going around fly heading 250 climb and maintain 4000 Channex 422"
+      ],
+      "tokens": [
+        "Going",
+        "around",
+        "fly",
+        "heading",
+        "250",
+        "climb",
+        "and",
+        "maintain",
+        "4000",
+        "Channex",
+        "422",
+        "departure",
+        "contact",
+        "right"
+      ],
+      "explanation": "A go-around is read back as \"going around\" plus the missed-approach heading and altitude assigned by tower."
+    },
+    {
+      "tier": "medium",
+      "prompt": "Center: Norstar 71, climb FL360, proceed direct ORION.",
+      "answers": [
+        "Climb FL360 direct ORION Norstar 71"
+      ],
+      "tokens": [
+        "Climb",
+        "FL360",
+        "direct",
+        "ORION",
+        "Norstar",
+        "71",
+        "descend",
+        "via",
+        "FL280",
+        "left"
+      ],
+      "explanation": "Read back the altitude and the assigned direct fix, ending with the callsign."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Center: Speedbird 219, cross LENDY at and maintain FL240, then descend via the BIGGY THREE arrival, Mach .80.",
+      "answers": [
+        "Cross LENDY at FL240 descend via the BIGGY THREE Mach 80 Speedbird 219",
+        "Cross LENDY at and maintain FL240 descend via the BIGGY THREE Mach 80 Speedbird 219"
+      ],
+      "tokens": [
+        "Cross",
+        "LENDY",
+        "at",
+        "and",
+        "maintain",
+        "FL240",
+        "descend",
+        "via",
+        "the",
+        "BIGGY",
+        "THREE",
+        "Mach",
+        "80",
+        "Speedbird",
+        "219",
+        "FL280",
+        "climb",
+        "ORION",
+        "82"
+      ],
+      "explanation": "Read back the crossing fix and altitude, the descend-via authorization (with arrival name), the Mach assignment, and your callsign. Other speed values and arrival names are decoys."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Tower: Cactus 401, go around, fly heading 250, climb and maintain 4,000, contact departure 124.35.",
+      "answers": [
+        "Going around heading 250 climb 4000 departure 124.35 Cactus 401",
+        "Going around fly heading 250 climb and maintain 4000 contact departure 124.35 Cactus 401"
+      ],
+      "tokens": [
+        "Going",
+        "around",
+        "fly",
+        "heading",
+        "250",
+        "climb",
+        "and",
+        "maintain",
+        "4000",
+        "contact",
+        "departure",
+        "124.35",
+        "Cactus",
+        "401",
+        "ground",
+        "tower",
+        "121.9",
+        "right",
+        "left"
+      ],
+      "explanation": "All four items get read back: \"going around\", missed-approach heading, altitude, and the new frequency. Wrong frequencies and tower/ground are decoys."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Approach: Shamrock 104, cleared RNAV runway 04 approach, maintain 4,000 until established, report procedure turn inbound.",
+      "answers": [
+        "Cleared RNAV runway 04 approach maintain 4000 until established report procedure turn inbound Shamrock 104",
+        "Cleared RNAV 04 approach maintain 4000 until established report procedure turn inbound Shamrock 104"
+      ],
+      "tokens": [
+        "Cleared",
+        "RNAV",
+        "runway",
+        "04",
+        "approach",
+        "maintain",
+        "4000",
+        "until",
+        "established",
+        "report",
+        "procedure",
+        "turn",
+        "inbound",
+        "Shamrock",
+        "104",
+        "ILS",
+        "visual",
+        "outbound"
+      ],
+      "explanation": "Approach type, runway, altitude floor, and any reporting requirement are all read back. ILS and outbound are decoys."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Center: Singapore 25, hold east of ORION on the 090 radial, left turns, EFC 2310 Zulu.",
+      "answers": [
+        "Hold east of ORION 090 radial left turns EFC 2310 Zulu Singapore 25",
+        "Holding east of ORION 090 radial left turns expect further clearance 2310 Zulu Singapore 25"
+      ],
+      "tokens": [
+        "Hold",
+        "Holding",
+        "east",
+        "of",
+        "ORION",
+        "090",
+        "radial",
+        "left",
+        "turns",
+        "EFC",
+        "expect",
+        "further",
+        "clearance",
+        "2310",
+        "Zulu",
+        "Singapore",
+        "25",
+        "west",
+        "right",
+        "270"
+      ],
+      "explanation": "A holding readback names side, fix, radial, turn direction, and EFC time, ending with callsign. Either \"EFC\" or the spelled-out \"expect further clearance\" is acceptable."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Departure: Itarrow 7, climb via the SID, except maintain 8,000, expect FL230 in 10 minutes.",
+      "answers": [
+        "Climb via the SID except maintain 8000 Itarrow 7"
+      ],
+      "tokens": [
+        "Climb",
+        "via",
+        "the",
+        "SID",
+        "except",
+        "maintain",
+        "8000",
+        "Itarrow",
+        "7",
+        "expect",
+        "FL230",
+        "in",
+        "10",
+        "minutes",
+        "descend"
+      ],
+      "explanation": "The climb-via clearance is mandatory readback. The expect clause is informational and is not required in the readback per FAA convention."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Center: Norstar 71, when able direct ORION, then via flight planned route, maintain FL360, Mach .82 or greater.",
+      "answers": [
+        "When able direct ORION flight planned route FL360 Mach 82 or greater Norstar 71"
+      ],
+      "tokens": [
+        "When",
+        "able",
+        "direct",
+        "ORION",
+        "flight",
+        "planned",
+        "route",
+        "FL360",
+        "Mach",
+        "82",
+        "or",
+        "greater",
+        "Norstar",
+        "71",
+        "via",
+        "FL280",
+        "less",
+        "than"
+      ],
+      "explanation": "Read back the conditional direct, the route rejoin, the altitude, and the minimum Mach. Decoys flip the Mach restriction direction."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Approach: Sunturk 233, vectors visual runway 27R, follow the heavy 787 five-mile final, maintain visual separation.",
+      "answers": [
+        "Vectors visual runway 27R follow heavy 787 five mile final maintain visual separation Sunturk 233"
+      ],
+      "tokens": [
+        "Vectors",
+        "visual",
+        "runway",
+        "27R",
+        "follow",
+        "heavy",
+        "787",
+        "five",
+        "mile",
+        "final",
+        "maintain",
+        "visual",
+        "separation",
+        "Sunturk",
+        "233",
+        "ILS",
+        "light",
+        "three"
+      ],
+      "explanation": "Visual approach with traffic to follow: read back the runway, the traffic to follow with wake category, and the assumption of visual separation."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Tower: Channex 422, line up and wait runway 22L, traffic will land short, be ready immediate departure.",
+      "answers": [
+        "Line up and wait runway 22L ready immediate Channex 422",
+        "Line up and wait runway 22L Channex 422"
+      ],
+      "tokens": [
+        "Line",
+        "up",
+        "and",
+        "wait",
+        "runway",
+        "22L",
+        "ready",
+        "immediate",
+        "Channex",
+        "422",
+        "cleared",
+        "takeoff",
+        "traffic",
+        "land",
+        "short"
+      ],
+      "explanation": "LUAW and the runway are mandatory readback. Acknowledging \"ready immediate\" is good airmanship; the traffic info is not read back."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Tower: Speedbird 88, cancel takeoff clearance, hold position.",
+      "answers": [
+        "Cancel takeoff clearance holding position Speedbird 88",
+        "Cancelling takeoff clearance holding position Speedbird 88"
+      ],
+      "tokens": [
+        "Cancel",
+        "Cancelling",
+        "takeoff",
+        "clearance",
+        "holding",
+        "position",
+        "Speedbird",
+        "88",
+        "rolling",
+        "going",
+        "around",
+        "rejecting"
+      ],
+      "explanation": "A cancelled takeoff clearance is safety-critical and gets a verbatim readback plus a confirmation that the aircraft is holding position."
+    },
+    {
+      "tier": "hard",
+      "prompt": "Approach: Endeavor 12, descend and maintain 6,000, reduce speed to 180 knots, expect ILS runway 25 approach.",
+      "answers": [
+        "Descend and maintain 6000 speed 180 expect ILS 25 Endeavor 12",
+        "Maintain 6000 speed 180 expect ILS runway 25 Endeavor 12"
+      ],
+      "tokens": [
+        "Descend",
+        "and",
+        "maintain",
+        "6000",
+        "speed",
+        "180",
+        "expect",
+        "ILS",
+        "runway",
+        "25",
+        "Endeavor",
+        "12",
+        "knots",
+        "RNAV",
+        "27",
+        "visual"
+      ],
+      "explanation": "Altitude and speed are mandatory readback; the expect-approach line is also typically read back since it sets up the next clearance."
     }
   ]
 }

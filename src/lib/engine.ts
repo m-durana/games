@@ -1,4 +1,5 @@
 import airlinesData from '../data/airlines.json';
+import logoFlagsData from '../data/logo-flags.json';
 import airportsData from '../data/airports.json';
 import airportMetaData from '../data/airport-meta.json';
 import metaData from '../data/airline-meta.json';
@@ -130,19 +131,29 @@ export function airportLabelWithCountry(iata: string): string {
   return iata;
 }
 
+// Tier 1 = truly globally mass-market flag carriers and dominant low-cost
+// brands. The kind of airline a casual traveller would recognize unprompted.
+// Tightened: regional/national champions with limited global recognition were
+// moved to Tier 2 (Aeromexico, IndiGo, Eurowings, Air Indians, Aeroflot,
+// Ethiopian, Spirit, Frontier, etc.).
 const TIER_1 = new Set([
   'LH', 'BA', 'AF', 'KL', 'AA', 'DL', 'UA', 'B6', 'WN', 'AS',
-  'AC', 'EK', 'EY', 'QR', 'SQ', 'CX', 'JL', 'NH', 'KE', 'QF',
-  'NZ', 'TK', 'FR', 'U2', 'AZ', 'IB', 'LX', 'OS', 'AY', 'SK',
-  'AI', '6E', 'EW', 'VY', 'TP', 'CA', 'MU', 'CZ', 'AM', 'WS',
-  'SU', 'ET', 'TG', 'NK', 'F9',
+  'AC', 'EK', 'QR', 'SQ', 'CX', 'JL', 'NH', 'KE', 'QF',
+  'TK', 'FR', 'U2', 'IB', 'AY',
 ]);
 
+// Tier 3 = the genuinely obscure end: regional carriers, country-only
+// flag carriers most international audiences won't recognize, niche LCCs.
+// Expanded so Hard mode is meaningfully harder than Medium.
 const TIER_3 = new Set([
+  // Original Tier 3 picks (regional / niche)
   'MQ', 'OH', 'PT', '9E', 'LV', 'JU', 'OK', 'OU', 'MK', 'WB',
   'KU', 'GF', 'KC', 'HY', 'J2', 'FJ', 'QH', 'VJ', '5J', 'LS',
   'PD', 'VB', 'AD', 'SY', 'G4', 'BY', 'A3', 'FI', 'UL', 'AT',
-  'LY', 'RJ', 'WY', 'SV', 'FZ', 'JJ',
+  'LY', 'RJ', 'WY', 'SV', 'FZ',
+  // Promoted from Tier 1/2 to make Hard actually hard:
+  '6E', 'AZ', 'VY', 'NK', 'F9', 'AM', 'CA', 'MU', 'CZ', 'TG',
+  'SU', 'ET', 'TP', 'EW',
 ]);
 
 function tier(a: Airline): 1 | 2 | 3 {
@@ -156,7 +167,10 @@ export function pool(difficulty: Difficulty): Airline[] {
     const t = tier(a);
     if (difficulty === 'easy') return t === 1;
     if (difficulty === 'medium') return t <= 2;
-    return true;
+    // Hard: only Tier 3 (obscure airlines). Previously hard was "all tiers",
+    // which made it the same content as medium plus a few extras. Now it's
+    // genuinely harder — every answer is from the obscure pool.
+    return t === 3;
   });
 }
 
@@ -449,6 +463,115 @@ function buildQuestion(
       answer: correct,
     };
   }
+  if (mode === 'whereAmI') {
+    const airportIata = airline.hub;
+    const r = airportRoutes(airportIata)!;
+    const showCount = difficulty === 'hard' ? 3 : difficulty === 'easy' ? 5 : 4;
+    const destinations = (r.topDestinations ?? []).slice(0, showCount);
+    const correct = airportIata;
+    const apCountry = airportCountry[airportIata];
+    const region = apCountry ? REGIONS[apCountry] : undefined;
+    const sameRegion = region
+      ? Object.keys(airports).filter(
+          (c) => c !== correct && airportCountry[c] && REGIONS[airportCountry[c]] === region,
+        )
+      : [];
+    const sameAlliance = airline.alliance
+      ? sourcePool
+          .filter((x) => x.iata !== airline.iata && x.alliance === airline.alliance && x.hub !== correct && airports[x.hub])
+          .map((x) => x.hub)
+      : [];
+    const ranked = difficulty === 'hard'
+      ? [...shuffle(sameAlliance, rng), ...shuffle(sameRegion, rng)]
+      : [...shuffle(sameRegion, rng)];
+    const distractors: string[] = [];
+    for (const code of ranked) {
+      if (!distractors.includes(code) && code !== correct) distractors.push(code);
+      if (distractors.length === 3) break;
+    }
+    if (distractors.length < 3) {
+      const extra = shuffle(
+        Object.keys(airports).filter((x) => x !== correct && !distractors.includes(x)),
+        rng,
+      ).slice(0, 3 - distractors.length);
+      distractors.push(...extra);
+    }
+    return {
+      mode,
+      airline,
+      airport: airportIata,
+      options: shuffle([correct, ...distractors], rng),
+      answer: correct,
+      destinations,
+      promptKind: 'destinations',
+    };
+  }
+  if (mode === 'hubOf') {
+    const airportIata = airline.hub;
+    const r = airportRoutes(airportIata);
+    const dominantIata = r?.topAirlines?.[0] ?? airline.iata;
+    const dominant = airlineByIata(dominantIata) ?? airline;
+    const correct = dominant.name;
+    const sameAlliance = dominant.alliance
+      ? airlines.filter((x) => x.iata !== dominant.iata && x.alliance === dominant.alliance)
+      : [];
+    const sameCountry = airlines.filter(
+      (x) => x.iata !== dominant.iata && x.country === dominant.country && x.alliance !== dominant.alliance,
+    );
+    const ranked = [...shuffle(sameAlliance, rng), ...shuffle(sameCountry, rng)];
+    const distractors: string[] = [];
+    for (const x of ranked) {
+      if (!distractors.includes(x.name) && x.name !== correct) distractors.push(x.name);
+      if (distractors.length === 3) break;
+    }
+    if (distractors.length < 3) {
+      const extra = shuffle(
+        airlines.filter((x) => x.name !== correct && !distractors.includes(x.name)).map((x) => x.name),
+        rng,
+      ).slice(0, 3 - distractors.length);
+      distractors.push(...extra);
+    }
+    return {
+      mode,
+      airline: dominant,
+      airport: airportIata,
+      options: shuffle([correct, ...distractors], rng),
+      answer: correct,
+      prompt: airportIata,
+      promptKind: 'airport',
+    };
+  }
+  if (mode === 'country' && airports[airline.hub] && rng() < 0.5) {
+    const airportIata = airline.hub;
+    const apCountry = airportCountry[airportIata] ?? airline.country;
+    const correct = apCountry;
+    const region = REGIONS[apCountry];
+    const sameRegion = region
+      ? Object.values(airportCountry).filter((c) => c !== correct && REGIONS[c] === region)
+      : [];
+    const ranked = shuffle([...new Set(sameRegion)], rng);
+    const distractors: string[] = [];
+    for (const c of ranked) {
+      if (!distractors.includes(c)) distractors.push(c);
+      if (distractors.length === 3) break;
+    }
+    if (distractors.length < 3) {
+      const extra = shuffle(
+        fallbackPool.filter((x) => x !== correct && !distractors.includes(x)),
+        rng,
+      ).slice(0, 3 - distractors.length);
+      distractors.push(...extra);
+    }
+    return {
+      mode,
+      airline,
+      airport: airportIata,
+      options: shuffle([correct, ...distractors], rng),
+      answer: correct,
+      prompt: airportIata,
+      promptKind: 'airport',
+    };
+  }
   if (mode === 'reverseGroup') {
     // Multi-select with unknown count: pick 1..min(4, mates) correct, rest distractors.
     const groupMates = sourcePool.filter(
@@ -477,7 +600,12 @@ function buildQuestion(
     ];
     if (difficulty === 'hard') {
       if (m.icao) variants.push({ kind: 'icao', value: m.icao });
-      if (m.callsign) variants.push({ kind: 'callsign', value: m.callsign });
+      // Skip callsigns that are essentially the airline name re-spoken — those
+      // are giveaways once the airline appears in the options. Same overlap
+      // rule as the ATC callsign quiz uses.
+      if (m.callsign && !callsignIsObviousFor(airline.name, m.callsign)) {
+        variants.push({ kind: 'callsign', value: m.callsign });
+      }
     }
     const chosen = pick(variants, rng);
     const distractors = smartDistractors(airline, mode, sourcePool, fallbackPool, rng);
@@ -543,6 +671,102 @@ function normalizeForOverlap(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
+function callsignIsObviousFor(airlineName: string, callsign: string): boolean {
+  const nameTokens = new Set(
+    normalizeForOverlap(airlineName).split(' ').filter((t) => t.length >= 3),
+  );
+  const csTokens = normalizeForOverlap(callsign).split(' ').filter((t) => t.length >= 3);
+  if (csTokens.length === 0) return true;
+  return csTokens.every((t) => nameTokens.has(t));
+}
+
+// Adjective forms / common name fragments that telegraph the airline's country.
+// Used to filter the country quiz: airlines whose name already contains one of
+// these for their own country are giveaways (e.g. "American Airlines" → USA,
+// "British Airways" → UK, "Air France" → France).
+const COUNTRY_REVEALS: Record<string, string[]> = {
+  'United States': ['american', 'united states', 'us'],
+  'United Kingdom': ['british', 'uk'],
+  'France': ['france', 'french', 'air france'],
+  'Germany': ['german', 'germany', 'deutsch'],
+  'Italy': ['italian', 'italy', 'italia'],
+  'Spain': ['spanish', 'spain'],
+  'Russia': ['russian', 'russia'],
+  'China': ['china', 'chinese'],
+  'Japan': ['japan', 'japanese', 'nippon'],
+  'South Korea': ['korean', 'korea'],
+  'Australia': ['australian', 'australia'],
+  'Iceland': ['iceland', 'icelandic'],
+  'Czech Republic': ['czech'],
+  'Turkey': ['turkish', 'turkey'],
+  'Thailand': ['thai', 'thailand'],
+  'Egypt': ['egypt', 'egyptian'],
+  'Argentina': ['argentine', 'argentinian', 'argentinas', 'argentina'],
+  'Saudi Arabia': ['saudi', 'saudia'],
+  'Vietnam': ['vietnam', 'vietnamese'],
+  'Indonesia': ['indonesia', 'indonesian'],
+  'Philippines': ['philippine', 'philippines', 'filipino'],
+  'Pakistan': ['pakistan', 'pakistani'],
+  'India': ['india', 'indian', 'air india'],
+  'Canada': ['air canada', 'canadian', 'canada'],
+  'Mexico': ['mexico', 'mexican', 'aeromexico'],
+  'Brazil': ['brazil', 'brazilian', 'brasil'],
+  'Norway': ['norwegian', 'norway'],
+  'Sweden': ['swedish', 'sweden'],
+  'Finland': ['finnish', 'finland', 'finnair'],
+  'Denmark': ['danish', 'denmark'],
+  'Netherlands': ['dutch', 'netherlands'],
+  'Switzerland': ['swiss', 'switzerland'],
+  'Austria': ['austrian', 'austria'],
+  'Belgium': ['belgian', 'belgium'],
+  'Portugal': ['portugal', 'portuguese'],
+  'Greece': ['greek', 'greece', 'aegean'],
+  'Poland': ['polish', 'poland'],
+  'Ireland': ['irish', 'ireland'],
+  'Croatia': ['croatian', 'croatia'],
+  'Hungary': ['hungarian', 'hungary'],
+  'Romania': ['romanian', 'romania'],
+  'Serbia': ['serbian', 'serbia'],
+  'Bulgaria': ['bulgarian', 'bulgaria'],
+  'Latvia': ['latvian', 'latvia'],
+  'Ethiopia': ['ethiopian', 'ethiopia'],
+  'Kenya': ['kenya', 'kenyan'],
+  'Morocco': ['moroccan', 'morocco', 'maroc'],
+  'South Africa': ['south african', 'south africa'],
+  'Israel': ['israeli', 'israel', 'el al'],
+  'Jordan': ['jordan', 'jordanian'],
+  'New Zealand': ['new zealand'],
+  'Hong Kong': ['hong kong'],
+  'Singapore': ['singapore'],
+  'Malaysia': ['malaysia', 'malaysian'],
+  'Sri Lanka': ['sri lankan', 'srilankan', 'sri lanka'],
+  'Mongolia': ['mongolia', 'mongolian'],
+  'Azerbaijan': ['azerbaijan', 'azal'],
+  'Kazakhstan': ['kazakh', 'kazakhstan', 'astana'],
+  'Uzbekistan': ['uzbek', 'uzbekistan'],
+  'Brunei': ['brunei', 'royal brunei'],
+  'Fiji': ['fiji', 'fijian'],
+  'Papua New Guinea': ['papua', 'png'],
+  'Mauritius': ['mauritius', 'mauritian'],
+  'Rwanda': ['rwandair', 'rwanda'],
+  'Bahrain': ['gulf air', 'bahrain'],
+  'Kuwait': ['kuwait'],
+  'Oman': ['oman'],
+  'United Arab Emirates': ['emirates', 'etihad'],
+  'Qatar': ['qatar'],
+  'Trinidad and Tobago': ['caribbean'],
+  'Panama': ['copa'],
+  'Chile': ['lan', 'sky airline'],
+  'Colombia': ['avianca'],
+};
+
+function airlineRevealsCountry(a: Airline): boolean {
+  const reveals = COUNTRY_REVEALS[a.country];
+  if (!reveals) return false;
+  const name = a.name.toLowerCase();
+  return reveals.some((r) => name.includes(r));
+}
+
 function isObviousGroup(a: Airline): boolean {
   if (!a.group) return false;
   const name = normalizeForOverlap(a.name);
@@ -556,7 +780,22 @@ function isObviousGroup(a: Airline): boolean {
   return false;
 }
 
-function eligibleFor(mode: Mode, sourcePool: Airline[]): Airline[] {
+// Logos with the airline name visible (wordmarks) — populated via the logo
+// review tool's "wordmark?" toggle. Filtered out of the logo quiz on hard so
+// the game tests visual recognition rather than reading.
+const WORDMARK_LOGOS = new Set<string>((logoFlagsData as { wordmark: string[] }).wordmark);
+
+function eligibleFor(mode: Mode, sourcePool: Airline[], difficulty?: Difficulty): Airline[] {
+  if (mode === 'country' && difficulty !== 'easy') {
+    // Don't pick airlines whose name reveals their country on medium/hard;
+    // it's a giveaway ("British Airways" → UK).
+    return sourcePool.filter((a) => !airlineRevealsCountry(a));
+  }
+  if (mode === 'logo' && difficulty === 'hard') {
+    // Hard logo mode: skip airlines whose logo is a wordmark — those are
+    // reading tests rather than visual recognition.
+    return sourcePool.filter((a) => !WORDMARK_LOGOS.has(a.iata));
+  }
   if (mode === 'group') return sourcePool.filter((a) => !isObviousGroup(a));
   if (mode === 'reverseGroup') {
     return sourcePool.filter((a) => {
@@ -584,13 +823,36 @@ function eligibleFor(mode: Mode, sourcePool: Airline[]): Airline[] {
       return !!r && Array.isArray(r.topDestinations) && r.topDestinations.length > 0;
     });
   }
+  if (mode === 'whereAmI') {
+    return sourcePool.filter((a) => {
+      const r = airportRoutes(a.hub);
+      return !!r && Array.isArray(r.topDestinations) && r.topDestinations.length >= 3;
+    });
+  }
+  if (mode === 'hubOf') {
+    // Eligible: airline's hub is a known airport. Hard difficulty narrows to
+    // hubs where multiple airlines list it as their primary hub (forces the
+    // player to pick the dominant carrier instead of any tenant).
+    return sourcePool.filter((a) => {
+      if (!airports[a.hub]) return false;
+      if (difficulty === 'hard') {
+        const tenants = airlines.filter((x) => x.hub === a.hub);
+        return tenants.length >= 2;
+      }
+      if (difficulty === 'easy') {
+        const tenants = airlines.filter((x) => x.hub === a.hub);
+        return tenants.length === 1;
+      }
+      return true;
+    });
+  }
   return sourcePool;
 }
 
 export function buildRound(mode: Mode, difficulty: Difficulty, seed?: number): Question[] {
   const rng = seed === undefined ? defaultRng() : mulberry32(seed);
   const sourcePool = pool(difficulty);
-  const eligible = eligibleFor(mode, sourcePool);
+  const eligible = eligibleFor(mode, sourcePool, difficulty);
   const used = new Set<string>();
   const out: Question[] = [];
   let safety = 0;
@@ -611,12 +873,13 @@ export function buildSpeedQuestion(): Question {
   const rng = defaultRng();
   const difficulty: Difficulty = 'medium';
   const sourcePool = pool(difficulty);
-  const modes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'airportAirline', 'airlineDest', 'airportConn'];
+  const modes: Mode[] = (['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'airportAirline', 'airlineDest', 'airportConn', 'whereAmI', 'hubOf'] as Mode[])
+    .filter((m) => !(loadPool() === 'us' && m === 'country'));
   let mode = pick(modes, rng);
-  let eligible = eligibleFor(mode, sourcePool);
+  let eligible = eligibleFor(mode, sourcePool, difficulty);
   if (eligible.length === 0) {
     mode = 'group';
-    eligible = eligibleFor(mode, sourcePool);
+    eligible = eligibleFor(mode, sourcePool, difficulty);
   }
   const a = pick(eligible, rng);
   const fallbackPool = optionPool(mode, sourcePool);
@@ -627,7 +890,8 @@ export function buildMixedRound(rng: Rng = defaultRng()): Question[] {
   const difficulty: Difficulty = 'medium';
   const sourcePool = pool(difficulty);
   const tailEligible = eligibleFor('tail', sourcePool).length >= 4;
-  const allModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'airportAirline', 'airlineDest', 'airportConn', 'code'];
+  const allModes: Mode[] = (['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'airportAirline', 'airlineDest', 'airportConn', 'code', 'whereAmI', 'hubOf'] as Mode[])
+    .filter((m) => !(loadPool() === 'us' && m === 'country'));
   if (tailEligible) allModes.push('tail');
   const used = new Set<string>();
   const out: Question[] = [];
@@ -635,7 +899,7 @@ export function buildMixedRound(rng: Rng = defaultRng()): Question[] {
   while (out.length < ROUND_LENGTH && safety < 2000) {
     safety++;
     const mode = pick(allModes, rng);
-    const eligible = eligibleFor(mode, sourcePool);
+    const eligible = eligibleFor(mode, sourcePool, difficulty);
     if (eligible.length === 0) continue;
     const a = pick(eligible, rng);
     const key = `${mode}:${a.iata}`;
@@ -658,7 +922,7 @@ export function buildDailyRound(dateKey: string): Question[] {
   while (out.length < ROUND_LENGTH && safety < 1000) {
     safety++;
     const mode = DAILY_ROTATION[out.length];
-    const eligible = eligibleFor(mode, sourcePool);
+    const eligible = eligibleFor(mode, sourcePool, difficulty);
     const a = pick(eligible, rng);
     if (used.has(a.iata)) continue;
     used.add(a.iata);
@@ -701,8 +965,12 @@ export function explainAnswer(q: Question): string {
         : `${a.name} doesn't belong to a global alliance.`;
     case 'hub':
       return `${airportLabel(a.hub)} is ${a.name}'s primary hub (${a.country}).`;
-    case 'country':
+    case 'country': {
+      if (q.promptKind === 'airport' && q.airport) {
+        return `${airportLabel(q.airport)} is in ${q.answer}.`;
+      }
       return `${a.name} is based in ${a.country}. Hub: ${airportLabel(a.hub)}.`;
+    }
     case 'logo':
     case 'tail':
       return `${a.name} — ${a.country}${a.alliance ? `, ${a.alliance}` : ''}.${founded}`;
@@ -726,8 +994,20 @@ export function explainAnswer(q: Question): string {
       if (meta.callsign) parts.push(`callsign "${meta.callsign}"`);
       return `${a.name} — ${parts.join(', ')}.`;
     }
+    case 'whereAmI': {
+      const ap = q.airport ?? a.hub;
+      return `Those destinations are top routes from ${airportLabelWithCountry(ap)}.`;
+    }
+    case 'hubOf': {
+      const ap = q.airport ?? a.hub;
+      return `${a.name} is the dominant carrier at ${airportLabelWithCountry(ap)}.`;
+    }
     case 'aircraftWordle':
     case 'aircraftIdentify':
+    case 'militaryWordle':
+    case 'militaryIdentify':
+    case 'airportWordle':
+    case 'airportIdentify':
       return '';
   }
 }
@@ -747,6 +1027,12 @@ export function modeLabel(mode: Mode): string {
     case 'code': return 'Which airline?';
     case 'aircraftWordle': return 'Which aircraft?';
     case 'aircraftIdentify': return 'Which aircraft?';
+    case 'militaryWordle': return 'Which military aircraft?';
+    case 'militaryIdentify': return 'Which military aircraft?';
+    case 'whereAmI': return 'Which airport?';
+    case 'hubOf': return 'Which airline hubs here?';
+    case 'airportWordle': return 'Which airport?';
+    case 'airportIdentify': return 'Which airport?';
   }
 }
 
@@ -765,6 +1051,12 @@ export function modeTitle(mode: Mode): string {
     case 'code': return 'Code Guess';
     case 'aircraftWordle': return 'Aircraft Wordle';
     case 'aircraftIdentify': return 'Aircraft Identify';
+    case 'militaryWordle': return 'Military Wordle';
+    case 'militaryIdentify': return 'Military Identify';
+    case 'whereAmI': return 'Where Am I?';
+    case 'hubOf': return 'Hub Of';
+    case 'airportWordle': return 'Airport Wordle';
+    case 'airportIdentify': return 'Airport Identify';
   }
 }
 
@@ -783,6 +1075,12 @@ export function modeDescription(mode: Mode): string {
     case 'code': return 'Identify the airline from its carrier code. Easy and Medium use IATA (e.g. LH); Hard mixes in ICAO codes and radio callsigns.';
     case 'aircraftWordle': return 'Deduce a mystery aircraft from attribute feedback. Type a guess, see how close you are on maker, body, length, engines, tail, and era.';
     case 'aircraftIdentify': return 'Identify an aircraft from a photo. Take optional hints (maker, then family) at a point cost, then read the structured breakdown.';
+    case 'militaryWordle': return 'Deduce a mystery military aircraft from attribute feedback across maker, origin, role, era, engines, wings, and speed.';
+    case 'militaryIdentify': return 'Identify a military aircraft from a photo. Take optional hints (maker, then origin and role) at a point cost.';
+    case 'whereAmI': return "Given an airport's top destinations, deduce which airport it is. Distractors share a region; hard mode also draws from the same alliance's hubs.";
+    case 'hubOf': return 'Given an airport, pick the airline whose primary hub it is. Hard mode uses airports with multiple hub tenants — answer is the dominant carrier by traffic.';
+    case 'airportWordle': return 'Deduce a mystery airport from attribute feedback across country, region, hub alliance, traffic tier, runways, layout, and latitude band.';
+    case 'airportIdentify': return 'Identify an airport from a photo (terminal, tower, or aerial view) with progressive hints.';
   }
 }
 

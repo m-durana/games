@@ -245,6 +245,26 @@
               : airportLabel(current.airport ?? current.airline.hub)}
           </h2>
         </div>
+      {:else if current.mode === 'whereAmI'}
+        <div class="prompt-block">
+          <span class="prompt-label">Top destinations from this airport</span>
+          <ul class="dest-list">
+            {#each current.destinations ?? [] as code}
+              <li>{airportLabelWithCountry(code)}</li>
+            {/each}
+          </ul>
+          <p class="ask center">Which airport is this?</p>
+        </div>
+      {:else if current.mode === 'hubOf'}
+        <div class="prompt-block">
+          <span class="prompt-label">Primary hub for which airline?</span>
+          <h2>{airportLabelWithCountry(current.airport ?? current.airline.hub)}</h2>
+        </div>
+      {:else if current.mode === 'country' && current.promptKind === 'airport'}
+        <div class="prompt-block">
+          <span class="prompt-label">Which country is this airport in?</span>
+          <h2>{airportLabel(current.airport ?? current.airline.hub)}</h2>
+        </div>
       {:else if current.mode === 'code'}
         <div class="prompt-block">
           <span class="prompt-label">
@@ -304,6 +324,8 @@
               <span class="opt-text">{airportLabelWithCountry(option)}</span>
             {:else if current.mode === 'hub' || current.mode === 'airlineDest'}
               <span class="opt-text">{airportLabel(option)}</span>
+            {:else if current.mode === 'whereAmI'}
+              <span class="opt-text">{airportLabelWithCountry(option)}</span>
             {:else if current.mode === 'airportAirline'}
               {@const airlineForOpt = allAirlines.find((x) => x.iata === option)}
               {#if airlineForOpt}
@@ -509,6 +531,21 @@
     font-size: 1.75rem;
     font-weight: 600;
     letter-spacing: 0;
+  }
+  .dest-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.4rem auto 0.8rem;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 1rem;
+    text-align: center;
+  }
+  .dest-list li {
+    padding: 0.3rem 0.8rem;
+    background: var(--surface-2, rgba(127, 127, 127, 0.08));
+    border-radius: 6px;
   }
   .code-stage {
     display: inline-block;

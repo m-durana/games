@@ -2,7 +2,7 @@ import atcData from '../data/atc.json';
 import type { Difficulty } from './types';
 import { airlineMeta, airlines } from './engine';
 
-export type AtcMode = 'callsign' | 'phraseology' | 'readback' | 'atcMix';
+export type AtcMode = 'callsign' | 'decode' | 'compose' | 'atcMix';
 type AtcQuestionMode = Exclude<AtcMode, 'atcMix'>;
 type AtcTier = Difficulty;
 
@@ -14,6 +14,10 @@ export interface AtcQuestion {
   explanation: string;
   tier: AtcTier;
   airlineIata?: string;
+  // Compose mode only: shuffled chip bank, including decoys.
+  tokens?: string[];
+  // Compose mode only: every accepted readback. Players must build one of these.
+  answers?: string[];
 }
 
 export interface AtcRoundResult {
@@ -27,11 +31,21 @@ interface AtcDatum {
   prompt: string;
   answer: string;
   explanation: string;
+  distractors?: string[];
+}
+
+interface AtcComposeDatum {
+  tier: AtcTier;
+  prompt: string;
+  answers: string[];
+  tokens: string[];
+  explanation: string;
 }
 
 interface AtcData {
   phraseology: AtcDatum[];
   readback: AtcDatum[];
+  compose: AtcComposeDatum[];
 }
 
 const data = atcData as AtcData;
@@ -39,16 +53,33 @@ export const ATC_ROUND_LENGTH = 10;
 
 type Rng = () => number;
 
-const EASY_CALLSIGNS = new Set([
-  'AA', 'AC', 'AF', 'AS', 'BA', 'B6', 'CX', 'DL', 'EK', 'EI', 'JL', 'KL',
-  'LH', 'NH', 'QR', 'QF', 'SQ', 'TK', 'UA', 'WN',
+// Curated "distinctive" callsigns: the radio callsign is NOT just the airline
+// name. These are the only ones that make the quiz a real test rather than a
+// freebie. Used at every difficulty.
+// Well-known airlines whose radio callsign is genuinely distinctive (not just
+// the airline name re-spoken). These survive the `callsignIsObvious` filter
+// and are big enough names for an Easy round to be fair.
+const DISTINCTIVE_EASY = new Set([
+  'BA', 'EI', 'U2', 'FI', 'AZ', 'SN', 'DY', 'BY', 'PC', 'LS', 'AF',
+]);
+// Medium adds more obscure but still-distinctive callsigns.
+const DISTINCTIVE_MEDIUM = new Set([
+  ...DISTINCTIVE_EASY,
+  'OH', 'TK', 'OK', 'SK', 'F9', 'NK', 'KE', 'JL', 'NH', 'QR', 'AR',
 ]);
 
-const MEDIUM_CALLSIGNS = new Set([
-  ...EASY_CALLSIGNS,
-  'A3', 'AY', 'AZ', 'ET', 'EY', 'FR', 'HA', 'IB', 'KE', 'LA', 'LX', 'OS',
-  'SK', 'TP', 'U2', 'VY', 'WS',
-]);
+function normalizeTokens(s: string): string[] {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().split(' ').filter((t) => t.length >= 3);
+}
+
+function callsignIsObvious(airlineName: string, callsign: string): boolean {
+  const nameTokens = new Set(normalizeTokens(airlineName));
+  const csTokens = normalizeTokens(callsign);
+  if (csTokens.length === 0) return true;
+  // If every meaningful token of the callsign appears in the airline name,
+  // the callsign is essentially the airline name.
+  return csTokens.every((t) => nameTokens.has(t));
+}
 
 function defaultRng(): Rng {
   return Math.random;
@@ -67,19 +98,16 @@ function pick<T>(arr: T[], rng: Rng): T {
   return arr[Math.floor(rng() * arr.length)];
 }
 
-function tierAllowed(itemTier: AtcTier, difficulty: Difficulty): boolean {
-  if (difficulty === 'easy') return itemTier === 'easy';
-  if (difficulty === 'medium') return itemTier === 'easy' || itemTier === 'medium';
-  return true;
-}
-
 function callsignPool(difficulty: Difficulty) {
   return airlines
     .map((airline) => ({ airline, meta: airlineMeta(airline.iata) }))
     .filter((entry) => {
       if (!entry.meta.callsign) return false;
-      if (difficulty === 'easy') return EASY_CALLSIGNS.has(entry.airline.iata);
-      if (difficulty === 'medium') return MEDIUM_CALLSIGNS.has(entry.airline.iata);
+      // Universally drop callsigns that are essentially the airline name.
+      if (callsignIsObvious(entry.airline.name, entry.meta.callsign)) return false;
+      if (difficulty === 'easy') return DISTINCTIVE_EASY.has(entry.airline.iata);
+      if (difficulty === 'medium') return DISTINCTIVE_MEDIUM.has(entry.airline.iata);
+      // Hard: anything distinctive that's left.
       return true;
     });
 }
@@ -88,13 +116,13 @@ function buildCallsignQuestion(difficulty: Difficulty, rng: Rng): AtcQuestion {
   const pool = callsignPool(difficulty);
   const entry = pick(pool, rng);
   const answer = entry.airline.name;
+  // Distractors: prefer same-region/alliance distinctive callsigns at every
+  // difficulty so options are genuinely confusable, not random worldwide picks.
   const sameCountry = pool.filter((x) => x.airline.iata !== entry.airline.iata && x.airline.country === entry.airline.country);
   const sameAlliance = pool.filter(
     (x) => x.airline.iata !== entry.airline.iata && x.airline.alliance && x.airline.alliance === entry.airline.alliance,
   );
-  const ranked = difficulty === 'hard'
-    ? [...shuffle(sameCountry, rng), ...shuffle(sameAlliance, rng), ...shuffle(pool, rng)]
-    : [...shuffle(pool, rng)];
+  const ranked = [...shuffle(sameCountry, rng), ...shuffle(sameAlliance, rng), ...shuffle(pool, rng)];
   const distractors: string[] = [];
   for (const candidate of ranked) {
     if (candidate.airline.iata === entry.airline.iata) continue;
@@ -113,16 +141,59 @@ function buildCallsignQuestion(difficulty: Difficulty, rng: Rng): AtcQuestion {
   };
 }
 
-function distractorsForDatum(answer: string, source: AtcDatum[], rng: Rng): string[] {
-  return shuffle(source.map((x) => x.answer).filter((x) => x !== answer), rng).slice(0, 3);
+function distractorsForDatum(item: AtcDatum, source: AtcDatum[], difficulty: Difficulty, rng: Rng): string[] {
+  // Prefer hand-crafted distractors that share vocabulary with the answer —
+  // those defeat the keyword-matching shortcut. Fall back to other items only
+  // when none are provided.
+  if (item.distractors && item.distractors.length >= 3) {
+    return shuffle(item.distractors, rng).slice(0, 3);
+  }
+  // Tier-matched distractors: all four options share the same difficulty tier,
+  // so easier items can't sneak in as obvious wrong answers.
+  const sameTier = source.filter((x) => x.tier === difficulty && x.answer !== item.answer);
+  const out = shuffle(sameTier.map((x) => x.answer), rng).slice(0, 3);
+  if (out.length < 3) {
+    const extras = shuffle(source.map((x) => x.answer).filter((x) => x !== item.answer && !out.includes(x)), rng).slice(0, 3 - out.length);
+    out.push(...extras);
+  }
+  return out;
 }
 
-function buildDatumQuestion(mode: 'phraseology' | 'readback', difficulty: Difficulty, rng: Rng): AtcQuestion {
-  const source = data[mode].filter((item) => tierAllowed(item.tier, difficulty));
+const TIER_ORDER: AtcTier[] = ['easy', 'medium', 'hard'];
+
+function tierFallbackSource<T extends { tier: AtcTier }>(items: T[], difficulty: Difficulty): T[] {
+  // Strictly the requested tier first; if too small for a full round, expand
+  // to adjacent tiers (harder before easier) so the round still has 10 unique
+  // prompts but stays as challenging as possible.
+  const strict = items.filter((item) => item.tier === difficulty);
+  if (strict.length >= ATC_ROUND_LENGTH) return strict;
+  const idx = TIER_ORDER.indexOf(difficulty);
+  const out = [...strict];
+  const expansionOrder: AtcTier[] = [
+    ...TIER_ORDER.slice(idx + 1),
+    ...TIER_ORDER.slice(0, idx).reverse(),
+  ];
+  for (const t of expansionOrder) {
+    if (out.length >= ATC_ROUND_LENGTH) break;
+    for (const item of items) {
+      if (item.tier === t && !out.includes(item)) out.push(item);
+    }
+  }
+  return out;
+}
+
+function decodeSource(): AtcDatum[] {
+  // Merged pool: phraseology + readback are now one mode ("Decode ATC").
+  return [...data.phraseology, ...data.readback];
+}
+
+function buildDecodeQuestion(difficulty: Difficulty, rng: Rng): AtcQuestion {
+  const all = decodeSource();
+  const source = tierFallbackSource(all, difficulty);
   const item = pick(source, rng);
-  const distractors = distractorsForDatum(item.answer, data[mode], rng);
+  const distractors = distractorsForDatum(item, all, difficulty, rng);
   return {
-    mode,
+    mode: 'decode',
     prompt: item.prompt,
     answer: item.answer,
     options: shuffle([item.answer, ...distractors], rng),
@@ -131,14 +202,32 @@ function buildDatumQuestion(mode: 'phraseology' | 'readback', difficulty: Diffic
   };
 }
 
+function buildComposeQuestion(difficulty: Difficulty, rng: Rng): AtcQuestion {
+  const source = tierFallbackSource(data.compose, difficulty);
+  const item = pick(source, rng);
+  // The bank is hand-authored per item (includes decoys). Just shuffle for display.
+  const tokens = shuffle(item.tokens, rng);
+  return {
+    mode: 'compose',
+    prompt: item.prompt,
+    answer: item.answers[0],
+    answers: item.answers,
+    options: [],
+    explanation: item.explanation,
+    tier: item.tier,
+    tokens,
+  };
+}
+
 function buildSingleQuestion(mode: AtcQuestionMode, difficulty: Difficulty, rng: Rng): AtcQuestion {
   if (mode === 'callsign') return buildCallsignQuestion(difficulty, rng);
-  return buildDatumQuestion(mode, difficulty, rng);
+  if (mode === 'compose') return buildComposeQuestion(difficulty, rng);
+  return buildDecodeQuestion(difficulty, rng);
 }
 
 export function buildAtcRound(mode: AtcMode, difficulty: Difficulty, rng: Rng = defaultRng()): AtcQuestion[] {
   const modes: AtcQuestionMode[] = mode === 'atcMix'
-    ? ['callsign', 'phraseology', 'readback']
+    ? ['callsign', 'decode', 'compose']
     : [mode];
   const out: AtcQuestion[] = [];
   const seen = new Set<string>();
@@ -158,8 +247,8 @@ export function buildAtcRound(mode: AtcMode, difficulty: Difficulty, rng: Rng = 
 export function atcModeTitle(mode: AtcMode | AtcQuestionMode): string {
   switch (mode) {
     case 'callsign': return 'Callsign Quiz';
-    case 'phraseology': return 'ATC Phraseology';
-    case 'readback': return 'Readback';
+    case 'decode': return 'Decode ATC';
+    case 'compose': return 'Readback Builder';
     case 'atcMix': return 'ATC Mix';
   }
 }
@@ -167,17 +256,17 @@ export function atcModeTitle(mode: AtcMode | AtcQuestionMode): string {
 export function atcModeDescription(mode: AtcMode | AtcQuestionMode): string {
   switch (mode) {
     case 'callsign': return 'Match radio callsigns to airlines.';
-    case 'phraseology': return 'Decode common ATC phrases.';
-    case 'readback': return 'Interpret short ATC instructions.';
-    case 'atcMix': return 'Mixed callsigns, phrases, and readback questions.';
+    case 'decode': return 'Pick the correct interpretation of an ATC phrase or instruction.';
+    case 'compose': return 'Listen to the controller. Tap chips in order to build the pilot\'s correct readback. Some chips are decoys — you don\'t need to use them all.';
+    case 'atcMix': return 'Mixed callsign, decode, and readback-builder questions.';
   }
 }
 
 export function atcPromptLabel(mode: AtcQuestionMode): string {
   switch (mode) {
     case 'callsign': return 'Radio callsign';
-    case 'phraseology': return 'What does this mean?';
-    case 'readback': return 'What is the correct interpretation?';
+    case 'decode': return 'What does this mean?';
+    case 'compose': return 'Build the pilot\'s readback';
   }
 }
 

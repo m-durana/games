@@ -19,10 +19,18 @@ export type Mode =
   | 'airlineDest'
   | 'airportConn'
   | 'code'
+  | 'whereAmI'
+  | 'hubOf'
   | 'aircraftWordle'
-  | 'aircraftIdentify';
+  | 'aircraftIdentify'
+  | 'militaryWordle'
+  | 'militaryIdentify'
+  | 'airportWordle'
+  | 'airportIdentify';
 
 import type { AttributeFeedback } from './aircraft';
+import type { AttributeFeedback as MilitaryAttributeFeedback } from './military-aircraft';
+import type { AttributeFeedback as AirportAttributeFeedback } from './airports-game';
 
 export interface AircraftWordleResult {
   type: 'wordle';
@@ -32,6 +40,27 @@ export interface AircraftWordleResult {
   solved: boolean;
   earned: number;
 }
+
+export interface MilitaryWordleResult {
+  type: 'mil-wordle';
+  aircraftId: string;
+  aircraftName: string;
+  guesses: { id: string; name: string; feedback: MilitaryAttributeFeedback[] }[];
+  solved: boolean;
+  earned: number;
+}
+
+export interface MilitaryIdentifyResult {
+  type: 'mil-identify';
+  aircraftId: string;
+  aircraftName: string;
+  picked: string | null;
+  hintStage: number;
+  correct: boolean;
+  earned: number;
+}
+
+export type MilitaryRoundResult = MilitaryWordleResult | MilitaryIdentifyResult;
 
 export interface AircraftIdentifyResult {
   type: 'identify';
@@ -44,6 +73,27 @@ export interface AircraftIdentifyResult {
 }
 
 export type AircraftRoundResult = AircraftWordleResult | AircraftIdentifyResult;
+
+export interface AirportWordleResult {
+  type: 'apt-wordle';
+  airportIata: string;
+  airportName: string;
+  guesses: { iata: string; name: string; feedback: AirportAttributeFeedback[] }[];
+  solved: boolean;
+  earned: number;
+}
+
+export interface AirportIdentifyResult {
+  type: 'apt-identify';
+  airportIata: string;
+  airportName: string;
+  picked: string | null;
+  hintStage: number;
+  correct: boolean;
+  earned: number;
+}
+
+export type AirportRoundResult = AirportWordleResult | AirportIdentifyResult;
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export interface AirlineMeta {
@@ -72,7 +122,9 @@ export interface Question {
   // For 'code' mode: the displayed code/callsign (e.g. "LH", "DLH", "SPEEDBIRD")
   // and the kind, used to render and explain the prompt.
   prompt?: string;
-  promptKind?: 'iata' | 'icao' | 'callsign';
+  promptKind?: 'iata' | 'icao' | 'callsign' | 'airport' | 'destinations';
+  // For whereAmI mode: list of top destination IATAs to display.
+  destinations?: string[];
 }
 
 export interface RoundResult {
@@ -89,4 +141,6 @@ export interface HistoryEntry {
   ts: number;
   results?: RoundResult[];
   aircraftResults?: AircraftRoundResult[];
+  militaryResults?: MilitaryRoundResult[];
+  airportResults?: AirportRoundResult[];
 }

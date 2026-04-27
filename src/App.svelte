@@ -12,6 +12,13 @@
   import AchievementToast from './lib/AchievementToast.svelte';
   import TailReview from './lib/TailReview.svelte';
   import LogoReview from './lib/LogoReview.svelte';
+  import AircraftReview from './lib/AircraftReview.svelte';
+  import MilitaryReview from './lib/MilitaryReview.svelte';
+  import AirportReview from './lib/AirportReview.svelte';
+  import MilitaryWordle from './lib/MilitaryWordle.svelte';
+  import MilitaryIdentify from './lib/MilitaryIdentify.svelte';
+  import AirportWordle from './lib/AirportWordle.svelte';
+  import AirportIdentify from './lib/AirportIdentify.svelte';
   import ReviewLock from './lib/ReviewLock.svelte';
   import HistoryDetail from './lib/HistoryDetail.svelte';
   import AircraftWordle from './lib/AircraftWordle.svelte';
@@ -25,7 +32,7 @@
   import { evaluateAchievements } from './lib/achievements';
   import { loadSettings } from './lib/engine';
 
-  type ReviewTarget = 'tails' | 'logos';
+  type ReviewTarget = 'tails' | 'logos' | 'aircraft' | 'military' | 'airports';
   type View =
     | { kind: 'home' }
     | { kind: 'round'; mode: Mode; difficulty: Difficulty; daily: boolean; mixed?: boolean }
@@ -38,10 +45,17 @@
     | { kind: 'browse' }
     | { kind: 'tailReview' }
     | { kind: 'logoReview' }
+    | { kind: 'aircraftReview' }
+    | { kind: 'militaryReview' }
+    | { kind: 'airportReview' }
     | { kind: 'reviewLock'; target: ReviewTarget }
     | { kind: 'historyDetail'; entry: HistoryEntry }
     | { kind: 'aircraftWordle'; difficulty: Difficulty }
     | { kind: 'aircraftIdentify'; difficulty: Difficulty }
+    | { kind: 'militaryWordle'; difficulty: Difficulty }
+    | { kind: 'militaryIdentify'; difficulty: Difficulty }
+    | { kind: 'airportWordle'; difficulty: Difficulty }
+    | { kind: 'airportIdentify'; difficulty: Difficulty }
     | { kind: 'atcRound'; mode: AtcMode; difficulty: Difficulty }
     | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] };
 
@@ -96,6 +110,30 @@
     view = { kind: 'aircraftIdentify', difficulty };
   }
 
+  function startMilitaryWordle(difficulty: Difficulty) {
+    clearShareParam();
+    menuOpen = false;
+    view = { kind: 'militaryWordle', difficulty };
+  }
+
+  function startMilitaryIdentify(difficulty: Difficulty) {
+    clearShareParam();
+    menuOpen = false;
+    view = { kind: 'militaryIdentify', difficulty };
+  }
+
+  function startAirportWordle(difficulty: Difficulty) {
+    clearShareParam();
+    menuOpen = false;
+    view = { kind: 'airportWordle', difficulty };
+  }
+
+  function startAirportIdentify(difficulty: Difficulty) {
+    clearShareParam();
+    menuOpen = false;
+    view = { kind: 'airportIdentify', difficulty };
+  }
+
   function startAtc(mode: AtcMode, difficulty: Difficulty) {
     clearShareParam();
     menuOpen = false;
@@ -127,7 +165,11 @@
   function showBrowse() { menuOpen = false; view = { kind: 'browse' }; }
 
   function reviewView(target: ReviewTarget): View {
-    return target === 'logos' ? { kind: 'logoReview' } : { kind: 'tailReview' };
+    if (target === 'logos') return { kind: 'logoReview' };
+    if (target === 'aircraft') return { kind: 'aircraftReview' };
+    if (target === 'military') return { kind: 'militaryReview' };
+    if (target === 'airports') return { kind: 'airportReview' };
+    return { kind: 'tailReview' };
   }
 
   function isReviewUnlocked() {
@@ -164,7 +206,7 @@
       const params = new URL(window.location.href).searchParams;
       const review = params.get('review');
       if (params.get('pin') === REVIEW_PIN) localStorage.setItem(REVIEW_AUTH_KEY, '1');
-      if (review === 'tails' || review === 'logos') openReview(review);
+      if (review === 'tails' || review === 'logos' || review === 'aircraft' || review === 'military' || review === 'airports') openReview(review);
     }
   });
 </script>
@@ -210,6 +252,10 @@
       onStartMix={startMix}
       onStartAircraftWordle={startAircraftWordle}
       onStartAircraftIdentify={startAircraftIdentify}
+      onStartMilitaryWordle={startMilitaryWordle}
+      onStartMilitaryIdentify={startMilitaryIdentify}
+      onStartAirportWordle={startAirportWordle}
+      onStartAirportIdentify={startAirportIdentify}
       onStartAtc={startAtc}
       onOpenHistory={(entry) => { menuOpen = false; view = { kind: 'historyDetail', entry }; }}
     />
@@ -250,10 +296,16 @@
     <TailReview onHome={home} />
   {:else if view.kind === 'logoReview'}
     <LogoReview onHome={home} />
+  {:else if view.kind === 'aircraftReview'}
+    <AircraftReview onHome={home} />
+  {:else if view.kind === 'militaryReview'}
+    <MilitaryReview onHome={home} />
+  {:else if view.kind === 'airportReview'}
+    <AirportReview onHome={home} />
   {:else if view.kind === 'reviewLock'}
     {@const v = view}
     <ReviewLock
-      label={v.target === 'logos' ? 'Logo review' : 'Tail review'}
+      label={v.target === 'logos' ? 'Logo review' : v.target === 'aircraft' ? 'Aircraft photo review' : v.target === 'military' ? 'Military photo review' : v.target === 'airports' ? 'Airport photo review' : 'Tail review'}
       onUnlock={(pin) => unlockReview(v.target, pin)}
       onHome={home}
     />
@@ -263,6 +315,14 @@
     <AircraftWordle difficulty={view.difficulty} onHome={home} />
   {:else if view.kind === 'aircraftIdentify'}
     <AircraftIdentify difficulty={view.difficulty} onHome={home} />
+  {:else if view.kind === 'militaryWordle'}
+    <MilitaryWordle difficulty={view.difficulty} onHome={home} />
+  {:else if view.kind === 'militaryIdentify'}
+    <MilitaryIdentify difficulty={view.difficulty} onHome={home} />
+  {:else if view.kind === 'airportWordle'}
+    <AirportWordle difficulty={view.difficulty} onHome={home} />
+  {:else if view.kind === 'airportIdentify'}
+    <AirportIdentify difficulty={view.difficulty} onHome={home} />
   {:else if view.kind === 'atcRound'}
     {@const v = view}
     <AtcRound

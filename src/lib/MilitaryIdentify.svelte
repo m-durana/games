@@ -2,32 +2,32 @@
   import { fly } from 'svelte/transition';
   import { onMount } from 'svelte';
   import {
-    aircraft,
-    aircraftForDifficulty,
-    pooledAircraft,
-    fetchAircraftImages,
-    pickRoundAircraft,
-    AIRCRAFT_ROUND_LENGTH,
-    type Aircraft,
-    type AircraftDifficulty,
-  } from './aircraft';
-  import AircraftReveal from './AircraftReveal.svelte';
+    military,
+    militaryForDifficulty,
+    pooledMilitary,
+    fetchMilitaryImages,
+    pickRoundMilitary,
+    MILITARY_ROUND_LENGTH,
+    type MilitaryAircraft,
+    type MilitaryDifficulty,
+  } from './military-aircraft';
+  import MilitaryReveal from './MilitaryReveal.svelte';
   import * as Sound from './sound';
   import { saveHistoryEntry } from './engine';
-  import type { AircraftIdentifyResult } from './types';
+  import type { MilitaryIdentifyResult } from './types';
 
   interface Props {
-    difficulty: AircraftDifficulty;
+    difficulty: MilitaryDifficulty;
     onHome: () => void;
   }
 
   let { difficulty, onHome }: Props = $props();
 
-  const aircraftPool = $derived(aircraftForDifficulty(difficulty));
+  const pool = $derived(militaryForDifficulty(difficulty));
   // svelte-ignore state_referenced_locally
-  let answers: Aircraft[] = $state(pickRoundAircraft(AIRCRAFT_ROUND_LENGTH, difficulty));
+  let answers: MilitaryAircraft[] = $state(pickRoundMilitary(MILITARY_ROUND_LENGTH, difficulty));
   let index = $state(0);
-  // stage: 0 = photo only, 1 = + manufacturer, 2 = + family, 3 = multiple choice
+  // stage: 0 = photo only, 1 = + maker, 2 = + role+origin, 3 = multiple choice
   let stage = $state(0);
   let picked: string | null = $state(null);
   let guessId = $state('');
@@ -41,40 +41,34 @@
 
   const photoUrl = $derived(photoUrls.length > 0 ? photoUrls[photoIndex % photoUrls.length] : null);
   const hasMultiplePhotos = $derived(photoUrls.length > 1);
-
   const current = $derived(answers[index]);
 
-  // Stage points: 0=4, 1=3, 2=2, 3=1 if correct, 0 wrong
   const stagePoints = [4, 3, 2, 1];
 
-  // Grouped dropdown options — full aircraft list (a guess outside the easy pool is allowed but limits learning).
-  const groupedOptions = $derived(groupByManufacturer(pooledAircraft()));
-
-  function groupByManufacturer(list: Aircraft[]): { manufacturer: string; planes: Aircraft[] }[] {
-    const map = new Map<string, Aircraft[]>();
+  // Group dropdown by origin country to make scanning easier on military.
+  const groupedOptions = $derived(groupByOrigin(pooledMilitary()));
+  function groupByOrigin(list: MilitaryAircraft[]): { origin: string; planes: MilitaryAircraft[] }[] {
+    const map = new Map<string, MilitaryAircraft[]>();
     for (const a of list) {
-      if (!map.has(a.manufacturer)) map.set(a.manufacturer, []);
-      map.get(a.manufacturer)!.push(a);
+      if (!map.has(a.origin)) map.set(a.origin, []);
+      map.get(a.origin)!.push(a);
     }
     return [...map.entries()]
-      .map(([manufacturer, planes]) => ({ manufacturer, planes }))
-      .sort((a, b) => a.manufacturer.localeCompare(b.manufacturer));
+      .map(([origin, planes]) => ({ origin, planes: planes.sort((a, b) => a.name.localeCompare(b.name)) }))
+      .sort((a, b) => a.origin.localeCompare(b.origin));
   }
 
-  // Distractors for stage 3 multiple choice — prefer same family or same body class
   const choices = $derived(buildChoices(current));
-
-  function buildChoices(answer: Aircraft): string[] {
+  function buildChoices(answer: MilitaryAircraft): string[] {
     if (!answer) return [];
-    const pool = aircraftPool;
-    const sameFamily = pool.filter((a) => a.id !== answer.id && a.family === answer.family);
-    const sameBody = pool.filter(
-      (a) => a.id !== answer.id && a.body === answer.body && a.family !== answer.family,
+    const sameRole = pool.filter((a) => a.id !== answer.id && a.role === answer.role);
+    const sameOrigin = pool.filter(
+      (a) => a.id !== answer.id && a.origin === answer.origin && a.role !== answer.role,
     );
     const others = pool.filter(
-      (a) => a.id !== answer.id && a.family !== answer.family && a.body !== answer.body,
+      (a) => a.id !== answer.id && a.role !== answer.role && a.origin !== answer.origin,
     );
-    const ranked = [...shuffle(sameFamily), ...shuffle(sameBody), ...shuffle(others)];
+    const ranked = [...shuffle(sameRole), ...shuffle(sameOrigin), ...shuffle(others)];
     const distractors = ranked.slice(0, 3).map((a) => a.name);
     return shuffle([answer.name, ...distractors]);
   }
@@ -88,26 +82,16 @@
     return a;
   }
 
-  function shufflePhotos(urls: string[]): string[] {
-    const a = [...urls];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
-  async function loadPhoto(plane: Aircraft) {
+  async function loadPhoto(plane: MilitaryAircraft) {
     photoLoading = true;
     photoUrls = [];
     photoIndex = 0;
-    const urls = await fetchAircraftImages(plane);
+    const urls = await fetchMilitaryImages(plane);
     if (plane.id === current?.id) {
-      photoUrls = shufflePhotos(urls);
+      photoUrls = shuffle(urls);
       photoLoading = false;
     }
   }
-
   function cyclePhoto() {
     if (photoUrls.length > 1) photoIndex = (photoIndex + 1) % photoUrls.length;
   }
@@ -116,40 +100,33 @@
     if (current) loadPhoto(current);
   });
 
-  function nextHint() {
-    if (stage < 3) stage += 1;
-  }
+  function nextHint() { if (stage < 3) stage += 1; }
 
   function pickChoice(option: string) {
     if (picked) return;
     picked = option;
-    const correct = option === current.name;
-    const earned = correct ? stagePoints[stage] : 0;
+    const isCorrect = option === current.name;
+    const earned = isCorrect ? stagePoints[stage] : 0;
     totalScore += earned;
     revealed = true;
-    if (correct) {
-      Sound.correct();
-      Sound.vibrate(15);
-    } else {
-      Sound.wrong();
-      Sound.vibrate(35);
-    }
+    if (isCorrect) { Sound.correct(); Sound.vibrate(15); }
+    else { Sound.wrong(); Sound.vibrate(35); }
   }
 
   function submitDropdownGuess() {
     if (!guessId || picked) return;
-    const guess = aircraft.find((a) => a.id === guessId);
+    const guess = military.find((a) => a.id === guessId);
     if (!guess) return;
     pickChoice(guess.name);
   }
 
-  let recorded: AircraftIdentifyResult[] = $state([]);
+  let recorded: MilitaryIdentifyResult[] = $state([]);
 
   function nextQuestion() {
     const isCorrect = picked === current.name;
     const earned = isCorrect ? stagePoints[stage] : 0;
-    const result: AircraftIdentifyResult = {
-      type: 'identify',
+    const result: MilitaryIdentifyResult = {
+      type: 'mil-identify',
       aircraftId: current.id,
       aircraftName: current.name,
       picked,
@@ -163,12 +140,12 @@
     if (index + 1 >= answers.length) {
       done = true;
       saveHistoryEntry({
-        mode: 'aircraftIdentify',
+        mode: 'militaryIdentify',
         difficulty,
         score: nextRecorded.filter((r) => r.correct).length,
         total: answers.length,
         ts: Date.now(),
-        aircraftResults: nextRecorded,
+        militaryResults: nextRecorded,
       });
       return;
     }
@@ -180,16 +157,9 @@
   }
 
   function playAgain() {
-    answers = pickRoundAircraft(AIRCRAFT_ROUND_LENGTH, difficulty);
-    index = 0;
-    stage = 0;
-    picked = null;
-    guessId = '';
-    revealed = false;
-    totalScore = 0;
-    scores = [];
-    recorded = [];
-    done = false;
+    answers = pickRoundMilitary(MILITARY_ROUND_LENGTH, difficulty);
+    index = 0; stage = 0; picked = null; guessId = ''; revealed = false;
+    totalScore = 0; scores = []; recorded = []; done = false;
   }
 
   function dotState(i: number): 'todo' | 'now' | 'correct' | 'wrong' | 'partial' {
@@ -203,7 +173,7 @@
   }
 
   const correct = $derived(picked === current?.name);
-  const maxScore = AIRCRAFT_ROUND_LENGTH * 4;
+  const maxScore = MILITARY_ROUND_LENGTH * 4;
 
   function isTypingTarget(target: EventTarget | null): boolean {
     if (!(target instanceof HTMLElement)) return false;
@@ -215,10 +185,7 @@
     const handler = (e: KeyboardEvent) => {
       if (isTypingTarget(e.target)) return;
       if (e.key === 'Escape') onHome();
-      if (e.key === 'Enter' && revealed) {
-        e.preventDefault();
-        nextQuestion();
-      }
+      if (e.key === 'Enter' && revealed) { e.preventDefault(); nextQuestion(); }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
@@ -251,7 +218,7 @@
     {#key index}
       <div class="card" in:fly={{ y: 16, duration: 220 }}>
         <div class="card-head">
-          <span class="mode-pill">Aircraft Identify</span>
+          <span class="mode-pill">Military Identify</span>
           <span class="round-pill">{index + 1} / {answers.length}</span>
           <span class="points-pill">
             {revealed ? `+${picked === current.name ? stagePoints[stage] : 0}` : `+${stagePoints[stage]} pts`}
@@ -262,7 +229,7 @@
           {#if photoUrl}
             <img src={photoUrl} alt="Aircraft to identify" class="photo" />
             {#if hasMultiplePhotos && !revealed}
-              <button class="photo-cycle" onclick={cyclePhoto} aria-label="Show a different photo of this aircraft">
+              <button class="photo-cycle" onclick={cyclePhoto} aria-label="Show a different photo">
                 Different photo ({(photoIndex % photoUrls.length) + 1}/{photoUrls.length})
               </button>
             {/if}
@@ -278,13 +245,13 @@
             {#if stage >= 1}
               <div class="hint">
                 <span class="hint-tag">Hint 1 — Maker</span>
-                <p>This is a <strong>{current.manufacturer}</strong>.</p>
+                <p>Built by <strong>{current.manufacturer}</strong>.</p>
               </div>
             {/if}
             {#if stage >= 2}
               <div class="hint">
-                <span class="hint-tag">Hint 2 — Family</span>
-                <p>It belongs to the <strong>{current.family}</strong> family.</p>
+                <span class="hint-tag">Hint 2 — Origin & role</span>
+                <p>{current.origin} · <strong>{current.role}</strong></p>
               </div>
             {/if}
           </div>
@@ -293,7 +260,7 @@
             <p class="ask">Which aircraft is this?</p>
             {#if stage < 3}
               <button class="btn-ghost hint-btn" onclick={nextHint}>
-                {stage === 0 ? 'Show maker (−1 pt)' : stage === 1 ? 'Show family (−1 pt)' : 'Narrow to 4 choices (−1 pt)'}
+                {stage === 0 ? 'Show maker (−1 pt)' : stage === 1 ? 'Show origin & role (−1 pt)' : 'Narrow to 4 choices (−1 pt)'}
               </button>
             {/if}
           </div>
@@ -303,7 +270,7 @@
               <select bind:value={guessId} class="guess-select">
                 <option value="">Pick an aircraft…</option>
                 {#each groupedOptions as group}
-                  <optgroup label={group.manufacturer}>
+                  <optgroup label={group.origin}>
                     {#each group.planes as a}
                       <option value={a.id}>{a.name}</option>
                     {/each}
@@ -323,7 +290,7 @@
             </div>
           {/if}
         {:else}
-          <AircraftReveal plane={current} {correct} photoUrl={null} />
+          <MilitaryReveal plane={current} {correct} photoUrl={null} />
           <button class="btn-primary next-btn" onclick={nextQuestion}>
             {index + 1 >= answers.length ? 'Finish round' : 'Next aircraft'}
           </button>
@@ -334,13 +301,7 @@
 </section>
 
 <style>
-  .bar {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0 0.25rem;
-  }
+  .bar { width: 100%; display: flex; align-items: center; gap: 0.625rem; padding: 0 0.25rem; }
   .quit {
     width: 32px; height: 32px;
     border-radius: 4px;
@@ -352,12 +313,7 @@
     flex-shrink: 0;
   }
   .quit:hover { color: var(--accent); border-color: var(--panel-line); }
-  .dots {
-    flex: 1;
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-  }
+  .dots { flex: 1; display: flex; gap: 5px; justify-content: center; }
   .dot {
     width: 10px; height: 10px;
     border-radius: 4px;
@@ -367,27 +323,13 @@
   .dot-correct { background: var(--good); }
   .dot-wrong { background: var(--bad); }
   .dot-partial { background: var(--accent); opacity: 0.7; }
-  .dot-now {
-    background: var(--accent);
-    animation: pulse 1.4s ease-in-out infinite;
-  }
+  .dot-now { background: var(--accent); animation: pulse 1.4s ease-in-out infinite; }
   @keyframes pulse {
     0%, 100% { transform: scale(1); opacity: 1; }
     50%      { transform: scale(1.4); opacity: 0.65; }
   }
-  .meta {
-    font-size: 0.8125rem;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
-  }
-
-  .round {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+  .meta { font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+  .round { flex: 1; display: flex; flex-direction: column; width: 100%; }
   .card {
     width: 100%;
     background: var(--surface);
@@ -398,15 +340,8 @@
     flex-direction: column;
     gap: 1rem;
   }
-  @media (min-width: 720px) {
-    .card { padding: 1.75rem 2rem; }
-  }
-  .card-head {
-    display: flex;
-    gap: 0.4rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+  @media (min-width: 720px) { .card { padding: 1.75rem 2rem; } }
+  .card-head { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
   .mode-pill, .round-pill, .points-pill {
     font-size: 0.6875rem;
     font-family: var(--font-main);
@@ -422,7 +357,6 @@
     margin-left: auto;
     font-variant-numeric: tabular-nums;
   }
-
   .photo-stage {
     position: relative;
     width: 100%;
@@ -448,28 +382,15 @@
     backdrop-filter: blur(4px);
   }
   .photo-cycle:hover { border-color: var(--accent); color: var(--accent); }
-  .photo {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-  }
-  .photo-loading {
-    color: var(--muted);
-    font-size: 0.875rem;
-    padding: 1rem;
-    text-align: center;
-  }
-
+  .photo { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .photo-loading { color: var(--muted); font-size: 0.875rem; padding: 1rem; text-align: center; }
   .hints { display: flex; flex-direction: column; gap: 0.5rem; }
   .hint {
     padding: 0.625rem 0.75rem;
     background: rgba(163, 206, 241, 0.18);
     border: 1px solid rgba(96, 150, 186, 0.32);
     border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+    display: flex; flex-direction: column; gap: 0.2rem;
   }
   .hint-tag {
     font-family: var(--font-main);
@@ -479,22 +400,13 @@
     color: var(--accent);
   }
   .hint p { font-size: 0.875rem; color: var(--text); }
-
   .prompt-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.75rem; flex-wrap: wrap;
   }
   .ask { color: var(--muted); font-size: 0.9375rem; }
   .hint-btn { font-size: 0.8125rem; padding: 0.5rem 0.75rem; }
-
-  .guess-row {
-    display: flex;
-    gap: 0.5rem;
-    align-items: stretch;
-  }
+  .guess-row { display: flex; gap: 0.5rem; align-items: stretch; }
   .guess-select {
     flex: 1;
     background: var(--surface-2);
@@ -505,19 +417,11 @@
     font-size: 0.9375rem;
     font-family: inherit;
   }
-  .guess-select:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
-  }
-
+  .guess-select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
   .options { display: flex; flex-direction: column; gap: 0.5rem; }
-  @media (min-width: 720px) {
-    .options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.625rem; }
-  }
+  @media (min-width: 720px) { .options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.625rem; } }
   .option {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
     text-align: left;
     background: var(--surface-2);
     border: 1px solid var(--border);
@@ -529,7 +433,6 @@
   }
   .option:hover { border-color: var(--panel-line); background: var(--surface-3, var(--surface-2)); }
   .option:active { transform: scale(0.98); }
-
   .btn-primary {
     background: var(--accent);
     color: var(--bg);
@@ -550,14 +453,8 @@
     font-size: 0.875rem;
   }
   .btn-ghost:hover { border-color: var(--panel-line); }
-
   .next-btn { align-self: stretch; }
-
-  .finale {
-    text-align: center;
-    align-items: center;
-    gap: 0.75rem;
-  }
+  .finale { text-align: center; align-items: center; gap: 0.75rem; }
   .finale h2 { font-size: 1.5rem; font-weight: 600; }
   .finale-score {
     font-family: var(--font-main);
