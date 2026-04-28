@@ -16,9 +16,44 @@
     approved: string[];
     // Photos the user said "Not good" to (filtered out on next visit).
     rejected: string[];
+    // Approved photos that have been *type-verified* (the aircraft in the
+    // photo actually matches the id it's filed under). Subset of approved.
+    verified: string[];
+    // Total photos returned by the last successful Wikimedia fetch. Used
+    // to tell "all photos marked" from "still some in the queue" in the
+    // jump-to dropdown without having to refetch.
+    fetchedCount?: number;
   }
 
   const KEY = 'aircraft-review:state';
+
+  // Reduce a Wikimedia URL to its underlying filename so equality survives
+  // every URL-shape variation we've seen (thumb vs full, 500/800/1280 widths,
+  // upload.wikimedia.org vs en.wikipedia.org, %20 vs +). Filenames are unique
+  // within Commons, so the basename is enough to identify the same image.
+  function canonUrl(u: string): string {
+    if (!u) return '';
+    let s = u.replace(/\/\d{1,5}px-[^/]+$/, '');
+    const last = s.split('/').pop() || s;
+    try { return decodeURIComponent(last).toLowerCase(); }
+    catch { return last.toLowerCase(); }
+  }
+  function sameUrl(a: string, b: string): boolean {
+    return canonUrl(a) === canonUrl(b);
+  }
+  // Wikimedia's thumb pipeline occasionally fails for specific files —
+  // it returns an HTML error which Firefox blocks via OpaqueResponseBlocking.
+  // Convert .../commons/thumb/x/yy/Foo.jpg/800px-Foo.jpg → .../commons/x/yy/Foo.jpg
+  // so we can swap the broken thumb for the original on <img onerror>.
+  function fullSizeUrl(u: string): string {
+    return u.replace('/commons/thumb/', '/commons/').replace(/\/\d{1,5}px-[^/]+$/, '');
+  }
+  function onImgError(e: Event) {
+    const img = e.currentTarget as HTMLImageElement | null;
+    if (!img) return;
+    const full = fullSizeUrl(img.src);
+    if (full && full !== img.src) img.src = full;
+  }
   function loadState(): Record<string, ReviewEntry> {
     try {
       const raw = localStorage.getItem(KEY);
@@ -31,7 +66,11 @@
           ? e.approved
           : e.approvedUrl ? [e.approvedUrl] : [];
         const rejected = Array.isArray(e.rejected) ? e.rejected : [];
-        out[id] = { approved, rejected };
+        const verified = Array.isArray(e.verified) ? e.verified.filter((u) => approved.includes(u)) : [];
+        const fetchedCount = typeof (e as { fetchedCount?: number }).fetchedCount === 'number'
+          ? (e as { fetchedCount?: number }).fetchedCount
+          : undefined;
+        out[id] = { approved, rejected, verified, fetchedCount };
       }
       return out;
     } catch { return {}; }
@@ -55,16 +94,19 @@
   // can change their mind by re-clicking Good or Not good.
   let cursor = $state(0);
 
+  type Mode = 'curate' | 'verify';
+  let mode: Mode = $state('curate');
+
   const current = $derived(aircraft[index]);
   const entry = $derived<ReviewEntry>(
-    state[current?.id] ?? { approved: [], rejected: [] },
+    state[current?.id] ?? { approved: [], rejected: [], verified: [] },
   );
   const currentPhoto = $derived(images[cursor] ?? null);
   const isApproved = $derived(
-    currentPhoto !== null && entry.approved.includes(currentPhoto),
+    currentPhoto !== null && entry.approved.some((u) => sameUrl(u, currentPhoto)),
   );
   const isRejected = $derived(
-    currentPhoto !== null && entry.rejected.includes(currentPhoto),
+    currentPhoto !== null && entry.rejected.some((u) => sameUrl(u, currentPhoto)),
   );
   const aircraftWithAnyApproval = $derived(
     Object.values(state).filter((e) => (e.approved ?? []).length > 0).length,
@@ -72,11 +114,54 @@
   const totalApprovedPhotos = $derived(
     Object.values(state).reduce((n, e) => n + (e.approved ?? []).length, 0),
   );
+  const unreviewedAircraft = $derived(
+    aircraft.filter((a) => {
+      const e = state[a.id];
+      return !e || ((e.approved?.length ?? 0) === 0 && (e.rejected?.length ?? 0) === 0);
+    }).length,
+  );
+  const partialAircraft = $derived(
+    aircraft.filter((a) => reviewStatus(a.id) === 'partial').length,
+  );
 
   $effect(() => {
     if (!current) return;
     cursor = 0;
     void loadFor(current);
+  });
+
+  // Warm the next image in the queue so a click on Good/Not good doesn't
+  // wait on a network round-trip. Re-runs whenever the cursor or queue moves.
+  $effect(() => {
+    const next = images[cursor + 1];
+    if (!next) return;
+    const img = new Image();
+    img.src = next;
+  });
+
+  // Keyboard shortcuts mirror AirportReview so muscle memory carries over.
+  //   G / Y / Space → Good        R / N        → Not good
+  //   ← / A         → prev plane  → / D        → next plane
+  //   ↑ / K         → prev photo  ↓ / J        → next photo
+  // Disabled while typing in inputs/textareas or in Verify mode.
+  $effect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (mode !== 'curate') return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const k = e.key.toLowerCase();
+      switch (k) {
+        case 'g': case 'y': case ' ': if (currentPhoto) { approve(); e.preventDefault(); } break;
+        case 'r': case 'n': if (currentPhoto) { rejectShowsType(); e.preventDefault(); } break;
+        case 'arrowright': case 'd': next(); e.preventDefault(); break;
+        case 'arrowleft': case 'a': prev(); e.preventDefault(); break;
+        case 'arrowdown': case 'j': nextPhoto(); e.preventDefault(); break;
+        case 'arrowup': case 'k': prevPhoto(); e.preventDefault(); break;
+      }
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   });
 
   async function loadFor(a: Aircraft) {
@@ -86,7 +171,22 @@
     try {
       const urls = await fetchAircraftImages(a);
       if (a.id !== current?.id) return;
-      images = urls;
+      // Put unreviewed photos first so the user lands on actual work to do
+      // instead of re-scrolling past stuff they've already marked. Order is
+      // frozen at load time so marking a photo doesn't reshuffle mid-session.
+      const e0 = state[a.id];
+      const seen = new Set<string>();
+      for (const u of [...(e0?.approved ?? []), ...(e0?.rejected ?? [])]) seen.add(canonUrl(u));
+      const unreviewed = urls.filter((u) => !seen.has(canonUrl(u)));
+      const reviewed = urls.filter((u) => seen.has(canonUrl(u)));
+      images = [...unreviewed, ...reviewed];
+      if (urls.length > 0) {
+        const e = ensureEntry(a.id);
+        if (e.fetchedCount !== urls.length) {
+          state = { ...state, [a.id]: { ...e, fetchedCount: urls.length } };
+          persist();
+        }
+      }
       if (urls.length === 0) {
         error = 'No photos returned. Wikimedia may be rate-limiting — wait a moment and try Skip / Prev plane to retry.';
       }
@@ -103,9 +203,25 @@
 
   function ensureEntry(id: string): ReviewEntry {
     if (!state[id]) {
-      state = { ...state, [id]: { approved: [], rejected: [] } };
+      state = { ...state, [id]: { approved: [], rejected: [], verified: [] } };
+    } else if (!Array.isArray(state[id].verified)) {
+      state = { ...state, [id]: { ...state[id], verified: [] } };
     }
     return state[id];
+  }
+
+  // Per-aircraft review status used by the dropdown and the header counter.
+  // 'partial' only fires when we KNOW there are more photos to mark
+  // (fetchedCount is set and exceeds marks). Unknown count is treated as
+  // reviewed — no nagging hint.
+  function reviewStatus(id: string): 'unreviewed' | 'partial' | 'reviewed' {
+    const e = state[id];
+    const ac = e?.approved?.length ?? 0;
+    const rc = e?.rejected?.length ?? 0;
+    const fc = e?.fetchedCount;
+    if (ac === 0 && rc === 0) return 'unreviewed';
+    if (typeof fc === 'number' && ac + rc < fc) return 'partial';
+    return 'reviewed';
   }
 
   function advanceCursor() {
@@ -117,10 +233,11 @@
     const id = current.id;
     const e = ensureEntry(id);
     const url = currentPhoto;
-    const nextApproved = e.approved.includes(url) ? e.approved : [...e.approved, url];
-    // Approving overrides any prior rejection.
-    const nextRejected = e.rejected.filter((u) => u !== url);
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected } };
+    const alreadyApproved = e.approved.some((u) => sameUrl(u, url));
+    const nextApproved = alreadyApproved ? e.approved : [...e.approved, url];
+    // Approving overrides any prior rejection (matched canonically).
+    const nextRejected = e.rejected.filter((u) => !sameUrl(u, url));
+    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: e.verified ?? [] } };
     persist();
     advanceCursor();
   }
@@ -130,10 +247,12 @@
     const id = current.id;
     const e = ensureEntry(id);
     const url = currentPhoto;
-    const nextRejected = e.rejected.includes(url) ? e.rejected : [...e.rejected, url];
-    // Rejecting overrides any prior approval.
-    const nextApproved = e.approved.filter((u) => u !== url);
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected } };
+    const alreadyRejected = e.rejected.some((u) => sameUrl(u, url));
+    const nextRejected = alreadyRejected ? e.rejected : [...e.rejected, url];
+    // Rejecting overrides any prior approval — also drops any verification.
+    const nextApproved = e.approved.filter((u) => !sameUrl(u, url));
+    const nextVerified = (e.verified ?? []).filter((u) => !sameUrl(u, url));
+    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: nextVerified } };
     persist();
     advanceCursor();
   }
@@ -150,6 +269,128 @@
   }
   function prev() {
     if (index > 0) { index -= 1; }
+  }
+
+  // --- Verify mode ----------------------------------------------------
+  // Walks all approved photos across every aircraft so the user can confirm
+  // the type/subtype is actually what's in the picture, or reassign it.
+
+  interface VerifyItem { id: string; url: string; verified: boolean; }
+  let verifyShowAll = $state(false); // when false, hide already-verified photos
+  let verifyCursor = $state(0);
+  let reassignTarget = $state(''); // dropdown value
+
+  const verifyQueue = $derived.by<VerifyItem[]>(() => {
+    const items: VerifyItem[] = [];
+    for (const a of aircraft) {
+      const e = state[a.id];
+      if (!e) continue;
+      const verified = new Set(e.verified ?? []);
+      for (const url of e.approved) {
+        const v = verified.has(url);
+        if (!verifyShowAll && v) continue;
+        items.push({ id: a.id, url, verified: v });
+      }
+    }
+    return items;
+  });
+  const verifyTotalApproved = $derived(
+    Object.values(state).reduce((n, e) => n + (e.approved ?? []).length, 0),
+  );
+  const verifyTotalVerified = $derived(
+    Object.values(state).reduce(
+      (n, e) => n + (e.verified ?? []).filter((u) => (e.approved ?? []).includes(u)).length,
+      0,
+    ),
+  );
+  const verifyCurrent = $derived(verifyQueue[verifyCursor] ?? null);
+  const verifyAircraft = $derived(verifyCurrent ? aircraft.find((a) => a.id === verifyCurrent.id) ?? null : null);
+
+  $effect(() => {
+    // Keep cursor in range if the queue shrinks (e.g. after verifying / removing).
+    if (verifyCursor >= verifyQueue.length) {
+      verifyCursor = Math.max(0, verifyQueue.length - 1);
+    }
+  });
+
+  function verifyConfirm() {
+    if (!verifyCurrent) return;
+    const { id, url } = verifyCurrent;
+    const e = ensureEntry(id);
+    if (!(e.verified ?? []).includes(url)) {
+      state = { ...state, [id]: { ...e, verified: [...(e.verified ?? []), url] } };
+      persist();
+    }
+    if (!verifyShowAll) {
+      // Item just dropped out of the queue; cursor stays put to land on the next.
+      if (verifyCursor >= verifyQueue.length - 1) verifyCursor = Math.max(0, verifyQueue.length - 2);
+    } else {
+      verifyNext();
+    }
+  }
+
+  function verifyReassign() {
+    if (!verifyCurrent || !reassignTarget) return;
+    const { id: fromId, url } = verifyCurrent;
+    if (reassignTarget === fromId) { verifyConfirm(); return; }
+    const fromEntry = ensureEntry(fromId);
+    const toEntry = ensureEntry(reassignTarget);
+    state = {
+      ...state,
+      [fromId]: {
+        approved: fromEntry.approved.filter((u) => u !== url),
+        rejected: fromEntry.rejected,
+        verified: (fromEntry.verified ?? []).filter((u) => u !== url),
+      },
+      [reassignTarget]: {
+        approved: toEntry.approved.includes(url) ? toEntry.approved : [...toEntry.approved, url],
+        rejected: toEntry.rejected.filter((u) => u !== url),
+        verified: (toEntry.verified ?? []).includes(url)
+          ? (toEntry.verified ?? [])
+          : [...(toEntry.verified ?? []), url],
+      },
+    };
+    persist();
+    reassignTarget = '';
+    if (!verifyShowAll && verifyCursor >= verifyQueue.length - 1) {
+      verifyCursor = Math.max(0, verifyQueue.length - 2);
+    }
+  }
+
+  function verifyRemove() {
+    if (!verifyCurrent) return;
+    const { id, url } = verifyCurrent;
+    const e = ensureEntry(id);
+    state = {
+      ...state,
+      [id]: {
+        approved: e.approved.filter((u) => u !== url),
+        rejected: e.rejected.includes(url) ? e.rejected : [...e.rejected, url],
+        verified: (e.verified ?? []).filter((u) => u !== url),
+      },
+    };
+    persist();
+    if (verifyCursor >= verifyQueue.length - 1) {
+      verifyCursor = Math.max(0, verifyQueue.length - 2);
+    }
+  }
+
+  function verifyUnverify() {
+    if (!verifyCurrent) return;
+    const { id, url } = verifyCurrent;
+    const e = ensureEntry(id);
+    state = {
+      ...state,
+      [id]: { ...e, verified: (e.verified ?? []).filter((u) => u !== url) },
+    };
+    persist();
+  }
+
+  function verifyNext() {
+    if (verifyCursor < verifyQueue.length - 1) verifyCursor += 1;
+  }
+  function verifyPrev() {
+    if (verifyCursor > 0) verifyCursor -= 1;
   }
 
   function buildExport() { return state; }
@@ -185,12 +426,15 @@
   function applyImport() {
     try {
       // Tolerate the older single-approvedUrl shape too.
-      type AnyEntry = { approved?: string[]; approvedUrl?: string; rejected?: string[] };
+      type AnyEntry = { approved?: string[]; approvedUrl?: string; rejected?: string[]; verified?: string[]; fetchedCount?: number };
       const data = JSON.parse(importText) as Record<string, AnyEntry>;
       const merged = { ...state };
       for (const [id, e] of Object.entries(data)) {
         const approved = e.approved ?? (e.approvedUrl ? [e.approvedUrl] : []);
-        merged[id] = { approved, rejected: e.rejected ?? [] };
+        const verified = (e.verified ?? []).filter((u) => approved.includes(u));
+        const next: ReviewEntry = { approved, rejected: e.rejected ?? [], verified };
+        if (typeof e.fetchedCount === 'number') next.fetchedCount = e.fetchedCount;
+        merged[id] = next;
       }
       state = merged;
       persist();
@@ -204,10 +448,90 @@
 
 <header class="head">
   <h1>Aircraft photo review</h1>
-  <p>{aircraftWithAnyApproval}/{aircraft.length} aircraft with ≥1 approved · {totalApprovedPhotos} photos approved</p>
+  <p>
+    {aircraftWithAnyApproval}/{aircraft.length} aircraft with ≥1 approved · {totalApprovedPhotos} photos approved · {verifyTotalVerified}/{verifyTotalApproved} type-verified
+    {#if unreviewedAircraft > 0} · <span class="unreviewed-badge">● {unreviewedAircraft} unreviewed</span>{/if}
+    {#if partialAircraft > 0} · <span class="partial-badge">◐ {partialAircraft} partial</span>{/if}
+  </p>
+  <div class="mode-toggle">
+    <button class:on={mode === 'curate'} onclick={() => (mode = 'curate')}>Curate (good / not good)</button>
+    <button class:on={mode === 'verify'} onclick={() => (mode = 'verify')}>Verify aircraft type</button>
+  </div>
 </header>
 
-{#if current}
+{#if mode === 'verify'}
+  <section class="reviewer">
+    <div class="airline-head">
+      <div>
+        <h2>Verify aircraft type</h2>
+        <span>
+          {verifyQueue.length} in queue ·
+          {verifyTotalVerified} / {verifyTotalApproved} verified
+        </span>
+      </div>
+      <label class="show-all">
+        <input type="checkbox" bind:checked={verifyShowAll} />
+        Show already-verified
+      </label>
+    </div>
+
+    {#if !verifyCurrent}
+      <div class="empty">
+        <p class="muted">
+          {verifyTotalApproved === 0
+            ? 'No approved photos yet. Use Curate first, or import a review JSON.'
+            : 'All approved photos have been type-verified. Toggle "Show already-verified" to revisit them.'}
+        </p>
+      </div>
+    {:else}
+      {@const va = verifyAircraft}
+      <div class="stage" class:approved={verifyCurrent.verified}>
+        <div class="filed-as">
+          <span class="muted">Currently filed as:</span>
+          <strong>{va?.name ?? verifyCurrent.id}</strong>
+          {#if va}<span class="muted"> · {va.manufacturer} · {va.family}</span>{/if}
+          {#if verifyCurrent.verified}<span class="status-good"> · verified ✓</span>{/if}
+        </div>
+        <a class="img-wrap" href={verifyCurrent.url} target="_blank" rel="noopener">
+          <img src={verifyCurrent.url} alt={`Verify ${va?.name ?? verifyCurrent.id}`} onerror={onImgError} />
+        </a>
+        <p class="counter">Photo {verifyCursor + 1} / {verifyQueue.length}</p>
+
+        <div class="primary-actions">
+          <button class="ok" onclick={verifyConfirm}>
+            {verifyCurrent.verified ? '✓ Already verified · keep' : 'Confirm correct'}
+          </button>
+          <button class="reject" onclick={verifyRemove}>Wrong / not visible — remove</button>
+        </div>
+
+        <div class="reassign">
+          <label for="reassign-select" class="muted">Reassign to a different type:</label>
+          <div class="reassign-row">
+            <select id="reassign-select" bind:value={reassignTarget}>
+              <option value="">— pick correct aircraft —</option>
+              {#each aircraft as a}
+                <option value={a.id} disabled={a.id === verifyCurrent.id}>
+                  {a.name}{a.id === verifyCurrent.id ? ' (current)' : ''}
+                </option>
+              {/each}
+            </select>
+            <button onclick={verifyReassign} disabled={!reassignTarget || reassignTarget === verifyCurrent.id}>
+              Reassign →
+            </button>
+          </div>
+        </div>
+
+        <div class="cycle">
+          <button onclick={verifyPrev} disabled={verifyCursor === 0}>← prev</button>
+          {#if verifyCurrent.verified}
+            <button onclick={verifyUnverify}>un-verify</button>
+          {/if}
+          <button onclick={verifyNext} disabled={verifyCursor >= verifyQueue.length - 1}>next →</button>
+        </div>
+      </div>
+    {/if}
+  </section>
+{:else if current}
   <section class="reviewer">
     <div class="airline-head">
       <div>
@@ -224,17 +548,21 @@
       class="jump-to"
       value={current.id}
       onchange={(e) => {
-        const id = (e.currentTarget as HTMLSelectElement).value;
-        const i = aircraft.findIndex((a) => a.id === id);
+        const sel = e.currentTarget as HTMLSelectElement;
+        const i = aircraft.findIndex((a) => a.id === sel.value);
         if (i >= 0) index = i;
+        sel.blur();
       }}
     >
       {#each aircraft as a, i}
         {@const e = state[a.id]}
         {@const ac = e?.approved?.length ?? 0}
         {@const rc = e?.rejected?.length ?? 0}
+        {@const fc = e?.fetchedCount}
+        {@const status = reviewStatus(a.id)}
+        {@const remaining = typeof fc === 'number' ? Math.max(0, fc - ac - rc) : 0}
         <option value={a.id}>
-          {i + 1}. {a.name}{ac > 0 ? ` · ${ac} good` : ''}{rc > 0 ? ` · ${rc} not good` : ''}{ac === 0 && rc === 0 ? ' · untouched' : ''}
+          {status === 'unreviewed' ? '● ' : status === 'partial' ? '◐ ' : '   '}{i + 1}. {a.name}{ac > 0 ? ` · ${ac} good` : ''}{rc > 0 ? ` · ${rc} not good` : ''}{status === 'unreviewed' ? ' · unreviewed' : ''}{status === 'partial' ? ` · ${remaining} left` : ''}
         </option>
       {/each}
     </select>
@@ -259,7 +587,7 @@
     {:else if currentPhoto}
       <div class="stage" class:approved={isApproved} class:rejected={isRejected}>
         <a class="img-wrap" href={currentPhoto} target="_blank" rel="noopener">
-          <img src={currentPhoto} alt={`${current.name} candidate`} />
+          <img src={currentPhoto} alt={`${current.name} candidate`} onerror={onImgError} />
         </a>
         <p class="counter">
           Photo {cursor + 1} / {images.length}
@@ -280,6 +608,7 @@
           <button onclick={prevPhoto} disabled={cursor === 0}>← prev photo in queue</button>
           <button onclick={nextPhoto} disabled={cursor >= images.length - 1}>next photo →</button>
         </div>
+        <p class="shortcuts">Shortcuts: <kbd>G</kbd>/<kbd>Space</kbd> good · <kbd>R</kbd> not good · <kbd>↑</kbd>/<kbd>↓</kbd> photo · <kbd>←</kbd>/<kbd>→</kbd> plane</p>
         <button class="next-plane" onclick={next} disabled={index >= aircraft.length - 1}>
           Next plane →
         </button>
@@ -314,6 +643,69 @@
 
 <style>
   .head { padding: 0.5rem 0.25rem; }
+  .mode-toggle {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+  .mode-toggle button {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+  }
+  .mode-toggle button.on {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+  }
+  .show-all { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--muted); font-size: 0.8125rem; }
+  .unreviewed-badge { color: var(--accent); font-weight: 500; }
+  .partial-badge { color: var(--accent); font-weight: 500; opacity: 0.8; }
+  .shortcuts {
+    color: var(--muted);
+    font-size: 0.6875rem;
+    text-align: center;
+    margin-top: 0.1rem;
+  }
+  .shortcuts kbd {
+    display: inline-block;
+    padding: 0 0.3rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface-2);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 0.6875rem;
+  }
+  .filed-as { font-size: 0.875rem; }
+  .filed-as strong { font-weight: 600; }
+  .reassign { display: flex; flex-direction: column; gap: 0.35rem; }
+  .reassign-row { display: flex; gap: 0.4rem; }
+  .reassign-row select {
+    flex: 1;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.8125rem;
+    font-family: inherit;
+  }
+  .reassign-row button {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 6px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+  .reassign-row button:disabled { opacity: 0.4; }
   .head h1 { font-size: 1.75rem; font-weight: 600; margin-bottom: 0.35rem; }
   .head p, .muted { color: var(--muted); font-size: 0.875rem; }
   .reviewer, .export { display: flex; flex-direction: column; gap: 0.75rem; }

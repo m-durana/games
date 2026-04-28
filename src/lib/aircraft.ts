@@ -52,15 +52,21 @@ const EASY_IDS = new Set([
 // out the easy iconic aircraft so Hard isn't just "Medium + a few extras".
 const HARD_IDS = new Set([
   // Airbus narrow-body variants and older widebody
-  'a319', 'a321', 'a220', 'a310', 'a340-600',
+  'a318', 'a319', 'a321', 'a220', 'a300', 'a310', 'a340-600',
+  // Airbus widebody variants
+  'a330-200', 'a330neo', 'a350-1000',
   // 737 family + close cousins + retired
-  'b737classic', 'b737-700', 'b737max', 'b717', 'b727', 'md83',
+  'b737classic', 'b737-700', 'b737-900', 'b737max', 'b717', 'b727', 'md83', 'md90',
+  // 777 variants
+  'b777-200', 'b777-9',
   // Embraer regional family
   'e170', 'e175', 'e195e2',
   // CRJ family
-  'crj200', 'crj700', 'crj900',
+  'crj200', 'crj700', 'crj900', 'crj1000',
   // Turboprops
-  'dash8q400',
+  'dash8q400', 'dash8classic', 'atr42',
+  // Other / international
+  'ssj100', 'c919',
 ]);
 
 const US_AIRCRAFT_MAKERS = new Set(['Boeing', 'McDonnell Douglas']);
@@ -90,7 +96,7 @@ export const ATTRIBUTE_INFO: AttributeInfo[] = [
   {
     label: 'Maker',
     description: 'The aircraft manufacturer.',
-    values: ['Airbus', 'Boeing', 'Embraer', 'Bombardier', 'McDonnell Douglas', 'ATR', 'De Havilland'],
+    values: ['Airbus', 'Boeing', 'Embraer', 'Bombardier', 'McDonnell Douglas', 'ATR', 'De Havilland', 'Sukhoi', 'COMAC'],
   },
   {
     label: 'Body',
@@ -242,12 +248,12 @@ function fetchWithTimeout(url: string, ms = 12000): Promise<Response> {
   return fetch(url, { signal: ctl.signal }).finally(() => clearTimeout(t));
 }
 
-async function fetchFromCommonsCategory(category: string): Promise<string[]> {
+async function fetchCategoryFiles(category: string, limit = 50): Promise<string[]> {
   const url =
     `https://commons.wikimedia.org/w/api.php?action=query&format=json` +
     `&generator=categorymembers&gcmtitle=${encodeURIComponent('Category:' + category)}` +
-    `&gcmtype=file&gcmlimit=50` +
-    `&prop=imageinfo&iiprop=url&iiurlwidth=1200&origin=*`;
+    `&gcmtype=file&gcmlimit=${limit}` +
+    `&prop=imageinfo&iiprop=url&iiurlwidth=800&origin=*`;
   try {
     const res = await fetchWithTimeout(url);
     if (!res.ok) return [];
@@ -268,6 +274,48 @@ async function fetchFromCommonsCategory(category: string): Promise<string[]> {
   }
 }
 
+async function fetchSubcategoryNames(category: string, limit = 25): Promise<string[]> {
+  const url =
+    `https://commons.wikimedia.org/w/api.php?action=query&format=json` +
+    `&list=categorymembers&cmtitle=${encodeURIComponent('Category:' + category)}` +
+    `&cmtype=subcat&cmlimit=${limit}&origin=*`;
+  try {
+    const res = await fetchWithTimeout(url);
+    if (!res.ok) return [];
+    const json = await res.json();
+    const items: { title?: string }[] = json?.query?.categorymembers ?? [];
+    return items
+      .map((i) => (i.title ?? '').replace(/^Category:/, ''))
+      .filter((t) => t.length > 0);
+  } catch {
+    return [];
+  }
+}
+
+async function fetchFromCommonsCategory(category: string): Promise<string[]> {
+  // Pull files directly under the category, plus files from up to 25 first-level
+  // subcategories. Wikimedia Commons usually nests photos under per-airline /
+  // per-registration subcats, so a one-level crawl is needed to find more than
+  // a handful of images for many aircraft types.
+  const [direct, subs] = await Promise.all([
+    fetchCategoryFiles(category, 50),
+    fetchSubcategoryNames(category, 25),
+  ]);
+  const seen = new Set<string>(direct);
+  const out: string[] = [...direct];
+  const subResults = await Promise.all(subs.map((s) => fetchCategoryFiles(s, 20)));
+  for (const list of subResults) {
+    for (const u of list) {
+      if (!seen.has(u)) {
+        seen.add(u);
+        out.push(u);
+        if (out.length >= 250) return out;
+      }
+    }
+  }
+  return out;
+}
+
 async function fetchFromWikiMediaList(wikiTitle: string): Promise<string[]> {
   try {
     const url = `https://en.wikipedia.org/api/rest_v1/page/media-list/${encodeURIComponent(wikiTitle)}`;
@@ -284,7 +332,10 @@ async function fetchFromWikiMediaList(wikiTitle: string): Promise<string[]> {
       const oneX = item.srcset.find((s) => s.scale === '1x') ?? item.srcset[0];
       const raw = oneX.src;
       const full = raw.startsWith('//') ? `https:${raw}` : raw;
-      out.push(full);
+      // Wikimedia thumb URLs look like .../thumb/x/yy/FILE.jpg/1280px-FILE.jpg
+      // Rewrite to 800px so the review UI doesn't pull oversized images.
+      const small = full.replace(/\/\d{3,4}px-/, '/800px-');
+      out.push(small);
     }
     return out;
   } catch {

@@ -1,0 +1,1632 @@
+[
+  {
+    "iata": "ABJ",
+    "name": "Félix-Houphouët-Boigny",
+    "country": "Ivory Coast",
+    "city": "Abidjan",
+    "lat": 5.26139,
+    "lon": -3.92629,
+    "wikipedia": "Félix-Houphouët-Boigny International Airport",
+    "commonsCategory": "Félix-Houphouët-Boigny International Airport"
+  },
+  {
+    "iata": "ABV",
+    "name": "Nnamdi Azikiwe",
+    "country": "Nigeria",
+    "city": "Abuja",
+    "lat": 9.00679,
+    "lon": 7.26317,
+    "wikipedia": "Nnamdi Azikiwe International Airport",
+    "commonsCategory": "Nnamdi Azikiwe International Airport"
+  },
+  {
+    "iata": "ACA",
+    "name": "General Juan N. Álvarez",
+    "country": "Mexico",
+    "city": "Acapulco",
+    "lat": 16.757126,
+    "lon": -99.753113,
+    "wikipedia": "Acapulco International Airport",
+    "commonsCategory": "Acapulco International Airport"
+  },
+  {
+    "iata": "ACC",
+    "name": "Kotoka",
+    "country": "Ghana",
+    "city": "Accra",
+    "lat": 5.605189800262451,
+    "lon": -0.16678600013256073,
+    "wikipedia": "Kotoka International Airport",
+    "commonsCategory": "Kotoka International Airport"
+  },
+  {
+    "iata": "ADB",
+    "name": "Adnan Menderes",
+    "country": "Turkey",
+    "city": "Gaziemir",
+    "lat": 38.2924,
+    "lon": 27.157,
+    "wikipedia": "Adnan Menderes Airport",
+    "commonsCategory": "Adnan Menderes Airport"
+  },
+  {
+    "iata": "ADL",
+    "name": "Adelaide",
+    "country": "Australia",
+    "city": "Adelaide",
+    "lat": -34.947512,
+    "lon": 138.533393,
+    "wikipedia": "Adelaide Airport",
+    "commonsCategory": "Adelaide Airport"
+  },
+  {
+    "iata": "AEP",
+    "name": "Aeroparque Jorge Newbery",
+    "country": "Argentina",
+    "city": "Buenos Aires",
+    "lat": -34.559419,
+    "lon": -58.415536,
+    "wikipedia": "Aeroparque Jorge Newbery",
+    "commonsCategory": "Aeroparque Jorge Newbery"
+  },
+  {
+    "iata": "AGP",
+    "name": "Málaga-Costa del Sol",
+    "country": "Spain",
+    "city": "Málaga",
+    "lat": 36.6749,
+    "lon": -4.49911,
+    "wikipedia": "Málaga Airport",
+    "commonsCategory": "Málaga Airport"
+  },
+  {
+    "iata": "AMD",
+    "name": "Sardar Vallabh Patel",
+    "country": "India",
+    "city": "Ahmedabad",
+    "lat": 23.0772,
+    "lon": 72.634697,
+    "wikipedia": "Sardar Vallabhbhai Patel International Airport",
+    "commonsCategory": "Sardar Vallabhbhai Patel International Airport"
+  },
+  {
+    "iata": "ARN",
+    "name": "Stockholm-Arlanda",
+    "country": "Sweden",
+    "city": "Stockholm",
+    "lat": 59.64849,
+    "lon": 17.928829,
+    "wikipedia": "Stockholm-Arlanda Airport",
+    "commonsCategory": "Stockholm-Arlanda Airport"
+  },
+  {
+    "iata": "ASU",
+    "name": "Silvio Pettirossi",
+    "country": "Paraguay",
+    "city": "Asunción",
+    "lat": -25.240156,
+    "lon": -57.519227,
+    "wikipedia": "Silvio Pettirossi International Airport",
+    "commonsCategory": "Silvio Pettirossi International Airport"
+  },
+  {
+    "iata": "ASW",
+    "name": "Aswan",
+    "country": "Egypt",
+    "city": "Aswan",
+    "lat": 23.961075,
+    "lon": 32.820382,
+    "wikipedia": "Aswan International Airport",
+    "commonsCategory": "Aswan International Airport"
+  },
+  {
+    "iata": "AUS",
+    "name": "Austin Bergstrom",
+    "country": "United States",
+    "city": "Austin",
+    "lat": 30.197535,
+    "lon": -97.662015,
+    "wikipedia": "Austin-Bergstrom International Airport",
+    "commonsCategory": "Austin-Bergstrom International Airport"
+  },
+  {
+    "iata": "AYT",
+    "name": "Antalya",
+    "country": "Turkey",
+    "city": "Antalya",
+    "lat": 36.898701,
+    "lon": 30.800501,
+    "wikipedia": "Antalya Airport",
+    "commonsCategory": "Antalya Airport"
+  },
+  {
+    "iata": "BER",
+    "name": "Berlin Brandenburg",
+    "country": "Germany",
+    "city": "Berlin",
+    "lat": 52.361738,
+    "lon": 13.502341,
+    "wikipedia": "Berlin Brandenburg Airport",
+    "commonsCategory": "Berlin Brandenburg Airport"
+  },
+  {
+    "iata": "BGO",
+    "name": "Bergen Airport, Flesland",
+    "country": "Norway",
+    "city": "Bergen",
+    "lat": 60.2934,
+    "lon": 5.21814,
+    "wikipedia": "Bergen Airport, Flesland",
+    "commonsCategory": "Bergen Airport, Flesland"
+  },
+  {
+    "iata": "BHX",
+    "name": "Birmingham",
+    "country": "United Kingdom",
+    "city": "Birmingham, West Midlands",
+    "lat": 52.453899,
+    "lon": -1.74803,
+    "wikipedia": "Birmingham Airport",
+    "commonsCategory": "Birmingham Airport"
+  },
+  {
+    "iata": "BJL",
+    "name": "Banjul",
+    "country": "Gambia",
+    "city": "Yundum",
+    "lat": 13.338,
+    "lon": -16.652201,
+    "wikipedia": "Banjul International Airport",
+    "commonsCategory": "Banjul International Airport"
+  },
+  {
+    "iata": "BKI",
+    "name": "Kota Kinabalu",
+    "country": "Malaysia",
+    "city": "Kota Kinabalu",
+    "lat": 5.932743,
+    "lon": 116.049324,
+    "wikipedia": "Kota Kinabalu International Airport",
+    "commonsCategory": "Kota Kinabalu International Airport"
+  },
+  {
+    "iata": "BLQ",
+    "name": "Bologna Guglielmo Marconi",
+    "country": "Italy",
+    "city": "Bologna",
+    "lat": 44.5354,
+    "lon": 11.2887,
+    "wikipedia": "Bologna Airport",
+    "commonsCategory": "Bologna Airport"
+  },
+  {
+    "iata": "BLR",
+    "name": "Kempegowda International Airport Bengaluru",
+    "country": "India",
+    "city": "Bengaluru",
+    "lat": 13.1979,
+    "lon": 77.706299,
+    "wikipedia": "Kempegowda International Airport",
+    "commonsCategory": "Kempegowda International Airport"
+  },
+  {
+    "iata": "BMA",
+    "name": "Stockholm-Bromma",
+    "country": "Sweden",
+    "city": "Stockholm",
+    "lat": 59.354401,
+    "lon": 17.9417,
+    "wikipedia": "Stockholm-Bromma Airport",
+    "commonsCategory": "Stockholm-Bromma Airport"
+  },
+  {
+    "iata": "BNA",
+    "name": "Nashville",
+    "country": "United States",
+    "city": "Nashville",
+    "lat": 36.1245,
+    "lon": -86.6782,
+    "wikipedia": "Nashville International Airport",
+    "commonsCategory": "Nashville International Airport"
+  },
+  {
+    "iata": "BOM",
+    "name": "Chhatrapati Shivaji Maharaj",
+    "country": "India",
+    "city": "Mumbai",
+    "lat": 19.088699,
+    "lon": 72.867897,
+    "wikipedia": "Chhatrapati Shivaji International Airport",
+    "commonsCategory": "Chhatrapati Shivaji International Airport"
+  },
+  {
+    "iata": "BOS",
+    "name": "Boston Logan",
+    "country": "United States",
+    "city": "Boston",
+    "lat": 42.36197,
+    "lon": -71.0079,
+    "wikipedia": "Logan International Airport",
+    "commonsCategory": "Logan International Airport"
+  },
+  {
+    "iata": "BSB",
+    "name": "Presidente Juscelino Kubitschek",
+    "country": "Brazil",
+    "city": "Brasília",
+    "lat": -15.869167,
+    "lon": -47.920834,
+    "wikipedia": "Brasília International Airport",
+    "commonsCategory": "Brasília International Airport"
+  },
+  {
+    "iata": "BSL",
+    "name": "EuroAirport Basel–Mulhouse–Freiburg",
+    "country": "Switzerland",
+    "city": "Bâle / Mulhouse",
+    "lat": 47.60068,
+    "lon": 7.521117,
+    "wikipedia": "EuroAirport Basel-Mulhouse-Freiburg",
+    "commonsCategory": "EuroAirport Basel-Mulhouse-Freiburg"
+  },
+  {
+    "iata": "BWI",
+    "name": "Baltimore/Washington International Thurgood Marshall",
+    "country": "United States",
+    "city": "Baltimore",
+    "lat": 39.1754,
+    "lon": -76.668297,
+    "wikipedia": "Baltimore/Washington International Airport",
+    "commonsCategory": "Baltimore/Washington International Airport"
+  },
+  {
+    "iata": "CBR",
+    "name": "Canberra",
+    "country": "Australia",
+    "city": "Canberra",
+    "lat": -35.3069,
+    "lon": 149.195007,
+    "wikipedia": "Canberra Airport",
+    "commonsCategory": "Canberra Airport"
+  },
+  {
+    "iata": "CCS",
+    "name": "Maiquetía Simón Bolívar",
+    "country": "Venezuela",
+    "city": "Maiquetía",
+    "lat": 10.602214,
+    "lon": -66.991174,
+    "wikipedia": "Simón Bolívar International Airport",
+    "commonsCategory": "Simón Bolívar International Airport"
+  },
+  {
+    "iata": "CCU",
+    "name": "Netaji Subhash Chandra Bose",
+    "country": "India",
+    "city": "Kolkata",
+    "lat": 22.654012,
+    "lon": 88.44765,
+    "wikipedia": "Netaji Subhash Chandra Bose International Airport",
+    "commonsCategory": "Netaji Subhash Chandra Bose International Airport"
+  },
+  {
+    "iata": "CEB",
+    "name": "Mactan Cebu",
+    "country": "Philippines",
+    "city": "Cebu City/Lapu-Lapu City",
+    "lat": 10.309261,
+    "lon": 123.97974,
+    "wikipedia": "Mactan-Cebu International Airport",
+    "commonsCategory": "Mactan-Cebu International Airport"
+  },
+  {
+    "iata": "CGN",
+    "name": "Cologne Bonn",
+    "country": "Germany",
+    "city": "Köln (Cologne)",
+    "lat": 50.865898,
+    "lon": 7.14274,
+    "wikipedia": "Cologne Bonn Airport",
+    "commonsCategory": "Cologne Bonn Airport"
+  },
+  {
+    "iata": "CHC",
+    "name": "Christchurch",
+    "country": "New Zealand",
+    "city": "Christchurch",
+    "lat": -43.489029,
+    "lon": 172.532065,
+    "wikipedia": "Christchurch International Airport",
+    "commonsCategory": "Christchurch International Airport"
+  },
+  {
+    "iata": "CKG",
+    "name": "Chongqing Jiangbei",
+    "country": "China",
+    "city": "Chongqing",
+    "lat": 29.712254,
+    "lon": 106.651895,
+    "wikipedia": "Chongqing Jiangbei International Airport",
+    "commonsCategory": "Chongqing Jiangbei International Airport"
+  },
+  {
+    "iata": "CNX",
+    "name": "Chiang Mai",
+    "country": "Thailand",
+    "city": "Chiang Mai",
+    "lat": 18.766799926799997,
+    "lon": 98.962600708,
+    "wikipedia": "Chiang Mai International Airport",
+    "commonsCategory": "Chiang Mai International Airport"
+  },
+  {
+    "iata": "COK",
+    "name": "Cochin",
+    "country": "India",
+    "city": "Kochi",
+    "lat": 10.151047,
+    "lon": 76.400838,
+    "wikipedia": "Cochin International Airport",
+    "commonsCategory": "Cochin International Airport"
+  },
+  {
+    "iata": "COR",
+    "name": "Ingeniero Aeronáutico Ambrosio L.V. Taravella",
+    "country": "Argentina",
+    "city": "Cordoba",
+    "lat": -31.312346,
+    "lon": -64.208329,
+    "wikipedia": "Ingeniero Ambrosio L.V. Taravella International Airport",
+    "commonsCategory": "Ingeniero Ambrosio L.V. Taravella International Airport"
+  },
+  {
+    "iata": "CPT",
+    "name": "Cape Town",
+    "country": "South Africa",
+    "city": "Cape Town",
+    "lat": -33.97403,
+    "lon": 18.604333,
+    "wikipedia": "Cape Town International Airport",
+    "commonsCategory": "Cape Town International Airport"
+  },
+  {
+    "iata": "CTA",
+    "name": "Catania-Fontanarossa",
+    "country": "Italy",
+    "city": "Catania",
+    "lat": 37.466801,
+    "lon": 15.0664,
+    "wikipedia": "Catania-Fontanarossa Airport",
+    "commonsCategory": "Catania-Fontanarossa Airport"
+  },
+  {
+    "iata": "CTU",
+    "name": "Chengdu Shuangliu",
+    "country": "China",
+    "city": "Chengdu (Shuangliu)",
+    "lat": 30.558257,
+    "lon": 103.945966,
+    "wikipedia": "Chengdu Shuangliu International Airport",
+    "commonsCategory": "Chengdu Shuangliu International Airport"
+  },
+  {
+    "iata": "CUN",
+    "name": "Cancún",
+    "country": "Mexico",
+    "city": "Cancún",
+    "lat": 21.040817,
+    "lon": -86.87347,
+    "wikipedia": "Cancun International Airport",
+    "commonsCategory": "Cancun International Airport"
+  },
+  {
+    "iata": "DAD",
+    "name": "Da Nang",
+    "country": "Vietnam",
+    "city": "Da Nang",
+    "lat": 16.0439,
+    "lon": 108.198997,
+    "wikipedia": "Da Nang International Airport",
+    "commonsCategory": "Da Nang International Airport"
+  },
+  {
+    "iata": "DAR",
+    "name": "Julius Nyerere",
+    "country": "Tanzania",
+    "city": "Dar es Salaam",
+    "lat": -6.873499,
+    "lon": 39.207288,
+    "wikipedia": "Julius Nyerere International Airport",
+    "commonsCategory": "Julius Nyerere International Airport"
+  },
+  {
+    "iata": "DCA",
+    "name": "Ronald Reagan Washington National",
+    "country": "United States",
+    "city": "Washington",
+    "lat": 38.8521,
+    "lon": -77.037697,
+    "wikipedia": "Ronald Reagan Washington National Airport",
+    "commonsCategory": "Ronald Reagan Washington National Airport"
+  },
+  {
+    "iata": "DKR",
+    "name": "Léopold Sédar Senghor",
+    "country": "Senegal",
+    "city": "Dakar",
+    "lat": 14.742337,
+    "lon": -17.479222,
+    "wikipedia": "Dakar-Yoff-Léopold Sédar Senghor International Airport",
+    "commonsCategory": "Dakar-Yoff-Léopold Sédar Senghor International Airport"
+  },
+  {
+    "iata": "DMM",
+    "name": "King Fahd",
+    "country": "Saudi Arabia",
+    "city": "Ad Dammam",
+    "lat": 26.4691,
+    "lon": 49.798209,
+    "wikipedia": "King Fahd International Airport",
+    "commonsCategory": "King Fahd International Airport"
+  },
+  {
+    "iata": "DPS",
+    "name": "Denpasar I Gusti Ngurah Rai",
+    "country": "Indonesia",
+    "city": "Kuta, Badung",
+    "lat": -8.748409,
+    "lon": 115.167123,
+    "wikipedia": "Ngurah Rai International Airport",
+    "commonsCategory": "Ngurah Rai International Airport"
+  },
+  {
+    "iata": "DUR",
+    "name": "King Shaka",
+    "country": "South Africa",
+    "city": "Durban",
+    "lat": -29.6144444444,
+    "lon": 31.1197222222,
+    "wikipedia": "King Shaka International Airport",
+    "commonsCategory": "King Shaka International Airport"
+  },
+  {
+    "iata": "DVO",
+    "name": "Francisco Bangoy",
+    "country": "Philippines",
+    "city": "Davao",
+    "lat": 7.12552,
+    "lon": 125.646004,
+    "wikipedia": "Francisco Bangoy International Airport",
+    "commonsCategory": "Francisco Bangoy International Airport"
+  },
+  {
+    "iata": "EDI",
+    "name": "Edinburgh",
+    "country": "United Kingdom",
+    "city": "Edinburgh",
+    "lat": 55.950145,
+    "lon": -3.372288,
+    "wikipedia": "Edinburgh Airport",
+    "commonsCategory": "Edinburgh Airport"
+  },
+  {
+    "iata": "ESB",
+    "name": "Esenboğa",
+    "country": "Turkey",
+    "city": "Ankara",
+    "lat": 40.128101,
+    "lon": 32.995098,
+    "wikipedia": "Esenboğa International Airport",
+    "commonsCategory": "Esenboğa International Airport"
+  },
+  {
+    "iata": "EWR",
+    "name": "Newark Liberty",
+    "country": "United States",
+    "city": "Newark",
+    "lat": 40.6894,
+    "lon": -74.170545,
+    "wikipedia": "Newark Liberty International Airport",
+    "commonsCategory": "Newark Liberty International Airport"
+  },
+  {
+    "iata": "FAO",
+    "name": "Faro - Gago Coutinho",
+    "country": "Portugal",
+    "city": "Faro",
+    "lat": 37.015909,
+    "lon": -7.970939,
+    "wikipedia": "Faro Airport (Portugal)",
+    "commonsCategory": "Faro Airport (Portugal)"
+  },
+  {
+    "iata": "FOR",
+    "name": "Pinto Martins",
+    "country": "Brazil",
+    "city": "Fortaleza",
+    "lat": -3.775833,
+    "lon": -38.532222,
+    "wikipedia": "Pinto Martins International Airport",
+    "commonsCategory": "Pinto Martins International Airport"
+  },
+  {
+    "iata": "FUK",
+    "name": "Fukuoka",
+    "country": "Japan",
+    "city": "Fukuoka",
+    "lat": 33.585899353027344,
+    "lon": 130.4510040283203,
+    "wikipedia": "Fukuoka Airport",
+    "commonsCategory": "Fukuoka Airport"
+  },
+  {
+    "iata": "GDL",
+    "name": "Guadalajara",
+    "country": "Mexico",
+    "city": "Guadalajara",
+    "lat": 20.523342,
+    "lon": -103.310108,
+    "wikipedia": "Don Miguel Hidalgo y Costilla International Airport",
+    "commonsCategory": "Don Miguel Hidalgo y Costilla International Airport"
+  },
+  {
+    "iata": "GIG",
+    "name": "Rio Galeão – Tom Jobim",
+    "country": "Brazil",
+    "city": "Rio De Janeiro",
+    "lat": -22.809999,
+    "lon": -43.250557,
+    "wikipedia": "Rio de Janeiro-Galeão International Airport",
+    "commonsCategory": "Rio de Janeiro-Galeão International Airport"
+  },
+  {
+    "iata": "GLA",
+    "name": "Glasgow",
+    "country": "United Kingdom",
+    "city": "Glasgow",
+    "lat": 55.871899,
+    "lon": -4.43306,
+    "wikipedia": "Glasgow International Airport",
+    "commonsCategory": "Glasgow International Airport"
+  },
+  {
+    "iata": "GMP",
+    "name": "Gimpo",
+    "country": "South Korea",
+    "city": "Seoul",
+    "lat": 37.5583,
+    "lon": 126.791,
+    "wikipedia": "Gimpo International Airport",
+    "commonsCategory": "Gimpo International Airport"
+  },
+  {
+    "iata": "GOI",
+    "name": "Goa Dabolim",
+    "country": "India",
+    "city": "Vasco da Gama",
+    "lat": 15.380062,
+    "lon": 73.833328,
+    "wikipedia": "Dabolim Airport",
+    "commonsCategory": "Dabolim Airport"
+  },
+  {
+    "iata": "GOT",
+    "name": "Göteborg Landvetter",
+    "country": "Sweden",
+    "city": "Göteborg",
+    "lat": 57.6628,
+    "lon": 12.2798,
+    "wikipedia": "Göteborg Landvetter Airport",
+    "commonsCategory": "Göteborg Landvetter Airport"
+  },
+  {
+    "iata": "GUA",
+    "name": "La Aurora",
+    "country": "Guatemala",
+    "city": "Guatemala City",
+    "lat": 14.582896,
+    "lon": -90.527515,
+    "wikipedia": "La Aurora International Airport",
+    "commonsCategory": "La Aurora International Airport"
+  },
+  {
+    "iata": "GVA",
+    "name": "Geneva",
+    "country": "Switzerland",
+    "city": "Geneva",
+    "lat": 46.238098,
+    "lon": 6.10895,
+    "wikipedia": "Geneva Airport",
+    "commonsCategory": "Geneva Airport"
+  },
+  {
+    "iata": "GYE",
+    "name": "José Joaquín de Olmedo",
+    "country": "Ecuador",
+    "city": "Guayaquil",
+    "lat": -2.15742,
+    "lon": -79.883598,
+    "wikipedia": "José Joaquín de Olmedo International Airport",
+    "commonsCategory": "José Joaquín de Olmedo International Airport"
+  },
+  {
+    "iata": "HAM",
+    "name": "Hamburg Helmut Schmidt",
+    "country": "Germany",
+    "city": "Hamburg",
+    "lat": 53.630402,
+    "lon": 9.98823,
+    "wikipedia": "Hamburg Airport",
+    "commonsCategory": "Hamburg Airport"
+  },
+  {
+    "iata": "HAV",
+    "name": "José Martí",
+    "country": "Cuba",
+    "city": "Havana",
+    "lat": 22.989200592041016,
+    "lon": -82.40910339355469,
+    "wikipedia": "José Martí International Airport",
+    "commonsCategory": "José Martí International Airport"
+  },
+  {
+    "iata": "HKT",
+    "name": "Phuket",
+    "country": "Thailand",
+    "city": "Phuket",
+    "lat": 8.113257,
+    "lon": 98.3174,
+    "wikipedia": "Phuket International Airport",
+    "commonsCategory": "Phuket International Airport"
+  },
+  {
+    "iata": "HOU",
+    "name": "William P. Hobby",
+    "country": "United States",
+    "city": "Houston",
+    "lat": 29.645336,
+    "lon": -95.276812,
+    "wikipedia": "William P. Hobby Airport",
+    "commonsCategory": "William P. Hobby Airport"
+  },
+  {
+    "iata": "HPH",
+    "name": "Cat Bi",
+    "country": "Vietnam",
+    "city": "Haiphong (Hai An)",
+    "lat": 20.817428,
+    "lon": 106.724315,
+    "wikipedia": "Cat Bi Airport",
+    "commonsCategory": "Cat Bi Airport"
+  },
+  {
+    "iata": "HRG",
+    "name": "Hurghada",
+    "country": "Egypt",
+    "city": "Hurghada",
+    "lat": 27.176776,
+    "lon": 33.796692,
+    "wikipedia": "Hurghada International Airport",
+    "commonsCategory": "Hurghada International Airport"
+  },
+  {
+    "iata": "HYD",
+    "name": "Rajiv Gandhi",
+    "country": "India",
+    "city": "Hyderabad",
+    "lat": 17.231318,
+    "lon": 78.429855,
+    "wikipedia": "Rajiv Gandhi International Airport",
+    "commonsCategory": "Rajiv Gandhi International Airport"
+  },
+  {
+    "iata": "IAD",
+    "name": "Washington Dulles",
+    "country": "United States",
+    "city": "Dulles",
+    "lat": 38.9445,
+    "lon": -77.455803,
+    "wikipedia": "Washington Dulles International Airport",
+    "commonsCategory": "Washington Dulles International Airport"
+  },
+  {
+    "iata": "IAH",
+    "name": "George Bush Intercontinental",
+    "country": "United States",
+    "city": "Houston",
+    "lat": 29.9844,
+    "lon": -95.3414,
+    "wikipedia": "George Bush Intercontinental Airport",
+    "commonsCategory": "George Bush Intercontinental Airport"
+  },
+  {
+    "iata": "ITM",
+    "name": "Osaka Itami",
+    "country": "Japan",
+    "city": "Osaka",
+    "lat": 34.780853,
+    "lon": 135.440829,
+    "wikipedia": "Osaka International Airport",
+    "commonsCategory": "Osaka International Airport"
+  },
+  {
+    "iata": "JIB",
+    "name": "Djibouti-Ambouli",
+    "country": "Djibouti",
+    "city": "Djibouti City",
+    "lat": 11.5473,
+    "lon": 43.1595,
+    "wikipedia": "Djibouti-Ambouli International Airport",
+    "commonsCategory": "Djibouti-Ambouli International Airport"
+  },
+  {
+    "iata": "KBP",
+    "name": "Boryspil",
+    "country": "Ukraine",
+    "city": "Boryspil",
+    "lat": 50.345001,
+    "lon": 30.894699,
+    "wikipedia": "Boryspil International Airport",
+    "commonsCategory": "Boryspil International Airport"
+  },
+  {
+    "iata": "KHH",
+    "name": "Kaohsiung",
+    "country": "Taiwan",
+    "city": "Kaohsiung (Xiaogang)",
+    "lat": 22.577101,
+    "lon": 120.349998,
+    "wikipedia": "Kaohsiung International Airport",
+    "commonsCategory": "Kaohsiung International Airport"
+  },
+  {
+    "iata": "KIX",
+    "name": "Kansai",
+    "country": "Japan",
+    "city": "Osaka",
+    "lat": 34.427299,
+    "lon": 135.244003,
+    "wikipedia": "Kansai International Airport",
+    "commonsCategory": "Kansai International Airport"
+  },
+  {
+    "iata": "KMG",
+    "name": "Kunming Changshui",
+    "country": "China",
+    "city": "Kunming",
+    "lat": 25.110313,
+    "lon": 102.936743,
+    "wikipedia": "Kunming Changshui International Airport",
+    "commonsCategory": "Kunming Changshui International Airport"
+  },
+  {
+    "iata": "LAX",
+    "name": "Los Angeles",
+    "country": "United States",
+    "city": "Los Angeles",
+    "lat": 33.942501,
+    "lon": -118.407997,
+    "wikipedia": "Los Angeles International Airport",
+    "commonsCategory": "Los Angeles International Airport"
+  },
+  {
+    "iata": "LGA",
+    "name": "LaGuardia",
+    "country": "United States",
+    "city": "New York",
+    "lat": 40.777199,
+    "lon": -73.872597,
+    "wikipedia": "LaGuardia Airport",
+    "commonsCategory": "LaGuardia Airport"
+  },
+  {
+    "iata": "LIM",
+    "name": "Jorge Chávez",
+    "country": "Peru",
+    "city": "Lima",
+    "lat": -12.0219,
+    "lon": -77.114305,
+    "wikipedia": "Jorge Chávez International Airport",
+    "commonsCategory": "Jorge Chávez International Airport"
+  },
+  {
+    "iata": "LIN",
+    "name": "Milano Linate",
+    "country": "Italy",
+    "city": "Segrate (MI)",
+    "lat": 45.445099,
+    "lon": 9.27674,
+    "wikipedia": "Linate Airport",
+    "commonsCategory": "Linate Airport"
+  },
+  {
+    "iata": "LOS",
+    "name": "Murtala Muhammed",
+    "country": "Nigeria",
+    "city": "Lagos",
+    "lat": 6.57737,
+    "lon": 3.32116,
+    "wikipedia": "Murtala Muhammed International Airport",
+    "commonsCategory": "Murtala Muhammed International Airport"
+  },
+  {
+    "iata": "LWO",
+    "name": "Lviv",
+    "country": "Ukraine",
+    "city": "Lviv",
+    "lat": 49.8125,
+    "lon": 23.9561,
+    "wikipedia": "Lviv International Airport",
+    "commonsCategory": "Lviv International Airport"
+  },
+  {
+    "iata": "LYS",
+    "name": "Lyon Saint-Exupéry",
+    "country": "France",
+    "city": "Colombier-Saugnieu, Rhône",
+    "lat": 45.725996,
+    "lon": 5.090139,
+    "wikipedia": "Lyon–Saint-Exupéry Airport",
+    "commonsCategory": "Lyon–Saint-Exupéry Airport"
+  },
+  {
+    "iata": "MAA",
+    "name": "Chennai",
+    "country": "India",
+    "city": "Chennai",
+    "lat": 12.990005,
+    "lon": 80.169296,
+    "wikipedia": "Chennai International Airport",
+    "commonsCategory": "Chennai International Airport"
+  },
+  {
+    "iata": "MAN",
+    "name": "Manchester",
+    "country": "United Kingdom",
+    "city": "Manchester, Greater Manchester",
+    "lat": 53.349375,
+    "lon": -2.279521,
+    "wikipedia": "Manchester Airport",
+    "commonsCategory": "Manchester Airport"
+  },
+  {
+    "iata": "MCO",
+    "name": "Orlando",
+    "country": "United States",
+    "city": "Orlando",
+    "lat": 28.429399490356445,
+    "lon": -81.30899810791016,
+    "wikipedia": "Orlando International Airport",
+    "commonsCategory": "Orlando International Airport"
+  },
+  {
+    "iata": "MDE",
+    "name": "Jose Maria Córdova",
+    "country": "Colombia",
+    "city": "Medellín",
+    "lat": 6.16454,
+    "lon": -75.4231,
+    "wikipedia": "José María Córdova International Airport",
+    "commonsCategory": "José María Córdova International Airport"
+  },
+  {
+    "iata": "MDW",
+    "name": "Chicago Midway",
+    "country": "United States",
+    "city": "Chicago",
+    "lat": 41.785999,
+    "lon": -87.752403,
+    "wikipedia": "Midway International Airport",
+    "commonsCategory": "Midway International Airport"
+  },
+  {
+    "iata": "MED",
+    "name": "Prince Mohammad Bin Abdulaziz",
+    "country": "Saudi Arabia",
+    "city": "Medina",
+    "lat": 24.5534,
+    "lon": 39.705101,
+    "wikipedia": "Prince Mohammad Bin Abdulaziz Airport",
+    "commonsCategory": "Prince Mohammad Bin Abdulaziz Airport"
+  },
+  {
+    "iata": "MGA",
+    "name": "Augusto C. Sandino (Managua)",
+    "country": "Nicaragua",
+    "city": "Managua",
+    "lat": 12.1415,
+    "lon": -86.168198,
+    "wikipedia": "Augusto C. Sandino International Airport",
+    "commonsCategory": "Augusto C. Sandino International Airport"
+  },
+  {
+    "iata": "MIA",
+    "name": "Miami",
+    "country": "United States",
+    "city": "Miami",
+    "lat": 25.796011,
+    "lon": -80.289751,
+    "wikipedia": "Miami International Airport",
+    "commonsCategory": "Miami International Airport"
+  },
+  {
+    "iata": "MSQ",
+    "name": "Minsk National",
+    "country": "Belarus",
+    "city": "Minsk",
+    "lat": 53.888071,
+    "lon": 28.039964,
+    "wikipedia": "Minsk National Airport",
+    "commonsCategory": "Minsk National Airport"
+  },
+  {
+    "iata": "MUC",
+    "name": "Munich",
+    "country": "Germany",
+    "city": "Munich",
+    "lat": 48.353802,
+    "lon": 11.7861,
+    "wikipedia": "Munich Airport",
+    "commonsCategory": "Munich Airport"
+  },
+  {
+    "iata": "MVD",
+    "name": "Carrasco General Cesáreo L. Berisso",
+    "country": "Uruguay",
+    "city": "Ciudad de la Costa",
+    "lat": -34.835647,
+    "lon": -56.026497,
+    "wikipedia": "Carrasco International Airport",
+    "commonsCategory": "Carrasco International Airport"
+  },
+  {
+    "iata": "MXP",
+    "name": "Milan Malpensa",
+    "country": "Italy",
+    "city": "Ferno (VA)",
+    "lat": 45.6306,
+    "lon": 8.72811,
+    "wikipedia": "Malpensa Airport",
+    "commonsCategory": "Malpensa Airport"
+  },
+  {
+    "iata": "NAP",
+    "name": "Naples",
+    "country": "Italy",
+    "city": "Napoli",
+    "lat": 40.886002,
+    "lon": 14.2908,
+    "wikipedia": "Naples International Airport",
+    "commonsCategory": "Naples International Airport"
+  },
+  {
+    "iata": "NCE",
+    "name": "Nice-Côte d'Azur",
+    "country": "France",
+    "city": "Nice, Alpes-Maritimes",
+    "lat": 43.658401,
+    "lon": 7.21587,
+    "wikipedia": "Côte d'Azur International Airport",
+    "commonsCategory": "Côte d'Azur International Airport"
+  },
+  {
+    "iata": "NRT",
+    "name": "Narita",
+    "country": "Japan",
+    "city": "Narita",
+    "lat": 35.76858,
+    "lon": 140.388714,
+    "wikipedia": "Narita International Airport",
+    "commonsCategory": "Narita International Airport"
+  },
+  {
+    "iata": "OAK",
+    "name": "San Francisco Bay Oakland",
+    "country": "United States",
+    "city": "Oakland",
+    "lat": 37.720085,
+    "lon": -122.221184,
+    "wikipedia": "Oakland International Airport",
+    "commonsCategory": "Oakland International Airport"
+  },
+  {
+    "iata": "ODS",
+    "name": "Odesa",
+    "country": "Ukraine",
+    "city": "Odesa",
+    "lat": 46.427196,
+    "lon": 30.672649,
+    "wikipedia": "Odessa International Airport",
+    "commonsCategory": "Odessa International Airport"
+  },
+  {
+    "iata": "OOL",
+    "name": "Gold Coast",
+    "country": "Australia",
+    "city": "Gold Coast",
+    "lat": -28.165962,
+    "lon": 153.506641,
+    "wikipedia": "Gold Coast Airport",
+    "commonsCategory": "Gold Coast Airport"
+  },
+  {
+    "iata": "OPO",
+    "name": "Francisco de Sá Carneiro",
+    "country": "Portugal",
+    "city": "Porto",
+    "lat": 41.2481002808,
+    "lon": -8.68138980865,
+    "wikipedia": "Francisco Sá Carneiro Airport",
+    "commonsCategory": "Francisco Sá Carneiro Airport"
+  },
+  {
+    "iata": "ORY",
+    "name": "Paris-Orly",
+    "country": "France",
+    "city": "Paris (Orly, Val-de-Marne)",
+    "lat": 48.729499,
+    "lon": 2.358963,
+    "wikipedia": "Orly Airport",
+    "commonsCategory": "Orly Airport"
+  },
+  {
+    "iata": "PDX",
+    "name": "Portland",
+    "country": "United States",
+    "city": "Portland",
+    "lat": 45.588699,
+    "lon": -122.598,
+    "wikipedia": "Portland International Airport",
+    "commonsCategory": "Portland International Airport"
+  },
+  {
+    "iata": "PEN",
+    "name": "Penang",
+    "country": "Malaysia",
+    "city": "Penang",
+    "lat": 5.296303,
+    "lon": 100.276185,
+    "wikipedia": "Penang International Airport",
+    "commonsCategory": "Penang International Airport"
+  },
+  {
+    "iata": "PER",
+    "name": "Perth",
+    "country": "Australia",
+    "city": "Perth",
+    "lat": -31.94029998779297,
+    "lon": 115.96700286865234,
+    "wikipedia": "Perth Airport",
+    "commonsCategory": "Perth Airport"
+  },
+  {
+    "iata": "PHL",
+    "name": "Philadelphia",
+    "country": "United States",
+    "city": "Philadelphia",
+    "lat": 39.871899,
+    "lon": -75.241096,
+    "wikipedia": "Philadelphia International Airport",
+    "commonsCategory": "Philadelphia International Airport"
+  },
+  {
+    "iata": "PHX",
+    "name": "Phoenix Sky Harbor",
+    "country": "United States",
+    "city": "Phoenix",
+    "lat": 33.435302,
+    "lon": -112.005905,
+    "wikipedia": "Phoenix Sky Harbor International Airport",
+    "commonsCategory": "Phoenix Sky Harbor International Airport"
+  },
+  {
+    "iata": "PIT",
+    "name": "Pittsburgh",
+    "country": "United States",
+    "city": "Pittsburgh",
+    "lat": 40.491501,
+    "lon": -80.232903,
+    "wikipedia": "Pittsburgh International Airport",
+    "commonsCategory": "Pittsburgh International Airport"
+  },
+  {
+    "iata": "PMI",
+    "name": "Palma de Mallorca",
+    "country": "Spain",
+    "city": "Palma de Mallorca",
+    "lat": 39.551701,
+    "lon": 2.73881,
+    "wikipedia": "Son Sant Joan Airport",
+    "commonsCategory": "Son Sant Joan Airport"
+  },
+  {
+    "iata": "PMO",
+    "name": "Falcone–Borsellino",
+    "country": "Italy",
+    "city": "Palermo",
+    "lat": 38.175999,
+    "lon": 13.091,
+    "wikipedia": "Falcone–Borsellino Airport",
+    "commonsCategory": "Falcone–Borsellino Airport"
+  },
+  {
+    "iata": "PNQ",
+    "name": "Pune",
+    "country": "India",
+    "city": "Pune",
+    "lat": 18.5821,
+    "lon": 73.919701,
+    "wikipedia": "Pune Airport",
+    "commonsCategory": "Pune Airport"
+  },
+  {
+    "iata": "PRN",
+    "name": "Priština Adem Jashari",
+    "country": "Kosovo",
+    "city": "Prishtina",
+    "lat": 42.5728,
+    "lon": 21.035801,
+    "wikipedia": "Pristina International Airport",
+    "commonsCategory": "Pristina International Airport"
+  },
+  {
+    "iata": "PUS",
+    "name": "Gimhae",
+    "country": "South Korea",
+    "city": "Busan",
+    "lat": 35.179501,
+    "lon": 128.938004,
+    "wikipedia": "Gimhae International Airport",
+    "commonsCategory": "Gimhae International Airport"
+  },
+  {
+    "iata": "PVR",
+    "name": "Puerto Vallarta",
+    "country": "Mexico",
+    "city": "Puerto Vallarta",
+    "lat": 20.679913,
+    "lon": -105.254391,
+    "wikipedia": "Lic. Gustavo Díaz Ordaz International Airport",
+    "commonsCategory": "Lic. Gustavo Díaz Ordaz International Airport"
+  },
+  {
+    "iata": "RDU",
+    "name": "Raleigh-Durham",
+    "country": "United States",
+    "city": "Raleigh/Durham",
+    "lat": 35.878659,
+    "lon": -78.7873,
+    "wikipedia": "Raleigh-Durham International Airport",
+    "commonsCategory": "Raleigh-Durham International Airport"
+  },
+  {
+    "iata": "REC",
+    "name": "Recife/Guararapes - Gilberto Freyre",
+    "country": "Brazil",
+    "city": "Recife",
+    "lat": -8.12747,
+    "lon": -34.922961,
+    "wikipedia": "Recife/Guararapes–Gilberto Freyre International Airport",
+    "commonsCategory": "Recife/Guararapes–Gilberto Freyre International Airport"
+  },
+  {
+    "iata": "RKT",
+    "name": "Ras Al Khaimah",
+    "country": "United Arab Emirates",
+    "city": "Ras Al Khaimah",
+    "lat": 25.613501,
+    "lon": 55.938801,
+    "wikipedia": "Ras Al Khaimah International Airport",
+    "commonsCategory": "Ras Al Khaimah International Airport"
+  },
+  {
+    "iata": "RUH",
+    "name": "King Khalid",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "lat": 24.9576,
+    "lon": 46.698799,
+    "wikipedia": "King Khalid International Airport",
+    "commonsCategory": "King Khalid International Airport"
+  },
+  {
+    "iata": "SAL",
+    "name": "El Salvador International Airport Saint Óscar Arnulfo Romero y Galdámez",
+    "country": "El Salvador",
+    "city": "San Salvador (San Luis Talpa)",
+    "lat": 13.44447,
+    "lon": -89.055784,
+    "wikipedia": "El Salvador International Airport",
+    "commonsCategory": "El Salvador International Airport"
+  },
+  {
+    "iata": "SAN",
+    "name": "San Diego",
+    "country": "United States",
+    "city": "San Diego",
+    "lat": 32.733601,
+    "lon": -117.190002,
+    "wikipedia": "San Diego International Airport",
+    "commonsCategory": "San Diego International Airport"
+  },
+  {
+    "iata": "SAT",
+    "name": "San Antonio",
+    "country": "United States",
+    "city": "San Antonio",
+    "lat": 29.533701,
+    "lon": -98.469803,
+    "wikipedia": "San Antonio International Airport",
+    "commonsCategory": "San Antonio International Airport"
+  },
+  {
+    "iata": "SDQ",
+    "name": "Las Américas",
+    "country": "Dominican Republic",
+    "city": "Santo Domingo",
+    "lat": 18.42970085144,
+    "lon": -69.668899536133,
+    "wikipedia": "Las Américas International Airport",
+    "commonsCategory": "Las Américas International Airport"
+  },
+  {
+    "iata": "SFO",
+    "name": "San Francisco",
+    "country": "United States",
+    "city": "San Francisco",
+    "lat": 37.619806,
+    "lon": -122.374821,
+    "wikipedia": "San Francisco International Airport",
+    "commonsCategory": "San Francisco International Airport"
+  },
+  {
+    "iata": "SHA",
+    "name": "Shanghai Hongqiao",
+    "country": "China",
+    "city": "Shanghai (Minhang)",
+    "lat": 31.198104,
+    "lon": 121.33426,
+    "wikipedia": "Shanghai Hongqiao International Airport",
+    "commonsCategory": "Shanghai Hongqiao International Airport"
+  },
+  {
+    "iata": "SHJ",
+    "name": "Sharjah",
+    "country": "United Arab Emirates",
+    "city": "Sharjah",
+    "lat": 25.3286,
+    "lon": 55.5172,
+    "wikipedia": "Sharjah International Airport",
+    "commonsCategory": "Sharjah International Airport"
+  },
+  {
+    "iata": "SJC",
+    "name": "Norman Y. Mineta San Jose",
+    "country": "United States",
+    "city": "San Jose",
+    "lat": 37.362452,
+    "lon": -121.929188,
+    "wikipedia": "San Jose International Airport",
+    "commonsCategory": "San Jose International Airport"
+  },
+  {
+    "iata": "SJJ",
+    "name": "Sarajevo",
+    "country": "Bosnia and Herzegovina",
+    "city": "Sarajevo",
+    "lat": 43.8246,
+    "lon": 18.331499,
+    "wikipedia": "Sarajevo International Airport",
+    "commonsCategory": "Sarajevo International Airport"
+  },
+  {
+    "iata": "SJO",
+    "name": "Juan Santamaría",
+    "country": "Costa Rica",
+    "city": "San José (Alajuela)",
+    "lat": 9.99386,
+    "lon": -84.208801,
+    "wikipedia": "Juan Santamaría International Airport",
+    "commonsCategory": "Juan Santamaría International Airport"
+  },
+  {
+    "iata": "SKP",
+    "name": "Skopje",
+    "country": "North Macedonia",
+    "city": "Ilinden",
+    "lat": 41.958087,
+    "lon": 21.622581,
+    "wikipedia": "Skopje Airport",
+    "commonsCategory": "Skopje Airport"
+  },
+  {
+    "iata": "SLC",
+    "name": "Salt Lake City",
+    "country": "United States",
+    "city": "Salt Lake City",
+    "lat": 40.78886,
+    "lon": -111.979866,
+    "wikipedia": "Salt Lake City International Airport",
+    "commonsCategory": "Salt Lake City International Airport"
+  },
+  {
+    "iata": "SSA",
+    "name": "Deputado Luiz Eduardo Magalhães",
+    "country": "Brazil",
+    "city": "Salvador",
+    "lat": -12.908611,
+    "lon": -38.322498,
+    "wikipedia": "Deputado Luís Eduardo Magalhães International Airport",
+    "commonsCategory": "Deputado Luís Eduardo Magalhães International Airport"
+  },
+  {
+    "iata": "SSH",
+    "name": "Sharm El Sheikh",
+    "country": "Egypt",
+    "city": "Sharm El Sheikh",
+    "lat": 27.977272,
+    "lon": 34.394717,
+    "wikipedia": "Sharm el-Sheikh International Airport",
+    "commonsCategory": "Sharm el-Sheikh International Airport"
+  },
+  {
+    "iata": "STL",
+    "name": "St. Louis Lambert",
+    "country": "United States",
+    "city": "St Louis",
+    "lat": 38.748697,
+    "lon": -90.370003,
+    "wikipedia": "St. Louis Lambert International Airport",
+    "commonsCategory": "St. Louis Lambert International Airport"
+  },
+  {
+    "iata": "STN",
+    "name": "London Stansted",
+    "country": "United Kingdom",
+    "city": "London, Essex",
+    "lat": 51.884998,
+    "lon": 0.235,
+    "wikipedia": "London Stansted Airport",
+    "commonsCategory": "London Stansted Airport"
+  },
+  {
+    "iata": "STR",
+    "name": "Stuttgart",
+    "country": "Germany",
+    "city": "Stuttgart",
+    "lat": 48.689899,
+    "lon": 9.22196,
+    "wikipedia": "Stuttgart Airport",
+    "commonsCategory": "Stuttgart Airport"
+  },
+  {
+    "iata": "SUB",
+    "name": "Juanda",
+    "country": "Indonesia",
+    "city": "Surabaya",
+    "lat": -7.37983,
+    "lon": 112.787003,
+    "wikipedia": "Juanda International Airport",
+    "commonsCategory": "Juanda International Airport"
+  },
+  {
+    "iata": "SVQ",
+    "name": "Seville",
+    "country": "Spain",
+    "city": "Seville",
+    "lat": 37.417999,
+    "lon": -5.89311,
+    "wikipedia": "Seville Airport",
+    "commonsCategory": "Seville Airport"
+  },
+  {
+    "iata": "SZX",
+    "name": "Shenzhen Bao'an",
+    "country": "China",
+    "city": "Shenzhen",
+    "lat": 22.639474,
+    "lon": 113.803262,
+    "wikipedia": "Shenzhen Bao'an International Airport",
+    "commonsCategory": "Shenzhen Bao'an International Airport"
+  },
+  {
+    "iata": "TGD",
+    "name": "Podgorica Airport / Podgorica Golubovci Airbase",
+    "country": "Montenegro",
+    "city": "Podgorica",
+    "lat": 42.359402,
+    "lon": 19.2519,
+    "wikipedia": "Podgorica Airport",
+    "commonsCategory": "Podgorica Airport"
+  },
+  {
+    "iata": "TIA",
+    "name": "Tirana International Airport Mother Teresa",
+    "country": "Albania",
+    "city": "Rinas",
+    "lat": 41.4147,
+    "lon": 19.7206,
+    "wikipedia": "Tirana International Airport Nënë Tereza",
+    "commonsCategory": "Tirana International Airport Nënë Tereza"
+  },
+  {
+    "iata": "TIJ",
+    "name": "General Abelardo L. Rodriguez",
+    "country": "Mexico",
+    "city": "Tijuana",
+    "lat": 32.541043,
+    "lon": -116.969976,
+    "wikipedia": "General Abelardo L. Rodríguez International Airport",
+    "commonsCategory": "General Abelardo L. Rodríguez International Airport"
+  },
+  {
+    "iata": "TLL",
+    "name": "Lennart Meri Tallinn",
+    "country": "Estonia",
+    "city": "Tallinn",
+    "lat": 59.413246,
+    "lon": 24.83264,
+    "wikipedia": "Tallinn Airport",
+    "commonsCategory": "Tallinn Airport"
+  },
+  {
+    "iata": "TPA",
+    "name": "Tampa",
+    "country": "United States",
+    "city": "Tampa",
+    "lat": 27.9755,
+    "lon": -82.533203,
+    "wikipedia": "Tampa International Airport",
+    "commonsCategory": "Tampa International Airport"
+  },
+  {
+    "iata": "TRV",
+    "name": "Thiruvananthapuram",
+    "country": "India",
+    "city": "Thiruvananthapuram",
+    "lat": 8.481889,
+    "lon": 76.920029,
+    "wikipedia": "Trivandrum International Airport",
+    "commonsCategory": "Trivandrum International Airport"
+  },
+  {
+    "iata": "TSA",
+    "name": "Taipei Songshan",
+    "country": "Taiwan",
+    "city": "Taipei (Songshan)",
+    "lat": 25.067244,
+    "lon": 121.552822,
+    "wikipedia": "Taipei Songshan Airport",
+    "commonsCategory": "Taipei Songshan Airport"
+  },
+  {
+    "iata": "TSN",
+    "name": "Tianjin Binhai",
+    "country": "China",
+    "city": "Tianjin",
+    "lat": 39.124401092499994,
+    "lon": 117.346000671,
+    "wikipedia": "Tianjin Binhai International Airport",
+    "commonsCategory": "Tianjin Binhai International Airport"
+  },
+  {
+    "iata": "TUN",
+    "name": "Tunis Carthage",
+    "country": "Tunisia",
+    "city": "Tunis",
+    "lat": 36.851002,
+    "lon": 10.2272,
+    "wikipedia": "Tunis-Carthage International Airport",
+    "commonsCategory": "Tunis-Carthage International Airport"
+  },
+  {
+    "iata": "UIO",
+    "name": "Mariscal Sucre",
+    "country": "Ecuador",
+    "city": "Quito",
+    "lat": -0.125399,
+    "lon": -78.354306,
+    "wikipedia": "Mariscal Sucre International Airport",
+    "commonsCategory": "Mariscal Sucre International Airport"
+  },
+  {
+    "iata": "VCE",
+    "name": "Venice Marco Polo",
+    "country": "Italy",
+    "city": "Venezia (VE)",
+    "lat": 45.505299,
+    "lon": 12.3519,
+    "wikipedia": "Venice Marco Polo Airport",
+    "commonsCategory": "Venice Marco Polo Airport"
+  },
+  {
+    "iata": "VLC",
+    "name": "Valencia",
+    "country": "Spain",
+    "city": "Valencia",
+    "lat": 39.489162,
+    "lon": -0.480961,
+    "wikipedia": "Valencia Airport",
+    "commonsCategory": "Valencia Airport"
+  },
+  {
+    "iata": "VNO",
+    "name": "Vilnius",
+    "country": "Lithuania",
+    "city": "Vilnius",
+    "lat": 54.634102,
+    "lon": 25.285801,
+    "wikipedia": "Vilnius International Airport",
+    "commonsCategory": "Vilnius International Airport"
+  },
+  {
+    "iata": "WLG",
+    "name": "Wellington",
+    "country": "New Zealand",
+    "city": "Wellington",
+    "lat": -41.326839,
+    "lon": 174.806862,
+    "wikipedia": "Wellington Airport",
+    "commonsCategory": "Wellington Airport"
+  },
+  {
+    "iata": "XIY",
+    "name": "Xi'an Xianyang",
+    "country": "China",
+    "city": "Xianyang (Weicheng)",
+    "lat": 34.447102,
+    "lon": 108.751999,
+    "wikipedia": "Xi'an Xianyang International Airport",
+    "commonsCategory": "Xi'an Xianyang International Airport"
+  },
+  {
+    "iata": "YEG",
+    "name": "Edmonton",
+    "country": "Canada",
+    "city": "Edmonton",
+    "lat": 53.3097,
+    "lon": -113.580002,
+    "wikipedia": "Edmonton International Airport",
+    "commonsCategory": "Edmonton International Airport"
+  },
+  {
+    "iata": "YHZ",
+    "name": "Halifax / Stanfield",
+    "country": "Canada",
+    "city": "Halifax",
+    "lat": 44.8807983398,
+    "lon": -63.5085983276,
+    "wikipedia": "Halifax International Airport",
+    "commonsCategory": "Halifax International Airport"
+  },
+  {
+    "iata": "YOW",
+    "name": "Ottawa Macdonald-Cartier",
+    "country": "Canada",
+    "city": "Ottawa",
+    "lat": 45.322498,
+    "lon": -75.669197,
+    "wikipedia": "Ottawa Macdonald–Cartier International Airport",
+    "commonsCategory": "Ottawa Macdonald–Cartier International Airport"
+  },
+  {
+    "iata": "YUL",
+    "name": "Montreal / Pierre Elliott Trudeau",
+    "country": "Canada",
+    "city": "Montréal",
+    "lat": 45.467837,
+    "lon": -73.742294,
+    "wikipedia": "Montréal–Trudeau International Airport",
+    "commonsCategory": "Montréal–Trudeau International Airport"
+  },
+  {
+    "iata": "ZNZ",
+    "name": "Abeid Amani Karume",
+    "country": "Tanzania",
+    "city": "Zanzibar",
+    "lat": -6.22202,
+    "lon": 39.224899,
+    "wikipedia": "Abeid Amani Karume International Airport",
+    "commonsCategory": "Abeid Amani Karume International Airport"
+  }
+]

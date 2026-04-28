@@ -206,6 +206,7 @@
       const params = new URL(window.location.href).searchParams;
       const review = params.get('review');
       if (params.get('pin') === REVIEW_PIN) localStorage.setItem(REVIEW_AUTH_KEY, '1');
+      if (review === 'airport') openReview('airports');
       if (review === 'tails' || review === 'logos' || review === 'aircraft' || review === 'military' || review === 'airports') openReview(review);
     }
   });

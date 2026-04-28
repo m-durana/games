@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -rf /tmp/ai-verify/imgs-e190/*)",
+      "Bash(curl -sSL -o /tmp/ai-verify/imgs-e190/0.jpg \"https://upload.wikimedia.org/wikipedia/commons/3/3d/KLM_Cityhopper_-_Embraer_190LR_-_AN2571563.jpg\")",
+      "Bash(rm -rf /tmp/ai-verify/imgs-b727/*)",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -H \"Referer: https://commons.wikimedia.org/\" -o /tmp/ai-verify/imgs-b727/0.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/20-10-90_C-GYNH_Toronto_%2825893153948%29.jpg/480px-20-10-90_C-GYNH_Toronto_%2825893153948%29.jpg\")",
+      "Read(//tmp/ai-verify/imgs-b727/**)",
+      "Bash(rm -rf /tmp/ai-verify/imgs-b737ng/*)",
+      "Bash(curl -sSL -H \"User-Agent: MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -H \"Accept: image/jpeg\" -L -o /tmp/ai-verify/imgs-b737ng/0.jpg \"https://upload.wikimedia.org/wikipedia/commons/c/cb/B737_%284405228676%29.jpg\")",
+      "Bash(curl -sSL -H \"User-Agent: MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -H \"Accept: image/jpeg\" -L -o /tmp/ai-verify/imgs-b737ng/1.jpg \"https://upload.wikimedia.org/wikipedia/commons/2/2f/Boeing_737_Next_Generation_%28412684579%29.jpg\")",
+      "Bash(curl -sSL -H \"User-Agent: MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -H \"Accept: image/jpeg\" -L -o /tmp/ai-verify/imgs-b737ng/2.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Airplane_at_airport_kochine_2.jpg/480px-Airplane_at_airport_kochine_2.jpg\")",
+      "Bash(curl -sSL -H \"User-Agent: MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -H \"Accept: image/jpeg\" -L -o /tmp/ai-verify/imgs-b737ng/3.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/9H-GGG_Boeing_737-ZXNG_Max_BBJ.jpg/480px-9H-GGG_Boeing_737-ZXNG_Max_BBJ.jpg\")",
+      "Bash(rm /tmp/ai-verify/imgs-b757/*)",
+      "Read(//tmp/ai-verify/**)",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -H \"Accept: image/*\" -o 0.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/BOEING_AIRPLANES_-_757_AND_767_-_NARA_-_17471049.jpg/480px-BOEING_AIRPLANES_-_757_AND_767_-_NARA_-_17471049.jpg\")",
+      "Bash(cat)",
+      "Bash(python /tmp/download_all_b727.py)",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -L --max-time 10 -o 0.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/BOEING_AIRPLANES_-_757_AND_767_-_NARA_-_17471049.jpg/1280px-BOEING_AIRPLANES_-_757_AND_767_-_NARA_-_17471049.jpg\")",
+      "Bash(rm /tmp/ai-verify/imgs-md83/*)",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -L -o /tmp/ai-verify/imgs-md83/0.jpg \"https://upload.wikimedia.org/wikipedia/commons/1/1e/MD80_SAS_%285822320224%29.jpg\")",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -L -o /tmp/ai-verify/imgs-md83/1.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/MD83_Aircraft_of_TezJet.jpg/500px-MD83_Aircraft_of_TezJet.jpg\")",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -L -o /tmp/ai-verify/imgs-md83/2.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Maeder_Herbert_LBS_SR04-005067_%28cropped%29.jpg/500px-Maeder_Herbert_LBS_SR04-005067_%28cropped%29.jpg\")",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -L -o /tmp/ai-verify/imgs-md83/3.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/21ay_-_Scandinavian_Airlines_MD-87%3B_OY-KHI%40ZRH%3B22.04.1998_%285134779519%29.jpg/500px-21ay_-_Scandinavian_Airlines_MD-87%3B_OY-KHI%40ZRH%3B22.04.1998_%285134779519%29.jpg\")",
+      "Bash(rm -rf /tmp/ai-verify/imgs-crj200/*)",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -e \"https://en.wikipedia.org/\" -o /tmp/ai-verify/imgs-crj200/0.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/N466SW_LAX_%2830314755488%29.jpg/480px-N466SW_LAX_%2830314755488%29.jpg\")",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -e \"https://en.wikipedia.org/\" -o /tmp/ai-verify/imgs-crj200/1.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bombardier_CRJ-100_Lufthansa_D-ACJJ_-_MSN_7298_-_Now_in_UTair_fleet_as_VQ-BGU_%283238726666%29.jpg/480px-Bombardier_CRJ-100_Lufthansa_D-ACJJ_-_MSN_7298_-_Now_in_UTair_fleet_as_VQ-BGU_%283238726666%29.jpg\")",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -e \"https://en.wikipedia.org/\" -o /tmp/ai-verify/imgs-crj200/2.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/United_Express_Bombardier_CRJ_200s_at_Denver_International_Airport.jpg/480px-United_Express_Bombardier_CRJ_200s_at_Denver_International_Airport.jpg\")",
+      "Bash(curl -sSL -A \"MiroGamesBot/1.0 \\(mdurana@ethz.ch\\)\" -e \"https://en.wikipedia.org/\" -o /tmp/ai-verify/imgs-crj200/3.jpg \"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/ParsAir_EP-PAC.jpg/480px-ParsAir_EP-PAC.jpg\")"
+    ]
+  }
+}
