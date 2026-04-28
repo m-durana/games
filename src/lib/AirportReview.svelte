@@ -1,6 +1,7 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import reviewAirportData from '../data/airport-review-airports.json';
+  import seedReviewState from '../data/airport-review-state.json';
   import { airports as modeledAirports, fetchAirportImages, regionOf, regionLabel, type AirportEntry } from './airports-game';
 
   interface Props {
@@ -65,24 +66,32 @@
     return /imagery\.nationalmap\.gov|arcgisonline\.com|api\.mapbox\.com|atlas\.microsoft\.com/.test(url);
   }
 
+  function sanitizeState(parsed: Record<string, any>): Record<string, ReviewEntry> {
+    const out: Record<string, ReviewEntry> = {};
+    for (const id in parsed) {
+      const e = parsed[id] ?? {};
+      const rawApproved = Array.isArray(e.approved)
+        ? e.approved
+        : e.approvedUrl ? [e.approvedUrl] : [];
+      const approved = rawApproved.filter((u: string) => typeof u === 'string' && !looksLikeStaleAerial(u));
+      const rejected = Array.isArray(e.rejected)
+        ? e.rejected.filter((u: string) => typeof u === 'string' && !looksLikeStaleAerial(u))
+        : [];
+      const aerial = e.aerial && typeof e.aerial === 'object' ? (e.aerial as AerialSpec) : null;
+      out[id] = { aerial, approved, rejected };
+    }
+    return out;
+  }
+  // Seed bundled with the build (work-in-progress dump). Local edits win — we
+  // only fall back to the seed entry if the user hasn't touched that airport.
   function loadState(): Record<string, ReviewEntry> {
+    const seed = sanitizeState(seedReviewState as Record<string, any>);
     try {
       const raw = localStorage.getItem(KEY);
-      if (!raw) return {};
-      const parsed = JSON.parse(raw) as Record<string, Partial<ReviewEntry> & { approvedUrl?: string }>;
-      const out: Record<string, ReviewEntry> = {};
-      for (const id in parsed) {
-        const e = parsed[id] ?? {};
-        const rawApproved = Array.isArray(e.approved)
-          ? e.approved
-          : (e as any).approvedUrl ? [(e as any).approvedUrl] : [];
-        const approved = rawApproved.filter((u: string) => !looksLikeStaleAerial(u));
-        const rejected = Array.isArray(e.rejected) ? e.rejected.filter((u) => !looksLikeStaleAerial(u)) : [];
-        const aerial = (e as any).aerial && typeof (e as any).aerial === 'object' ? ((e as any).aerial as AerialSpec) : null;
-        out[id] = { aerial, approved, rejected };
-      }
-      return out;
-    } catch { return {}; }
+      if (!raw) return seed;
+      const local = sanitizeState(JSON.parse(raw));
+      return { ...seed, ...local };
+    } catch { return seed; }
   }
   function persist() { localStorage.setItem(KEY, JSON.stringify(state)); }
 
@@ -107,6 +116,7 @@
   let providerIndex = $state(0);
   let lightboxIndex: number | null = $state(null);
   let coords: { lat: number; lon: number } | null = $state(null);
+  let coordsLoading = $state(false);
 
   const current = $derived(reviewAirportList[index]);
   const entry = $derived<ReviewEntry>(
@@ -167,6 +177,7 @@
     providerIndex = 0;
     lightboxIndex = null;
     coords = null;
+    coordsLoading = false;
     aerialZooms = { arcgis: DEFAULT_ZOOM, mapbox: DEFAULT_ZOOM, azure: DEFAULT_ZOOM };
     pan = { x: 0, y: 0 };
     const existing = state[a.iata]?.aerial;
@@ -206,6 +217,7 @@
       restorePanFromSpec(a);
       return;
     }
+    coordsLoading = true;
     try {
       const url =
         `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*` +
@@ -221,6 +233,8 @@
       if (coords) restorePanFromSpec(a);
     } catch {
       coords = null;
+    } finally {
+      if (current?.iata === a.iata) coordsLoading = false;
     }
   }
 
@@ -633,12 +647,15 @@
           </div>
         {/if}
         <p class="shortcuts">Shortcuts: click to select · <kbd>↑</kbd>/<kbd>↓</kbd> airport · <kbd>A</kbd> continue to aerial · in lightbox: <kbd>←</kbd>/<kbd>→</kbd> · <kbd>Space</kbd> toggle · <kbd>Esc</kbd> close</p>
+        {#if !coords && !coordsLoading}
+          <p class="muted aerial-hint">No coordinates available for {current.name} — aerial step disabled. Photo selections will still save.</p>
+        {/if}
         <div class="primary-actions">
           <button class="reject" onclick={next} disabled={index >= reviewAirportList.length - 1}>
-            Skip aerial · next airport →
+            {coords ? 'Skip aerial · next airport →' : 'Save & next airport →'}
           </button>
           <button class="ok" onclick={() => (stage = 'aerial')} disabled={!coords}>
-            Continue to aerial →
+            {coordsLoading ? 'Loading coords…' : coords ? 'Continue to aerial →' : 'No aerial available'}
           </button>
         </div>
       </div>
@@ -863,6 +880,7 @@
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
   }
+  .aerial-hint { font-size: 0.75rem; text-align: center; }
   .preload {
     position: absolute;
     width: 1px; height: 1px;
