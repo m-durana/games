@@ -1,5 +1,8 @@
 import aircraftData from '../data/aircraft.json';
+import curatedPhotos from '../data/aircraft-photos.json';
 import { loadPool } from './engine';
+
+const CURATED = curatedPhotos as Record<string, string[]>;
 
 export interface AircraftIdentification {
   manufacturer: string;
@@ -344,6 +347,9 @@ async function fetchFromWikiMediaList(wikiTitle: string): Promise<string[]> {
 }
 
 export async function fetchAircraftImages(plane: Aircraft): Promise<string[]> {
+  const curated = CURATED[plane.id];
+  if (curated && curated.length > 0) return curated;
+
   const cacheKey = plane.id;
   if (imageListCache.has(cacheKey)) return imageListCache.get(cacheKey) ?? [];
   const existing = inFlight.get(cacheKey);

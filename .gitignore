@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Aircraft photo judging pipeline artifacts (see data-pipeline/)
+/judging/
+/aircraft-photo-pool.json
+/aircraft-review-current.json
+/aircraft-review-merged.json
