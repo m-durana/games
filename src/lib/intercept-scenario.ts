@@ -3,7 +3,7 @@
 // imports this helper) free of circular dependencies.
 
 import type { Aircraft } from 'radarscope';
-import { geoToScope, type Approach, type RealAirport, type RealRunwayEnd } from 'radarscope/data';
+import { geoToScope, type Approach, type RealAirport, type RealRunway, type RealRunwayEnd } from 'radarscope/data';
 import { airlines, airlineMeta } from './engine';
 import type { InterceptScenario, InterceptState } from './intercepts-types';
 import { airportRunwaysToScope } from './scope-runways';
@@ -13,6 +13,8 @@ const DEG2RAD = Math.PI / 180;
 export interface ApproachContext {
   approach: Approach;
   airport: RealAirport;
+  /** Parent runway of the approach end (used to flag the active runway). */
+  runway: RealRunway;
   runwayEnd: RealRunwayEnd;
   reciprocalDesignator?: string;
 }
@@ -97,12 +99,7 @@ export function buildScenario(ctx: ApproachContext, params: ScenarioParams, rng:
     airportIcao: airport.icao,
     approachName: ctx.approach.name,
     aircraft: [aircraft],
-    runway: {
-      threshold,
-      heading: finalCourse,
-      lengthNm: 0.6,
-    },
-    allRunways: airportRunwaysToScope(airport),
+    runways: airportRunwaysToScope(airport, ctx.runway),
     wind: { from: params.windFrom, kt: params.windKt },
     rangeNm: 25,
     state,

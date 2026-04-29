@@ -37,13 +37,14 @@ function approachContexts(): ApproachContext[] {
     const airport = findAirportByIcao(ap.airport);
     if (!airport) continue;
     let end: RealRunwayEnd | null = null;
+    let parent = airport.runways[0];
     let reciprocal: string | undefined;
     for (const rw of airport.runways) {
-      if (rw.le.ident === ap.runway) { end = rw.le; reciprocal = rw.he.ident; break; }
-      if (rw.he.ident === ap.runway) { end = rw.he; reciprocal = rw.le.ident; break; }
+      if (rw.le.ident === ap.runway) { end = rw.le; parent = rw; reciprocal = rw.he.ident; break; }
+      if (rw.he.ident === ap.runway) { end = rw.he; parent = rw; reciprocal = rw.le.ident; break; }
     }
     if (!end) continue;
-    out.push({ approach: ap, airport, runwayEnd: end, reciprocalDesignator: reciprocal });
+    out.push({ approach: ap, airport, runway: parent, runwayEnd: end, reciprocalDesignator: reciprocal });
   }
   cachedContexts = out;
   return out;

@@ -9,7 +9,7 @@
     type RadarRoundResult,
   } from './atc-radar';
   import type { Aircraft } from 'radarscope';
-  import { RadarScope, AircraftBlip, RunwayMarker, WindTag } from 'radarscope/svelte';
+  import { RadarScope, AircraftBlip, WindTag } from 'radarscope/svelte';
   import { difficultyLabel } from './engine';
   import * as Sound from './sound';
 
@@ -41,25 +41,14 @@
 
   function clickAircraft(a: Aircraft) {
     if (committed) return;
-    if (current.kind === 'direct') return; // direct uses buttons, not clicks
-    if (current.kind === 'conflict') {
-      // Toggle inclusion; cap at 2.
-      const i = pickedIds.indexOf(a.id);
-      if (i >= 0) {
-        pickedIds = pickedIds.filter((x) => x !== a.id);
-      } else if (pickedIds.length < 2) {
-        pickedIds = [...pickedIds, a.id];
-        if (pickedIds.length === 2) commitConflict();
-      }
-    } else if (current.kind === 'sequence') {
-      // Ordered list; clicking again removes from end.
-      const i = pickedIds.indexOf(a.id);
-      if (i === pickedIds.length - 1) {
-        pickedIds = pickedIds.slice(0, -1);
-      } else if (i === -1) {
-        pickedIds = [...pickedIds, a.id];
-        if (pickedIds.length === current.scenario.aircraft.length) commitSequence();
-      }
+    if (current.kind !== 'conflict') return; // direct uses buttons
+    // Toggle inclusion; cap at 2; auto-commit on second pick.
+    const i = pickedIds.indexOf(a.id);
+    if (i >= 0) {
+      pickedIds = pickedIds.filter((x) => x !== a.id);
+    } else if (pickedIds.length < 2) {
+      pickedIds = [...pickedIds, a.id];
+      if (pickedIds.length === 2) commitConflict();
     }
   }
 
@@ -67,14 +56,6 @@
     if (current.kind !== 'conflict' || committed) return;
     const target = new Set(current.conflictPair);
     const correct = pickedIds.length === 2 && pickedIds.every((id) => target.has(id));
-    finalize(correct, pickedToCallsignList());
-  }
-
-  function commitSequence() {
-    if (current.kind !== 'sequence' || committed) return;
-    const correct =
-      pickedIds.length === current.correctOrder.length &&
-      pickedIds.every((id, i) => id === current.correctOrder[i]);
     finalize(correct, pickedToCallsignList());
   }
 
@@ -129,7 +110,6 @@
 
   function selectionLabel(): string {
     if (current.kind === 'conflict') return `Pick the conflict pair · ${pickedIds.length}/2`;
-    if (current.kind === 'sequence') return `Tap in landing order · ${pickedIds.length}/${current.scenario.aircraft.length}`;
     return 'Pick the right call';
   }
 
@@ -192,7 +172,6 @@
           <p><strong>Read the scope.</strong> Tags show callsign / altitude (×100 ft, ↑↓ = climb/descend) / speed (kt) / heading. Short trend line = where they're going next.</p>
           <ul>
             <li><strong>Conflict</strong> — tap the two blips on a collision course. Watch for converging headings at similar altitudes (within ~1000 ft) and closing range.</li>
-            <li><strong>Sequence</strong> — tap the inbounds in landing order. Closer to final + lower altitude lands first; faster aircraft eat into the gap.</li>
             <li><strong>Direct</strong> — a pilot asked for a shortcut. Approve only if the new track stays clear of other traffic and the active final.</li>
           </ul>
           <p class="tip">Wind tag in the corner sets the runway in use and biases ground speed on final.</p>
@@ -207,13 +186,7 @@
       </div>
 
       <div class="scope-wrap">
-        <RadarScope scenario={current.scenario} size={520}>
-          {#each current.scenario.allRunways as rw, i (i)}
-            <RunwayMarker runway={rw} showFinal={false} />
-          {/each}
-          {#if current.scenario.runway}
-            <RunwayMarker runway={current.scenario.runway} showFinal />
-          {/if}
+        <RadarScope scenario={current.scenario}>
           {#each current.scenario.aircraft as ac (ac.id)}
             {@const sel = pickedIds.includes(ac.id)}
             {@const conf = conflictHighlightIds.has(ac.id)}

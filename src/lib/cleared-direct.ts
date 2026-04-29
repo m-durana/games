@@ -1,10 +1,11 @@
-// Cleared Direct: top-down map mode powered by `radarscope`. Each round shows
-// a real airport at center plus a flight plan through 4–6 procedurally-named
-// waypoints. ATC says "Cleared direct X" and the player picks the heading that
-// points at X — at hard difficulty, the right answer is wind-corrected.
+// Cleared Direct: ATC clears the player aircraft direct to a named fix. The
+// scope shows the aircraft + the target fix (highlighted) on a real-airport
+// chart. The player's job is to read the radar — eyeball the bearing — and
+// pick the right heading from four options. Real navigation skill, not
+// label-matching.
 
-import type { Aircraft, Runway, Scenario, Waypoint } from 'radarscope';
-import { airportsByType, geoToScope, type RealAirport, type RealRunway } from 'radarscope/data';
+import type { Aircraft, Scenario, Waypoint } from 'radarscope';
+import { airportsByType, type RealAirport } from 'radarscope/data';
 import type { Difficulty } from './types';
 import { airlines, airlineMeta } from './engine';
 import { airportRunwaysToScope } from './scope-runways';
@@ -15,22 +16,24 @@ export interface ClearedQuestion {
   /** For AtcResults compatibility — always 'cleared'. */
   mode: 'cleared';
   prompt: string;
-  /** Human-readable correct answer (the cleared waypoint name). */
+  /** Human-readable correct answer (e.g. "Heading 075"). */
   answer: string;
   explanation: string;
   scenario: ClearedScenario;
-  /** Waypoint id the player was cleared direct to. */
-  targetWaypointId: string;
+  /** The four heading options (in degrees, 0..359). */
+  options: number[];
+  /** Index of the correct option in `options`. */
+  correctIndex: number;
 }
 
 export interface ClearedScenario extends Scenario {
   airportName: string;
   airportIata: string;
   airportIcao: string;
-  /** All visible fixes — the target plus phonetically-similar decoys. */
+  /** Visible fixes — at minimum, the target. */
   waypoints: Waypoint[];
-  /** Every runway at the airport (so the chart shows the airport authentically). */
-  allRunways: Runway[];
+  /** ID of the highlighted target waypoint. */
+  targetWaypointId: string;
 }
 
 export interface ClearedRoundResult {
@@ -49,7 +52,7 @@ function pick<T>(arr: T[], rng: Rng): T {
   return arr[Math.floor(rng() * arr.length)];
 }
 
-// ---- Real-airport pool (shared filter with ATC Radar) ------------------------
+// ---- Real-airport pool -------------------------------------------------------
 
 let cachedAirportPool: RealAirport[] | null = null;
 
@@ -63,38 +66,13 @@ function airportPool(): RealAirport[] {
   return cachedAirportPool;
 }
 
-function longestPavedRunway(ap: RealAirport): RealRunway {
-  const paved = ap.runways.filter((rw) => /^(asp|con|bit|pem|paved|portland|cement)/i.test(rw.surface ?? ''));
-  return paved.reduce((best, rw) => (rw.lengthFt > best.lengthFt ? rw : best), paved[0]);
-}
+// ---- Pronounceable 5-letter ICAO-style fix names ----------------------------
 
-// ---- Procedural waypoint names (phonetically-similar siblings) --------------
+const PREFIXES = ['PAK', 'BRA', 'TAN', 'KEL', 'LOR', 'MIK', 'NOR', 'VEK', 'BIR', 'DOL', 'ZIR', 'GAM', 'HEK', 'JAR', 'POR', 'SAN', 'WIM', 'CAR'];
+const SUFFIXES = ['AR', 'EN', 'IS', 'OL', 'UM', 'IK', 'AT', 'OR'];
 
-// Real ICAO fixes are 5-letter pronounceable names. To make picking the right
-// one a real test of careful reading, we generate a base prefix and create
-// SIBLINGS with phonetically-similar suffixes. Difficulty controls similarity.
-const BASE_PREFIXES = [
-  'PAK', 'BRA', 'TAN', 'KEL', 'LOR', 'MIK', 'NOR', 'VEK', 'BIR', 'DOL', 'ZIR', 'GAM', 'HEK', 'JAR', 'POR',
-];
-
-const SIB_EASY_SUFFIXES = ['AR', 'EN', 'IS', 'OL', 'UM', 'IK', 'AT'];
-const SIB_HARD_SUFFIXES = ['AR', 'EN', 'IM', 'OL', 'UR', 'AN'];
-
-function siblingNames(count: number, similar: boolean, rng: Rng): string[] {
-  const prefix = pick(BASE_PREFIXES, rng);
-  const suffixPool = similar ? SIB_HARD_SUFFIXES : SIB_EASY_SUFFIXES;
-  const used = new Set<string>();
-  const out: string[] = [];
-  let safety = 0;
-  while (out.length < count && safety < 200) {
-    safety++;
-    const sfx = pick(suffixPool, rng);
-    const name = (prefix + sfx).slice(0, 5).toUpperCase();
-    if (used.has(name)) continue;
-    used.add(name);
-    out.push(name);
-  }
-  return out;
+function fixName(rng: Rng): string {
+  return (pick(PREFIXES, rng) + pick(SUFFIXES, rng)).slice(0, 5).toUpperCase();
 }
 
 // ---- Realistic callsigns -----------------------------------------------------
@@ -129,48 +107,73 @@ function bearingFromTo(from: { x: number; y: number }, to: { x: number; y: numbe
   return deg;
 }
 
+function roundTo10(deg: number): number {
+  const r = Math.round(deg / 10) * 10;
+  return ((r % 360) + 360) % 360;
+}
+
+function fmtHeading(deg: number): string {
+  return deg.toString().padStart(3, '0');
+}
+
 // ---- Question builder --------------------------------------------------------
-// Mechanic: ATC clears the player direct to a named fix. The chart shows 4-5
-// phonetically-similar fixes (PAKAR, PAKEN, PAKIM, …). Player CLICKS the
-// correct fix on the map. Easy = looser-similar names, Hard = very similar.
+// Mechanic: the radar shows the player aircraft + the target fix (highlighted).
+// Optional decoy fixes are drawn unlabeled as plain diamonds so the player
+// can't read the answer off the labels — they have to look at where the
+// target fix is and mentally estimate the bearing. Four heading buttons; pick
+// the closest. Difficulty narrows the decoy spread.
 
 function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion {
   const airport = pick(airportPool(), rng);
-  const runway = longestPavedRunway(airport);
-  const center = { lat: airport.lat, lon: airport.lon };
-  const threshold = geoToScope(center, runway.he);
-
-  const wpCount = difficulty === 'easy' ? 4 : difficulty === 'medium' ? 5 : 5;
-  const similarNames = difficulty !== 'easy';
   const rangeNm = 25;
-  const names = siblingNames(wpCount, similarNames, rng);
 
-  // Place waypoints around the airport at varying bearings/distances. Spread
-  // bearings so labels don't overlap.
-  const waypoints: Waypoint[] = [];
-  const baseBearing = rng() * 360;
-  const bearingStep = 360 / wpCount;
-  for (let i = 0; i < wpCount; i++) {
-    const bearing = (baseBearing + i * bearingStep + (rng() - 0.5) * (bearingStep * 0.4)) % 360;
-    const distNm = 12 + rng() * 9; // 12..21 nm — well inside the 25 nm scope
-    const r = bearing * DEG2RAD;
-    waypoints.push({
-      id: `wp-${i}`,
-      label: names[i],
-      pos: { x: Math.sin(r) * distNm, y: -Math.cos(r) * distNm },
-    });
+  // Aircraft position — somewhere mid-scope, heading inbound-ish.
+  const acBearing = rng() * 360;
+  const acDist = 14 + rng() * 6; // 14..20 nm from center
+  const ar = acBearing * DEG2RAD;
+  const acPos = { x: Math.sin(ar) * acDist, y: -Math.cos(ar) * acDist };
+  const acHeading = Math.floor(rng() * 360);
+  const tas = 280 + Math.floor(rng() * 80);
+
+  // Target fix — placed somewhere with a clean readable bearing from the
+  // aircraft. Distance 8..18 nm from the aircraft so it's clearly visible.
+  let targetPos: { x: number; y: number };
+  let safety = 0;
+  do {
+    const tb = rng() * 360;
+    const td = 8 + rng() * 10;
+    const tr = tb * DEG2RAD;
+    targetPos = { x: acPos.x + Math.sin(tr) * td, y: acPos.y - Math.cos(tr) * td };
+    safety++;
+  } while (
+    safety < 30 &&
+    (Math.hypot(targetPos.x, targetPos.y) > rangeNm - 2 ||
+      Math.hypot(targetPos.x, targetPos.y) < 4)
+  );
+
+  const targetName = fixName(rng);
+  const target: Waypoint = { id: 'wp-target', label: targetName, pos: targetPos };
+  const waypoints: Waypoint[] = [target];
+
+  // A few unlabeled decoy fixes so the chart doesn't feel empty. They have
+  // generic labels (·) so the player can't pattern-match a name.
+  const decoyCount = difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3;
+  for (let i = 0; i < decoyCount; i++) {
+    let p: { x: number; y: number };
+    let s = 0;
+    do {
+      const b = rng() * 360;
+      const d = 8 + rng() * 14;
+      const r = b * DEG2RAD;
+      p = { x: Math.sin(r) * d, y: -Math.cos(r) * d };
+      s++;
+    } while (
+      s < 20 &&
+      (Math.hypot(p.x - targetPos.x, p.y - targetPos.y) < 5 ||
+        Math.hypot(p.x - acPos.x, p.y - acPos.y) < 5)
+    );
+    waypoints.push({ id: `wp-d${i}`, label: '·', pos: p });
   }
-
-  // Player aircraft positioned outside the fix ring, heading inbound.
-  const acBearing = (baseBearing + 180 + (rng() - 0.5) * 60) % 360;
-  const r = acBearing * DEG2RAD;
-  const acDist = 22;
-  const acPos = { x: Math.sin(r) * acDist, y: -Math.cos(r) * acDist };
-  // Aircraft heading: roughly toward the airport center.
-  const acHeading = bearingFromTo(acPos, { x: 0, y: 0 });
-  const tas = 320 + Math.floor(rng() * 60);
-
-  const target = pick(waypoints, rng);
 
   const callsign = genCallsign(rng);
   const aircraft: Aircraft = {
@@ -178,33 +181,63 @@ function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion
     callsign,
     pos: acPos,
     heading: acHeading,
-    altitude: 12000 + Math.floor(rng() * 8) * 1000,
+    altitude: 10000 + Math.floor(rng() * 8) * 1000,
     speed: tas,
   };
+
+  // Correct heading: bearing from aircraft to target, rounded to nearest 10°.
+  const correctHeading = roundTo10(bearingFromTo(acPos, targetPos));
+
+  // Decoy headings: spread depends on difficulty. Always avoid duplicates.
+  const offsets =
+    difficulty === 'easy'
+      ? [40, -40, 80]
+      : difficulty === 'medium'
+        ? [25, -25, 50]
+        : [15, -15, 30];
+  const headings = new Set<number>([correctHeading]);
+  const options: number[] = [correctHeading];
+  for (const off of offsets) {
+    const h = roundTo10((correctHeading + off + 360) % 360);
+    if (headings.has(h)) {
+      // shift by +10 to avoid duplicate
+      const alt = roundTo10((h + 10) % 360);
+      if (!headings.has(alt)) {
+        headings.add(alt);
+        options.push(alt);
+      }
+    } else {
+      headings.add(h);
+      options.push(h);
+    }
+  }
+
+  // Shuffle so correct isn't always option 1.
+  for (let i = options.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [options[i], options[j]] = [options[j], options[i]];
+  }
+  const correctIndex = options.indexOf(correctHeading);
 
   const scenario: ClearedScenario = {
     airportName: airport.name,
     airportIata: airport.iata || airport.icao,
     airportIcao: airport.icao,
     aircraft: [aircraft],
-    runway: {
-      threshold,
-      heading: runway.he.headingDegT,
-      lengthNm: runway.lengthFt / 6076.12,
-    },
-    allRunways: airportRunwaysToScope(airport),
+    runways: airportRunwaysToScope(airport),
     waypoints,
+    targetWaypointId: target.id,
     rangeNm,
   };
 
-  const otherNames = waypoints.filter((w) => w.id !== target.id).map((w) => w.label).join(', ');
   return {
     mode: 'cleared',
-    prompt: `${callsign}, near ${scenario.airportIata}: cleared direct ${target.label}.`,
-    answer: target.label,
-    explanation: `Tap ${target.label} on the chart. Decoys: ${otherNames}. Read the names carefully — they're designed to look alike.`,
+    prompt: `${callsign}, near ${scenario.airportIata}: cleared direct ${targetName}. What heading?`,
+    answer: `Heading ${fmtHeading(correctHeading)}`,
+    explanation: `${targetName} is bearing ${fmtHeading(correctHeading)}° from your position. Eyeball it on the scope: 0° = north (up), 090° = east (right), 180° = south, 270° = west.`,
     scenario,
-    targetWaypointId: target.id,
+    options,
+    correctIndex,
   };
 }
 

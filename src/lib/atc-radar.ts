@@ -3,7 +3,7 @@
 // radarscope/data) and asks one of three question types: spot the conflict,
 // sequence to final, or approve a direct request.
 
-import type { Aircraft, Runway, Scenario } from 'radarscope';
+import type { Aircraft, Scenario } from 'radarscope';
 import { findConflicts } from 'radarscope';
 import { airportsByType, geoToScope, type RealAirport, type RealRunway } from 'radarscope/data';
 import type { Difficulty } from './types';
@@ -12,7 +12,7 @@ import { airportRunwaysToScope } from './scope-runways';
 
 export const RADAR_ROUND_LENGTH = 10;
 
-export type RadarKind = 'conflict' | 'sequence' | 'direct';
+export type RadarKind = 'conflict' | 'direct';
 
 interface RadarBaseQuestion {
   kind: RadarKind;
@@ -31,12 +31,6 @@ export interface ConflictQuestion extends RadarBaseQuestion {
   conflictPair: [string, string];
 }
 
-export interface SequenceQuestion extends RadarBaseQuestion {
-  kind: 'sequence';
-  /** Aircraft IDs in correct landing order (first to land first in the array). */
-  correctOrder: string[];
-}
-
 export interface DirectQuestion extends RadarBaseQuestion {
   kind: 'direct';
   /** Three button labels. */
@@ -45,14 +39,12 @@ export interface DirectQuestion extends RadarBaseQuestion {
   correctIndex: number;
 }
 
-export type RadarQuestion = ConflictQuestion | SequenceQuestion | DirectQuestion;
+export type RadarQuestion = ConflictQuestion | DirectQuestion;
 
 export interface RadarScenario extends Scenario {
   airportName: string;
   airportIata: string;
   airportIcao: string;
-  /** Every runway at the airport, in scope coords. Render with showFinal=false. */
-  allRunways: Runway[];
 }
 
 export interface RadarRoundResult {
@@ -136,8 +128,6 @@ function genCallsign(rng: Rng): { callsign: string; shortIata: string } {
 
 // ---- Scenario base -----------------------------------------------------------
 
-const FT_PER_NM = 6076.12;
-
 interface ScenarioBase {
   airport: RealAirport;
   runway: RealRunway;
@@ -174,35 +164,13 @@ function scenarioFromBase(
     airportIata: base.airport.iata || base.airport.icao,
     airportIcao: base.airport.icao,
     aircraft,
-    runway: {
-      threshold: base.threshold,
-      heading: base.finalCourse,
-      lengthNm: base.runway.lengthFt / FT_PER_NM,
-    },
-    allRunways: airportRunwaysToScope(base.airport),
+    runways: airportRunwaysToScope(base.airport, base.runway),
     wind,
     rangeNm: base.rangeNm,
   };
 }
 
 // ---- Geometry helpers --------------------------------------------------------
-
-function headingDeg(hRad: number): number {
-  let d = (hRad * 180) / Math.PI;
-  d = ((d % 360) + 360) % 360;
-  return d;
-}
-
-/** Place an aircraft `nm` from the threshold along the extended centerline. */
-function onCenterline(base: ScenarioBase, nm: number): { x: number; y: number } {
-  // Aircraft is `nm` short of threshold along the reciprocal of the final course.
-  const reciprocal = (base.finalCourse + 180) % 360;
-  const r = (reciprocal * Math.PI) / 180;
-  return {
-    x: base.threshold.x + Math.sin(r) * nm,
-    y: base.threshold.y + -Math.cos(r) * nm,
-  };
-}
 
 /** Random position inside the scope at radius [minNm, maxNm] from center. */
 function randomScopePos(rng: Rng, minNm: number, maxNm: number): { x: number; y: number } {
@@ -289,56 +257,7 @@ function buildConflictQuestion(difficulty: Difficulty, rng: Rng): ConflictQuesti
   };
 }
 
-// ---- Question 2: sequence to final -------------------------------------------
-
-function buildSequenceQuestion(difficulty: Difficulty, rng: Rng): SequenceQuestion {
-  const count = difficulty === 'easy' ? 3 : difficulty === 'medium' ? 4 : 4;
-  const base = buildScenarioBase(rng);
-
-  // Place `count` aircraft on the extended centerline at varying ranges; vary speed.
-  const aircraft: Aircraft[] = [];
-  const usedRanges: number[] = [];
-  for (let i = 0; i < count; i++) {
-    let range = 0;
-    let safety = 0;
-    do {
-      range = 6 + rng() * 22;
-      safety++;
-    } while (safety < 20 && usedRanges.some((r) => Math.abs(r - range) < 3));
-    usedRanges.push(range);
-    const cs = genCallsign(rng);
-    const pos = onCenterline(base, range);
-    aircraft.push({
-      id: `ac-${i}`,
-      callsign: cs.callsign,
-      pos,
-      heading: base.finalCourse,
-      altitude: 3000 + Math.floor(range * 250),
-      speed: 160 + Math.floor(rng() * 100),
-    });
-  }
-
-  // Correct order: ETA = range / speed (lower ETA = lands first).
-  const ordered = [...aircraft].sort((a, b) => {
-    const rangeA = Math.hypot(a.pos.x - base.threshold.x, a.pos.y - base.threshold.y);
-    const rangeB = Math.hypot(b.pos.x - base.threshold.x, b.pos.y - base.threshold.y);
-    return rangeA / a.speed - rangeB / b.speed;
-  });
-
-  const scenario = scenarioFromBase(base, aircraft);
-  const runwayIdent = base.runway.he.ident;
-  return {
-    kind: 'sequence',
-    mode: 'radar',
-    prompt: `${scenario.airportIata} RWY ${runwayIdent} — tap aircraft in landing order.`,
-    answer: ordered.map((a) => a.callsign).join(' → '),
-    explanation: 'Landing order is ETA at threshold (range ÷ groundspeed), not raw distance.',
-    scenario,
-    correctOrder: ordered.map((a) => a.id),
-  };
-}
-
-// ---- Question 3: approve direct ----------------------------------------------
+// ---- Question 2: approve direct ----------------------------------------------
 
 function buildDirectQuestion(difficulty: Difficulty, rng: Rng): DirectQuestion {
   const base = buildScenarioBase(rng);
@@ -424,17 +343,11 @@ function buildDirectQuestion(difficulty: Difficulty, rng: Rng): DirectQuestion {
 // ---- Round builder -----------------------------------------------------------
 
 export function buildRadarRound(difficulty: Difficulty, rng: Rng = defaultRng()): RadarQuestion[] {
-  const kinds: RadarKind[] = ['conflict', 'sequence', 'direct'];
+  const kinds: RadarKind[] = ['conflict', 'direct'];
   const out: RadarQuestion[] = [];
   for (let i = 0; i < RADAR_ROUND_LENGTH; i++) {
     const kind = kinds[i % kinds.length];
-    out.push(buildQuestion(kind, difficulty, rng));
+    out.push(kind === 'conflict' ? buildConflictQuestion(difficulty, rng) : buildDirectQuestion(difficulty, rng));
   }
   return shuffle(out, rng);
-}
-
-function buildQuestion(kind: RadarKind, difficulty: Difficulty, rng: Rng): RadarQuestion {
-  if (kind === 'conflict') return buildConflictQuestion(difficulty, rng);
-  if (kind === 'sequence') return buildSequenceQuestion(difficulty, rng);
-  return buildDirectQuestion(difficulty, rng);
 }

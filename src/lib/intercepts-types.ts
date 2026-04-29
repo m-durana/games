@@ -2,7 +2,7 @@
 // `intercepts.ts`, `intercept-scenario.ts`, and `intercept-questions.ts` all
 // import from here; nothing imports back the other way.
 
-import type { Runway, Scenario } from 'radarscope';
+import type { Scenario } from 'radarscope';
 import type { Difficulty } from './types';
 import type { ApproachContext } from './intercept-scenario';
 
@@ -11,8 +11,6 @@ export interface InterceptScenario extends Scenario {
   airportIata: string;
   airportIcao: string;
   approachName: string;
-  /** Every runway at the airport, in scope coords. */
-  allRunways: Runway[];
   state: InterceptState;
 }
 

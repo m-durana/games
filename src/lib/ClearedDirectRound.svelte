@@ -8,8 +8,7 @@
     type ClearedQuestion,
     type ClearedRoundResult,
   } from './cleared-direct';
-  import type { Waypoint } from 'radarscope';
-  import { RadarScope, AircraftBlip, RunwayMarker, Waypoint as WaypointMarker } from 'radarscope/svelte';
+  import { RadarScope, AircraftBlip, Waypoint as WaypointMarker } from 'radarscope/svelte';
   import { difficultyLabel } from './engine';
   import * as Sound from './sound';
 
@@ -24,7 +23,7 @@
   // svelte-ignore state_referenced_locally
   let questions: ClearedQuestion[] = $state(buildClearedRound(difficulty));
   let index = $state(0);
-  let pickedId: string | null = $state(null);
+  let pickedIndex: number | null = $state(null);
   let committed = $state(false);
   let results: ClearedRoundResult[] = $state([]);
   let showInfo = $state(false);
@@ -34,20 +33,23 @@
   const score = $derived(results.filter((r) => r.correct).length);
   const lastResult = $derived(results[results.length - 1]);
 
-  function pickWaypoint(w: Waypoint) {
+  function fmt(h: number): string {
+    return h.toString().padStart(3, '0');
+  }
+
+  function pickHeading(i: number) {
     if (committed) return;
-    pickedId = w.id;
-    const correct = w.id === current.targetWaypointId;
+    pickedIndex = i;
+    const correct = i === current.correctIndex;
     committed = true;
     if (correct) { Sound.correct(); Sound.vibrate(15); }
     else { Sound.wrong(); Sound.vibrate(35); }
-    const nextResults = [...results, { question: current, picked: w.label, correct }];
+    const pickedHuman = `Heading ${fmt(current.options[i])}`;
+    const nextResults = [...results, { question: current, picked: pickedHuman, correct }];
     results = nextResults;
     if (correct) {
-      // Auto-advance on correct so the round stays brisk.
       advanceTimer = window.setTimeout(() => advance(nextResults), 1200);
     }
-    // On wrong, wait for explicit Next press so the player can read the explanation.
   }
 
   function next() {
@@ -58,7 +60,7 @@
   function advance(finalResults = results) {
     if (index + 1 >= questions.length) { onFinish(finalResults); return; }
     index += 1;
-    pickedId = null;
+    pickedIndex = null;
     committed = false;
   }
 
@@ -78,9 +80,7 @@
       }
       if (committed) return;
       const n = parseInt(e.key, 10);
-      if (n >= 1 && n <= current.scenario.waypoints.length) {
-        pickWaypoint(current.scenario.waypoints[n - 1]);
-      }
+      if (n >= 1 && n <= current.options.length) pickHeading(n - 1);
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
@@ -118,43 +118,50 @@
 
       {#if showInfo}
         <div class="mode-info">
-          <p><strong>ATC clears you direct to a named fix.</strong> The prompt names a single waypoint — find that label on the chart and tap it.</p>
+          <p><strong>ATC clears you direct to a fix.</strong> The named fix is highlighted on the scope. Estimate the bearing from your aircraft to the fix, then pick the closest heading.</p>
           <ul>
-            <li>Each fix is a 5-letter ID (e.g. <em>BIRRA, OSKED, NOSAB</em>). Read the prompt's name carefully — names look alike on purpose.</li>
-            <li>The aircraft icon shows your current position. The fix can be anywhere on the scope, not just on your existing route.</li>
-            <li>Range rings (10/20 nm) help estimate distance and bearing.</li>
+            <li>0° points up (north). 090° = right (east), 180° = down (south), 270° = left (west).</li>
+            <li>Your aircraft is the blue triangle. The target fix is the highlighted diamond.</li>
+            <li>Smaller dots are nearby fixes — ignore them, they're just chart clutter.</li>
           </ul>
-          <p class="tip">Tap a fix to commit. On a wrong pick, the explanation tells you which fix was correct and why — press <kbd>Enter</kbd> for the next round.</p>
+          <p class="tip">Harder difficulty = decoy headings closer together, so estimate carefully.</p>
         </div>
       {/if}
 
       <div class="prompt-block">
         <h2>{current.prompt}</h2>
-        {#if !committed}
-          <span class="sel">Tap the matching fix on the chart.</span>
-        {/if}
       </div>
 
       <div class="scope-wrap">
-        <RadarScope scenario={current.scenario} size={520} rangeRings={[10, 20]}>
-          {#each current.scenario.allRunways as rw, i (i)}
-            <RunwayMarker runway={rw} showFinal={false} />
-          {/each}
-
+        <RadarScope scenario={current.scenario} rangeRings={[10, 20]}>
           {#each current.scenario.waypoints as wp (wp.id)}
-            {@const isTarget = wp.id === current.targetWaypointId}
-            {@const isPicked = pickedId === wp.id}
             <WaypointMarker
               waypoint={wp}
-              selected={(committed && isTarget) || (!committed && isPicked)}
-              onclick={committed ? undefined : pickWaypoint}
+              selected={wp.id === current.scenario.targetWaypointId}
             />
           {/each}
-
           {#each current.scenario.aircraft as ac (ac.id)}
             <AircraftBlip aircraft={ac} />
           {/each}
         </RadarScope>
+      </div>
+
+      <div class="options" class:disabled={committed}>
+        {#each current.options as h, i}
+          {@const isCorrect = i === current.correctIndex}
+          {@const wasPicked = pickedIndex === i}
+          <button
+            class="option"
+            class:correct={committed && isCorrect}
+            class:wrong={committed && wasPicked && !isCorrect}
+            class:reveal={committed && !wasPicked && !isCorrect}
+            disabled={committed}
+            onclick={() => pickHeading(i)}
+          >
+            <span class="key" aria-hidden="true">{i + 1}</span>
+            <span class="opt-text">Heading {fmt(h)}</span>
+          </button>
+        {/each}
       </div>
 
       {#if committed}
@@ -175,7 +182,7 @@
     {#if committed && !lastResult?.correct}
       <span><kbd>Enter</kbd> next</span>
     {:else}
-      <span>tap a fix to commit</span>
+      <span><kbd>1</kbd>-<kbd>{current?.options.length ?? 4}</kbd> pick heading</span>
     {/if}
     <span><kbd>Esc</kbd> quit</span>
   </div>
@@ -225,13 +232,18 @@
   .mode-info p { margin: 0; }
   .mode-info ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.25rem; }
   .mode-info strong { color: var(--text); font-weight: 600; }
-  .mode-info em { color: var(--text); font-style: normal; font-family: var(--font-main); font-size: 0.78rem; }
   .mode-info .tip { font-size: 0.75rem; opacity: 0.85; }
-  .mode-info kbd { padding: 0 0.3rem; border: 1px solid var(--border); border-radius: 3px; background: var(--surface); font-family: var(--font-main); font-size: 0.7rem; color: var(--text); }
   .prompt-block { display: flex; flex-direction: column; gap: 0.25rem; }
   .prompt-block h2 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; }
-  .sel { color: var(--muted); font-size: 0.8125rem; }
   .scope-wrap { display: flex; justify-content: center; background: #0c1116; border-radius: 8px; padding: 0.5rem; --scope-bg: #0c1116; }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  .options.disabled { pointer-events: none; }
+  .option { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 0.7rem 0.875rem; font-size: 0.9375rem; text-align: left; display: flex; align-items: center; gap: 0.625rem; transition: background 0.12s, border-color 0.12s; }
+  .option:hover { border-color: var(--panel-line); }
+  .option .key { width: 22px; height: 22px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--muted); flex-shrink: 0; }
+  .option.correct { background: rgba(34, 197, 94, 0.18); border-color: var(--good); }
+  .option.wrong { background: rgba(239, 68, 68, 0.18); border-color: var(--bad); }
+  .option.reveal { opacity: 0.55; }
   .feedback { background: var(--surface-2); border-left: 3px solid var(--muted); border-radius: 4px; padding: 0.6rem 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
   .feedback.good { border-color: var(--good); }
   .feedback.bad { border-color: var(--bad); }

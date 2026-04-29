@@ -8,7 +8,7 @@
     type InterceptQuestion,
     type InterceptRoundResult,
   } from './intercepts';
-  import { RadarScope, AircraftBlip, RunwayMarker, WindTag } from 'radarscope/svelte';
+  import { RadarScope, AircraftBlip, WindTag } from 'radarscope/svelte';
   import { difficultyLabel } from './engine';
   import * as Sound from './sound';
 
@@ -130,13 +130,7 @@
       </div>
 
       <div class="scope-wrap">
-        <RadarScope scenario={current.scenario} size={520} rangeRings={[5, 10, 20]}>
-          {#each current.scenario.allRunways as rw, i (i)}
-            <RunwayMarker runway={rw} showFinal={false} />
-          {/each}
-          {#if current.scenario.runway}
-            <RunwayMarker runway={current.scenario.runway} showFinal />
-          {/if}
+        <RadarScope scenario={current.scenario} rangeRings={[5, 10, 20]}>
           {#each current.scenario.aircraft as ac (ac.id)}
             <AircraftBlip aircraft={ac} />
           {/each}
