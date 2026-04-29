@@ -16,6 +16,7 @@ import re
 ROOT = "/srv/miro/games"
 POOL = f"{ROOT}/aircraft-photo-pool.json"
 REVIEW = f"{ROOT}/aircraft-review-current.json"
+BASELINE = f"{ROOT}/src/data/aircraft-review-baseline.json"
 OUT_DIR = f"{ROOT}/judging"
 
 CHUNK_SIZE = 40  # URLs per agent — keeps each agent's image-Read load manageable
@@ -37,7 +38,10 @@ def canon(u: str) -> str:
 
 def main():
     pool = json.load(open(POOL))
-    review = json.load(open(REVIEW))
+    # Prefer a fresh export from the browser; fall back to the committed baseline.
+    review_src = REVIEW if os.path.exists(REVIEW) else BASELINE
+    review = json.load(open(review_src))
+    print(f"Loading review from {review_src}")
     os.makedirs(OUT_DIR, exist_ok=True)
     # Wipe any stale chunks from a prior run.
     for fn in os.listdir(OUT_DIR):

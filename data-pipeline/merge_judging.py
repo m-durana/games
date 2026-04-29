@@ -4,19 +4,21 @@ mirroring military-photos.json).
 
 Inputs:
   /srv/miro/games/aircraft-review-current.json — user's localStorage export
+                                                  (falls back to baseline if absent)
   /srv/miro/games/judging/chunk_NNN.verdicts.json — one per chunk, written by agents
 
 Outputs:
-  /srv/miro/games/aircraft-review-merged.json — same shape as input + agent verdicts
+  /srv/miro/games/src/data/aircraft-review-baseline.json — committed baseline, importable
   /srv/miro/games/src/data/aircraft-photos.json — { id: [approved url, ...] }
 """
 import glob
 import json
+import os
 import re
 
 ROOT = "/srv/miro/games"
 REVIEW_IN = f"{ROOT}/aircraft-review-current.json"
-REVIEW_OUT = f"{ROOT}/aircraft-review-merged.json"
+REVIEW_OUT = f"{ROOT}/src/data/aircraft-review-baseline.json"
 PHOTOS_OUT = f"{ROOT}/src/data/aircraft-photos.json"
 VERDICTS_GLOB = f"{ROOT}/judging/chunk_*.verdicts.json"
 
@@ -36,7 +38,11 @@ def canon(u: str) -> str:
 
 
 def main():
-    review = json.load(open(REVIEW_IN))
+    # Prefer a fresh export from the browser; fall back to the committed baseline
+    # so re-runs work even if the user hasn't re-exported localStorage.
+    review_src = REVIEW_IN if os.path.exists(REVIEW_IN) else REVIEW_OUT
+    review = json.load(open(review_src))
+    print(f"Loading review from {review_src}")
 
     files = sorted(glob.glob(VERDICTS_GLOB))
     if not files:
