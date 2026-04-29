@@ -32,6 +32,8 @@
   let picked: string | null = $state(null);
   let guessId = $state('');
   let revealed = $state(false);
+  let wrongPicks: string[] = $state([]);
+  let lastWrong: string | null = $state(null);
   let totalScore = $state(0);
   let scores: number[] = $state([]);
   let done = $state(false);
@@ -44,8 +46,12 @@
 
   const current = $derived(answers[index]);
 
-  // Stage points: 0=4, 1=3, 2=2, 3=1 if correct, 0 wrong
-  const stagePoints = [4, 3, 2, 1];
+  // Stage points scale with difficulty: Easy gives a softer curve, Hard rewards
+  // a no-hint solve more and removes the multiple-choice fallback entirely.
+  const stagePoints = $derived(
+    difficulty === 'easy' ? [3, 2, 2, 1] : difficulty === 'hard' ? [6, 4, 2, 0] : [4, 3, 2, 1],
+  );
+  const maxStage = $derived(difficulty === 'hard' ? 2 : 3);
 
   // Grouped dropdown options — full aircraft list (a guess outside the easy pool is allowed but limits learning).
   const groupedOptions = $derived(groupByManufacturer(pooledAircraft()));
@@ -67,6 +73,11 @@
   function buildChoices(answer: Aircraft): string[] {
     if (!answer) return [];
     const pool = aircraftPool;
+    if (difficulty === 'easy') {
+      const others = shuffle(pool.filter((a) => a.id !== answer.id));
+      const distractors = others.slice(0, 3).map((a) => a.name);
+      return shuffle([answer.name, ...distractors]);
+    }
     const sameFamily = pool.filter((a) => a.id !== answer.id && a.family === answer.family);
     const sameBody = pool.filter(
       (a) => a.id !== answer.id && a.body === answer.body && a.family !== answer.family,
@@ -117,22 +128,30 @@
   });
 
   function nextHint() {
-    if (stage < 3) stage += 1;
+    if (stage < maxStage) stage += 1;
   }
 
   function pickChoice(option: string) {
     if (picked) return;
-    picked = option;
-    const correct = option === current.name;
-    const earned = correct ? stagePoints[stage] : 0;
-    totalScore += earned;
-    revealed = true;
-    if (correct) {
+    const isCorrect = option === current.name;
+    if (isCorrect) {
+      picked = option;
+      totalScore += stagePoints[stage];
+      revealed = true;
       Sound.correct();
       Sound.vibrate(15);
+      return;
+    }
+    Sound.wrong();
+    Sound.vibrate(35);
+    if (!wrongPicks.includes(option)) wrongPicks = [...wrongPicks, option];
+    lastWrong = option;
+    if (stage < maxStage) {
+      stage += 1;
+      guessId = '';
     } else {
-      Sound.wrong();
-      Sound.vibrate(35);
+      picked = option;
+      revealed = true;
     }
   }
 
@@ -177,6 +196,8 @@
     picked = null;
     guessId = '';
     revealed = false;
+    wrongPicks = [];
+    lastWrong = null;
   }
 
   function playAgain() {
@@ -186,6 +207,8 @@
     picked = null;
     guessId = '';
     revealed = false;
+    wrongPicks = [];
+    lastWrong = null;
     totalScore = 0;
     scores = [];
     recorded = [];
@@ -195,7 +218,7 @@
   function dotState(i: number): 'todo' | 'now' | 'correct' | 'wrong' | 'partial' {
     if (i < scores.length) {
       if (scores[i] === 0) return 'wrong';
-      if (scores[i] >= 3) return 'correct';
+      if (scores[i] === stagePoints[0]) return 'correct';
       return 'partial';
     }
     if (i === index) return 'now';
@@ -203,7 +226,7 @@
   }
 
   const correct = $derived(picked === current?.name);
-  const maxScore = AIRCRAFT_ROUND_LENGTH * 4;
+  const maxScore = $derived(AIRCRAFT_ROUND_LENGTH * stagePoints[0]);
 
   function isTypingTarget(target: EventTarget | null): boolean {
     if (!(target instanceof HTMLElement)) return false;
@@ -289,11 +312,16 @@
             {/if}
           </div>
 
+          {#if lastWrong}
+            <div class="wrong-note">Not <strong>{lastWrong}</strong>. {stage < maxStage ? 'Here\'s another hint — try again.' : ''}</div>
+          {/if}
+
           <div class="prompt-row">
             <p class="ask">Which aircraft is this?</p>
-            {#if stage < 3}
+            {#if stage < maxStage}
+              {@const cost = stagePoints[stage] - stagePoints[stage + 1]}
               <button class="btn-ghost hint-btn" onclick={nextHint}>
-                {stage === 0 ? 'Show maker (−1 pt)' : stage === 1 ? 'Show family (−1 pt)' : 'Narrow to 4 choices (−1 pt)'}
+                {stage === 0 ? `Show maker (−${cost} pt)` : stage === 1 ? `Show family (−${cost} pt)` : `Narrow to 4 choices (−${cost} pt)`}
               </button>
             {/if}
           </div>
@@ -316,7 +344,8 @@
             <p class="ask">Pick the correct aircraft:</p>
             <div class="options">
               {#each choices as option}
-                <button class="option" onclick={() => pickChoice(option)}>
+                {@const isWrong = wrongPicks.includes(option)}
+                <button class="option" class:option-wrong={isWrong} disabled={isWrong} onclick={() => pickChoice(option)}>
                   <span class="opt-text">{option}</span>
                 </button>
               {/each}
@@ -529,6 +558,21 @@
   }
   .option:hover { border-color: var(--panel-line); background: var(--surface-3, var(--surface-2)); }
   .option:active { transform: scale(0.98); }
+  .option-wrong {
+    opacity: 0.45;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+  .option-wrong:hover { border-color: var(--border); background: var(--surface-2); }
+
+  .wrong-note {
+    padding: 0.55rem 0.75rem;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.32);
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    color: var(--text);
+  }
 
   .btn-primary {
     background: var(--accent);

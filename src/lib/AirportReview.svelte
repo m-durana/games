@@ -22,6 +22,10 @@
     aerial: AerialSpec | null;
     approved: string[];
     rejected: string[];
+    // Manual lat/lon override for airports whose Wikipedia page lacks geo
+    // coords (AMM, GYD, …). Persists with the rest of the export so it
+    // survives sharing.
+    coords?: { lat: number; lon: number };
   }
 
   type ReviewAirportExtra = Pick<AirportEntry, 'iata' | 'name' | 'country' | 'city' | 'lat' | 'wikipedia' | 'commonsCategory'> & {
@@ -30,9 +34,16 @@
   type ReviewAirportEntry = AirportEntry & { lon?: number };
 
   const REVIEW_EXTRAS = reviewAirportData as ReviewAirportExtra[];
+  // Index by IATA so we can splice `lon` into modeled airports (which only ship
+  // `lat`) and avoid an unnecessary Wikipedia coord lookup at runtime.
+  const REVIEW_BY_IATA = new Map(REVIEW_EXTRAS.map((a) => [a.iata, a]));
   const modeledIds = new Set(modeledAirports.map((a) => a.iata));
   const reviewAirportList: ReviewAirportEntry[] = [
-    ...(modeledAirports as ReviewAirportEntry[]),
+    ...modeledAirports.map((a) => {
+      const enriched = REVIEW_BY_IATA.get(a.iata);
+      const lon = enriched && typeof enriched.lon === 'number' ? enriched.lon : undefined;
+      return { ...a, lon } as ReviewAirportEntry;
+    }),
     ...REVIEW_EXTRAS
       .filter((a) => !modeledIds.has(a.iata))
       .map((a) => ({
@@ -52,10 +63,13 @@
     ...(MAPBOX_TOKEN ? (['mapbox'] as const) : []),
     ...(AZURE_MAPS_KEY ? (['azure'] as const) : []),
   ];
-  // Slider range: 0 = closest game frame, ZOOM_LEVELS-1 = widest game frame.
-  // Each step halves the linear extent — matches Web Mercator tile zoom and
-  // keeps the box-fraction formula uniform across providers.
-  const ZOOM_LEVELS = 4;
+  // Slider range: 0 = closest game frame, max = widest game frame. Each step
+  // halves linear extent — matches Web Mercator tile zoom and keeps the
+  // box-fraction formula uniform across providers. The user can opt into
+  // EXTRA_LEVELS more zoom-out steps for very large airports (FRA, DEN, ORD).
+  const BASE_ZOOM_LEVELS = 4;
+  const EXTRA_LEVELS = 2;
+  const MAX_ZOOM_LEVELS = BASE_ZOOM_LEVELS + EXTRA_LEVELS;
   const DEFAULT_ZOOM = 2;
 
   const KEY = 'airport-review:state';
@@ -78,7 +92,14 @@
         ? e.rejected.filter((u: string) => typeof u === 'string' && !looksLikeStaleAerial(u))
         : [];
       const aerial = e.aerial && typeof e.aerial === 'object' ? (e.aerial as AerialSpec) : null;
-      out[id] = { aerial, approved, rejected };
+      const c = e.coords;
+      const coordsOverride =
+        c && typeof c === 'object' && typeof c.lat === 'number' && typeof c.lon === 'number'
+          ? { lat: c.lat, lon: c.lon }
+          : undefined;
+      out[id] = coordsOverride
+        ? { aerial, approved, rejected, coords: coordsOverride }
+        : { aerial, approved, rejected };
     }
     return out;
   }
@@ -114,7 +135,13 @@
   let importText = $state('');
   let stage: 'aerial' | 'gallery' = $state('gallery');
   let providerIndex = $state(0);
+  let extraWide = $state(false);
   let lightboxIndex: number | null = $state(null);
+  let thumbCursor = $state(0);
+  let thumbsGridWidth = $state(0);
+  // Matches the CSS minmax(140px, 1fr) — keep in sync if the CSS changes.
+  const THUMB_MIN_PX = 140;
+  const gridCols = $derived(Math.max(1, Math.floor(thumbsGridWidth / THUMB_MIN_PX) || 1));
   let coords: { lat: number; lon: number } | null = $state(null);
   let coordsLoading = $state(false);
 
@@ -130,7 +157,8 @@
       : null,
   );
 
-  const widestZoom = ZOOM_LEVELS - 1;
+  const zoomLevels = $derived(extraWide ? MAX_ZOOM_LEVELS : BASE_ZOOM_LEVELS);
+  const widestZoom = $derived(zoomLevels - 1);
 
   // Aerial display: fetch the widest image once, render it at native resolution,
   // and overlay a centered zoom box that represents the game's actual frame at
@@ -176,15 +204,25 @@
     stage = 'gallery';
     providerIndex = 0;
     lightboxIndex = null;
+    thumbCursor = 0;
     coords = null;
     coordsLoading = false;
+    manualCoordInput = '';
+    manualCoordError = '';
+    editingCoords = false;
+    coordEditInput = '';
+    coordEditError = '';
     aerialZooms = { arcgis: DEFAULT_ZOOM, mapbox: DEFAULT_ZOOM, azure: DEFAULT_ZOOM };
     pan = { x: 0, y: 0 };
+    extraWide = false;
     const existing = state[a.iata]?.aerial;
     if (existing) {
       aerialZooms[existing.provider] = existing.zoom;
       const i = PROVIDERS.indexOf(existing.provider);
       if (i >= 0) providerIndex = i;
+      // If the saved zoom is in the extra range, auto-expand the slider so
+      // we can show the same framing on revisit.
+      if (existing.zoom > BASE_ZOOM_LEVELS - 1) extraWide = true;
     }
     void loadPhotos(a);
     void loadCoords(a);
@@ -212,6 +250,14 @@
   }
 
   async function loadCoords(a: ReviewAirportEntry) {
+    // 1. Manual override saved by the reviewer (highest priority).
+    const override = state[a.iata]?.coords;
+    if (override) {
+      coords = { lat: override.lat, lon: override.lon };
+      restorePanFromSpec(a);
+      return;
+    }
+    // 2. Bundled `lon` from the review JSON.
     if (typeof a.lon === 'number') {
       coords = { lat: a.lat, lon: a.lon };
       restorePanFromSpec(a);
@@ -219,8 +265,11 @@
     }
     coordsLoading = true;
     try {
+      // redirects=1 is critical: many `wikipedia` fields point at redirect
+      // pages (e.g. "Paris Charles de Gaulle Airport" → "Charles de Gaulle
+      // Airport") and prop=coordinates doesn't follow redirects by default.
       const url =
-        `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*` +
+        `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1` +
         `&titles=${encodeURIComponent(a.wikipedia)}&prop=coordinates&colimit=1`;
       const res = await fetch(url);
       if (!res.ok) throw new Error(`coordinate lookup failed: ${res.status}`);
@@ -277,11 +326,11 @@
   // base image actually frames the airport instead of the surrounding region.
   function arcgisSpan(zoom: number, country: string): number {
     const closest = country === 'United States' ? 0.006 : 0.008;
-    const z = Math.min(ZOOM_LEVELS - 1, Math.max(0, zoom));
+    const z = Math.min(MAX_ZOOM_LEVELS - 1, Math.max(0, zoom));
     return closest * Math.pow(2, z);
   }
   function tileZoom(zoom: number): number {
-    const z = Math.min(ZOOM_LEVELS - 1, Math.max(0, zoom));
+    const z = Math.min(MAX_ZOOM_LEVELS - 1, Math.max(0, zoom));
     return 16 - z;
   }
   function buildAerialUrl(provider: Provider, c: { lat: number; lon: number }, zoomIndex: number, country: string): string {
@@ -319,7 +368,7 @@
 
   function setAerialZoom(value: number) {
     if (!aerialItem) return;
-    const clamped = Math.min(ZOOM_LEVELS - 1, Math.max(0, value));
+    const clamped = Math.min(zoomLevels - 1, Math.max(0, value));
     const v = Math.round(clamped * 100) / 100;
     aerialZooms = { ...aerialZooms, [aerialItem.provider]: v };
   }
@@ -397,6 +446,84 @@
     }
   }
 
+  let manualCoordInput = $state('');
+  let manualCoordError = $state('');
+  let editingCoords = $state(false);
+  let coordEditInput = $state('');
+  let coordEditError = $state('');
+
+  // Accepts "lat, lon", "lat lon", or a Google Maps share URL containing
+  // !3d{lat}!4d{lon} or @lat,lon — anything we can pull two finite numbers out of.
+  function parseLatLon(raw: string): { lat: number; lon: number } | null {
+    const trimmed = raw.trim();
+    if (!trimmed) return null;
+    const dms = trimmed.match(/-?\d+(?:\.\d+)?/g);
+    if (!dms || dms.length < 2) return null;
+    let lat = NaN;
+    let lon = NaN;
+    const at = trimmed.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+    const dDb = trimmed.match(/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/);
+    if (dDb) { lat = parseFloat(dDb[1]); lon = parseFloat(dDb[2]); }
+    else if (at) { lat = parseFloat(at[1]); lon = parseFloat(at[2]); }
+    else { lat = parseFloat(dms[0]); lon = parseFloat(dms[1]); }
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    if (lat < -90 || lat > 90 || lon < -180 || lon > 180) return null;
+    return { lat, lon };
+  }
+
+  function saveManualCoords() {
+    if (!current) return;
+    const parsed = parseLatLon(manualCoordInput);
+    if (!parsed) {
+      manualCoordError = 'Could not parse — try "lat, lon" (e.g. 31.7226, 35.9933)';
+      return;
+    }
+    manualCoordError = '';
+    const id = current.iata;
+    const e = ensureEntry(id);
+    state = { ...state, [id]: { ...e, coords: parsed } };
+    persist();
+    coords = parsed;
+    coordsLoading = false;
+    manualCoordInput = '';
+  }
+
+  function openCoordEditor() {
+    if (!coords) return;
+    coordEditInput = `${coords.lat.toFixed(6)}, ${coords.lon.toFixed(6)}`;
+    coordEditError = '';
+    editingCoords = true;
+  }
+  function saveCoordEdit() {
+    if (!current) return;
+    const parsed = parseLatLon(coordEditInput);
+    if (!parsed) {
+      coordEditError = 'Could not parse — try "lat, lon" (e.g. 31.7226, 35.9933)';
+      return;
+    }
+    const id = current.iata;
+    const e = ensureEntry(id);
+    state = { ...state, [id]: { ...e, coords: parsed } };
+    persist();
+    coords = parsed;
+    pan = { x: 0, y: 0 };
+    editingCoords = false;
+    coordEditError = '';
+  }
+  function clearCoordOverride() {
+    if (!current) return;
+    const id = current.iata;
+    const e = ensureEntry(id);
+    if (!e.coords) { editingCoords = false; return; }
+    const { coords: _drop, ...rest } = e;
+    state = { ...state, [id]: rest as ReviewEntry };
+    persist();
+    editingCoords = false;
+    // Re-resolve via the normal lookup path (bundled lon → Wikipedia).
+    void loadCoords(current);
+    pan = { x: 0, y: 0 };
+  }
+
   function togglePhoto(url: string) {
     if (!current) return;
     const id = current.iata;
@@ -423,9 +550,17 @@
     if (lightboxIndex !== null) {
       switch (k) {
         case 'escape': closeLightbox(); e.preventDefault(); return;
-        case 'arrowright': case 'd': lightboxStep(1); e.preventDefault(); return;
-        case 'arrowleft': case 'a': lightboxStep(-1); e.preventDefault(); return;
-        case ' ': case 'g': case 'y':
+        case 'arrowright': case 'd': case 'l':
+          lightboxStep(1);
+          if (lightboxIndex !== null) thumbCursor = lightboxIndex;
+          e.preventDefault();
+          return;
+        case 'arrowleft': case 'a': case 'h':
+          lightboxStep(-1);
+          if (lightboxIndex !== null) thumbCursor = lightboxIndex;
+          e.preventDefault();
+          return;
+        case ' ': case 'g': case 'y': case 'enter':
           if (photos[lightboxIndex]) togglePhoto(photos[lightboxIndex]);
           e.preventDefault();
           return;
@@ -445,10 +580,40 @@
         case 'b': stage = 'gallery'; e.preventDefault(); break;
       }
     } else {
+      // Gallery grid shortcuts.
+      const cols = Math.max(1, gridCols);
+      const last = photos.length - 1;
+      const clamp = (n: number) => Math.min(last, Math.max(0, n));
       switch (k) {
-        case 'arrowdown': case 'j': next(); e.preventDefault(); break;
-        case 'arrowup': case 'k': prev(); e.preventDefault(); break;
-        case 'a': case 'enter': if (coords) stage = 'aerial'; e.preventDefault(); break;
+        case 'arrowright': case 'l':
+          if (photos.length) thumbCursor = clamp(thumbCursor + 1);
+          e.preventDefault();
+          break;
+        case 'arrowleft': case 'h':
+          if (photos.length) thumbCursor = clamp(thumbCursor - 1);
+          e.preventDefault();
+          break;
+        case 'arrowdown':
+          if (photos.length && thumbCursor + cols <= last) thumbCursor = clamp(thumbCursor + cols);
+          else next();
+          e.preventDefault();
+          break;
+        case 'arrowup':
+          if (photos.length && thumbCursor - cols >= 0) thumbCursor = clamp(thumbCursor - cols);
+          else prev();
+          e.preventDefault();
+          break;
+        case 'j': next(); e.preventDefault(); break;
+        case 'k': prev(); e.preventDefault(); break;
+        case ' ': case 'g': case 'y':
+          if (photos[thumbCursor]) togglePhoto(photos[thumbCursor]);
+          e.preventDefault();
+          break;
+        case 'enter': case 'e':
+          if (photos[thumbCursor]) openLightbox(thumbCursor);
+          e.preventDefault();
+          break;
+        case 'a': if (coords) stage = 'aerial'; e.preventDefault(); break;
       }
     }
   }
@@ -488,16 +653,9 @@
   }
   function applyImport() {
     try {
-      type AnyEntry = { aerial?: AerialSpec | null; approved?: string[]; approvedUrl?: string; rejected?: string[] };
-      const data = JSON.parse(importText) as Record<string, AnyEntry>;
-      const merged = { ...state };
-      for (const [id, e] of Object.entries(data)) {
-        const rawApproved = e.approved ?? (e.approvedUrl ? [e.approvedUrl] : []);
-        const approved = rawApproved.filter((u) => !looksLikeStaleAerial(u));
-        const rejected = (e.rejected ?? []).filter((u) => !looksLikeStaleAerial(u));
-        const aerial = e.aerial && typeof e.aerial === 'object' ? e.aerial : null;
-        merged[id] = { aerial, approved, rejected };
-      }
+      const data = JSON.parse(importText) as Record<string, any>;
+      const sanitized = sanitizeState(data);
+      const merged = { ...state, ...sanitized };
       state = merged;
       persist();
       importText = '';
@@ -541,9 +699,8 @@
         {@const e = state[a.iata]}
         {@const hasAerial = !!e?.aerial}
         {@const ac = e?.approved?.length ?? 0}
-        {@const rc = e?.rejected?.length ?? 0}
         <option value={a.iata}>
-          {i + 1}. {a.name} ({a.iata}){hasAerial ? ' · aerial ✓' : ''}{ac > 0 ? ` · ${ac} photo` : ''}{rc > 0 ? ` · ${rc} no` : ''}{!hasAerial && ac === 0 && rc === 0 ? ' · untouched' : ''}
+          {i + 1}. {a.name} ({a.iata}){hasAerial ? ' · aerial ✓' : ''}{ac > 0 ? ` · ${ac} selected` : ''}{!hasAerial && ac === 0 ? ' · untouched' : ''}
         </option>
       {/each}
     </select>
@@ -592,7 +749,7 @@
             <input
               type="range"
               min="0"
-              max={ZOOM_LEVELS - 1}
+              max={zoomLevels - 1}
               step="0.05"
               value={aerialItem.zoom}
               aria-label="Aerial zoom"
@@ -601,6 +758,43 @@
             <span>Wider</span>
             <button class="recenter" onclick={recenterPan} disabled={pan.x === 0 && pan.y === 0}>Recenter</button>
           </div>
+          <div class="zoom-extras">
+            <button
+              class="ghost-btn"
+              onclick={() => {
+                extraWide = !extraWide;
+                if (!extraWide && aerialItem && aerialItem.zoom > BASE_ZOOM_LEVELS - 1) {
+                  setAerialZoom(BASE_ZOOM_LEVELS - 1);
+                }
+              }}
+              aria-pressed={extraWide}
+            >
+              {extraWide ? '↩ Reset zoom range' : '⤢ Zoom out further'}
+            </button>
+            <button class="ghost-btn" onclick={openCoordEditor}>✎ Edit coords</button>
+          </div>
+          {#if editingCoords}
+            <div class="manual-coords">
+              <p class="muted aerial-hint">
+                Editing coordinates for {current.name}.
+                {#if state[current.iata]?.coords}<span class="status-good">manual override active</span>{/if}
+              </p>
+              <div class="manual-coords-row">
+                <input
+                  type="text"
+                  bind:value={coordEditInput}
+                  placeholder="lat, lon"
+                  onkeydown={(e) => { if (e.key === 'Enter') { saveCoordEdit(); e.preventDefault(); } }}
+                />
+                <button class="ok" onclick={saveCoordEdit} disabled={!coordEditInput.trim()}>Save</button>
+                <button class="ghost-btn" onclick={() => (editingCoords = false)}>Cancel</button>
+              </div>
+              {#if state[current.iata]?.coords}
+                <button class="ghost-btn clear-override" onclick={clearCoordOverride}>Clear override (revert to default)</button>
+              {/if}
+              {#if coordEditError}<p class="err">{coordEditError}</p>{/if}
+            </div>
+          {/if}
 
           <div class="primary-actions single">
             <button class="ok" onclick={submitAerial}>
@@ -633,22 +827,39 @@
         {:else if photos.length === 0}
           <p class="muted">No photos found for {current.name}.</p>
         {:else}
-          <div class="thumbs">
+          <div class="thumbs" bind:clientWidth={thumbsGridWidth}>
             {#each photos as url, i (url)}
               {@const selected = entry.approved.includes(url)}
-              <div class="thumb" class:selected>
-                <button class="thumb-tap" onclick={() => togglePhoto(url)} aria-pressed={selected} aria-label={selected ? 'Deselect photo' : 'Select photo'}>
+              <div class="thumb" class:selected class:cursor={i === thumbCursor}>
+                <button
+                  class="thumb-tap"
+                  onclick={() => { thumbCursor = i; togglePhoto(url); }}
+                  aria-pressed={selected}
+                  aria-label={selected ? 'Deselect photo' : 'Select photo'}
+                >
                   <img src={url} alt={`${current.name} candidate ${i + 1}`} loading="lazy" />
                   {#if selected}<span class="tick" aria-hidden="true">✓</span>{/if}
                 </button>
-                <button class="enlarge" onclick={() => openLightbox(i)} aria-label="Enlarge photo">⤢</button>
+                <button class="enlarge" onclick={() => { thumbCursor = i; openLightbox(i); }} aria-label="Enlarge photo">⤢</button>
               </div>
             {/each}
           </div>
         {/if}
-        <p class="shortcuts">Shortcuts: click to select · <kbd>↑</kbd>/<kbd>↓</kbd> airport · <kbd>A</kbd> continue to aerial · in lightbox: <kbd>←</kbd>/<kbd>→</kbd> · <kbd>Space</kbd> toggle · <kbd>Esc</kbd> close</p>
+        <p class="shortcuts">Shortcuts: <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> move · <kbd>Space</kbd> toggle · <kbd>Enter</kbd>/<kbd>E</kbd> enlarge · <kbd>J</kbd>/<kbd>K</kbd> next/prev airport · <kbd>A</kbd> continue to aerial · in lightbox: <kbd>←</kbd>/<kbd>→</kbd> step · <kbd>Space</kbd>/<kbd>Enter</kbd> toggle · <kbd>Esc</kbd> close</p>
         {#if !coords && !coordsLoading}
-          <p class="muted aerial-hint">No coordinates available for {current.name} — aerial step disabled. Photo selections will still save.</p>
+          <div class="manual-coords">
+            <p class="muted aerial-hint">No coordinates found for {current.name}. Paste lat/lon (or a Google Maps URL) to enable the aerial step:</p>
+            <div class="manual-coords-row">
+              <input
+                type="text"
+                bind:value={manualCoordInput}
+                placeholder="e.g. 31.7226, 35.9933"
+                onkeydown={(e) => { if (e.key === 'Enter') { saveManualCoords(); e.preventDefault(); } }}
+              />
+              <button class="ok" onclick={saveManualCoords} disabled={!manualCoordInput.trim()}>Save coords</button>
+            </div>
+            {#if manualCoordError}<p class="err">{manualCoordError}</p>{/if}
+          </div>
         {/if}
         <div class="primary-actions">
           <button class="reject" onclick={next} disabled={index >= reviewAirportList.length - 1}>
@@ -680,14 +891,15 @@
     <div class="lightbox-inner" role="presentation" onclick={(e) => e.stopPropagation()}>
       <img src={lbUrl} alt={`${current?.name ?? ''} preview`} />
       <div class="lightbox-bar">
-        <button onclick={() => lightboxStep(-1)} disabled={photos.length < 2}>← prev</button>
+        <button onclick={() => lightboxStep(-1)} disabled={photos.length < 2} title="←">← prev</button>
         <span class="muted">{lightboxIndex + 1} / {photos.length}</span>
-        <button onclick={() => lightboxStep(1)} disabled={photos.length < 2}>next →</button>
-        <button class="ok" class:on={lbSelected} onclick={() => togglePhoto(lbUrl)}>
+        <button onclick={() => lightboxStep(1)} disabled={photos.length < 2} title="→">next →</button>
+        <button class="ok" class:on={lbSelected} onclick={() => togglePhoto(lbUrl)} title="Space">
           {lbSelected ? '✓ Selected' : 'Select'}
         </button>
-        <button onclick={closeLightbox}>Close</button>
+        <button onclick={closeLightbox} title="Esc">Close</button>
       </div>
+      <p class="shortcuts lightbox-shortcuts"><kbd>←</kbd>/<kbd>→</kbd> step · <kbd>Space</kbd> toggle · <kbd>Esc</kbd> close</p>
     </div>
   </div>
 {/if}
@@ -844,6 +1056,7 @@
     transition: border-color 80ms linear;
   }
   .thumb.selected { border-color: var(--good); }
+  .thumb.cursor { box-shadow: 0 0 0 2px var(--accent); }
   .thumb-tap {
     display: block;
     width: 100%;
@@ -881,6 +1094,35 @@
     display: flex; align-items: center; justify-content: center;
   }
   .aerial-hint { font-size: 0.75rem; text-align: center; }
+  .manual-coords {
+    display: flex; flex-direction: column; gap: 0.4rem;
+    padding: 0.5rem 0.6rem;
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+  }
+  .manual-coords-row { display: flex; gap: 0.4rem; }
+  .manual-coords-row input {
+    flex: 1;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    font-family: inherit;
+    font-size: 0.8125rem;
+  }
+  .manual-coords-row input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .manual-coords-row button {
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+  .manual-coords-row button:disabled { opacity: 0.45; }
   .preload {
     position: absolute;
     width: 1px; height: 1px;
@@ -920,6 +1162,8 @@
   }
   .lightbox-bar button.ok { background: var(--accent); color: var(--bg); border-color: var(--accent); }
   .lightbox-bar button.ok.on { background: var(--good); border-color: var(--good); color: var(--bg); }
+  .lightbox-shortcuts { color: rgba(255,255,255,0.7); margin-top: 0.1rem; }
+  .lightbox-shortcuts kbd { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); color: #fff; }
   .cycle { display: flex; justify-content: space-between; gap: 0.5rem; }
   .cycle button {
     flex: 1;
@@ -953,6 +1197,9 @@
     font-size: 0.7rem;
   }
   .recenter:disabled { opacity: 0.35; }
+  .zoom-extras { display: flex; justify-content: center; gap: 0.4rem; flex-wrap: wrap; }
+  .zoom-extras .ghost-btn { font-size: 0.7rem; }
+  .clear-override { align-self: flex-start; font-size: 0.7rem; }
   .shortcuts {
     color: var(--muted);
     font-size: 0.6875rem;

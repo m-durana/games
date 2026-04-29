@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   import {
     pooledAircraft,
-    aircraftForDifficulty,
     compareAttributes,
     fetchAircraftImages,
     pickRoundAircraft,
@@ -29,9 +28,7 @@
 
   // svelte-ignore state_referenced_locally
   const maxGuesses = difficulty === 'hard' ? WORDLE_HARD_MAX_GUESSES : WORDLE_MAX_GUESSES;
-  const guessableSet = $derived(
-    difficulty === 'easy' ? aircraftForDifficulty('easy') : pooledAircraft(),
-  );
+  const guessableSet = $derived(pooledAircraft());
 
   // svelte-ignore state_referenced_locally
   // svelte-ignore state_referenced_locally

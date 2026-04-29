@@ -93,7 +93,9 @@
     }
     const nextResults = [...results, { question: current, picked: assembled, correct }];
     results = nextResults;
-    advanceTimer = window.setTimeout(() => advance(nextResults), 2400);
+    if (correct) {
+      advanceTimer = window.setTimeout(() => advance(nextResults), 1200);
+    }
   }
 
   function advance(finalResults = results) {
@@ -245,6 +247,9 @@
               </div>
             {/if}
             <p class="compose-explain">{current.explanation}</p>
+            {#if isWrong}
+              <button class="compose-next" onclick={() => advance()}>Next →</button>
+            {/if}
           </div>
         {/if}
       {:else}
@@ -627,6 +632,19 @@
     color: var(--muted);
     line-height: 1.4;
   }
+  .compose-next {
+    align-self: stretch;
+    margin-top: 0.5rem;
+    min-height: 44px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .compose-next:hover { background: #a3cef1; }
+  .compose-next:active { transform: scale(0.99); }
 
   .kb-legend {
     display: none;

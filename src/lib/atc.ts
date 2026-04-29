@@ -68,6 +68,19 @@ const DISTINCTIVE_MEDIUM = new Set([
   'OH', 'TK', 'OK', 'SK', 'F9', 'NK', 'KE', 'JL', 'NH', 'QR', 'AR',
 ]);
 
+// Callsigns that sound alike on frequency or get genuinely confused. Used to
+// seed strong distractors when the answer's callsign appears here.
+const CALLSIGN_CONFUSABLES: Record<string, string[]> = {
+  SPEEDBIRD: ['SHAMROCK', 'SHUTTLE'],
+  SHAMROCK: ['SPEEDBIRD'],
+  DYNASTY: ['MANDARIN'],
+  MANDARIN: ['DYNASTY'],
+  AIRFRANS: ['ITARROW', 'IBERIA'],
+  ITARROW: ['AIRFRANS', 'IBERIA'],
+  SCANDINAVIAN: ['SHAMROCK', 'SPEEDBIRD'],
+  SHUTTLE: ['SPEEDBIRD'],
+};
+
 function normalizeTokens(s: string): string[] {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().split(' ').filter((t) => t.length >= 3);
 }
@@ -115,27 +128,39 @@ function callsignPool(difficulty: Difficulty) {
 function buildCallsignQuestion(difficulty: Difficulty, rng: Rng): AtcQuestion {
   const pool = callsignPool(difficulty);
   const entry = pick(pool, rng);
-  const answer = entry.airline.name;
-  // Distractors: prefer same-region/alliance distinctive callsigns at every
-  // difficulty so options are genuinely confusable, not random worldwide picks.
-  const sameCountry = pool.filter((x) => x.airline.iata !== entry.airline.iata && x.airline.country === entry.airline.country);
-  const sameAlliance = pool.filter(
+  const answer = entry.meta.callsign as string;
+  // Wide distractor pool: every distinctive callsign anywhere, not just the
+  // tier pool. This breaks the "memorize the option set" shortcut on Easy.
+  const widePool = callsignPool('hard');
+  const sameCountry = widePool.filter(
+    (x) => x.airline.iata !== entry.airline.iata && x.airline.country === entry.airline.country,
+  );
+  const sameAlliance = widePool.filter(
     (x) => x.airline.iata !== entry.airline.iata && x.airline.alliance && x.airline.alliance === entry.airline.alliance,
   );
-  const ranked = [...shuffle(sameCountry, rng), ...shuffle(sameAlliance, rng), ...shuffle(pool, rng)];
+  // Hand-authored confusables go first — these are the deliberate trap pairs.
+  const confusableNames = CALLSIGN_CONFUSABLES[answer] ?? [];
+  const confusables = widePool.filter((x) => confusableNames.includes(x.meta.callsign as string));
+  const ranked = [
+    ...shuffle(confusables, rng),
+    ...shuffle(sameCountry, rng),
+    ...shuffle(sameAlliance, rng),
+    ...shuffle(widePool, rng),
+  ];
   const distractors: string[] = [];
   for (const candidate of ranked) {
-    if (candidate.airline.iata === entry.airline.iata) continue;
-    if (distractors.includes(candidate.airline.name)) continue;
-    distractors.push(candidate.airline.name);
+    const cs = candidate.meta.callsign as string;
+    if (cs === answer) continue;
+    if (distractors.includes(cs)) continue;
+    distractors.push(cs);
     if (distractors.length === 3) break;
   }
   return {
     mode: 'callsign',
-    prompt: `Which airline uses the radio callsign "${entry.meta.callsign}"?`,
+    prompt: entry.airline.name,
     answer,
     options: shuffle([answer, ...distractors], rng),
-    explanation: `${entry.airline.name} uses ICAO ${entry.meta.icao ?? entry.airline.iata} and the radio callsign ${entry.meta.callsign}.`,
+    explanation: `${entry.airline.name} uses ICAO ${entry.meta.icao ?? entry.airline.iata} and the radio callsign ${answer}.`,
     tier: difficulty,
     airlineIata: entry.airline.iata,
   };
@@ -255,16 +280,16 @@ export function atcModeTitle(mode: AtcMode | AtcQuestionMode): string {
 
 export function atcModeDescription(mode: AtcMode | AtcQuestionMode): string {
   switch (mode) {
-    case 'callsign': return 'Match radio callsigns to airlines.';
+    case 'callsign': return 'Pick the radio callsign each airline uses on frequency.';
     case 'decode': return 'Pick the correct interpretation of an ATC phrase or instruction.';
-    case 'compose': return 'Listen to the controller. Tap chips in order to build the pilot\'s correct readback. Some chips are decoys — you don\'t need to use them all.';
+    case 'compose': return 'Tap chips in order to build the correct readback. Some are decoys.';
     case 'atcMix': return 'Mixed callsign, decode, and readback-builder questions.';
   }
 }
 
 export function atcPromptLabel(mode: AtcQuestionMode): string {
   switch (mode) {
-    case 'callsign': return 'Radio callsign';
+    case 'callsign': return 'Airline';
     case 'decode': return 'What does this mean?';
     case 'compose': return 'Build the pilot\'s readback';
   }

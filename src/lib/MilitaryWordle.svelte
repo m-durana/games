@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   import {
     pooledMilitary,
-    militaryForDifficulty,
     compareAttributes,
     fetchMilitaryImages,
     pickRoundMilitary,
@@ -29,9 +28,7 @@
 
   // svelte-ignore state_referenced_locally
   const maxGuesses = difficulty === 'hard' ? MILITARY_WORDLE_HARD_MAX_GUESSES : MILITARY_WORDLE_MAX_GUESSES;
-  const guessableSet = $derived(
-    difficulty === 'easy' ? militaryForDifficulty('easy') : pooledMilitary(),
-  );
+  const guessableSet = $derived(pooledMilitary());
 
   // svelte-ignore state_referenced_locally
   // svelte-ignore state_referenced_locally

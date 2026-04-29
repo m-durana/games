@@ -57,9 +57,10 @@
     return `https://unpkg.com/lucide-static@0.469.0/icons/${ATC_ICONS[m]}.svg`;
   }
 
-  const allModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'tail', 'airportAirline', 'airlineDest', 'airportConn', 'code', 'whereAmI', 'hubOf'];
-  const modes = $derived(
-    allModes
+  const airlineModes: Mode[] = ['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'tail', 'code'];
+  const airportRoundModes: Mode[] = ['airportAirline', 'airlineDest', 'airportConn', 'whereAmI', 'hubOf'];
+  const visibleAirlineModes = $derived(
+    airlineModes
       .filter((m) => m !== 'tail' || tailCount() >= 4)
       .filter((m) => !(pool === 'us' && m === 'country'))
   );
@@ -134,10 +135,6 @@
   const speedBest = $derived(loadSpeedBest());
 </script>
 
-<header class="hero">
-  <h1>Airline Trivia</h1>
-</header>
-
 <div class="features">
   <button class="daily-card" class:done={daily !== null} onclick={onStartDaily}>
     <img class="feature-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/calendar-days.svg" alt="" aria-hidden="true" />
@@ -208,10 +205,11 @@
   </div>
 </section>
 
+<div class="modes-sections">
 <section class="modes-wrap">
-  <span class="modes-label">Modes</span>
+  <span class="modes-label">Airlines</span>
   <div class="modes-grid">
-    {#each modes as mode}
+    {#each visibleAirlineModes as mode}
       {@const best = loadBest(mode, difficulty)}
       <button class="mode-tile" onclick={() => onStart(mode, difficulty)}>
         <img class="tile-icon" src={modeIcon(mode)} alt="" aria-hidden="true" />
@@ -222,26 +220,23 @@
         {/if}
       </button>
     {/each}
-    <button class="mode-tile" onclick={() => onStartAircraftIdentify(difficulty)}>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/plane.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Aircraft Identify</span>
-      <span class="tile-desc">Photo of a plane — guess with hints.</span>
-    </button>
-    <button class="mode-tile" onclick={() => onStartAircraftWordle(difficulty)}>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/grid-3x3.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Aircraft Wordle</span>
-      <span class="tile-desc">{difficulty === 'hard' ? '5 guesses' : '6 guesses'}, attribute clues each round.</span>
-    </button>
-    <button class="mode-tile" onclick={() => onStartMilitaryWordle(difficulty)}>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/swords.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Military Wordle</span>
-      <span class="tile-desc">Fighters, bombers, helos. {difficulty === 'hard' ? '5 guesses' : '6 guesses'}, seven attributes.</span>
-    </button>
-    <button class="mode-tile" onclick={() => onStartMilitaryIdentify(difficulty)}>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/crosshair.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Military Identify</span>
-      <span class="tile-desc">Photo of a military aircraft — guess with progressive hints.</span>
-    </button>
+  </div>
+</section>
+
+<section class="modes-wrap">
+  <span class="modes-label">Airports</span>
+  <div class="modes-grid">
+    {#each airportRoundModes as mode}
+      {@const best = loadBest(mode, difficulty)}
+      <button class="mode-tile" onclick={() => onStart(mode, difficulty)}>
+        <img class="tile-icon" src={modeIcon(mode)} alt="" aria-hidden="true" />
+        <span class="tile-title">{modeTitle(mode)}</span>
+        <span class="tile-desc">{modeHint(mode)}</span>
+        {#if best > 0}
+          <span class="tile-best">{best}/10</span>
+        {/if}
+      </button>
+    {/each}
     <button class="mode-tile" onclick={() => onStartAirportWordle(difficulty)}>
       <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/tower-control.svg" alt="" aria-hidden="true" />
       <span class="tile-title">Airport Wordle</span>
@@ -252,6 +247,38 @@
       <span class="tile-title">Airport Identify</span>
       <span class="tile-desc">Photo of an airport — guess with progressive hints.</span>
     </button>
+  </div>
+</section>
+
+<section class="modes-wrap">
+  <span class="modes-label">Aircraft</span>
+  <div class="modes-grid">
+    <button class="mode-tile" onclick={() => onStartAircraftIdentify(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/plane.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Aircraft Identify</span>
+      <span class="tile-desc">Photo of a plane — guess with hints.</span>
+    </button>
+    <button class="mode-tile" onclick={() => onStartAircraftWordle(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/grid-3x3.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Aircraft Wordle</span>
+      <span class="tile-desc">{difficulty === 'hard' ? '5 guesses' : '6 guesses'}, attribute clues each round.</span>
+    </button>
+    <button class="mode-tile" onclick={() => onStartMilitaryIdentify(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/crosshair.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Military Identify</span>
+      <span class="tile-desc">Photo of a military aircraft — guess with progressive hints.</span>
+    </button>
+    <button class="mode-tile" onclick={() => onStartMilitaryWordle(difficulty)}>
+      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/swords.svg" alt="" aria-hidden="true" />
+      <span class="tile-title">Military Wordle</span>
+      <span class="tile-desc">Fighters, bombers, helos. {difficulty === 'hard' ? '5 guesses' : '6 guesses'}, seven attributes.</span>
+    </button>
+  </div>
+</section>
+
+<section class="modes-wrap">
+  <span class="modes-label">ATC</span>
+  <div class="modes-grid">
     {#each atcModes as mode}
       {@const best = loadAtcBest(mode, difficulty)}
       <button class="mode-tile" onclick={() => onStartAtc(mode, difficulty)}>
@@ -265,6 +292,7 @@
     {/each}
   </div>
 </section>
+</div>
 
 {#if history.length > 0}
   <section class="recent">
@@ -289,21 +317,6 @@
 {/if}
 
 <style>
-  .hero {
-    padding: 1rem 0.25rem 0.125rem;
-    border-left: 4px solid var(--accent);
-    padding-left: 0.875rem;
-  }
-  .hero h1 {
-    font-family: var(--font-main);
-    font-size: 2.25rem;
-    font-weight: 700;
-    letter-spacing: 0;
-    text-transform: uppercase;
-    margin-bottom: 0;
-    color: var(--accent);
-  }
-
   .features {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -509,6 +522,18 @@
     border-color: var(--accent-2);
   }
 
+  .modes-sections {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  @media (min-width: 720px) {
+    .modes-sections {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+  }
   .modes-wrap {
     display: flex;
     flex-direction: column;
@@ -528,10 +553,10 @@
     gap: 0.5rem;
   }
   @media (min-width: 720px) {
-    .modes-grid { grid-template-columns: repeat(5, 1fr); gap: 0.75rem; }
+    .modes-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
   }
   @media (min-width: 1024px) {
-    .modes-grid { grid-template-columns: repeat(6, 1fr); }
+    .modes-grid { grid-template-columns: repeat(4, 1fr); }
   }
   .mode-tile {
     min-height: 148px;

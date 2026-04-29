@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, untrack } from 'svelte';
   import Home from './lib/Home.svelte';
   import Round from './lib/Round.svelte';
   import Results from './lib/Results.svelte';
@@ -198,6 +198,86 @@
     toastQueue = toastQueue.slice(1);
   }
 
+  // ---- Hash routing ----------------------------------------------------------
+  const ROUND_MODES: Mode[] = [
+    'group','alliance','hub','logo','country','reverseGroup','tail',
+    'airportAirline','airlineDest','airportConn','code','whereAmI','hubOf',
+  ];
+  const DIFFS: Difficulty[] = ['easy','medium','hard'];
+  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix'];
+
+  function viewHash(v: View): string | null {
+    switch (v.kind) {
+      case 'home': return '';
+      case 'round':
+        if (v.daily) return '#/daily';
+        if (v.mixed) return '#/mix';
+        return `#/${v.mode}?difficulty=${v.difficulty}`;
+      case 'speed': return '#/speed';
+      case 'stats': return '#/stats';
+      case 'settings': return '#/settings';
+      case 'browse': return '#/liveries';
+      case 'aircraftWordle': return `#/aircraft-wordle?difficulty=${v.difficulty}`;
+      case 'aircraftIdentify': return `#/aircraft-identify?difficulty=${v.difficulty}`;
+      case 'militaryWordle': return `#/military-wordle?difficulty=${v.difficulty}`;
+      case 'militaryIdentify': return `#/military-identify?difficulty=${v.difficulty}`;
+      case 'airportWordle': return `#/airport-wordle?difficulty=${v.difficulty}`;
+      case 'airportIdentify': return `#/airport-identify?difficulty=${v.difficulty}`;
+      case 'atcRound': return `#/atc/${v.mode}?difficulty=${v.difficulty}`;
+      default: return null; // results / shared / review screens don't deep-link
+    }
+  }
+
+  function parseHash(hash: string): View | null {
+    let h = hash.replace(/^#\/?/, '');
+    if (!h) return { kind: 'home' };
+    let qs = '';
+    const qIdx = h.indexOf('?');
+    if (qIdx >= 0) {
+      qs = h.slice(qIdx + 1);
+      h = h.slice(0, qIdx);
+    }
+    const params = new URLSearchParams(qs);
+    const rawDiff = params.get('difficulty');
+    const d: Difficulty | null = DIFFS.includes(rawDiff as Difficulty) ? (rawDiff as Difficulty) : null;
+    const [a, b] = h.split('/');
+
+    if (a === 'daily') return { kind: 'round', mode: 'group', difficulty: 'medium', daily: true };
+    if (a === 'mix') return { kind: 'round', mode: 'group', difficulty: 'medium', daily: false, mixed: true };
+    if (a === 'speed') return { kind: 'speed' };
+    if (a === 'stats') return { kind: 'stats' };
+    if (a === 'settings') return { kind: 'settings' };
+    if (a === 'liveries') return { kind: 'browse' };
+    if (a === 'atc' && ATC_MODES.includes(b as AtcMode) && d) {
+      return { kind: 'atcRound', mode: b as AtcMode, difficulty: d };
+    }
+    if (d) {
+      if (a === 'aircraft-wordle') return { kind: 'aircraftWordle', difficulty: d };
+      if (a === 'aircraft-identify') return { kind: 'aircraftIdentify', difficulty: d };
+      if (a === 'military-wordle') return { kind: 'militaryWordle', difficulty: d };
+      if (a === 'military-identify') return { kind: 'militaryIdentify', difficulty: d };
+      if (a === 'airport-wordle') return { kind: 'airportWordle', difficulty: d };
+      if (a === 'airport-identify') return { kind: 'airportIdentify', difficulty: d };
+      if (ROUND_MODES.includes(a as Mode)) {
+        return { kind: 'round', mode: a as Mode, difficulty: d, daily: false };
+      }
+    }
+    return null;
+  }
+
+  $effect(() => {
+    const target = viewHash(view);
+    if (target === null || typeof window === 'undefined') return;
+    const cur = window.location.hash;
+    if (cur === target) return;
+    untrack(() => {
+      const url = target === ''
+        ? window.location.pathname + window.location.search
+        : window.location.pathname + window.location.search + target;
+      history.pushState({}, '', url);
+    });
+  });
+
   onMount(() => {
     document.documentElement.dataset.theme = loadSettings().darkMode ? 'dark' : 'light';
     const shared = readSharedFromUrl();
@@ -208,6 +288,18 @@
       if (params.get('pin') === REVIEW_PIN) localStorage.setItem(REVIEW_AUTH_KEY, '1');
       if (review === 'airport') openReview('airports');
       if (review === 'tails' || review === 'logos' || review === 'aircraft' || review === 'military' || review === 'airports') openReview(review);
+      // Restore view from URL hash on first load (e.g. someone opens a deep link).
+      // Skip if a shared round or review screen already claimed the view.
+      if (view.kind === 'home' && window.location.hash) {
+        const fromHash = parseHash(window.location.hash);
+        if (fromHash) view = fromHash;
+      }
+      const onPop = () => {
+        const v = parseHash(window.location.hash);
+        if (v) view = v;
+      };
+      window.addEventListener('popstate', onPop);
+      return () => window.removeEventListener('popstate', onPop);
     }
   });
 </script>
@@ -218,16 +310,8 @@
   <div class="brand">
     <div class="brand-left">
       <a href="/">← miro.build</a>
-      {#if view.kind !== 'home'}
-        <button class="home-link" type="button" onclick={home} aria-label="Game home" title="Game home">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M3 10.8 12 3l9 7.8" />
-            <path d="M5.5 9.5V21h13V9.5" />
-            <path d="M9.5 21v-6h5v6" />
-          </svg>
-        </button>
-      {/if}
     </div>
+    <div class="brand-center">Airline Trivia</div>
     <div class="brand-right">
       {#if view.kind === 'home'}
         <button class="menu-btn" onclick={() => (menuOpen = !menuOpen)} aria-label="Menu" aria-expanded={menuOpen}>
@@ -241,7 +325,11 @@
           </div>
         {/if}
       {/if}
-      <span class="crumb">games</span>
+      {#if view.kind === 'home'}
+        <span class="crumb">games</span>
+      {:else}
+        <button class="crumb crumb-btn" type="button" onclick={home} aria-label="Game home" title="Game home">← games</button>
+      {/if}
     </div>
   </div>
 
@@ -351,37 +439,42 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    flex: 1;
   }
-  .home-link {
-    color: var(--text);
-    width: 28px;
-    height: 28px;
-    display: grid;
-    place-items: center;
-    border-radius: 4px;
-  }
-  .home-link svg {
-    width: 18px;
-    height: 18px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .home-link:hover {
+  .brand-center {
+    flex: 0 0 auto;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
     color: var(--accent);
-    background: var(--surface);
+    text-align: center;
   }
-  .home-link:focus-visible {
+  .crumb-btn {
+    background: none;
+    border: 1px solid rgba(39, 76, 119, 0.28);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .crumb-btn:hover {
+    border-color: var(--accent);
+    background: var(--surface-2);
+  }
+  .crumb-btn:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+    border-radius: 2px;
   }
   .brand-right {
     display: flex;
     align-items: center;
     gap: 0.875rem;
     position: relative;
+    flex: 1;
+    justify-content: flex-end;
   }
   .menu-btn {
     width: 30px;
