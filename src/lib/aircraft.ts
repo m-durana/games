@@ -42,32 +42,41 @@ export type AircraftDifficulty = 'easy' | 'medium' | 'hard';
 export const aircraft = aircraftData as Aircraft[];
 
 // Easy: visually distinct, no confusable variants. The classic widebodies +
-// the dominant single-aisle families.
+// the dominant single-aisle families. Each id here is the canonical "default"
+// of its family.
 const EASY_IDS = new Set([
-  'a320', 'a330', 'a350', 'a380',
-  'b737ng', 'b747', 'b757', 'b767', 'b777', 'b787',
+  'a320ceo', 'a330-300', 'a350-900', 'a380',
+  'b737-800', 'b747-400', 'b757-200', 'b767-300er', 'b777-300er', 'b787-9',
   'e190', 'atr72',
 ]);
 
-// Hard: only the confusable variants - same family or near-twin to something
-// in Easy. Forces the player to actually distinguish A319 vs A320 vs A321,
-// 737 Classic vs NG vs MAX, CRJ200 vs 700 vs 900, E170 vs E175, etc. Cuts
-// out the easy iconic aircraft so Hard isn't just "Medium + a few extras".
+// Hard: only the confusable variants - sub-variants and near-twins to
+// something in Easy. Forces the player to actually distinguish A319 vs A320
+// vs A321, 737 Classic vs NG vs MAX, CRJ200 vs 700 vs 900, etc. Cuts out
+// the easy iconic aircraft so Hard isn't just "Medium + a few extras".
 const HARD_IDS = new Set([
   // Airbus narrow-body variants and older widebody
-  'a318', 'a319', 'a321', 'a220', 'a300', 'a310', 'a340-600',
+  'a318', 'a319', 'a321ceo', 'a220-300', 'a220-100', 'a300-600', 'a310',
+  'a320neo', 'a321neo',
+  // Airbus four-engine widebodies
+  'a340-300', 'a340-600',
   // Airbus widebody variants
-  'a330-200', 'a330neo', 'a350-1000',
+  'a330-200', 'a330-900', 'a350-1000',
   // 737 family + close cousins + retired
-  'b737classic', 'b737-700', 'b737-900', 'b737max', 'b717', 'b727', 'md83', 'md90',
+  'b737-400', 'b737-700', 'b737-900er', 'b737max8', 'b737max9',
+  'b717', 'b727-200', 'md83', 'md90', 'md11',
+  // 747 variants
+  'b747-8',
   // 777 variants
-  'b777-200', 'b777-9',
+  'b777-200er', 'b777-300', 'b777-9',
+  // 787 variants
+  'b787-8', 'b787-10',
   // Embraer regional family
-  'e170', 'e175', 'e195e2',
+  'e170', 'e175', 'e190-e2', 'e195-e2',
   // CRJ family
   'crj200', 'crj700', 'crj900', 'crj1000',
   // Turboprops
-  'dash8q400', 'dash8classic', 'atr42',
+  'dash8-q400', 'dash8-300', 'atr42',
   // Other / international
   'ssj100', 'c919',
 ]);

@@ -46,24 +46,24 @@ const aircraftIdentify: IntroSlide[] = [
     title: 'Boeing vs Airbus: the nose',
     body: 'Look at the very front of the plane. <strong>Boeing</strong> noses come to a noticeable <em>point</em>, like a pencil tip. <strong>Airbus</strong> noses are <em>rounded</em>, like the front of a bullet train. Once you have looked at a few examples, this becomes the fastest way to tell them apart from a side photo.',
     images: [
-      { id: 'ai-nose-boeing', src: B777, caption: 'Boeing 777 - pointed nose', spec: 'Front 3/4 view of a Boeing (737/747/777/787). Nose must be clearly visible and pointed toward the camera. Cockpit windows visible. Plane on ground or low altitude OK.', poolKind: 'aircraft', pool: ['b737ng', 'b737max', 'b747', 'b777', 'b787', 'b757', 'b767'] },
-      { id: 'ai-nose-airbus', src: A350, caption: 'Airbus A350 - rounded nose', spec: 'Front 3/4 view of an Airbus (A320/A330/A350/A380). Rounded nose must be clearly visible. Cockpit windows visible (the panda-eye black mask is a bonus).', poolKind: 'aircraft', pool: ['a320', 'a321', 'a319', 'a318', 'a330', 'a350', 'a380', 'a220'] },
+      { id: 'ai-nose-boeing', src: B777, caption: 'Boeing 777 - pointed nose', spec: 'Front 3/4 view of a Boeing (737/747/777/787). Nose must be clearly visible and pointed toward the camera. Cockpit windows visible. Plane on ground or low altitude OK.', poolKind: 'aircraft', pool: ['b737-800', 'b737max8', 'b747-400', 'b777-300er', 'b787-9', 'b757-200', 'b767-300er'] },
+      { id: 'ai-nose-airbus', src: A350, caption: 'Airbus A350 - rounded nose', spec: 'Front 3/4 view of an Airbus (A320/A330/A350/A380). Rounded nose must be clearly visible. Cockpit windows visible (the panda-eye black mask is a bonus).', poolKind: 'aircraft', pool: ['a320ceo', 'a321ceo', 'a319', 'a318', 'a330-300', 'a350-900', 'a380', 'a220-300'] },
     ],
   },
   {
     title: 'Boeing vs Airbus: the cockpit windows',
     body: 'The windows the pilots look out of are another giveaway. <strong>Boeing</strong> cockpit windows have hard, angular edges, often with a small pointed window at the bottom. <strong>Airbus</strong> cockpit windows are arranged as four panes that meet at a soft V-shape at the bottom. The A350 even has a black painted band around the windows that looks like sunglasses or "panda eyes" - that mask alone tells you it is an A350.',
     images: [
-      { id: 'ai-windows-boeing', src: B777, caption: 'Boeing - angular cockpit, sharp lower edge', spec: 'Close-up or front-quarter view of a Boeing cockpit. Cockpit windows must be the focus - angular edges and lower pointed window visible.', poolKind: 'aircraft', pool: ['b737ng', 'b737max', 'b747', 'b777', 'b787', 'b757', 'b767'] },
-      { id: 'ai-windows-airbus', src: A350, caption: 'Airbus A350 - black "panda eye" window mask', spec: 'Close-up or front-quarter view of an Airbus A350 cockpit, showing the black "panda eye" paint mask around the windows clearly.', poolKind: 'aircraft', pool: ['a350', 'a330', 'a320', 'a321', 'a380'] },
+      { id: 'ai-windows-boeing', src: B777, caption: 'Boeing - angular cockpit, sharp lower edge', spec: 'Close-up or front-quarter view of a Boeing cockpit. Cockpit windows must be the focus - angular edges and lower pointed window visible.', poolKind: 'aircraft', pool: ['b737-800', 'b737max8', 'b747-400', 'b777-300er', 'b787-9', 'b757-200', 'b767-300er'] },
+      { id: 'ai-windows-airbus', src: A350, caption: 'Airbus A350 - black "panda eye" window mask', spec: 'Close-up or front-quarter view of an Airbus A350 cockpit, showing the black "panda eye" paint mask around the windows clearly.', poolKind: 'aircraft', pool: ['a350-900', 'a330-300', 'a320ceo', 'a321ceo', 'a380'] },
     ],
   },
   {
     title: 'Narrowbody vs widebody',
     body: 'Now ignore the brand and look at the <em>size</em>. The body of a plane (the tube where the passengers sit) is called the <strong>fuselage</strong>. <strong>Narrowbody</strong> planes have ONE aisle inside - they are smaller, used for short and medium flights. Examples: Boeing 737, Airbus A320. <strong>Widebody</strong> planes have TWO aisles - they are noticeably bigger, used for long international flights. Examples: Boeing 777, Airbus A350. The Airbus <strong>A380</strong> is in a class by itself: it is the only airliner with TWO full passenger decks stacked on top of each other.',
     images: [
-      { id: 'ai-narrow', src: A320, caption: 'A320 - narrowbody (1 aisle)', spec: 'Side or 3/4 view of any narrowbody (A320 family or 737). Whole plane in frame so its slimness is obvious.', poolKind: 'aircraft', pool: ['a320', 'a321', 'a319', 'b737ng', 'b737max', 'a220', 'e190', 'b757'] },
-      { id: 'ai-wide', src: B777, caption: '777 - widebody (2 aisles)', spec: 'Side or 3/4 view of any widebody (777, A350, 787, A330). Whole plane in frame so the wider body is obvious.', poolKind: 'aircraft', pool: ['b777', 'b787', 'a330', 'a350', 'b767', 'a330neo', 'b777-9'] },
+      { id: 'ai-narrow', src: A320, caption: 'A320 - narrowbody (1 aisle)', spec: 'Side or 3/4 view of any narrowbody (A320 family or 737). Whole plane in frame so its slimness is obvious.', poolKind: 'aircraft', pool: ['a320ceo', 'a321ceo', 'a319', 'b737-800', 'b737max8', 'a220-300', 'e190', 'b757-200'] },
+      { id: 'ai-wide', src: B777, caption: '777 - widebody (2 aisles)', spec: 'Side or 3/4 view of any widebody (777, A350, 787, A330). Whole plane in frame so the wider body is obvious.', poolKind: 'aircraft', pool: ['b777-300er', 'b787-9', 'a330-300', 'a350-900', 'b767-300er', 'a330-900', 'b777-9'] },
       { id: 'ai-double', src: A380, caption: 'A380 - double-decker', spec: 'Side view of an A380, ideally on the ground. Both passenger decks must be clearly visible (full-length windows on top AND bottom).', poolKind: 'aircraft', pool: ['a380'] },
     ],
   },
@@ -71,7 +71,7 @@ const aircraftIdentify: IntroSlide[] = [
     title: 'How many engines?',
     body: 'Engines are the round tubes hanging under the wings (or sometimes near the tail). Count them. Almost all modern airliners have <strong>two engines</strong>. The big exceptions are the <strong>Boeing 747</strong> and the <strong>Airbus A380</strong>, which both have <strong>four engines</strong> (two under each wing). Older Airbus A340s also had four engines but you rarely see them anymore. If you see four engines and a partial bump on top of the front of the plane, it is a 747. If you see four engines and a full double-deck, it is an A380.',
     images: [
-      { id: 'ai-747-hump', src: B747, caption: '747 - four engines + hump on top of nose', spec: 'Side view of a 747. The partial upper-deck hump on the front of the fuselage must be clearly visible. All four engines visible if possible.', poolKind: 'aircraft', pool: ['b747'] },
+      { id: 'ai-747-hump', src: B747, caption: '747 - four engines + hump on top of nose', spec: 'Side view of a 747. The partial upper-deck hump on the front of the fuselage must be clearly visible. All four engines visible if possible.', poolKind: 'aircraft', pool: ['b747-400'] },
       { id: 'ai-a380-quad', src: A380, caption: 'A380 - four engines + full double-deck', spec: 'Side view of an A380 showing all four engines clearly under the wings, plus the full-length double deck.', poolKind: 'aircraft', pool: ['a380'] },
     ],
   },
@@ -83,24 +83,24 @@ const aircraftIdentify: IntroSlide[] = [
     title: 'The Airbus A320 family up close',
     body: 'The <strong>A320 family</strong> is the most common Airbus narrowbody you will see. The whole family looks the same from a distance, but there are four sizes: A318 (shortest, rare), A319 (short), A320 (medium), A321 (longest). To tell them apart, count the small <strong>overwing exits</strong> - the extra emergency doors above the wing. The <strong>A321</strong> has TWO pairs of overwing exits (one in front of the wing, one behind). The A319 and A320 have only ONE pair. The A220 is a separate, smaller Airbus family with disproportionately big engines hanging below a slim body.',
     images: [
-      { id: 'ai-a320', src: A320, caption: 'A320 - one pair of overwing exits', spec: 'Side view of an A320. Overwing emergency exits over the wing should be visible. Whole fuselage in frame.', poolKind: 'aircraft', pool: ['a320', 'a321', 'a319', 'a318'] },
-      { id: 'ai-a220', src: A220, caption: 'A220 - slim body, oversized engines', spec: 'Side or 3/4 view of an A220. The disproportionately large engines under a slim fuselage must be the visual focus.', poolKind: 'aircraft', pool: ['a220'] },
+      { id: 'ai-a320', src: A320, caption: 'A320 - one pair of overwing exits', spec: 'Side view of an A320. Overwing emergency exits over the wing should be visible. Whole fuselage in frame.', poolKind: 'aircraft', pool: ['a320ceo', 'a321ceo', 'a319', 'a318'] },
+      { id: 'ai-a220', src: A220, caption: 'A220 - slim body, oversized engines', spec: 'Side or 3/4 view of an A220. The disproportionately large engines under a slim fuselage must be the visual focus.', poolKind: 'aircraft', pool: ['a220-300'] },
     ],
   },
   {
     title: 'The Boeing 737 family up close',
     body: 'All Boeing 737s sit very <strong>low</strong> to the ground - so low that the bottom of the engine intake is almost flat (the gap to the ground isn\'t big enough for a perfect circle). That alone separates a 737 from an Airbus A320, which sits noticeably higher. To tell the newest <strong>737 MAX</strong> from the older <strong>737 NG</strong>, look at the engine, not the winglet:<br><br>• <strong>Engine size</strong>: the MAX engine (LEAP-1B) is visibly larger and mounted further forward than the NG engine (CFM56). The cowling on the MAX has a noticeably <em>flat-topped</em> front.<br>• <strong>Engine exhaust</strong>: the MAX has <em>chevrons</em> - sawtooth zig-zag edges - on the back of the engine nacelle. The NG has a smooth circular exhaust. This is the most reliable single tell.<br>• <strong>Tail cone</strong>: MAX has a long, sleek tapered tail cone. NG has a shorter, blunter one.',
     images: [
-      { id: 'ai-737ng', src: B737NG, caption: '737 NG - smooth engine exhaust, smaller engine', spec: 'Side or 3/4 view of a 737 NG with the engine clearly visible. The smooth (no chevrons) circular exhaust at the back of the engine should be visible if possible. Avoid retrofitted aircraft if the focus is the rear of the engine.', poolKind: 'aircraft', pool: ['b737ng', 'b737-700', 'b737-900'] },
-      { id: 'ai-737max', src: B737MAX, caption: '737 MAX - chevron exhaust, larger engine, flat-top cowling', spec: 'Side or 3/4 view of a 737 MAX. The CHEVRONS (sawtooth zig-zag edges) on the back of the engine nacelle should be clearly visible. The flat-topped front of the engine cowling is a bonus.', poolKind: 'aircraft', pool: ['b737max'] },
+      { id: 'ai-737ng', src: B737NG, caption: '737 NG - smooth engine exhaust, smaller engine', spec: 'Side or 3/4 view of a 737 NG with the engine clearly visible. The smooth (no chevrons) circular exhaust at the back of the engine should be visible if possible. Avoid retrofitted aircraft if the focus is the rear of the engine.', poolKind: 'aircraft', pool: ['b737-800', 'b737-700', 'b737-900er'] },
+      { id: 'ai-737max', src: B737MAX, caption: '737 MAX - chevron exhaust, larger engine, flat-top cowling', spec: 'Side or 3/4 view of a 737 MAX. The CHEVRONS (sawtooth zig-zag edges) on the back of the engine nacelle should be clearly visible. The flat-topped front of the engine cowling is a bonus.', poolKind: 'aircraft', pool: ['b737max8'] },
     ],
   },
   {
     title: 'Airbus widebodies up close',
     body: '<strong>A330</strong>: a twin-aisle Airbus with two engines, very common on transatlantic flights. Looks like a smaller, less-modern A350. The fuselage cross-section is round and slightly more upright than the A350\'s squarer shape.<br><br><strong>A350</strong>: the unmistakable Airbus widebody. The signature is the dark <em>"panda eye"</em> paint mask around the cockpit windows, which no other Airbus has. The wing curves smoothly upward at the tip with no separate winglet.<br><br><strong>A380</strong>: full-length double-decker, four engines. Impossible to confuse with anything else.',
     images: [
-      { id: 'ai-a330', src: A330, caption: 'A330 - twin-engine Airbus widebody', spec: 'Side or 3/4 view of an A330. Whole plane in frame. The Airbus rounded nose and twin engines should be clearly visible. Tail and fuselage proportions matter more than the wingtip.', poolKind: 'aircraft', pool: ['a330', 'a330-200', 'a330neo'] },
-      { id: 'ai-a350', src: A350, caption: 'A350 - "panda eye" cockpit mask is unmistakable', spec: 'Front or front-quarter view of an A350 with the dark "panda eye" paint mask around the cockpit windows clearly visible. That mask alone is the giveaway.', poolKind: 'aircraft', pool: ['a350', 'a350-1000'] },
+      { id: 'ai-a330', src: A330, caption: 'A330 - twin-engine Airbus widebody', spec: 'Side or 3/4 view of an A330. Whole plane in frame. The Airbus rounded nose and twin engines should be clearly visible. Tail and fuselage proportions matter more than the wingtip.', poolKind: 'aircraft', pool: ['a330-300', 'a330-200', 'a330-900'] },
+      { id: 'ai-a350', src: A350, caption: 'A350 - "panda eye" cockpit mask is unmistakable', spec: 'Front or front-quarter view of an A350 with the dark "panda eye" paint mask around the cockpit windows clearly visible. That mask alone is the giveaway.', poolKind: 'aircraft', pool: ['a350-900', 'a350-1000'] },
       { id: 'ai-a380', src: A380, caption: 'A380 - double deck, 4 engines', spec: 'Side view of an A380, full plane visible, all four engines and both decks clearly shown.', poolKind: 'aircraft', pool: ['a380'] },
     ],
   },
@@ -108,19 +108,19 @@ const aircraftIdentify: IntroSlide[] = [
     title: 'Boeing widebodies up close',
     body: '<strong>747</strong>: the iconic "Jumbo Jet". Four engines and a partial hump on top of the front of the fuselage (because the upper deck is short, only at the front).<br><br><strong>767</strong>: an older, smaller twin widebody. Plain look, twin engines.<br><br><strong>777</strong>: large twin-engine widebody. The dead giveaway is its <em>six-wheel main landing gear bogies</em> - three pairs of wheels on each side, where every other airliner has just two pairs (four wheels). On the ground or just after takeoff it\'s unmistakable.<br><br><strong>787 Dreamliner</strong>: a newer twin made mostly of carbon fiber. The wings <em>flex visibly upward</em> in flight. The cockpit window has a sleek four-pane shape with no eyebrow windows above.',
     images: [
-      { id: 'ai-747', src: B747, caption: '747 - hump on front of fuselage', spec: 'Side view of a 747 in flight or on ground. Distinctive hump on the front of the fuselage must be clearly visible.', poolKind: 'aircraft', pool: ['b747'] },
-      { id: 'ai-767', src: B767, caption: '767 - older twin widebody', spec: 'Side or 3/4 view of a 767. Whole plane visible, twin engines obvious.', poolKind: 'aircraft', pool: ['b767'] },
-      { id: 'ai-777', src: B777, caption: '777 - six-wheel main gear is the giveaway', spec: 'Side or 3/4 view of a 777, ideally on the ground or shortly after takeoff with the landing gear still down. The SIX-WHEEL main gear bogies (three pairs of wheels per side) must be clearly visible - that\'s the unique 777 tell.', poolKind: 'aircraft', pool: ['b777', 'b777-200', 'b777-9'] },
-      { id: 'ai-787', src: B787, caption: '787 - flexing carbon-fiber wings', spec: 'A 787 in flight, ideally with wings flexed visibly upward against the sky.', poolKind: 'aircraft', pool: ['b787'] },
+      { id: 'ai-747', src: B747, caption: '747 - hump on front of fuselage', spec: 'Side view of a 747 in flight or on ground. Distinctive hump on the front of the fuselage must be clearly visible.', poolKind: 'aircraft', pool: ['b747-400'] },
+      { id: 'ai-767', src: B767, caption: '767 - older twin widebody', spec: 'Side or 3/4 view of a 767. Whole plane visible, twin engines obvious.', poolKind: 'aircraft', pool: ['b767-300er'] },
+      { id: 'ai-777', src: B777, caption: '777 - six-wheel main gear is the giveaway', spec: 'Side or 3/4 view of a 777, ideally on the ground or shortly after takeoff with the landing gear still down. The SIX-WHEEL main gear bogies (three pairs of wheels per side) must be clearly visible - that\'s the unique 777 tell.', poolKind: 'aircraft', pool: ['b777-300er', 'b777-200er', 'b777-9'] },
+      { id: 'ai-787', src: B787, caption: '787 - flexing carbon-fiber wings', spec: 'A 787 in flight, ideally with wings flexed visibly upward against the sky.', poolKind: 'aircraft', pool: ['b787-9'] },
     ],
   },
   {
     title: 'Smaller and propeller planes',
     body: 'On shorter regional routes you may see different-looking planes:<br><br><strong>Embraer E170/E190</strong> (from Brazil): looks like a small jet, four overwing exits, smaller than an A320.<br><br><strong>CRJ (Canadair Regional Jet)</strong>: very small, sits very low, engines mounted on the rear of the fuselage instead of under the wings.<br><br><strong>ATR 72 / Dash 8</strong>: high wing (mounted on top of the fuselage instead of underneath) and propellers instead of jet engines. If you see propellers, it is one of these.',
     images: [
-      { id: 'ai-e190', src: E190, caption: 'Embraer E190 - small jet', spec: 'Side or 3/4 view of an Embraer E170/E190. Whole plane visible.', poolKind: 'aircraft', pool: ['e190', 'e170', 'e175', 'e195e2'] },
+      { id: 'ai-e190', src: E190, caption: 'Embraer E190 - small jet', spec: 'Side or 3/4 view of an Embraer E170/E190. Whole plane visible.', poolKind: 'aircraft', pool: ['e190', 'e170', 'e175', 'e195-e2'] },
       { id: 'ai-crj', src: CRJ, caption: 'CRJ - rear engines, very low', spec: 'Side view of a CRJ regional jet. Engines mounted on the rear of the fuselage (not under wings) must be clearly visible.', poolKind: 'aircraft', pool: ['crj900', 'crj700', 'crj1000', 'crj200'] },
-      { id: 'ai-atr', src: ATR72, caption: 'ATR 72 - high wing + propellers', spec: 'Side or 3/4 view of an ATR 72 or Dash 8. Both the high wing (above the fuselage) and propellers must be clearly visible.', poolKind: 'aircraft', pool: ['atr72', 'atr42', 'dash8q400', 'dash8classic'] },
+      { id: 'ai-atr', src: ATR72, caption: 'ATR 72 - high wing + propellers', spec: 'Side or 3/4 view of an ATR 72 or Dash 8. Both the high wing (above the fuselage) and propellers must be clearly visible.', poolKind: 'aircraft', pool: ['atr72', 'atr42', 'dash8-q400', 'dash8-300'] },
     ],
   },
   {

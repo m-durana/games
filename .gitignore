@@ -27,3 +27,10 @@ dist-ssr
 /judging/
 /aircraft-photo-pool.json
 /aircraft-review-current.json
+
+# AI reviewer scratch (patches go through scripts/merge-aircraft-review-patches.mjs)
+tmp/*
+docs/*
+
+# Windows / Cygwin crash dumps
+*.stackdump

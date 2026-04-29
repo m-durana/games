@@ -13,9 +13,12 @@ import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-ROOT = "/srv/miro/games"
+import os as _os
+ROOT = _os.environ.get("GAMES_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 AIRCRAFT_JSON = f"{ROOT}/src/data/aircraft.json"
-OUT = f"{ROOT}/aircraft-photo-pool.json"
+# Write directly into the canonical photos file so newly-fetched ids land in
+# the right place. Existing keys with non-empty lists are skipped (resume).
+OUT = f"{ROOT}/src/data/aircraft-photos.json"
 
 SKIP_PATTERNS = [
     'cockpit', 'flight_deck', 'flightdeck', 'interior', 'cabin', 'seat',

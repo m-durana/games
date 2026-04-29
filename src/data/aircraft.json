@@ -57,7 +57,7 @@
     "keyTell": "The smallest A320 family member - extra-tall vertical fin on a very short fuselage."
   },
   {
-    "id": "a220",
+    "id": "a220-300",
     "name": "Airbus A220-300",
     "manufacturer": "Airbus",
     "family": "A220",
@@ -76,7 +76,7 @@
     "keyTell": "Disproportionately large engines slung under a slim fuselage, plus a pointier nose than the A320 family."
   },
   {
-    "id": "a320",
+    "id": "a320ceo",
     "name": "Airbus A320",
     "manufacturer": "Airbus",
     "family": "A320 family",
@@ -95,7 +95,7 @@
     "keyTell": "Single pair of overwing exits, A320-family nose, sits high on its gear."
   },
   {
-    "id": "a321",
+    "id": "a321ceo",
     "name": "Airbus A321",
     "manufacturer": "Airbus",
     "family": "A320 family",
@@ -114,7 +114,7 @@
     "keyTell": "Two pairs of overwing emergency exits - the dead giveaway for an A321."
   },
   {
-    "id": "a330",
+    "id": "a330-300",
     "name": "Airbus A330-300",
     "manufacturer": "Airbus",
     "family": "A330",
@@ -154,7 +154,7 @@
     "commonsCategory": "Airbus A340-600"
   },
   {
-    "id": "a350",
+    "id": "a350-900",
     "name": "Airbus A350-900",
     "manufacturer": "Airbus",
     "family": "A350",
@@ -193,7 +193,7 @@
     "keyTell": "Full-length double deck - no other airliner has this. The 747 has only a partial upper deck."
   },
   {
-    "id": "b727",
+    "id": "b727-200",
     "name": "Boeing 727-200",
     "manufacturer": "Boeing",
     "family": "727",
@@ -212,7 +212,7 @@
     "keyTell": "Three engines arranged trijet (two side-mounted at the rear, one in the tail above the fuselage). T-tail."
   },
   {
-    "id": "b737classic",
+    "id": "b737-400",
     "name": "Boeing 737-400 (Classic)",
     "manufacturer": "Boeing",
     "family": "737",
@@ -251,7 +251,7 @@
     "commonsCategory": "Boeing 737-700"
   },
   {
-    "id": "b737ng",
+    "id": "b737-800",
     "name": "Boeing 737-800",
     "manufacturer": "Boeing",
     "family": "737",
@@ -271,7 +271,7 @@
     "commonsCategory": "Boeing 737-800"
   },
   {
-    "id": "b737max",
+    "id": "b737max8",
     "name": "Boeing 737 MAX 8",
     "manufacturer": "Boeing",
     "family": "737",
@@ -290,7 +290,7 @@
     "keyTell": "Split-tip 'AT' winglets that fork up and down - the easiest way to tell a MAX from an NG."
   },
   {
-    "id": "b747",
+    "id": "b747-400",
     "name": "Boeing 747",
     "manufacturer": "Boeing",
     "family": "747",
@@ -309,7 +309,7 @@
     "keyTell": "Partial upper-deck hump behind the cockpit - no other airliner has it."
   },
   {
-    "id": "b757",
+    "id": "b757-200",
     "name": "Boeing 757",
     "manufacturer": "Boeing",
     "family": "757",
@@ -328,7 +328,7 @@
     "keyTell": "Looks like a 'stretched 737 on stilts' - round engine inlets and tall landing gear separate it from any 737."
   },
   {
-    "id": "b767",
+    "id": "b767-300er",
     "name": "Boeing 767-300ER",
     "manufacturer": "Boeing",
     "family": "767",
@@ -347,7 +347,7 @@
     "keyTell": "Twin-engine widebody, but visibly smaller and slimmer than the 777 - smaller engines and a narrower fuselage."
   },
   {
-    "id": "b777",
+    "id": "b777-300er",
     "name": "Boeing 777-300ER",
     "manufacturer": "Boeing",
     "family": "777",
@@ -367,7 +367,7 @@
     "commonsCategory": "Boeing 777-300"
   },
   {
-    "id": "b787",
+    "id": "b787-9",
     "name": "Boeing 787 Dreamliner",
     "manufacturer": "Boeing",
     "family": "787",
@@ -485,7 +485,7 @@
     "commonsCategory": "Embraer 190"
   },
   {
-    "id": "e195e2",
+    "id": "e195-e2",
     "name": "Embraer E195-E2",
     "manufacturer": "Embraer",
     "family": "E-Jet E2",
@@ -584,7 +584,7 @@
     "keyTell": "High wing + propellers + conventional tail - instantly distinguishes it from any jet, and the conventional tail separates it from the Dash 8."
   },
   {
-    "id": "dash8q400",
+    "id": "dash8-q400",
     "name": "De Havilland Dash 8 Q400",
     "manufacturer": "Bombardier",
     "family": "Dash 8",
@@ -604,7 +604,7 @@
     "commonsCategory": "De Havilland Canada DHC-8-400"
   },
   {
-    "id": "a300",
+    "id": "a300-600",
     "name": "Airbus A300-600",
     "manufacturer": "Airbus",
     "family": "A300/A310",
@@ -643,7 +643,7 @@
     "commonsCategory": "Airbus A330-200"
   },
   {
-    "id": "a330neo",
+    "id": "a330-900",
     "name": "Airbus A330-900 (neo)",
     "manufacturer": "Airbus",
     "family": "A330",
@@ -682,7 +682,7 @@
     "commonsCategory": "Airbus A350-1000"
   },
   {
-    "id": "b737-900",
+    "id": "b737-900er",
     "name": "Boeing 737-900ER",
     "manufacturer": "Boeing",
     "family": "737",
@@ -721,7 +721,7 @@
     "keyTell": "Folding wingtips that fold up at the gate, plus the largest commercial engines ever - only the 777X has both."
   },
   {
-    "id": "b777-200",
+    "id": "b777-200er",
     "name": "Boeing 777-200ER",
     "manufacturer": "Boeing",
     "family": "777",
@@ -799,7 +799,7 @@
     "keyTell": "ATR 72's twin sister - same shape but distinctly stubbier fuselage."
   },
   {
-    "id": "dash8classic",
+    "id": "dash8-300",
     "name": "De Havilland Dash 8-300",
     "manufacturer": "Bombardier",
     "family": "Dash 8",
@@ -855,5 +855,214 @@
       "variant": "Single passenger variant (~38.9m). Distinctive sharklets with a slightly different shape than Airbus's. Almost always seen in Chinese airline liveries (China Eastern launch operator, plus Air China, China Southern)."
     },
     "keyTell": "A320 lookalike in Chinese airline livery - only obvious from the carrier."
+  },
+  {
+    "id": "a220-100",
+    "name": "Airbus A220-100",
+    "manufacturer": "Airbus",
+    "family": "A220",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 35.0,
+    "tail": "Conventional",
+    "generation": 2010,
+    "wikipedia": "Airbus A220",
+    "identification": {
+      "manufacturer": "Bombardier-designed cockpit (now Airbus), small Airbus-style radome.",
+      "family": "A220 - narrowbody twin sitting low to the ground with disproportionately large geared turbofan engines for its size.",
+      "variant": "The A220-100 is the shorter of the two A220s - about 35.0m, with two pairs of overwing exits in a tight cluster (the -300 has three pairs)."
+    },
+    "keyTell": "Short A220 with two overwing exit pairs (vs three on the -300)."
+  },
+  {
+    "id": "a320neo",
+    "name": "Airbus A320neo",
+    "manufacturer": "Airbus",
+    "family": "A320 family",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 37.6,
+    "tail": "Conventional",
+    "generation": 2010,
+    "wikipedia": "Airbus A320neo family",
+    "identification": {
+      "manufacturer": "Airbus radome, four-pane V-bottom cockpit window, clean wing-body fairing.",
+      "family": "A320 family - single-aisle twin sitting noticeably high on its gear, with full-round engine inlets.",
+      "variant": "The A320neo has noticeably LARGER engines (PW1100G geared turbofan or LEAP-1A) than the CEO and tall scimitar-shaped SHARKLETS at the wingtips (vs the older CEO's small angle-cut wingtip fence)."
+    },
+    "keyTell": "A320 with tall scimitar sharklets and oversized geared turbofan engines."
+  },
+  {
+    "id": "a321neo",
+    "name": "Airbus A321neo",
+    "manufacturer": "Airbus",
+    "family": "A320 family",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 44.5,
+    "tail": "Conventional",
+    "generation": 2015,
+    "wikipedia": "Airbus A321neo",
+    "identification": {
+      "manufacturer": "Airbus radome, four-pane V-bottom cockpit window.",
+      "family": "A320 family - longest member with two pairs of overwing exits.",
+      "variant": "A321neo has the same long fuselage as the CEO (~44.5m) but with sharklets and large LEAP/PW1100G engines. The LR and XLR sub-variants add belly fuel tanks for transatlantic range."
+    },
+    "keyTell": "Longest A320-family jet with sharklets and oversized engines."
+  },
+  {
+    "id": "a340-300",
+    "name": "Airbus A340-300",
+    "manufacturer": "Airbus",
+    "family": "A340",
+    "body": "Wide",
+    "engines": 4,
+    "engineType": "Turbofan",
+    "length": 63.7,
+    "tail": "Conventional",
+    "generation": 1990,
+    "wikipedia": "Airbus A340",
+    "identification": {
+      "manufacturer": "Airbus radome and clean fairings, classic 1990s Airbus widebody style.",
+      "family": "A340 - four-engine Airbus widebody. From a distance very similar to the A330; the four engines are the giveaway.",
+      "variant": "The A340-300 is the original long-range A340 (~63.7m) - same length as an A330-300 but with FOUR engines and no center main landing gear (the -500 and -600 add a center gear leg)."
+    },
+    "keyTell": "Four-engine Airbus widebody, ~64m long, four-wheel main bogies only (no center gear)."
+  },
+  {
+    "id": "b737max9",
+    "name": "Boeing 737 MAX 9",
+    "manufacturer": "Boeing",
+    "family": "737",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 42.2,
+    "tail": "Conventional",
+    "generation": 2017,
+    "wikipedia": "Boeing 737 MAX",
+    "identification": {
+      "manufacturer": "Boeing pointed nose with sharp lower cockpit window edge.",
+      "family": "737 MAX - oversized LEAP-1B engines, split-tip Advanced Technology winglets, EE-bay tail vent.",
+      "variant": "MAX 9 is the longer MAX (~42.2m) - same engines and winglets as the MAX 8 but with TWO pairs of overwing exits (vs one on MAX 8). Operators: Alaska, United, Copa."
+    },
+    "keyTell": "737 MAX with two pairs of overwing exits and a longer fuselage than the MAX 8."
+  },
+  {
+    "id": "b747-8",
+    "name": "Boeing 747-8",
+    "manufacturer": "Boeing",
+    "family": "747",
+    "body": "Wide",
+    "engines": 4,
+    "engineType": "Turbofan",
+    "length": 76.3,
+    "tail": "Conventional",
+    "generation": 2010,
+    "wikipedia": "Boeing 747-8",
+    "identification": {
+      "manufacturer": "Boeing pointed nose with the classic 747 hump on top.",
+      "family": "747 - four-engine widebody with the partial upper-deck hump on the front of the fuselage.",
+      "variant": "747-8 is the modern stretch (~76.3m) with RAKED wingtips (no winglets) and GEnx engines. The hump is noticeably LONGER than the -400 (extending further back along the fuselage). Operators: Lufthansa, Korean, Air China; freighter: UPS, Cargolux, Atlas, Polar."
+    },
+    "keyTell": "747 with raked wingtips (NO winglets) and an extended longer hump."
+  },
+  {
+    "id": "b777-300",
+    "name": "Boeing 777-300",
+    "manufacturer": "Boeing",
+    "family": "777",
+    "body": "Wide",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 73.9,
+    "tail": "Conventional",
+    "generation": 1995,
+    "wikipedia": "Boeing 777",
+    "identification": {
+      "manufacturer": "Boeing pointed nose, classic 777 fairings.",
+      "family": "777 - twin-engine widebody with very large GE90/Trent/PW4000 engines and a six-wheel main bogie.",
+      "variant": "The non-ER 777-300 is rare today (most retired). Same length as the -300ER (~73.9m) but with smaller PW4090/Trent 892 engines and SQUARED-OFF wingtips (no rake). Last operators were ANA and a handful of carriers."
+    },
+    "keyTell": "777 stretch with SQUARED (not raked) wingtips - distinguishes it from the much more common -300ER."
+  },
+  {
+    "id": "b787-8",
+    "name": "Boeing 787-8",
+    "manufacturer": "Boeing",
+    "family": "787",
+    "body": "Wide",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 56.7,
+    "tail": "Conventional",
+    "generation": 2011,
+    "wikipedia": "Boeing 787 Dreamliner",
+    "identification": {
+      "manufacturer": "Boeing pointed nose, distinctive 787 four-pane cockpit window with deep slope.",
+      "family": "787 Dreamliner - twin engines with chevron-edged exhaust nozzles, raked carbon-fiber wings that flex visibly upward in flight.",
+      "variant": "The 787-8 is the SHORTEST 787 (~56.7m) - visibly stubbier than the -9's 62.8m or the -10's 68.3m. Operators: ANA, JAL, United, Norwegian, Qatar, BA, Air India."
+    },
+    "keyTell": "Shortest 787 - stubbier silhouette than the -9 or -10."
+  },
+  {
+    "id": "b787-10",
+    "name": "Boeing 787-10",
+    "manufacturer": "Boeing",
+    "family": "787",
+    "body": "Wide",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 68.3,
+    "tail": "Conventional",
+    "generation": 2017,
+    "wikipedia": "Boeing 787 Dreamliner",
+    "identification": {
+      "manufacturer": "Boeing pointed nose, distinctive 787 four-pane cockpit window with deep slope.",
+      "family": "787 Dreamliner - twin engines with chevron-edged exhaust nozzles, raked carbon-fiber wings that flex visibly upward in flight.",
+      "variant": "The 787-10 is the LONGEST 787 (~68.3m) - noticeably longer than the -9's 62.8m, with the SAME wing and engines as the -9 (no range increase, just extra fuselage). Operators: United, Singapore, Etihad, KLM."
+    },
+    "keyTell": "Longest 787 - same wing as -9 but stretched fuselage."
+  },
+  {
+    "id": "e190-e2",
+    "name": "Embraer E190-E2",
+    "manufacturer": "Embraer",
+    "family": "E-Jet E2",
+    "body": "Narrow",
+    "engines": 2,
+    "engineType": "Turbofan",
+    "length": 36.2,
+    "tail": "T-tail",
+    "generation": 2018,
+    "wikipedia": "Embraer E-Jet E2 family",
+    "identification": {
+      "manufacturer": "Embraer pointed nose, T-tail.",
+      "family": "E-Jet E2 - second-generation E-Jet with much LARGER Pratt geared turbofan engines (vs the smaller CF34 of the E1) and redesigned raked wingtips.",
+      "variant": "E190-E2 is the middle E2 (~36.2m) - same fuselage length as the E1 E190 but with the giant geared turbofans and raked tips. Operators: KLM Cityhopper, Helvetic, Air Astana, Aeromexico Connect."
+    },
+    "keyTell": "E190-sized fuselage with the new oversized geared turbofan engines and raked wingtips."
+  },
+  {
+    "id": "md11",
+    "name": "McDonnell Douglas MD-11",
+    "manufacturer": "McDonnell Douglas",
+    "family": "MD-11",
+    "body": "Wide",
+    "engines": 3,
+    "engineType": "Turbofan",
+    "length": 61.2,
+    "tail": "Conventional",
+    "generation": 1990,
+    "wikipedia": "McDonnell Douglas MD-11",
+    "identification": {
+      "manufacturer": "McDonnell Douglas style - rounded nose, three-engine widebody silhouette derived from the DC-10.",
+      "family": "MD-11 - three-engine widebody. The third engine is mounted high on the rear fuselage with an S-duct intake at the base of the tail.",
+      "variant": "Single passenger variant. Distinctive trijet layout with winglets and swept wings. Almost entirely cargo today: FedEx and UPS run the largest fleets; Lufthansa Cargo retired theirs in 2021. Passenger operators all retired by 2014."
+    },
+    "keyTell": "Three-engine widebody with the third engine mounted high on the rear fuselage - the only such trijet still flying in significant numbers."
   }
 ]

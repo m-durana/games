@@ -370,7 +370,7 @@
     ],
     "fetchedCount": 144
   },
-  "a220": {
+  "a220-300": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/QantasLink_A220_%E2%80%9CMinyma_Kutjara_Tjukurpa%E2%80%9D_Livery.jpg/1280px-QantasLink_A220_%E2%80%9CMinyma_Kutjara_Tjukurpa%E2%80%9D_Livery.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/CS100-FTV1.jpg/500px-CS100-FTV1.jpg",
@@ -547,7 +547,7 @@
     ],
     "fetchedCount": 117
   },
-  "a320": {
+  "a320ceo": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Avi%C3%B3n_de_PeninsulyFly.jpg/1280px-Avi%C3%B3n_de_PeninsulyFly.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Airbus_A320-100_Air_France_%28AFR%29_F-GFKQ_-_MSN_002_%2810655931213%29.jpg/500px-Airbus_A320-100_Air_France_%28AFR%29_F-GFKQ_-_MSN_002_%2810655931213%29.jpg",
@@ -555,14 +555,7 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Spirit_Airbus_A320_N652NK_BWI_MD1.jpg/500px-Spirit_Airbus_A320_N652NK_BWI_MD1.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Planform_view_of_Air_Serbia_Airbus_A319-100_%28YU-APC%29_dep_London_Heathrow_20Oct2016_arp.jpg/500px-Planform_view_of_Air_Serbia_Airbus_A319-100_%28YU-APC%29_dep_London_Heathrow_20Oct2016_arp.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Airbus_A321-231%28w%29_%E2%80%98N915US%E2%80%99_American_Airlines_%2828442733186%29.jpg/500px-Airbus_A321-231%28w%29_%E2%80%98N915US%E2%80%99_American_Airlines_%2828442733186%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/N604AW.jpg/960px-N604AW.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/19-APR-2022_-_IB3125_VIE-MAD_%28A320neo_-_EC-NCM%29_%2801%29.jpg/960px-19-APR-2022_-_IB3125_VIE-MAD_%28A320neo_-_EC-NCM%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/30-APR-2022_-_OS223_VIE-BER_%28A320_-_OE-LBN%29_%2804%29.jpg/960px-30-APR-2022_-_OS223_VIE-BER_%28A320_-_OE-LBN%29_%2804%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/06-MAY-2022_-_AK6131_PEN-KUL_%28A320_-_9M-AQM%29_%2801%29.jpg/960px-06-MAY-2022_-_AK6131_PEN-KUL_%28A320_-_9M-AQM%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/17-JUL-2022_-_UA1597_LAX-SFO_%28A320_-_N458UA%29_%2801%29.jpg/960px-17-JUL-2022_-_UA1597_LAX-SFO_%28A320_-_N458UA%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/21-SEP-2022_-_3K684_KUL-SIN_%28A320_-_9V-JSJ%29_%2804%29.jpg/960px-21-SEP-2022_-_3K684_KUL-SIN_%28A320_-_9V-JSJ%29_%2804%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/29-NOV-2022_-_OS356_BRU-VIE_%28A320_-_OE-LBY%29_%2801%29.jpg/960px-29-NOV-2022_-_OS356_BRU-VIE_%28A320_-_OE-LBY%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/29-NOV-2022_-_OS356_BRU-VIE_%28A320_-_OE-LBY%29_%2804%29.jpg/960px-29-NOV-2022_-_OS356_BRU-VIE_%28A320_-_OE-LBY%29_%2804%29.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/N604AW.jpg/960px-N604AW.jpg"
     ],
     "rejected": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Jet_airliner%27s_tire_arrangement%286models%29.PNG/1280px-Jet_airliner%27s_tire_arrangement%286models%29.PNG",
@@ -651,7 +644,14 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/N292MX_Airbus_A320_Mexicana_%26_N825VV_Douglas_DC-10_All_White_Colours_Being_B-U_%288754693326%29.jpg/960px-N292MX_Airbus_A320_Mexicana_%26_N825VV_Douglas_DC-10_All_White_Colours_Being_B-U_%288754693326%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/N347TM_Airbus_A320_Mexicana_Being_B-U_%288753566649%29.jpg/960px-N347TM_Airbus_A320_Mexicana_Being_B-U_%288753566649%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/N443AG_Airbus_A320_Vueling.Com_In_White_Colours_Being_B-U_%289075804052%29.jpg/960px-N443AG_Airbus_A320_Vueling.Com_In_White_Colours_Being_B-U_%289075804052%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/PT-MZQ_%26_PT-MZR_Airbus_A320_Ex_--_TAM_Brazil_Being_B-U_%288754684946%29.jpg/960px-PT-MZQ_%26_PT-MZR_Airbus_A320_Ex_--_TAM_Brazil_Being_B-U_%288754684946%29.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/PT-MZQ_%26_PT-MZR_Airbus_A320_Ex_--_TAM_Brazil_Being_B-U_%288754684946%29.jpg/960px-PT-MZQ_%26_PT-MZR_Airbus_A320_Ex_--_TAM_Brazil_Being_B-U_%288754684946%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/19-APR-2022_-_IB3125_VIE-MAD_%28A320neo_-_EC-NCM%29_%2801%29.jpg/960px-19-APR-2022_-_IB3125_VIE-MAD_%28A320neo_-_EC-NCM%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/30-APR-2022_-_OS223_VIE-BER_%28A320_-_OE-LBN%29_%2804%29.jpg/960px-30-APR-2022_-_OS223_VIE-BER_%28A320_-_OE-LBN%29_%2804%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/06-MAY-2022_-_AK6131_PEN-KUL_%28A320_-_9M-AQM%29_%2801%29.jpg/960px-06-MAY-2022_-_AK6131_PEN-KUL_%28A320_-_9M-AQM%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/17-JUL-2022_-_UA1597_LAX-SFO_%28A320_-_N458UA%29_%2801%29.jpg/960px-17-JUL-2022_-_UA1597_LAX-SFO_%28A320_-_N458UA%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/29-NOV-2022_-_OS356_BRU-VIE_%28A320_-_OE-LBY%29_%2801%29.jpg/960px-29-NOV-2022_-_OS356_BRU-VIE_%28A320_-_OE-LBY%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/29-NOV-2022_-_OS356_BRU-VIE_%28A320_-_OE-LBY%29_%2804%29.jpg/960px-29-NOV-2022_-_OS356_BRU-VIE_%28A320_-_OE-LBY%29_%2804%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/21-SEP-2022_-_3K684_KUL-SIN_%28A320_-_9V-JSJ%29_%2804%29.jpg/960px-21-SEP-2022_-_3K684_KUL-SIN_%28A320_-_9V-JSJ%29_%2804%29.jpg"
     ],
     "verified": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Planform_view_of_Air_Serbia_Airbus_A319-100_%28YU-APC%29_dep_London_Heathrow_20Oct2016_arp.jpg/500px-Planform_view_of_Air_Serbia_Airbus_A319-100_%28YU-APC%29_dep_London_Heathrow_20Oct2016_arp.jpg",
@@ -664,7 +664,7 @@
     ],
     "fetchedCount": 228
   },
-  "a321": {
+  "a321ceo": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/VP-BEU_%2852555259170%29.jpg/1280px-VP-BEU_%2852555259170%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Airbus_A321-200_Almasria_SU-TCP._Moscow_31.07.2025.jpg/1280px-Airbus_A321-200_Almasria_SU-TCP._Moscow_31.07.2025.jpg",
@@ -680,8 +680,7 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Iberia_Airbus_A321XLR_EC-OIL_on_final_approach_to_Boston_March_2025_2.jpg/500px-Iberia_Airbus_A321XLR_EC-OIL_on_final_approach_to_Boston_March_2025_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/%28VNM-Ho_Chi_Minh_City%29_Vietnam_Airlines_Airbus_A321-231_VN-A615_%40_VVTS_2025-10-08.jpg/500px-%28VNM-Ho_Chi_Minh_City%29_Vietnam_Airlines_Airbus_A321-231_VN-A615_%40_VVTS_2025-10-08.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Airbus_A321-100_Lufthansa_%28DLH%29_D-AIRB_-_MSN_468_-_Named_Baden-Baden_%283526963624%29.jpg/500px-Airbus_A321-100_Lufthansa_%28DLH%29_D-AIRB_-_MSN_468_-_Named_Baden-Baden_%283526963624%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Express_Freighters_Australia_VH-ULY_Airbus_A321-231%28P2F%29_Melbourne_International_Airport_%28MEL_YMML%29_%2851814068661%29.jpg/500px-Express_Freighters_Australia_VH-ULY_Airbus_A321-231%28P2F%29_Melbourne_International_Airport_%28MEL_YMML%29_%2851814068661%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/D-AISV_AIRCRAFT_Airbus_A321-231_%281%29.jpg/960px-D-AISV_AIRCRAFT_Airbus_A321-231_%281%29.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Express_Freighters_Australia_VH-ULY_Airbus_A321-231%28P2F%29_Melbourne_International_Airport_%28MEL_YMML%29_%2851814068661%29.jpg/500px-Express_Freighters_Australia_VH-ULY_Airbus_A321-231%28P2F%29_Melbourne_International_Airport_%28MEL_YMML%29_%2851814068661%29.jpg"
     ],
     "rejected": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Airbus_A321_v1.0.png/1280px-Airbus_A321_v1.0.png",
@@ -699,7 +698,8 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/JetBlue_Airways_A321-231_N948JB_%40YYZ.jpg/1280px-JetBlue_Airways_A321-231_N948JB_%40YYZ.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/T7-ME6_AIRCRAFT_Airbus_A321-271NX_-1a.jpg/1280px-T7-ME6_AIRCRAFT_Airbus_A321-271NX_-1a.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Airbus_A32X_family_v1.0.png/500px-Airbus_A32X_family_v1.0.png",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Express_Freighters_Australia_%28VH-ULW%29_Airbus_A321-231%28P2F%29_at_Melbourne_Airport.jpg/500px-Express_Freighters_Australia_%28VH-ULW%29_Airbus_A321-231%28P2F%29_at_Melbourne_Airport.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Express_Freighters_Australia_%28VH-ULW%29_Airbus_A321-231%28P2F%29_at_Melbourne_Airport.jpg/500px-Express_Freighters_Australia_%28VH-ULW%29_Airbus_A321-231%28P2F%29_at_Melbourne_Airport.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/D-AISV_AIRCRAFT_Airbus_A321-231_%281%29.jpg/960px-D-AISV_AIRCRAFT_Airbus_A321-231_%281%29.jpg"
     ],
     "verified": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Airbus_A321-100_Lufthansa_%28DLH%29_D-AIRB_-_MSN_468_-_Named_Baden-Baden_%283526963624%29.jpg/500px-Airbus_A321-100_Lufthansa_%28DLH%29_D-AIRB_-_MSN_468_-_Named_Baden-Baden_%283526963624%29.jpg",
@@ -722,14 +722,12 @@
     ],
     "fetchedCount": 158
   },
-  "a330": {
+  "a330-300": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg/500px-Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Airbus_A330-301%2C_Air_Inter_AN0198153.jpg/500px-Airbus_A330-301%2C_Air_Inter_AN0198153.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Delta_Air_Lines%2C_N822NW%2C_Airbus_A330-302_%2824661682692%29_%282%29.jpg/500px-Delta_Air_Lines%2C_N822NW%2C_Airbus_A330-302_%2824661682692%29_%282%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/9A-CQC%2C_De_Havilland_Canada_DHC-8-400_of_Croatia_Airlines_at_Cologne_Bonn_Airport%2C_2012_%287941275050%29.jpg/960px-9A-CQC%2C_De_Havilland_Canada_DHC-8-400_of_Croatia_Airlines_at_Cologne_Bonn_Airport%2C_2012_%287941275050%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Philippine_Airlines_Airbus_A330-300_%28RP-C8765%29_landing_at_Davao_International_Airport.jpg/960px-Philippine_Airlines_Airbus_A330-300_%28RP-C8765%29_landing_at_Davao_International_Airport.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/7/77/Take-Off_-_PAL_%281978304536%29.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Philippine_Airlines_Airbus_A330-300_%28RP-C8765%29_landing_at_Davao_International_Airport.jpg/960px-Philippine_Airlines_Airbus_A330-300_%28RP-C8765%29_landing_at_Davao_International_Airport.jpg"
     ],
     "rejected": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Transatlantic_AC.JPG/1280px-Transatlantic_AC.JPG",
@@ -774,12 +772,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Airbus_A330_family_v1.1.png/500px-Airbus_A330_family_v1.1.png",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Airbus_A330-300_v1.0.png/960px-Airbus_A330-300_v1.0.png",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Mae_Taeng_District_corner_of_roads_107_and_1414_Airbus_A330-300_used_as_caf%C3%A9_and_attraction_IMG_20230127_134517_stitch.jpg/960px-Mae_Taeng_District_corner_of_roads_107_and_1414_Airbus_A330-300_used_as_caf%C3%A9_and_attraction_IMG_20230127_134517_stitch.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Sunset_At_The_Airport_%28192242589%29.jpeg/960px-Sunset_At_The_Airport_%28192242589%29.jpeg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Sunset_At_The_Airport_%28192242589%29.jpeg/960px-Sunset_At_The_Airport_%28192242589%29.jpeg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/9A-CQC%2C_De_Havilland_Canada_DHC-8-400_of_Croatia_Airlines_at_Cologne_Bonn_Airport%2C_2012_%287941275050%29.jpg/960px-9A-CQC%2C_De_Havilland_Canada_DHC-8-400_of_Croatia_Airlines_at_Cologne_Bonn_Airport%2C_2012_%287941275050%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/7/77/Take-Off_-_PAL_%281978304536%29.jpg"
     ],
     "verified": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg/500px-Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Airbus_A330-301%2C_Air_Inter_AN0198153.jpg/500px-Airbus_A330-301%2C_Air_Inter_AN0198153.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Delta_Air_Lines%2C_N822NW%2C_Airbus_A330-302_%2824661682692%29_%282%29.jpg/500px-Delta_Air_Lines%2C_N822NW%2C_Airbus_A330-302_%2824661682692%29_%282%29.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Delta_Air_Lines%2C_N822NW%2C_Airbus_A330-302_%2824661682692%29_%282%29.jpg/500px-Delta_Air_Lines%2C_N822NW%2C_Airbus_A330-302_%2824661682692%29_%282%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Philippine_Airlines_Airbus_A330-300_%28RP-C8765%29_landing_at_Davao_International_Airport.jpg/960px-Philippine_Airlines_Airbus_A330-300_%28RP-C8765%29_landing_at_Davao_International_Airport.jpg"
     ],
     "fetchedCount": 201
   },
@@ -793,12 +794,7 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Aerol%C3%ADneas_Argentinas_A340-200_LV-ZPO_FCO_2006-8-27.png/500px-Aerol%C3%ADneas_Argentinas_A340-200_LV-ZPO_FCO_2006-8-27.png",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Airbus_A340-313X%2C_Lufthansa_AN1896162.jpg/500px-Airbus_A340-313X%2C_Lufthansa_AN1896162.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/A6-ERF_Airbus_A340_Emirates_%287604169374%29.jpg/500px-A6-ERF_Airbus_A340_Emirates_%287604169374%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/A-_340-_600_%285811453390%29.jpg/500px-A-_340-_600_%285811453390%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/A340-600_%2812335551085%29.jpg/960px-A340-600_%2812335551085%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Airbus_A340-642%2C_Airbus_Industrie_AN0199985.jpg/960px-Airbus_A340-642%2C_Airbus_Industrie_AN0199985.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/AirbusA340_farnborough2006.JPG/960px-AirbusA340_farnborough2006.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/G-ECLB_A340-600.jpg/960px-G-ECLB_A340-600.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Iberia_Airbus_A340-642_EC-JFX_London_Heathrow_Airport.jpg/960px-Iberia_Airbus_A340-642_EC-JFX_London_Heathrow_Airport.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/A-_340-_600_%285811453390%29.jpg/500px-A-_340-_600_%285811453390%29.jpg"
     ],
     "rejected": [
       "https://upload.wikimedia.org/wikipedia/commons/4/47/Contrail.fourengined.arp.jpg",
@@ -838,7 +834,12 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Flap_position_of_A_340-600_taking_off.JPG/960px-Flap_position_of_A_340-600_taking_off.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Joint_Base_Andrews_%28JBA%29%2C_Maryland_supports_U.S.-Africa_Leadership_Summit_on_December_12%2C_2023_-_7.jpg/960px-Joint_Base_Andrews_%28JBA%29%2C_Maryland_supports_U.S.-Africa_Leadership_Summit_on_December_12%2C_2023_-_7.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Luggage_compartments_Airbus.JPG/960px-Luggage_compartments_Airbus.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Trent_500.JPG/960px-Trent_500.JPG"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Trent_500.JPG/960px-Trent_500.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/A340-600_%2812335551085%29.jpg/960px-A340-600_%2812335551085%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Airbus_A340-642%2C_Airbus_Industrie_AN0199985.jpg/960px-Airbus_A340-642%2C_Airbus_Industrie_AN0199985.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/AirbusA340_farnborough2006.JPG/960px-AirbusA340_farnborough2006.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/G-ECLB_A340-600.jpg/960px-G-ECLB_A340-600.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Iberia_Airbus_A340-642_EC-JFX_London_Heathrow_Airport.jpg/960px-Iberia_Airbus_A340-642_EC-JFX_London_Heathrow_Airport.jpg"
     ],
     "verified": [
       "https://upload.wikimedia.org/wikipedia/commons/9/92/LH_Airbus_A340-600.jpg",
@@ -853,7 +854,7 @@
     ],
     "fetchedCount": 162
   },
-  "a350": {
+  "a350-900": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Qatar_Airways_Airbus_A350-941_A7-ALA_15.Jan.2015_First_commercial_service_Doha-Frankfurt_%2816260395846%29.jpg/500px-Qatar_Airways_Airbus_A350-941_A7-ALA_15.Jan.2015_First_commercial_service_Doha-Frankfurt_%2816260395846%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/EC-MXV_Airbus_A350-900_Iberia_LHR_30.3.21.jpg/500px-EC-MXV_Airbus_A350-900_Iberia_LHR_30.3.21.jpg",
@@ -1211,7 +1212,7 @@
     ],
     "fetchedCount": 250
   },
-  "b727": {
+  "b727-200": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/20-10-90_C-GYNH_Toronto_%2825893153948%29.jpg/1280px-20-10-90_C-GYNH_Toronto_%2825893153948%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/10-8-84_BOS_N296US_%2824450360087%29.jpg/1280px-10-8-84_BOS_N296US_%2824450360087%29.jpg",
@@ -1452,24 +1453,15 @@
     ],
     "fetchedCount": 150
   },
-  "b737classic": {
+  "b737-400": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Classic_Colors_Southwest_Airlines_N648SW_Boeing_737-3H4_SJC.jpg/500px-Classic_Colors_Southwest_Airlines_N648SW_Boeing_737-3H4_SJC.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Boeing_737-301_N301P_Piedmont_La_Guardia_17.08.85.jpg/500px-Boeing_737-301_N301P_Piedmont_La_Guardia_17.08.85.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Alaskan_Freightdog_%2840872772912%29.jpg/500px-Alaskan_Freightdog_%2840872772912%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Boeing_737-400_Centralwings.JPG/800px-Boeing_737-400_Centralwings.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/N501SW_Southwest_Airlines_Boeing_737-5H4_%28cn_24178-1718%29_%286544857225%29.jpg/800px-N501SW_Southwest_Airlines_Boeing_737-5H4_%28cn_24178-1718%29_%286544857225%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Boeing_737-300_de_BoA_aproximandose_a_Tarija.JPG/960px-Boeing_737-300_de_BoA_aproximandose_a_Tarija.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/2-RBFA.jpg/960px-2-RBFA.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/5/5f/Bournemouth_-_Boeing_B737-436_-_geograph.org.uk_-_2901902.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Canadian_North_737-400_YUL.jpg/960px-Canadian_North_737-400_YUL.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Letadlo_nad_Bran%C3%ADkem.jpg/960px-Letadlo_nad_Bran%C3%ADkem.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Libyan_Express%2C_5A-VIP%2C_Boeing_737-5Y0_%2853814565352%29.jpg/960px-Libyan_Express%2C_5A-VIP%2C_Boeing_737-5Y0_%2853814565352%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Boeing_737-330%2C_Jet2.com_JP532771.jpg/960px-Boeing_737-330%2C_Jet2.com_JP532771.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Boeing_737-330%2C_Jet2.com_JP5709811.jpg/960px-Boeing_737-330%2C_Jet2.com_JP5709811.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Boeing_737-505%2C_Nordavia_-_Regional_Airlines_AN2020371.jpg/960px-Boeing_737-505%2C_Nordavia_-_Regional_Airlines_AN2020371.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Boeing_737-524%2C_Transaero_Airlines_AN2037840.jpg/960px-Boeing_737-524%2C_Transaero_Airlines_AN2037840.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Boeing_737-524%2C_Transaero_Imperial_AN2131063.jpg/960px-Boeing_737-524%2C_Transaero_Imperial_AN2131063.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Libyan_Express%2C_5A-VIP%2C_Boeing_737-5Y0_%2853814565352%29.jpg/960px-Libyan_Express%2C_5A-VIP%2C_Boeing_737-5Y0_%2853814565352%29.jpg"
     ],
     "rejected": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/383_8354.JPG/1280px-383_8354.JPG",
@@ -1524,14 +1516,25 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Flaps_B737_Flugtag_Bremen_2009_002.JPG/960px-Flaps_B737_Flugtag_Bremen_2009_002.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Flaps_B737_Flugtag_Bremen_2009_003.JPG/960px-Flaps_B737_Flugtag_Bremen_2009_003.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Flaps_B737_Flugtag_Bremen_2009_004.JPG/960px-Flaps_B737_Flugtag_Bremen_2009_004.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Flaps_B737_Flugtag_Bremen_2009_005.JPG/960px-Flaps_B737_Flugtag_Bremen_2009_005.JPG"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Flaps_B737_Flugtag_Bremen_2009_005.JPG/960px-Flaps_B737_Flugtag_Bremen_2009_005.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Boeing_737-300_de_BoA_aproximandose_a_Tarija.JPG/960px-Boeing_737-300_de_BoA_aproximandose_a_Tarija.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/2-RBFA.jpg/960px-2-RBFA.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/5/5f/Bournemouth_-_Boeing_B737-436_-_geograph.org.uk_-_2901902.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Letadlo_nad_Bran%C3%ADkem.jpg/960px-Letadlo_nad_Bran%C3%ADkem.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Boeing_737-330%2C_Jet2.com_JP532771.jpg/960px-Boeing_737-330%2C_Jet2.com_JP532771.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Boeing_737-330%2C_Jet2.com_JP5709811.jpg/960px-Boeing_737-330%2C_Jet2.com_JP5709811.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Boeing_737-505%2C_Nordavia_-_Regional_Airlines_AN2020371.jpg/960px-Boeing_737-505%2C_Nordavia_-_Regional_Airlines_AN2020371.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Boeing_737-524%2C_Transaero_Airlines_AN2037840.jpg/960px-Boeing_737-524%2C_Transaero_Airlines_AN2037840.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Boeing_737-524%2C_Transaero_Imperial_AN2131063.jpg/960px-Boeing_737-524%2C_Transaero_Imperial_AN2131063.jpg"
     ],
     "verified": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Classic_Colors_Southwest_Airlines_N648SW_Boeing_737-3H4_SJC.jpg/500px-Classic_Colors_Southwest_Airlines_N648SW_Boeing_737-3H4_SJC.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Boeing_737-301_N301P_Piedmont_La_Guardia_17.08.85.jpg/500px-Boeing_737-301_N301P_Piedmont_La_Guardia_17.08.85.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Alaskan_Freightdog_%2840872772912%29.jpg/500px-Alaskan_Freightdog_%2840872772912%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Boeing_737-400_Centralwings.JPG/800px-Boeing_737-400_Centralwings.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/N501SW_Southwest_Airlines_Boeing_737-5H4_%28cn_24178-1718%29_%286544857225%29.jpg/800px-N501SW_Southwest_Airlines_Boeing_737-5H4_%28cn_24178-1718%29_%286544857225%29.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/N501SW_Southwest_Airlines_Boeing_737-5H4_%28cn_24178-1718%29_%286544857225%29.jpg/800px-N501SW_Southwest_Airlines_Boeing_737-5H4_%28cn_24178-1718%29_%286544857225%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Canadian_North_737-400_YUL.jpg/960px-Canadian_North_737-400_YUL.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Libyan_Express%2C_5A-VIP%2C_Boeing_737-5Y0_%2853814565352%29.jpg/960px-Libyan_Express%2C_5A-VIP%2C_Boeing_737-5Y0_%2853814565352%29.jpg"
     ],
     "fetchedCount": 59
   },
@@ -1681,19 +1684,15 @@
     ],
     "fetchedCount": 105
   },
-  "b737ng": {
+  "b737-800": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/c/cb/B737_%284405228676%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/2/2f/Boeing_737_Next_Generation_%28412684579%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Delta_Boeing_737-800_N371DA_departing_Boston_June_2025.jpg/500px-Delta_Boeing_737-800_N371DA_departing_Boston_June_2025.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/D-ATUF_B737-8K5W_TUIfly-Hapag_retro_PMI_26SEP10_%286341092368%29.jpg/500px-D-ATUF_B737-8K5W_TUIfly-Hapag_retro_PMI_26SEP10_%286341092368%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Sas_b737-600_ln-rcw_arp.jpg/800px-Sas_b737-600_ln-rcw_arp.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/4X-EKU_El_Al_Israel_Boeing_737-800_24.04.2025_01.jpg/960px-4X-EKU_El_Al_Israel_Boeing_737-800_24.04.2025_01.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/4X-EKU_El_Al_Israel_Boeing_737-800_24.04.2025_02.jpg/960px-4X-EKU_El_Al_Israel_Boeing_737-800_24.04.2025_02.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/AA_737-800_KPIT.jpg/960px-AA_737-800_KPIT.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/American_Airlines_Boeing_737-800_N935AN_-_02.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_02.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/American_Airlines_Boeing_737-800_N935AN_-_03.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_03.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/American_Airlines_Boeing_737-800_N935AN_-_04.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_04.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/American_Airlines_Boeing_737-800_N935AN_-_05.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_05.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/American_Airlines_Boeing_737-800_N935AN_-_06.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_06.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/American_Airlines_Boeing_737-800_N935AN_-_07.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_07.jpg",
@@ -1864,18 +1863,28 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/American_Airlines_Boeing_737-800_N867NN_departing_Boston_March_2025_1.jpg/960px-American_Airlines_Boeing_737-800_N867NN_departing_Boston_March_2025_1.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/American_Airlines_Boeing_737-800_N867NN_departing_Boston_March_2025_2.jpg/960px-American_Airlines_Boeing_737-800_N867NN_departing_Boston_March_2025_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/American_Airlines_Boeing_737-800_N867NN_departing_Boston_March_2025_3.jpg/960px-American_Airlines_Boeing_737-800_N867NN_departing_Boston_March_2025_3.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/American_Airlines_Boeing_737-800_N899NN_departing_Boston_March_2025.jpg/960px-American_Airlines_Boeing_737-800_N899NN_departing_Boston_March_2025.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/American_Airlines_Boeing_737-800_N899NN_departing_Boston_March_2025.jpg/960px-American_Airlines_Boeing_737-800_N899NN_departing_Boston_March_2025.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/4X-EKU_El_Al_Israel_Boeing_737-800_24.04.2025_01.jpg/960px-4X-EKU_El_Al_Israel_Boeing_737-800_24.04.2025_01.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/4X-EKU_El_Al_Israel_Boeing_737-800_24.04.2025_02.jpg/960px-4X-EKU_El_Al_Israel_Boeing_737-800_24.04.2025_02.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/AA_737-800_KPIT.jpg/960px-AA_737-800_KPIT.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/American_Airlines_Boeing_737-800_N935AN_-_04.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_04.jpg"
     ],
     "verified": [
       "https://upload.wikimedia.org/wikipedia/commons/c/cb/B737_%284405228676%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Delta_Boeing_737-800_N371DA_departing_Boston_June_2025.jpg/500px-Delta_Boeing_737-800_N371DA_departing_Boston_June_2025.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/D-ATUF_B737-8K5W_TUIfly-Hapag_retro_PMI_26SEP10_%286341092368%29.jpg/500px-D-ATUF_B737-8K5W_TUIfly-Hapag_retro_PMI_26SEP10_%286341092368%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/2/2f/Boeing_737_Next_Generation_%28412684579%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Sas_b737-600_ln-rcw_arp.jpg/800px-Sas_b737-600_ln-rcw_arp.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Sas_b737-600_ln-rcw_arp.jpg/800px-Sas_b737-600_ln-rcw_arp.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/American_Airlines_Boeing_737-800_N935AN_-_02.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_02.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/American_Airlines_Boeing_737-800_N935AN_-_03.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_03.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/American_Airlines_Boeing_737-800_N935AN_-_05.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_05.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/American_Airlines_Boeing_737-800_N935AN_-_06.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_06.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/American_Airlines_Boeing_737-800_N935AN_-_07.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_07.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/American_Airlines_Boeing_737-800_N935AN_-_08.jpg/960px-American_Airlines_Boeing_737-800_N935AN_-_08.jpg"
     ],
     "fetchedCount": 105
   },
-  "b737max": {
+  "b737max8": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Alaska_737_Max_9.jpg/500px-Alaska_737_Max_9.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/9M-LRF_-_Boeing_737-8_MAX_-_Batik_Air_Malaysia_-_42994_-_VGHS.jpg/500px-9M-LRF_-_Boeing_737-8_MAX_-_Batik_Air_Malaysia_-_42994_-_VGHS.jpg",
@@ -2013,7 +2022,7 @@
     ],
     "fetchedCount": 102
   },
-  "b747": {
+  "b747-400": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Air_Force_One_Experience_%2849752931207%29.jpg/1280px-Air_Force_One_Experience_%2849752931207%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/f/f7/LH_Boeing_747-400.jpg",
@@ -2260,7 +2269,7 @@
     ],
     "fetchedCount": 198
   },
-  "b757": {
+  "b757-200": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/BOEING_AIRPLANES_-_757_AND_767_-_NARA_-_17471049.jpg/1280px-BOEING_AIRPLANES_-_757_AND_767_-_NARA_-_17471049.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Boeing_757_Griletto_Linhas_A%C3%A9reas.png/1280px-Boeing_757_Griletto_Linhas_A%C3%A9reas.png",
@@ -2461,7 +2470,7 @@
     ],
     "fetchedCount": 149
   },
-  "b767": {
+  "b767-300er": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Boeing_767_12.jpg/1280px-Boeing_767_12.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/4K-AZ81_BABEK_-_Boeing_767-32L%28ER%29_-_Azerbaijan_Airlines.jpg/1280px-4K-AZ81_BABEK_-_Boeing_767-32L%28ER%29_-_Azerbaijan_Airlines.jpg",
@@ -2659,7 +2668,7 @@
     ],
     "fetchedCount": 136
   },
-  "b777": {
+  "b777-300er": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/B777-300er_de_SWISS.jpg/1280px-B777-300er_de_SWISS.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Boeing_777-367%2C_Cathay_Pacific_Airways_JP6823635.jpg/500px-Boeing_777-367%2C_Cathay_Pacific_Airways_JP6823635.jpg",
@@ -2734,7 +2743,7 @@
     ],
     "fetchedCount": 212
   },
-  "b787": {
+  "b787-9": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Boeing_787_N1015B_ANA_Airlines_%2827611880663%29_%28cropped%29.jpg/500px-Boeing_787_N1015B_ANA_Airlines_%2827611880663%29_%28cropped%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Norwegian_Boeing_787-9_%28EI-LNI%29_above_clouds.jpg/500px-Norwegian_Boeing_787-9_%28EI-LNI%29_above_clouds.jpg",
@@ -2742,16 +2751,7 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Singapore_Airlines_Boeing_787_9V-SCI_Perth_2024_%2801%29.jpg/500px-Singapore_Airlines_Boeing_787_9V-SCI_Perth_2024_%2801%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Lufthansa_Technik_VIP_%26_Executive_Jet_Solutions_%284340689370%29.jpg/500px-Lufthansa_Technik_VIP_%26_Executive_Jet_Solutions_%284340689370%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Boeing_787-8_Dreamliner_-_Prototype_N787BA_preserved_in_Nagoya_%28Flight_of_Dreams%29.jpg/500px-Boeing_787-8_Dreamliner_-_Prototype_N787BA_preserved_in_Nagoya_%28Flight_of_Dreams%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/09-FEB-2022_-_WS1_YYC-LGW_%28B787-9_-_C-GKKN%29_%2804%29.jpg/960px-09-FEB-2022_-_WS1_YYC-LGW_%28B787-9_-_C-GKKN%29_%2804%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/21-APR-2022_-_AC91_EZE-GRU_%28B787-9_-_C-FGFZ%29_%2801%29.jpg/960px-21-APR-2022_-_AC91_EZE-GRU_%28B787-9_-_C-FGFZ%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/22-APR-2022_-_AM21_MEX-MAD_%28B787-9_-_XA-ADC%29_%2804%29.jpg/960px-22-APR-2022_-_AM21_MEX-MAD_%28B787-9_-_XA-ADC%29_%2804%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/02-MAY-2022_-_TR735_BER-SIN_%28B787-8_-_9V-OFI%29_%2801%29.jpg/960px-02-MAY-2022_-_TR735_BER-SIN_%28B787-8_-_9V-OFI%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/18-JUL-2022_-_UA837_SFO-NRT_%28B787-9_-_N15969%29_%2801%29.jpg/960px-18-JUL-2022_-_UA837_SFO-NRT_%28B787-9_-_N15969%29_%2801%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/19-JUL-2022_-_JL707_NRT-BKK_%28B787-9_-_JA872J%29_%2801%29.jpg/960px-19-JUL-2022_-_JL707_NRT-BKK_%28B787-9_-_JA872J%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/09-SEP-2022_-_BR62_VIE-BKK_%28B787-10_-_B-17802%29_%2801%29.jpg/960px-09-SEP-2022_-_BR62_VIE-BKK_%28B787-10_-_B-17802%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/21-FEB-2023_-_ZG23_LAX-NRT_%28B787-8_-_JA824J%29_%2801%29.jpg/960px-21-FEB-2023_-_ZG23_LAX-NRT_%28B787-8_-_JA824J%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/29-APR-2023_-_AI154_VIE-DEL_%28B787-8_-_VT-ANV%29_%2801%29.jpg/960px-29-APR-2023_-_AI154_VIE-DEL_%28B787-8_-_VT-ANV%29_%2801%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/29-DEC-2023_-_HO1881_SHA-SZX_%28B-20DT_-_B-787-9%29_%2801%29.jpg/960px-29-DEC-2023_-_HO1881_SHA-SZX_%28B-20DT_-_B-787-9%29_%2801%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/12-JAN-2024_-_BA8_HND-LHR_%28G-ZBKG_-_B787-9%29_%2801%29.jpg/960px-12-JAN-2024_-_BA8_HND-LHR_%28G-ZBKG_-_B787-9%29_%2801%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Air_New_Zealand_Boeing_787_ZK-NZF_Perth_2024_%2801%29.jpg/960px-Air_New_Zealand_Boeing_787_ZK-NZF_Perth_2024_%2801%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Air_New_Zealand_Boeing_787_ZK-NZF_Perth_2024_%2802%29.jpg/960px-Air_New_Zealand_Boeing_787_ZK-NZF_Perth_2024_%2802%29.jpg",
@@ -2801,7 +2801,9 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Jetstar_787_%288953979236%29.jpg/960px-Jetstar_787_%288953979236%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Jetstar%27s_first_787_on_the_production_line_%289132370198%29.jpg/960px-Jetstar%27s_first_787_on_the_production_line_%289132370198%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/787_Sunset_departure.jpg/960px-787_Sunset_departure.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Air_New_Zealand_Boeing_787-9_Dreamliner_landing_at_Perth_Airport.jpg/800px-Air_New_Zealand_Boeing_787-9_Dreamliner_landing_at_Perth_Airport.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Air_New_Zealand_Boeing_787-9_Dreamliner_landing_at_Perth_Airport.jpg/800px-Air_New_Zealand_Boeing_787-9_Dreamliner_landing_at_Perth_Airport.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/18-JUL-2022_-_UA837_SFO-NRT_%28B787-9_-_N15969%29_%2801%29.jpg/960px-18-JUL-2022_-_UA837_SFO-NRT_%28B787-9_-_N15969%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/29-DEC-2023_-_HO1881_SHA-SZX_%28B-20DT_-_B-787-9%29_%2801%29.jpg/960px-29-DEC-2023_-_HO1881_SHA-SZX_%28B-20DT_-_B-787-9%29_%2801%29.jpg"
     ],
     "rejected": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Boeing_787_Dreamliner_%286809457674%29.jpg/500px-Boeing_787_Dreamliner_%286809457674%29.jpg",
@@ -2920,7 +2922,16 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Boeing_Aerostructures_Australia_%288755291797%29.jpg/960px-Boeing_Aerostructures_Australia_%288755291797%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Boeing_Aerostructures_Australia_Tour_%288755292285%29.jpg/960px-Boeing_Aerostructures_Australia_Tour_%288755292285%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Boeing_Aerostructures_Australia_Tour_%288756414004%29.jpg/960px-Boeing_Aerostructures_Australia_Tour_%288756414004%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/BOTTOM_SIDE_OF_ANA_B787_TAKEOFF_IN_RCSS.JPG/960px-BOTTOM_SIDE_OF_ANA_B787_TAKEOFF_IN_RCSS.JPG"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/BOTTOM_SIDE_OF_ANA_B787_TAKEOFF_IN_RCSS.JPG/960px-BOTTOM_SIDE_OF_ANA_B787_TAKEOFF_IN_RCSS.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/09-FEB-2022_-_WS1_YYC-LGW_%28B787-9_-_C-GKKN%29_%2804%29.jpg/960px-09-FEB-2022_-_WS1_YYC-LGW_%28B787-9_-_C-GKKN%29_%2804%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/21-APR-2022_-_AC91_EZE-GRU_%28B787-9_-_C-FGFZ%29_%2801%29.jpg/960px-21-APR-2022_-_AC91_EZE-GRU_%28B787-9_-_C-FGFZ%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/22-APR-2022_-_AM21_MEX-MAD_%28B787-9_-_XA-ADC%29_%2804%29.jpg/960px-22-APR-2022_-_AM21_MEX-MAD_%28B787-9_-_XA-ADC%29_%2804%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/02-MAY-2022_-_TR735_BER-SIN_%28B787-8_-_9V-OFI%29_%2801%29.jpg/960px-02-MAY-2022_-_TR735_BER-SIN_%28B787-8_-_9V-OFI%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/18-JUL-2022_-_UA837_SFO-NRT_%28B787-9_-_N15969%29_%2801%29.jpg/960px-18-JUL-2022_-_UA837_SFO-NRT_%28B787-9_-_N15969%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/09-SEP-2022_-_BR62_VIE-BKK_%28B787-10_-_B-17802%29_%2801%29.jpg/960px-09-SEP-2022_-_BR62_VIE-BKK_%28B787-10_-_B-17802%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/21-FEB-2023_-_ZG23_LAX-NRT_%28B787-8_-_JA824J%29_%2801%29.jpg/960px-21-FEB-2023_-_ZG23_LAX-NRT_%28B787-8_-_JA824J%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/29-APR-2023_-_AI154_VIE-DEL_%28B787-8_-_VT-ANV%29_%2801%29.jpg/960px-29-APR-2023_-_AI154_VIE-DEL_%28B787-8_-_VT-ANV%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/29-DEC-2023_-_HO1881_SHA-SZX_%28B-20DT_-_B-787-9%29_%2801%29.jpg/960px-29-DEC-2023_-_HO1881_SHA-SZX_%28B-20DT_-_B-787-9%29_%2801%29.jpg"
     ],
     "verified": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Boeing_787_N1015B_ANA_Airlines_%2827611880663%29_%28cropped%29.jpg/500px-Boeing_787_N1015B_ANA_Airlines_%2827611880663%29_%28cropped%29.jpg",
@@ -2928,7 +2939,10 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Boeing_787-8_Dreamliner%2C_United_Airlines_JP7500927.jpg/500px-Boeing_787-8_Dreamliner%2C_United_Airlines_JP7500927.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Singapore_Airlines_Boeing_787_9V-SCI_Perth_2024_%2801%29.jpg/500px-Singapore_Airlines_Boeing_787_9V-SCI_Perth_2024_%2801%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Lufthansa_Technik_VIP_%26_Executive_Jet_Solutions_%284340689370%29.jpg/500px-Lufthansa_Technik_VIP_%26_Executive_Jet_Solutions_%284340689370%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Boeing_787-8_Dreamliner_-_Prototype_N787BA_preserved_in_Nagoya_%28Flight_of_Dreams%29.jpg/500px-Boeing_787-8_Dreamliner_-_Prototype_N787BA_preserved_in_Nagoya_%28Flight_of_Dreams%29.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Boeing_787-8_Dreamliner_-_Prototype_N787BA_preserved_in_Nagoya_%28Flight_of_Dreams%29.jpg/500px-Boeing_787-8_Dreamliner_-_Prototype_N787BA_preserved_in_Nagoya_%28Flight_of_Dreams%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/19-JUL-2022_-_JL707_NRT-BKK_%28B787-9_-_JA872J%29_%2801%29.jpg/960px-19-JUL-2022_-_JL707_NRT-BKK_%28B787-9_-_JA872J%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/18-JUL-2022_-_UA837_SFO-NRT_%28B787-9_-_N15969%29_%2801%29.jpg/960px-18-JUL-2022_-_UA837_SFO-NRT_%28B787-9_-_N15969%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/29-DEC-2023_-_HO1881_SHA-SZX_%28B-20DT_-_B-787-9%29_%2801%29.jpg/960px-29-DEC-2023_-_HO1881_SHA-SZX_%28B-20DT_-_B-787-9%29_%2801%29.jpg"
     ],
     "fetchedCount": 0
   },
@@ -3497,7 +3511,7 @@
     ],
     "fetchedCount": 162
   },
-  "e195e2": {
+  "e195-e2": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PR-ZGQ_%2839770747914%29.jpg/500px-PR-ZGQ_%2839770747914%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/EGLF_-_Embraer_E190-E2_-_PR-ZGQ_%2842923565984%29.jpg/500px-EGLF_-_Embraer_E190-E2_-_PR-ZGQ_%2842923565984%29.jpg",
@@ -3512,7 +3526,9 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Embraer_E195-E2_-_Mexicana_-_XA-MXB_-_04.jpg/960px-Embraer_E195-E2_-_Mexicana_-_XA-MXB_-_04.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Embraer_E195-E2_-_Mexicana_-_XA-MXB_-_05.jpg/960px-Embraer_E195-E2_-_Mexicana_-_XA-MXB_-_05.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/PH-NXM_LHR_Approach_300725.jpg/960px-PH-NXM_LHR_Approach_300725.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/HB-AZB.jpg/800px-HB-AZB.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/HB-AZB.jpg/800px-HB-AZB.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/EC-NHA_Embraer_195-E2_Binter_arrecife_29-02-20.jpg/800px-EC-NHA_Embraer_195-E2_Binter_arrecife_29-02-20.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Embraer_E195-E2_%28ERJ_190-400_STD%29_PS-AEF.jpg/800px-Embraer_E195-E2_%28ERJ_190-400_STD%29_PS-AEF.jpg"
     ],
     "rejected": [],
     "verified": [
@@ -3522,7 +3538,9 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Embaer_195-E2%2C_Paris_Air_Show_2019%2C_Le_Bourget_%28SIAE0871%29.jpg/500px-Embaer_195-E2%2C_Paris_Air_Show_2019%2C_Le_Bourget_%28SIAE0871%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Embraer_E195_E2_%2834610191664%29.jpg/500px-Embraer_E195_E2_%2834610191664%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/EC-NHA_Embraer_195-E2_Binter_arrecife_29-02-20.jpg/500px-EC-NHA_Embraer_195-E2_Binter_arrecife_29-02-20.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Embraer_E195-E2_%28ERJ_190-400_STD%29_PS-AEF.jpg/500px-Embraer_E195-E2_%28ERJ_190-400_STD%29_PS-AEF.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Embraer_E195-E2_%28ERJ_190-400_STD%29_PS-AEF.jpg/500px-Embraer_E195-E2_%28ERJ_190-400_STD%29_PS-AEF.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/EC-NHA_Embraer_195-E2_Binter_arrecife_29-02-20.jpg/800px-EC-NHA_Embraer_195-E2_Binter_arrecife_29-02-20.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Embraer_E195-E2_%28ERJ_190-400_STD%29_PS-AEF.jpg/800px-Embraer_E195-E2_%28ERJ_190-400_STD%29_PS-AEF.jpg"
     ],
     "fetchedCount": 0
   },
@@ -4071,7 +4089,7 @@
     ],
     "fetchedCount": 146
   },
-  "dash8q400": {
+  "dash8-q400": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Hamburg_Airport_Wider%C3%B8e_Bombardier_DHC-8-402Q_LN-WDR_%28DSC08713%29.jpg/500px-Hamburg_Airport_Wider%C3%B8e_Bombardier_DHC-8-402Q_LN-WDR_%28DSC08713%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Dash_8_in_planform_arp_rotated_03.jpg/500px-Dash_8_in_planform_arp_rotated_03.jpg",
@@ -4239,7 +4257,7 @@
     ],
     "fetchedCount": 0
   },
-  "a300": {
+  "a300-600": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/B-2301_at_the_Civil_Aviation_Museum_of_China_%2820240518141835%29.jpg/500px-B-2301_at_the_Civil_Aviation_Museum_of_China_%2820240518141835%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Airbus_A300B4-220_-_China_Airlines_-_B-194.jpg/960px-Airbus_A300B4-220_-_China_Airlines_-_B-194.jpg",
@@ -4658,7 +4676,7 @@
     ],
     "fetchedCount": 0
   },
-  "dash8classic": {
+  "dash8-300": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Air_Canada_Jazz_De_Havilland_Canada_DHC-8-102_Dash_8_C-GANQ_833_%287097889771%29.jpg/500px-Air_Canada_Jazz_De_Havilland_Canada_DHC-8-102_Dash_8_C-GANQ_833_%287097889771%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Air_Iceland_Connect_-_Dash_8-200_-_TF_FXG_%28Quintin_Soloviev%29.png/500px-Air_Iceland_Connect_-_Dash_8-200_-_TF_FXG_%28Quintin_Soloviev%29.png",
@@ -4835,7 +4853,7 @@
     ],
     "fetchedCount": 201
   },
-  "a330neo": {
+  "a330-900": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/A330_NEO_Corsair.jpg/800px-A330_NEO_Corsair.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/9K-APF_Airbus_A330-841_Kuwait_Airways_Frankfurt_22.6.22.jpg/800px-9K-APF_Airbus_A330-841_Kuwait_Airways_Frankfurt_22.6.22.jpg",
@@ -4906,7 +4924,7 @@
     ],
     "fetchedCount": 0
   },
-  "b737-900": {
+  "b737-900er": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Alaska_Boeing_737-900_Airwim-2.jpg/800px-Alaska_Boeing_737-900_Airwim-2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Lionair_737-900_ER_first_flight.jpg/800px-Lionair_737-900_ER_first_flight.jpg",
@@ -5061,7 +5079,7 @@
     ],
     "fetchedCount": 15
   },
-  "b777-200": {
+  "b777-200er": {
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Boeing_777_N771KW_Eastern_l%C4%85duje_w_Poznaniu_%C5%81awnicy_Airport_-_luty_2026.jpg/960px-Boeing_777_N771KW_Eastern_l%C4%85duje_w_Poznaniu_%C5%81awnicy_Airport_-_luty_2026.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Cathay_Pacific_Boeing_777-200%3B_B-HNL%40HKG.jpg/800px-Cathay_Pacific_Boeing_777-200%3B_B-HNL%40HKG.jpg",
@@ -5591,5 +5609,83 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/B-919G%40TYN_%2820241104110418%29.jpg/800px-B-919G%40TYN_%2820241104110418%29.jpg"
     ],
     "fetchedCount": 42
+  },
+  "a220-100": {
+    "approved": [],
+    "rejected": [],
+    "verified": []
+  },
+  "a320neo": {
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/19-APR-2022_-_IB3125_VIE-MAD_%28A320neo_-_EC-NCM%29_%2801%29.jpg/960px-19-APR-2022_-_IB3125_VIE-MAD_%28A320neo_-_EC-NCM%29_%2801%29.jpg"
+    ],
+    "rejected": [],
+    "verified": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/19-APR-2022_-_IB3125_VIE-MAD_%28A320neo_-_EC-NCM%29_%2801%29.jpg/960px-19-APR-2022_-_IB3125_VIE-MAD_%28A320neo_-_EC-NCM%29_%2801%29.jpg"
+    ]
+  },
+  "a321neo": {
+    "approved": [],
+    "rejected": [],
+    "verified": []
+  },
+  "a340-300": {
+    "approved": [],
+    "rejected": [],
+    "verified": []
+  },
+  "b737max9": {
+    "approved": [],
+    "rejected": [],
+    "verified": []
+  },
+  "b747-8": {
+    "approved": [],
+    "rejected": [],
+    "verified": []
+  },
+  "b777-300": {
+    "approved": [],
+    "rejected": [],
+    "verified": []
+  },
+  "b787-8": {
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/02-MAY-2022_-_TR735_BER-SIN_%28B787-8_-_9V-OFI%29_%2801%29.jpg/960px-02-MAY-2022_-_TR735_BER-SIN_%28B787-8_-_9V-OFI%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/21-FEB-2023_-_ZG23_LAX-NRT_%28B787-8_-_JA824J%29_%2801%29.jpg/960px-21-FEB-2023_-_ZG23_LAX-NRT_%28B787-8_-_JA824J%29_%2801%29.jpg"
+    ],
+    "rejected": [],
+    "verified": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/02-MAY-2022_-_TR735_BER-SIN_%28B787-8_-_9V-OFI%29_%2801%29.jpg/960px-02-MAY-2022_-_TR735_BER-SIN_%28B787-8_-_9V-OFI%29_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/21-FEB-2023_-_ZG23_LAX-NRT_%28B787-8_-_JA824J%29_%2801%29.jpg/960px-21-FEB-2023_-_ZG23_LAX-NRT_%28B787-8_-_JA824J%29_%2801%29.jpg"
+    ]
+  },
+  "b787-10": {
+    "approved": [],
+    "rejected": [],
+    "verified": []
+  },
+  "e190-e2": {
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wider%C3%B8e%2C_LN-WEA%2C_Embraer_E190-E2_%40_HEL.jpg/800px-Wider%C3%B8e%2C_LN-WEA%2C_Embraer_E190-E2_%40_HEL.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/LN-WEA_Wider%C3%B8e_E190_%40_HEL_%2841763585300%29.jpg/800px-LN-WEA_Wider%C3%B8e_E190_%40_HEL_%2841763585300%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/HB-AZB.jpg/800px-HB-AZB.jpg"
+    ],
+    "rejected": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PR-ZGQ_%2839770747914%29.jpg/800px-PR-ZGQ_%2839770747914%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/EGLF_-_Embraer_E190-E2_-_PR-ZGQ_%2842923565984%29.jpg/800px-EGLF_-_Embraer_E190-E2_-_PR-ZGQ_%2842923565984%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Embaer_195-E2%2C_Paris_Air_Show_2019%2C_Le_Bourget_%28SIAE0871%29.jpg/800px-Embaer_195-E2%2C_Paris_Air_Show_2019%2C_Le_Bourget_%28SIAE0871%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Embraer_E195_E2_%2834610191664%29.jpg/800px-Embraer_E195_E2_%2834610191664%29.jpg"
+    ],
+    "verified": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wider%C3%B8e%2C_LN-WEA%2C_Embraer_E190-E2_%40_HEL.jpg/800px-Wider%C3%B8e%2C_LN-WEA%2C_Embraer_E190-E2_%40_HEL.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/LN-WEA_Wider%C3%B8e_E190_%40_HEL_%2841763585300%29.jpg/800px-LN-WEA_Wider%C3%B8e_E190_%40_HEL_%2841763585300%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/HB-AZB.jpg/800px-HB-AZB.jpg"
+    ]
+  },
+  "md11": {
+    "approved": [],
+    "rejected": [],
+    "verified": []
   }
 }
