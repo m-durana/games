@@ -1,6 +1,6 @@
 import militaryData from '../data/military-aircraft.json';
 import curatedPhotos from '../data/military-photos.json';
-import { loadPool } from './engine';
+import { EU_COUNTRIES, loadPool } from './engine';
 
 export type MilitaryRole =
   | 'Fighter' | 'Bomber' | 'Attack' | 'Trainer' | 'Transport' | 'Tanker'
@@ -49,7 +49,12 @@ const HARD_IDS = new Set([
 ]);
 
 function applyPool(list: MilitaryAircraft[]): MilitaryAircraft[] {
-  return loadPool() === 'us' ? list.filter((a) => a.origin === 'United States') : list;
+  const p = loadPool();
+  if (p === 'us') return list.filter((a) => a.origin === 'United States');
+  if (p === 'us_eu') {
+    return list.filter((a) => a.origin === 'United States' || EU_COUNTRIES.has(a.origin));
+  }
+  return list;
 }
 
 export function pooledMilitary(): MilitaryAircraft[] {

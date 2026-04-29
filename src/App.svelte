@@ -25,8 +25,10 @@
   import AircraftIdentify from './lib/AircraftIdentify.svelte';
   import AtcRound from './lib/AtcRound.svelte';
   import AtcResults from './lib/AtcResults.svelte';
+  import AtcRadarRound from './lib/AtcRadarRound.svelte';
   import type { Difficulty, HistoryEntry, Mode, RoundResult } from './lib/types';
   import type { AtcMode, AtcRoundResult } from './lib/atc';
+  import type { RadarRoundResult } from './lib/atc-radar';
   import { readSharedFromUrl, type SharedRound } from './lib/share';
   import type { Achievement } from './lib/achievements';
   import { evaluateAchievements } from './lib/achievements';
@@ -57,7 +59,8 @@
     | { kind: 'airportWordle'; difficulty: Difficulty }
     | { kind: 'airportIdentify'; difficulty: Difficulty }
     | { kind: 'atcRound'; mode: AtcMode; difficulty: Difficulty }
-    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] };
+    | { kind: 'atcRadarRound'; difficulty: Difficulty }
+    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] };
 
   let view: View = $state({ kind: 'home' });
   let menuOpen = $state(false);
@@ -137,7 +140,11 @@
   function startAtc(mode: AtcMode, difficulty: Difficulty) {
     clearShareParam();
     menuOpen = false;
-    view = { kind: 'atcRound', mode, difficulty };
+    if (mode === 'radar') {
+      view = { kind: 'atcRadarRound', difficulty };
+    } else {
+      view = { kind: 'atcRound', mode, difficulty };
+    }
   }
 
   function finishStandard(mode: Mode, difficulty: Difficulty, daily: boolean, mixed: boolean, results: RoundResult[]) {
@@ -146,6 +153,10 @@
 
   function finishAtc(mode: AtcMode, difficulty: Difficulty, results: AtcRoundResult[]) {
     view = { kind: 'atcResults', mode, difficulty, results };
+  }
+
+  function finishRadar(difficulty: Difficulty, results: RadarRoundResult[]) {
+    view = { kind: 'atcResults', mode: 'radar', difficulty, results };
   }
 
   function finishSpeed(score: number, isNewBest: boolean) {
@@ -204,7 +215,7 @@
     'airportAirline','airlineDest','airportConn','code','whereAmI','hubOf',
   ];
   const DIFFS: Difficulty[] = ['easy','medium','hard'];
-  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix'];
+  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix','radar'];
 
   function viewHash(v: View): string | null {
     switch (v.kind) {
@@ -224,6 +235,7 @@
       case 'airportWordle': return `#/airport-wordle?difficulty=${v.difficulty}`;
       case 'airportIdentify': return `#/airport-identify?difficulty=${v.difficulty}`;
       case 'atcRound': return `#/atc/${v.mode}?difficulty=${v.difficulty}`;
+      case 'atcRadarRound': return `#/atc/radar?difficulty=${v.difficulty}`;
       default: return null; // results / shared / review screens don't deep-link
     }
   }
@@ -249,6 +261,7 @@
     if (a === 'settings') return { kind: 'settings' };
     if (a === 'liveries') return { kind: 'browse' };
     if (a === 'atc' && ATC_MODES.includes(b as AtcMode) && d) {
+      if (b === 'radar') return { kind: 'atcRadarRound', difficulty: d };
       return { kind: 'atcRound', mode: b as AtcMode, difficulty: d };
     }
     if (d) {
@@ -418,6 +431,13 @@
       mode={v.mode}
       difficulty={v.difficulty}
       onFinish={(r) => finishAtc(v.mode, v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'atcRadarRound'}
+    {@const v = view}
+    <AtcRadarRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishRadar(v.difficulty, r)}
       onQuit={home}
     />
   {:else if view.kind === 'atcResults'}

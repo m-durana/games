@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import {
     aircraft,
+    aircraftById,
     aircraftForDifficulty,
     pooledAircraft,
     fetchAircraftImages,
@@ -13,8 +14,37 @@
   } from './aircraft';
   import AircraftReveal from './AircraftReveal.svelte';
   import * as Sound from './sound';
-  import { saveHistoryEntry } from './engine';
+  import { loadPool, saveHistoryEntry } from './engine';
   import type { AircraftIdentifyResult } from './types';
+
+  const SESSION_KEY = 'identify:aircraft:session';
+  interface SavedSession {
+    v: 1;
+    difficulty: AircraftDifficulty;
+    pool: 'all' | 'us' | 'us_eu';
+    answerIds: string[];
+    index: number;
+    stage: number;
+    picked: string | null;
+    revealed: boolean;
+    wrongPicks: string[];
+    lastWrong: string | null;
+    totalScore: number;
+    scores: number[];
+    recorded: AircraftIdentifyResult[];
+  }
+  function loadSession(): SavedSession | null {
+    if (typeof localStorage === 'undefined') return null;
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return null;
+      const s = JSON.parse(raw) as SavedSession;
+      if (s.v !== 1) return null;
+      return s;
+    } catch {
+      return null;
+    }
+  }
 
   interface Props {
     difficulty: AircraftDifficulty;
@@ -24,19 +54,85 @@
   let { difficulty, onHome }: Props = $props();
 
   const aircraftPool = $derived(aircraftForDifficulty(difficulty));
+
   // svelte-ignore state_referenced_locally
-  let answers: Aircraft[] = $state(pickRoundAircraft(AIRCRAFT_ROUND_LENGTH, difficulty));
-  let index = $state(0);
+  const initial = (() => {
+    const saved = loadSession();
+    // svelte-ignore state_referenced_locally
+    const currentPool = loadPool();
+    const canResume =
+      !!saved &&
+      // svelte-ignore state_referenced_locally
+      saved.difficulty === difficulty &&
+      saved.pool === currentPool &&
+      saved.answerIds.length > 0 &&
+      saved.answerIds.every((id) => aircraftById(id) !== null);
+    if (canResume) {
+      return {
+        answers: saved!.answerIds.map((id) => aircraftById(id)!),
+        index: saved!.index,
+        stage: saved!.stage,
+        picked: saved!.picked,
+        revealed: saved!.revealed,
+        wrongPicks: saved!.wrongPicks,
+        lastWrong: saved!.lastWrong,
+        totalScore: saved!.totalScore,
+        scores: saved!.scores,
+        recorded: saved!.recorded,
+      };
+    }
+    // svelte-ignore state_referenced_locally
+    return {
+      answers: pickRoundAircraft(AIRCRAFT_ROUND_LENGTH, difficulty),
+      index: 0,
+      stage: 0,
+      picked: null as string | null,
+      revealed: false,
+      wrongPicks: [] as string[],
+      lastWrong: null as string | null,
+      totalScore: 0,
+      scores: [] as number[],
+      recorded: [] as AircraftIdentifyResult[],
+    };
+  })();
+
+  let answers: Aircraft[] = $state(initial.answers);
+  let index = $state(initial.index);
   // stage: 0 = photo only, 1 = + manufacturer, 2 = + family, 3 = multiple choice
-  let stage = $state(0);
-  let picked: string | null = $state(null);
+  let stage = $state(initial.stage);
+  let picked: string | null = $state(initial.picked);
   let guessId = $state('');
-  let revealed = $state(false);
-  let wrongPicks: string[] = $state([]);
-  let lastWrong: string | null = $state(null);
-  let totalScore = $state(0);
-  let scores: number[] = $state([]);
+  let revealed = $state(initial.revealed);
+  let wrongPicks: string[] = $state(initial.wrongPicks);
+  let lastWrong: string | null = $state(initial.lastWrong);
+  let totalScore = $state(initial.totalScore);
+  let scores: number[] = $state(initial.scores);
+  let recorded: AircraftIdentifyResult[] = $state(initial.recorded);
   let done = $state(false);
+
+  $effect(() => {
+    if (typeof localStorage === 'undefined') return;
+    if (done) {
+      localStorage.removeItem(SESSION_KEY);
+      return;
+    }
+    const session: SavedSession = {
+      v: 1,
+      difficulty,
+      pool: loadPool(),
+      answerIds: answers.map((a) => a.id),
+      index,
+      stage,
+      picked,
+      revealed,
+      wrongPicks,
+      lastWrong,
+      totalScore,
+      scores,
+      recorded,
+    };
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  });
   let photoUrls: string[] = $state([]);
   let photoIndex = $state(0);
   let photoLoading = $state(true);
@@ -161,8 +257,6 @@
     if (!guess) return;
     pickChoice(guess.name);
   }
-
-  let recorded: AircraftIdentifyResult[] = $state([]);
 
   function nextQuestion() {
     const isCorrect = picked === current.name;
@@ -320,8 +414,9 @@
             <p class="ask">Which aircraft is this?</p>
             {#if stage < maxStage}
               {@const cost = stagePoints[stage] - stagePoints[stage + 1]}
+              {@const costLabel = cost > 0 ? ` (−${cost} pt)` : ' (free)'}
               <button class="btn-ghost hint-btn" onclick={nextHint}>
-                {stage === 0 ? `Show maker (−${cost} pt)` : stage === 1 ? `Show family (−${cost} pt)` : `Narrow to 4 choices (−${cost} pt)`}
+                {stage === 0 ? `Show maker${costLabel}` : stage === 1 ? `Show family${costLabel}` : `Narrow to 4 choices${costLabel}`}
               </button>
             {/if}
           </div>

@@ -1,9 +1,9 @@
 import atcData from '../data/atc.json';
 import type { Difficulty } from './types';
-import { airlineMeta, airlines } from './engine';
+import { airlineMeta, pooledAirlines } from './engine';
 
-export type AtcMode = 'callsign' | 'decode' | 'compose' | 'atcMix';
-type AtcQuestionMode = Exclude<AtcMode, 'atcMix'>;
+export type AtcMode = 'callsign' | 'decode' | 'compose' | 'atcMix' | 'radar';
+type AtcQuestionMode = Exclude<AtcMode, 'atcMix' | 'radar'>;
 type AtcTier = Difficulty;
 
 export interface AtcQuestion {
@@ -112,7 +112,7 @@ function pick<T>(arr: T[], rng: Rng): T {
 }
 
 function callsignPool(difficulty: Difficulty) {
-  return airlines
+  return pooledAirlines()
     .map((airline) => ({ airline, meta: airlineMeta(airline.iata) }))
     .filter((entry) => {
       if (!entry.meta.callsign) return false;
@@ -251,6 +251,9 @@ function buildSingleQuestion(mode: AtcQuestionMode, difficulty: Difficulty, rng:
 }
 
 export function buildAtcRound(mode: AtcMode, difficulty: Difficulty, rng: Rng = defaultRng()): AtcQuestion[] {
+  // 'radar' has its own builder (buildRadarRound in atc-radar.ts) and never
+  // reaches this function — App.svelte dispatches to <AtcRadarRound> directly.
+  if (mode === 'radar') return [];
   const modes: AtcQuestionMode[] = mode === 'atcMix'
     ? ['callsign', 'decode', 'compose']
     : [mode];
@@ -275,6 +278,7 @@ export function atcModeTitle(mode: AtcMode | AtcQuestionMode): string {
     case 'decode': return 'Decode ATC';
     case 'compose': return 'Readback Builder';
     case 'atcMix': return 'ATC Mix';
+    case 'radar': return 'ATC Radar';
   }
 }
 
@@ -284,6 +288,7 @@ export function atcModeDescription(mode: AtcMode | AtcQuestionMode): string {
     case 'decode': return 'Pick the correct interpretation of an ATC phrase or instruction.';
     case 'compose': return 'Tap chips in order to build the correct readback. Some are decoys.';
     case 'atcMix': return 'Mixed callsign, decode, and readback-builder questions.';
+    case 'radar': return 'Read the scope. Spot conflicts, sequence to final, approve direct requests.';
   }
 }
 

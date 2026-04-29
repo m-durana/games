@@ -1,5 +1,6 @@
 import airportData from '../data/airport-wordle.json';
 import curatedPhotos from '../data/airport-photos.json';
+import { poolCountryFilter } from './engine';
 
 export type HubAlliance = 'Star Alliance' | 'SkyTeam' | 'oneworld' | 'Independent';
 export type Region = 'NA' | 'SA' | 'EU' | 'ME' | 'AF' | 'AS' | 'OC';
@@ -102,10 +103,18 @@ const HARD_IATAS = new Set([
   'GRU', 'GIG', 'SCL', 'EZE', 'BOG', 'MEX', 'YYZ', 'YVR', 'YUL',
 ]);
 
+function applyPool(list: AirportEntry[]): AirportEntry[] {
+  return list.filter((a) => poolCountryFilter(a.country));
+}
+
+export function pooledAirports(): AirportEntry[] {
+  return applyPool(airports);
+}
+
 export function airportsForDifficulty(d: AirportDifficulty): AirportEntry[] {
-  if (d === 'easy') return airports.filter((a) => EASY_IATAS.has(a.iata));
-  if (d === 'hard') return airports.filter((a) => HARD_IATAS.has(a.iata));
-  return airports;
+  if (d === 'easy') return applyPool(airports.filter((a) => EASY_IATAS.has(a.iata)));
+  if (d === 'hard') return applyPool(airports.filter((a) => HARD_IATAS.has(a.iata)));
+  return applyPool(airports);
 }
 
 export function airportEntryByIata(iata: string): AirportEntry | null {

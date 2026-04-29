@@ -45,12 +45,13 @@
     onOpenHistory,
   }: Props = $props();
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
-  const atcModes: AtcMode[] = ['callsign', 'decode', 'compose', 'atcMix'];
+  const atcModes: AtcMode[] = ['callsign', 'decode', 'compose', 'atcMix', 'radar'];
   const ATC_ICONS: Record<AtcMode, string> = {
     callsign: 'radio',
     decode: 'message-square-text',
     compose: 'spell-check',
     atcMix: 'shuffle',
+    radar: 'radar',
   };
 
   function atcIcon(m: AtcMode): string {
@@ -124,8 +125,8 @@
     localStorage.setItem('difficulty', d);
   }
 
-  let pool: 'all' | 'us' = $state(loadPool());
-  function setPool(p: 'all' | 'us') {
+  let pool: 'all' | 'us' | 'us_eu' = $state(loadPool());
+  function setPool(p: 'all' | 'us' | 'us_eu') {
     pool = p;
     savePool(p);
   }
@@ -180,16 +181,18 @@
 <section class="diff">
   <div class="diff-head">
     <span class="diff-label">Difficulty</span>
-    <button
-      class="pool-toggle"
-      role="switch"
-      aria-checked={pool === 'us'}
-      class:on={pool === 'us'}
-      onclick={() => setPool(pool === 'us' ? 'all' : 'us')}
-    >
-      <span class="pool-knob"></span>
-      <span class="pool-label">US only</span>
-    </button>
+    <label class="pool-select" class:on={pool !== 'all'}>
+      <span class="pool-select-label">Region</span>
+      <select
+        class="pool-select-input"
+        value={pool}
+        onchange={(e) => setPool((e.currentTarget as HTMLSelectElement).value as 'all' | 'us' | 'us_eu')}
+      >
+        <option value="all">All</option>
+        <option value="us">US only</option>
+        <option value="us_eu">US + Europe</option>
+      </select>
+    </label>
   </div>
   <div class="diff-toggle" role="tablist">
     {#each difficulties as d}
@@ -491,12 +494,12 @@
     color: var(--bg);
   }
 
-  .pool-toggle {
+  .pool-select {
     align-self: center;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.3rem 0.65rem 0.3rem 0.3rem;
+    padding: 0.25rem 0.4rem 0.25rem 0.55rem;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
@@ -504,22 +507,28 @@
     color: var(--muted);
     transition: color 0.15s, border-color 0.15s, background 0.15s;
   }
-  .pool-knob {
-    width: 14px;
-    height: 14px;
-    border-radius: 4px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    transition: background 0.15s, border-color 0.15s;
-  }
-  .pool-toggle.on {
+  .pool-select.on {
     color: var(--text);
     border-color: rgba(96, 150, 186, 0.62);
     background: rgba(163, 206, 241, 0.42);
   }
-  .pool-toggle.on .pool-knob {
-    background: var(--accent-2);
-    border-color: var(--accent-2);
+  .pool-select-label {
+    font-family: var(--font-main);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .pool-select-input {
+    background: transparent;
+    color: inherit;
+    border: none;
+    font: inherit;
+    padding: 0.15rem 0.2rem;
+    cursor: pointer;
+  }
+  .pool-select-input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-radius: 3px;
   }
 
   .modes-sections {

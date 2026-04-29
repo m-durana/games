@@ -73,8 +73,16 @@ const HARD_IDS = new Set([
 ]);
 
 const US_AIRCRAFT_MAKERS = new Set(['Boeing', 'McDonnell Douglas']);
+const EU_AIRCRAFT_MAKERS = new Set(['Airbus', 'ATR']);
 function applyPool(list: Aircraft[]): Aircraft[] {
-  return loadPool() === 'us' ? list.filter((a) => US_AIRCRAFT_MAKERS.has(a.manufacturer)) : list;
+  const p = loadPool();
+  if (p === 'us') return list.filter((a) => US_AIRCRAFT_MAKERS.has(a.manufacturer));
+  if (p === 'us_eu') {
+    return list.filter(
+      (a) => US_AIRCRAFT_MAKERS.has(a.manufacturer) || EU_AIRCRAFT_MAKERS.has(a.manufacturer),
+    );
+  }
+  return list;
 }
 
 export function pooledAircraft(): Aircraft[] {

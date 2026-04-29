@@ -8,13 +8,16 @@
     type AtcMode,
     type AtcRoundResult,
   } from './atc';
+  import type { RadarRoundResult } from './atc-radar';
+
+  type RecapResult = AtcRoundResult | RadarRoundResult;
   import { difficultyLabel } from './engine';
   import * as Sound from './sound';
 
   interface Props {
     mode: AtcMode;
     difficulty: Difficulty;
-    results: AtcRoundResult[];
+    results: RecapResult[];
     onAgain: () => void;
     onHome: () => void;
   }

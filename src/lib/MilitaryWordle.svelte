@@ -2,6 +2,7 @@
   import { fly } from 'svelte/transition';
   import { onMount } from 'svelte';
   import {
+    militaryById,
     pooledMilitary,
     compareAttributes,
     fetchMilitaryImages,
@@ -16,8 +17,35 @@
   } from './military-aircraft';
   import MilitaryReveal from './MilitaryReveal.svelte';
   import * as Sound from './sound';
-  import { saveHistoryEntry } from './engine';
+  import { loadPool, saveHistoryEntry } from './engine';
   import type { MilitaryWordleResult } from './types';
+
+  const SESSION_KEY = 'wordle:military:session';
+  interface SavedSession {
+    v: 1;
+    difficulty: MilitaryDifficulty;
+    pool: 'all' | 'us' | 'us_eu';
+    answerIds: string[];
+    index: number;
+    guessIds: string[];
+    score: number;
+    scores: number[];
+    recorded: MilitaryWordleResult[];
+    solved: boolean;
+    exhausted: boolean;
+  }
+  function loadSession(): SavedSession | null {
+    if (typeof localStorage === 'undefined') return null;
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return null;
+      const s = JSON.parse(raw) as SavedSession;
+      if (s.v !== 1) return null;
+      return s;
+    } catch {
+      return null;
+    }
+  }
 
   interface Props {
     difficulty: MilitaryDifficulty;
@@ -31,18 +59,81 @@
   const guessableSet = $derived(pooledMilitary());
 
   // svelte-ignore state_referenced_locally
-  // svelte-ignore state_referenced_locally
-  let answers: MilitaryAircraft[] = $state(pickRoundMilitary(MILITARY_ROUND_LENGTH, difficulty));
-  let index = $state(0);
+  const initial = (() => {
+    const saved = loadSession();
+    // svelte-ignore state_referenced_locally
+    const currentPool = loadPool();
+    const canResume =
+      !!saved &&
+      // svelte-ignore state_referenced_locally
+      saved.difficulty === difficulty &&
+      saved.pool === currentPool &&
+      saved.answerIds.length > 0 &&
+      saved.answerIds.every((id) => militaryById(id) !== null);
+    if (canResume) {
+      const restoredAnswers = saved!.answerIds.map((id) => militaryById(id)!);
+      const cur = restoredAnswers[saved!.index];
+      const restoredGuesses = saved!.guessIds
+        .map((id) => militaryById(id))
+        .filter((a): a is MilitaryAircraft => a !== null)
+        .map((a) => ({ aircraft: a, feedback: compareAttributes(a, cur) }));
+      return {
+        answers: restoredAnswers,
+        index: saved!.index,
+        guesses: restoredGuesses,
+        solved: saved!.solved,
+        exhausted: saved!.exhausted,
+        score: saved!.score,
+        scores: saved!.scores,
+        recorded: saved!.recorded,
+      };
+    }
+    // svelte-ignore state_referenced_locally
+    return {
+      answers: pickRoundMilitary(MILITARY_ROUND_LENGTH, difficulty),
+      index: 0,
+      guesses: [] as { aircraft: MilitaryAircraft; feedback: AttributeFeedback[] }[],
+      solved: false,
+      exhausted: false,
+      score: 0,
+      scores: [] as number[],
+      recorded: [] as MilitaryWordleResult[],
+    };
+  })();
+
+  let answers: MilitaryAircraft[] = $state(initial.answers);
+  let index = $state(initial.index);
   let query = $state('');
   let highlight = $state(0);
-  let guesses: { aircraft: MilitaryAircraft; feedback: AttributeFeedback[] }[] = $state([]);
-  let solved = $state(false);
-  let exhausted = $state(false);
-  let score = $state(0);
-  let scores: number[] = $state([]);
-  let recorded: MilitaryWordleResult[] = $state([]);
+  let guesses: { aircraft: MilitaryAircraft; feedback: AttributeFeedback[] }[] = $state(initial.guesses);
+  let solved = $state(initial.solved);
+  let exhausted = $state(initial.exhausted);
+  let score = $state(initial.score);
+  let scores: number[] = $state(initial.scores);
+  let recorded: MilitaryWordleResult[] = $state(initial.recorded);
   let done = $state(false);
+
+  $effect(() => {
+    if (typeof localStorage === 'undefined') return;
+    if (done) {
+      localStorage.removeItem(SESSION_KEY);
+      return;
+    }
+    const session: SavedSession = {
+      v: 1,
+      difficulty,
+      pool: loadPool(),
+      answerIds: answers.map((a) => a.id),
+      index,
+      guessIds: guesses.map((g) => g.aircraft.id),
+      score,
+      scores,
+      recorded,
+      solved,
+      exhausted,
+    };
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  });
 
   let inputEl: HTMLInputElement | null = $state(null);
   let revealPhoto: string | null = $state(null);
@@ -52,6 +143,11 @@
   const current = $derived(answers[index]);
   const remaining = $derived(maxGuesses - guesses.length);
   const finished = $derived(solved || exhausted);
+  const allGreenButWrong = $derived(
+    guesses.length > 0 &&
+      !solved &&
+      guesses[guesses.length - 1].feedback.every((f) => f.match === 'hit'),
+  );
 
   $effect(() => {
     if (!finished) return;
@@ -111,10 +207,12 @@
       score += earned;
       Sound.correct();
       Sound.vibrate(15);
+      savePuzzle(true, earned);
     } else if (guesses.length >= maxGuesses) {
       exhausted = true;
       Sound.wrong();
       Sound.vibrate(35);
+      savePuzzle(false, 0);
     } else {
       Sound.vibrate(8);
       inputEl?.focus();
@@ -153,29 +251,30 @@
     if (highlight >= suggestions.length) highlight = 0;
   });
 
-  function next() {
-    const earned = solved ? Math.max(1, maxGuesses - guesses.length + 1) : 0;
+  function savePuzzle(didSolve: boolean, earned: number) {
     const result: MilitaryWordleResult = {
       type: 'mil-wordle',
       aircraftId: current.id,
       aircraftName: current.name,
       guesses: guesses.map((g) => ({ id: g.aircraft.id, name: g.aircraft.name, feedback: g.feedback })),
-      solved,
+      solved: didSolve,
       earned,
     };
-    const nextRecorded = [...recorded, result];
+    recorded = [...recorded, result];
     scores = [...scores, earned];
-    recorded = nextRecorded;
+    saveHistoryEntry({
+      mode: 'militaryWordle',
+      difficulty,
+      score: didSolve ? 1 : 0,
+      total: 1,
+      ts: Date.now(),
+      militaryResults: [result],
+    });
+  }
+
+  function next() {
     if (index + 1 >= answers.length) {
       done = true;
-      saveHistoryEntry({
-        mode: 'militaryWordle',
-        difficulty,
-        score: nextRecorded.filter((r) => r.solved).length,
-        total: answers.length,
-        ts: Date.now(),
-        militaryResults: nextRecorded,
-      });
       return;
     }
     index += 1;
@@ -335,6 +434,13 @@
         {/if}
 
         {#if !finished}
+          {#if allGreenButWrong}
+            <div class="green-note">
+              All attributes match — but it's still not the mystery aircraft. Variants
+              of the same family share maker, role, era, etc.; the answer is a different
+              one. Keep guessing.
+            </div>
+          {/if}
           <div class="combobox">
             <input
               bind:this={inputEl}
@@ -618,6 +724,16 @@
     color: var(--muted);
     font-size: 0.8125rem;
     padding: 0.4rem 0.625rem;
+  }
+  .green-note {
+    margin-bottom: 0.625rem;
+    padding: 0.55rem 0.75rem;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.38);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.8125rem;
+    line-height: 1.4;
   }
   .btn-primary {
     background: var(--accent);

@@ -10,18 +10,40 @@ import type { Airline, AirlineMeta, Difficulty, HistoryEntry, Mode, Question, Se
 
 export const airlines = airlinesData as Airline[];
 
-export type Pool = 'all' | 'us';
+export type Pool = 'all' | 'us' | 'us_eu';
 const POOL_KEY = 'pool';
 export function loadPool(): Pool {
   if (typeof localStorage === 'undefined') return 'all';
-  return (localStorage.getItem(POOL_KEY) as Pool) ?? 'all';
+  const raw = localStorage.getItem(POOL_KEY);
+  if (raw === 'us' || raw === 'us_eu' || raw === 'all') return raw;
+  return 'all';
 }
 export function savePool(p: Pool) {
   if (typeof localStorage === 'undefined') return;
   localStorage.setItem(POOL_KEY, p);
 }
+
+// Western Europe — used for the "US + Europe" pool. Russia is intentionally
+// excluded so the pool reads as a Western/NATO-aligned grouping (consistent
+// with how the military origin buckets treat Russia as its own bloc).
+export const EU_COUNTRIES = new Set([
+  'Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic',
+  'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary',
+  'Iceland', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta',
+  'Netherlands', 'Norway', 'Poland', 'Portugal', 'Romania', 'Serbia',
+  'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland', 'Turkey',
+  'Ukraine', 'United Kingdom',
+]);
+
+export function poolCountryFilter(country: string): boolean {
+  const p = loadPool();
+  if (p === 'all') return true;
+  if (p === 'us') return country === 'United States';
+  return country === 'United States' || EU_COUNTRIES.has(country);
+}
+
 export function pooledAirlines(): Airline[] {
-  return loadPool() === 'us' ? airlines.filter((a) => a.country === 'United States') : airlines;
+  return airlines.filter((a) => poolCountryFilter(a.country));
 }
 const airports = airportsData as Record<string, string>;
 const airportCountry = airportMetaData as Record<string, string>;
