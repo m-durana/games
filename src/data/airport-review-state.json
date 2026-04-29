@@ -1,5 +1,11 @@
 {
   "ABJ": {
+    "aerial": {
+      "lat": 5.264534348675271,
+      "lon": -3.925415991189427,
+      "provider": "arcgis",
+      "zoom": 2.65
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/AbidjanAirportHallDep_2016.JPG/500px-AbidjanAirportHallDep_2016.JPG"
     ],
@@ -8,15 +14,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Felix_HOUPHOUET-BOIGNY_INT._AIRPORT._ABIDJAN_-_panoramio.jpg/500px-Felix_HOUPHOUET-BOIGNY_INT._AIRPORT._ABIDJAN_-_panoramio.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Arrive_du_CONCORDE_%C3%A0_Abidjan_en_1978.jpg/500px-Arrive_du_CONCORDE_%C3%A0_Abidjan_en_1978.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Salon_business_-_A%C3%A9roport_d%27Abidjan.jpg/500px-Salon_business_-_A%C3%A9roport_d%27Abidjan.jpg"
-    ],
-    "aerial": {
-      "lat": 5.264534348675271,
-      "lon": -3.925415991189427,
-      "provider": "arcgis",
-      "zoom": 2.65
-    }
+    ]
   },
   "ABV": {
+    "aerial": {
+      "lat": 9.00679,
+      "lon": 7.26317,
+      "provider": "arcgis",
+      "zoom": 2.65
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/b/b2/Abuja_Airport_Iwelumo-1.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/f/fb/Abuja_-_Nnamdi_Azikiwe_International_%28ABV_-_DNAA%29_AN0845038.jpg",
@@ -46,15 +52,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/At_Nnamdi_Azikiwe_International_Airport_01.jpg/1280px-At_Nnamdi_Azikiwe_International_Airport_01.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/At_Nnamdi_Azikiwe_International_Airport_06.jpg/1280px-At_Nnamdi_Azikiwe_International_Airport_06.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/At_Nnamdi_Azikiwe_International_Airport_09.jpg/1280px-At_Nnamdi_Azikiwe_International_Airport_09.jpg"
-    ],
-    "aerial": {
-      "lat": 9.00679,
-      "lon": 7.26317,
-      "provider": "arcgis",
-      "zoom": 2.65
-    }
+    ]
   },
   "ACA": {
+    "aerial": {
+      "lat": 16.757126,
+      "lon": -99.753113,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/ISS019-E-19021_-_View_of_Mexico.jpg/500px-ISS019-E-19021_-_View_of_Mexico.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/MMAA10.jpg/500px-MMAA10.jpg",
@@ -62,15 +68,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Aeropuerto_Acapulco_02.jpg/500px-Aeropuerto_Acapulco_02.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Aeropuerto_Acapulco_01.jpg/500px-Aeropuerto_Acapulco_01.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 16.757126,
-      "lon": -99.753113,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "ACC": {
+    "aerial": {
+      "lat": 5.605189800262451,
+      "lon": -0.16678600013256073,
+      "provider": "arcgis",
+      "zoom": 2.5
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/en/thumb/3/34/DGAA_T3_DEP_INT.jpg/500px-DGAA_T3_DEP_INT.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/East_Legon%2C_Ayawaso_West_%28P1100117%29.jpg/1280px-East_Legon%2C_Ayawaso_West_%28P1100117%29.jpg",
@@ -78,29 +84,29 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Airport%2C_Ayawaso_West_%28P1100131%29.jpg/1280px-Airport%2C_Ayawaso_West_%28P1100131%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/East_Legon%2C_Ayawaso_West_%28P1100120%29.jpg/1280px-East_Legon%2C_Ayawaso_West_%28P1100120%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 5.605189800262451,
-      "lon": -0.16678600013256073,
-      "provider": "arcgis",
-      "zoom": 2.5
-    }
+    "rejected": []
   },
   "ADB": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/7/7f/Izmir_Airport_Karakas-1.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm.jpg/500px-Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm_2.jpg/500px-Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm_2.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 38.2924,
       "lon": 27.157,
       "provider": "arcgis",
       "zoom": 2.55
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/7/7f/Izmir_Airport_Karakas-1.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm.jpg/500px-Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm_2.jpg/500px-Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm_2.jpg"
+    ],
+    "rejected": []
   },
   "ADD": {
+    "aerial": {
+      "lat": 8.97777778,
+      "lon": 38.79944444,
+      "provider": "arcgis",
+      "zoom": 2.5
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Addis_Ababa_-_Bole_International_%28ADD_-_HAAB%29_AN1002414.jpg/500px-Addis_Ababa_-_Bole_International_%28ADD_-_HAAB%29_AN1002414.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Aeropuerto_Internacional_Bole_2022_3.jpg/500px-Aeropuerto_Internacional_Bole_2022_3.jpg"
@@ -109,39 +115,39 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Addis_Ababa_Bole_International_Airport_in_2024.03.jpg/500px-Addis_Ababa_Bole_International_Airport_in_2024.03.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Addis_Ababa_Bole_International_Airport_in_2024.02.jpg/500px-Addis_Ababa_Bole_International_Airport_in_2024.02.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Addis_Abeba_airport%2C_16-12-2021.jpg/500px-Addis_Abeba_airport%2C_16-12-2021.jpg"
-    ],
-    "aerial": {
-      "lat": 8.97777778,
-      "lon": 38.79944444,
-      "provider": "arcgis",
-      "zoom": 2.5
-    }
+    ]
   },
   "ADL": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/8/89/Adelaide_Airport_%288428663159%29.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": -34.94708069480299,
       "lon": 138.53220885903082,
       "provider": "arcgis",
       "zoom": 2.85
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/8/89/Adelaide_Airport_%288428663159%29.jpg"
+    ],
+    "rejected": []
   },
   "AEP": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/c/cf/Aeroparque_Jorge_Newberry-Overview_%28by_Dar%C3%ADo_Crusaf%C3%B3n%29.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": -34.559419,
       "lon": -58.415536,
       "provider": "arcgis",
       "zoom": 2.4
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/c/cf/Aeroparque_Jorge_Newberry-Overview_%28by_Dar%C3%ADo_Crusaf%C3%B3n%29.jpg"
+    ],
+    "rejected": []
   },
   "AGP": {
+    "aerial": {
+      "lat": 36.6749,
+      "lon": -4.49911,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Malaga_%28AGP_-_LEMG%29_AN1871899.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/M%C3%A1laga_Airport_from_the_air.jpg/1280px-M%C3%A1laga_Airport_from_the_air.jpg",
@@ -149,28 +155,28 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Malaga-airport-cropped-seen_from_departing_plane_01.jpg/1280px-Malaga-airport-cropped-seen_from_departing_plane_01.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Malaga-airport-cropped-seen_from_departing_plane_02.jpg/1280px-Malaga-airport-cropped-seen_from_departing_plane_02.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 36.6749,
-      "lon": -4.49911,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "AKL": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/0/01/Auckland_international_airport_from_space.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Auckland_International_Airport_2017_aerial.png/500px-Auckland_International_Airport_2017_aerial.png"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": -37.00805556,
       "lon": 174.79166667,
       "provider": "arcgis",
       "zoom": 2.85
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/0/01/Auckland_international_airport_from_space.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Auckland_International_Airport_2017_aerial.png/500px-Auckland_International_Airport_2017_aerial.png"
+    ],
+    "rejected": []
   },
   "ALA": {
+    "aerial": {
+      "lat": 43.35527778,
+      "lon": 77.04472222,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Almaty_Airport_ATC.jpg/1280px-Almaty_Airport_ATC.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/%D0%90%D0%BB%D0%BC%D0%B0%D1%82%D1%8B%2C_%D0%BD%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB_%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82%D0%B0.jpg/1280px-%D0%90%D0%BB%D0%BC%D0%B0%D1%82%D1%8B%2C_%D0%BD%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB_%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82%D0%B0.jpg",
@@ -178,30 +184,30 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Parked_Mil-24_aircraft_in_Almaty_International_Airport.jpg/1280px-Parked_Mil-24_aircraft_in_Almaty_International_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/ALA_Osokin-1.jpg/500px-ALA_Osokin-1.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 43.35527778,
-      "lon": 77.04472222,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "AMD": {
+    "aerial": {
+      "lat": 23.0772,
+      "lon": 72.634697,
+      "provider": "arcgis",
+      "zoom": 2.5
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/c/cb/Aerial_View_New_Terminal.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Domestic_Terminal_From_Apron.jpg/1280px-Domestic_Terminal_From_Apron.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/f/f5/Ahmedabad_Airport_Terminal_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/AMD2.jpg/500px-AMD2.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 23.0772,
-      "lon": 72.634697,
-      "provider": "arcgis",
-      "zoom": 2.5
-    }
+    "rejected": []
   },
   "AMM": {
+    "aerial": {
+      "lat": 31.72423143817935,
+      "lon": 35.99300362995595,
+      "provider": "arcgis",
+      "zoom": 3.4
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/0/05/Queenaliaintlairportnasa.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Amman_airport%2C_Jordan.jpg/1280px-Amman_airport%2C_Jordan.jpg",
@@ -212,18 +218,18 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Jordan_2021_P369_Amman_Queen_Alia_International_Airport.jpg/500px-Jordan_2021_P369_Amman_Queen_Alia_International_Airport.jpg"
     ],
     "rejected": [],
-    "aerial": {
-      "lat": 31.72423143817935,
-      "lon": 35.99300362995595,
-      "provider": "arcgis",
-      "zoom": 3.4
-    },
     "coords": {
       "lat": 31.723341,
       "lon": 35.991312
     }
   },
   "AMS": {
+    "aerial": {
+      "lat": 52.32092522078804,
+      "lon": 4.759474008810573,
+      "provider": "arcgis",
+      "zoom": 3.75
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Aerial_photograph_of_Exit_2_Schiphol-08MAR2019-1.jpg/1280px-Aerial_photograph_of_Exit_2_Schiphol-08MAR2019-1.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Ams-above-2007.jpg/500px-Ams-above-2007.jpg",
@@ -234,132 +240,127 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Amsterdam_Schiphol_0021.jpg/1280px-Amsterdam_Schiphol_0021.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/AMS%2C_Amsterdam_Airport_Schiphol%2C_Luchthaven_Schiphol%2C_Flughafen_Amsterdam_Schiphol_-_panoramio_%287%29.jpg/1280px-AMS%2C_Amsterdam_Airport_Schiphol%2C_Luchthaven_Schiphol%2C_Flughafen_Amsterdam_Schiphol_-_panoramio_%287%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 52.32092522078804,
-      "lon": 4.759474008810573,
-      "provider": "arcgis",
-      "zoom": 3.75
-    }
+    "rejected": []
   },
   "ARN": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Arlanda_1_Publish.jpg/500px-Arlanda_1_Publish.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 59.64849,
       "lon": 17.928829,
       "provider": "arcgis",
       "zoom": 3
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Arlanda_1_Publish.jpg/500px-Arlanda_1_Publish.jpg"
+    ],
+    "rejected": []
   },
   "ASU": {
-    "approved": [],
-    "rejected": [],
     "aerial": {
       "lat": -25.240156,
       "lon": -57.519227,
       "provider": "arcgis",
       "zoom": 2.65
-    }
+    },
+    "approved": [],
+    "rejected": []
   },
   "ASW": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/f/f4/ISS-64_Aswan_International_Airport.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/ISS064-E-6269_-_View_of_Earth.jpg/1280px-ISS064-E-6269_-_View_of_Earth.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 23.961075,
       "lon": 32.820382,
       "provider": "arcgis",
       "zoom": 2.75
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/f/f4/ISS-64_Aswan_International_Airport.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/ISS064-E-6269_-_View_of_Earth.jpg/1280px-ISS064-E-6269_-_View_of_Earth.jpg"
+    ],
+    "rejected": []
   },
   "ATH": {
+    "aerial": {
+      "lat": 37.93638889,
+      "lon": 23.94722222,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Greece-0028_%282215861772%29.jpg/1280px-Greece-0028_%282215861772%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/New_Athens_International_Airport_%28juillet_2000%29_-_2.jpg/1280px-New_Athens_International_Airport_%28juillet_2000%29_-_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Athens_International_Airport_Eleftherios_Venizelos_%CE%94%CE%B9%CE%B5%CE%B8%CE%BD%CE%AE%CF%82_%CE%91%CE%B5%CF%81%CE%BF%CE%BB%CE%B9%CE%BC%CE%AD%CE%BD%CE%B1%CF%82_%CE%91%CE%B8%CE%B7%CE%BD%CF%8E%CE%BD_%CE%95%CE%BB%CE%B5%CF%85%CE%B8%CE%AD%CF%81%CE%B9%CE%BF%CF%82_%CE%92%CE%B5%CE%BD%CE%B9%CE%B6%CE%AD%CE%BB%CE%BF%CF%82_2019-12-01_i.jpg/500px-Athens_International_Airport_Eleftherios_Venizelos_%CE%94%CE%B9%CE%B5%CE%B8%CE%BD%CE%AE%CF%82_%CE%91%CE%B5%CF%81%CE%BF%CE%BB%CE%B9%CE%BC%CE%AD%CE%BD%CE%B1%CF%82_%CE%91%CE%B8%CE%B7%CE%BD%CF%8E%CE%BD_%CE%95%CE%BB%CE%B5%CF%85%CE%B8%CE%AD%CF%81%CE%B9%CE%BF%CF%82_%CE%92%CE%B5%CE%BD%CE%B9%CE%B6%CE%AD%CE%BB%CE%BF%CF%82_2019-12-01_i.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Retail_Park.jpg/500px-Retail_Park.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 37.93638889,
-      "lon": 23.94722222,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "ATL": {
+    "aerial": {
+      "lat": 33.63666667,
+      "lon": -84.42805556,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/2/20/ATL_12-29-08_%283152114576%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/ATL_Concourse_T_and_A.jpg/1280px-ATL_Concourse_T_and_A.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/ATL%281%29_%28cropped%29.jpg/500px-ATL%281%29_%28cropped%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Atlanta_Airport_%E2%80%93_Hartsfield-Jackson_Atlanta_International_Airport_in_Georgia_18.jpg/500px-Atlanta_Airport_%E2%80%93_Hartsfield-Jackson_Atlanta_International_Airport_in_Georgia_18.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 33.63666667,
-      "lon": -84.42805556,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "AUH": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/8/88/AbuDhabiIntlAirport.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Airport_Area_-_Abu_Dhabi_-_United_Arab_Emirates_-_panoramio.jpg/1280px-Airport_Area_-_Abu_Dhabi_-_United_Arab_Emirates_-_panoramio.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 24.43305556,
       "lon": 54.65111111,
       "provider": "arcgis",
       "zoom": 3
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/8/88/AbuDhabiIntlAirport.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Airport_Area_-_Abu_Dhabi_-_United_Arab_Emirates_-_panoramio.jpg/1280px-Airport_Area_-_Abu_Dhabi_-_United_Arab_Emirates_-_panoramio.jpg"
+    ],
+    "rejected": []
   },
   "AUS": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Austin_by_Sentinel-2%2C_2020-03-25_%28cropped%29.jpg/500px-Austin_by_Sentinel-2%2C_2020-03-25_%28cropped%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/ABIA_tower_2009.jpg/500px-ABIA_tower_2009.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 30.197535,
       "lon": -97.662015,
       "provider": "arcgis",
       "zoom": 3
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Austin_by_Sentinel-2%2C_2020-03-25_%28cropped%29.jpg/500px-Austin_by_Sentinel-2%2C_2020-03-25_%28cropped%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/ABIA_tower_2009.jpg/500px-ABIA_tower_2009.jpg"
+    ],
+    "rejected": []
   },
   "AYT": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/2/2c/A%C3%A9roport_d%27Antalya.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Control_tower_at_the_airport_in_Antalya.jpg/1280px-Control_tower_at_the_airport_in_Antalya.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 36.898701,
       "lon": 30.800501,
       "provider": "arcgis",
       "zoom": 2.95
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/2/2c/A%C3%A9roport_d%27Antalya.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Control_tower_at_the_airport_in_Antalya.jpg/1280px-Control_tower_at_the_airport_in_Antalya.jpg"
+    ],
+    "rejected": []
   },
   "BAH": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/6/6a/BahrainInternationalAirport01.jpeg",
-      "https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Bahrain_Airport_2024.jpg/500px-Bahrain_Airport_2024.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 26.27083333,
       "lon": 50.63361111,
       "provider": "arcgis",
       "zoom": 2.8
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/6/6a/BahrainInternationalAirport01.jpeg",
+      "https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Bahrain_Airport_2024.jpg/500px-Bahrain_Airport_2024.jpg"
+    ],
+    "rejected": []
   },
   "BCN": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/BCN_AIRPORT_FROM_FLIGHT_BCN-ORY_A320_EC-MLE_%2843952944862%29.jpg/500px-BCN_AIRPORT_FROM_FLIGHT_BCN-ORY_A320_EC-MLE_%2843952944862%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Barcelona_Airport_%2838923117160%29_%28cropped%29.jpg/500px-Barcelona_Airport_%2838923117160%29_%28cropped%29.jpg",
@@ -370,114 +371,120 @@
     "rejected": []
   },
   "BEG": {
+    "aerial": {
+      "lat": 44.81944444,
+      "lon": 20.30694444,
+      "provider": "arcgis",
+      "zoom": 2.9
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Beograd_Airport_01.JPG/1280px-Beograd_Airport_01.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Aerial_view_of_Nikola_Tesla_Airport%2C_Belgrade%2C_2021.jpg/1280px-Aerial_view_of_Nikola_Tesla_Airport%2C_Belgrade%2C_2021.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Belgrade_Nikola_Tesla_Airport_-_Aerodrom_Beograd_Nikola_Tesla.jpg/1280px-Belgrade_Nikola_Tesla_Airport_-_Aerodrom_Beograd_Nikola_Tesla.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Belgrade_Nikola_Tesla_Airport_Tower_2023.jpg/500px-Belgrade_Nikola_Tesla_Airport_Tower_2023.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 44.81944444,
-      "lon": 20.30694444,
-      "provider": "arcgis",
-      "zoom": 2.9
-    }
+    "rejected": []
   },
   "BER": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Google_Timelapse-_Berlin_Brandenburg_Airport%2C_Germany.webm/1280px--Google_Timelapse-_Berlin_Brandenburg_Airport%2C_Germany.webm.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Berlin_Brandenburg_Airport%2C_Germany.webm/1280px--Berlin_Brandenburg_Airport%2C_Germany.webm.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Airport_berlin_BER_2019.jpg/500px-Airport_berlin_BER_2019.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 52.361738,
       "lon": 13.502341,
       "provider": "arcgis",
       "zoom": 3
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Google_Timelapse-_Berlin_Brandenburg_Airport%2C_Germany.webm/1280px--Google_Timelapse-_Berlin_Brandenburg_Airport%2C_Germany.webm.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Berlin_Brandenburg_Airport%2C_Germany.webm/1280px--Berlin_Brandenburg_Airport%2C_Germany.webm.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Airport_berlin_BER_2019.jpg/500px-Airport_berlin_BER_2019.jpg"
+    ],
+    "rejected": []
   },
   "BGO": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flesland_flyplass_Rullebane.jpg/500px-Flesland_flyplass_Rullebane.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Flight_tower_ATC_Flesland_airport.jpg/1280px-Flight_tower_ATC_Flesland_airport.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 60.2934,
       "lon": 5.21814,
       "provider": "arcgis",
       "zoom": 2.85
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flesland_flyplass_Rullebane.jpg/500px-Flesland_flyplass_Rullebane.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Flight_tower_ATC_Flesland_airport.jpg/1280px-Flight_tower_ATC_Flesland_airport.jpg"
+    ],
+    "rejected": []
   },
   "BHX": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/BIRMINGHAM_CONTROL_TOWER_-_panoramio.jpg/1280px-BIRMINGHAM_CONTROL_TOWER_-_panoramio.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/2/23/Air_Traffic_Control_Tower%2C_Birmingham_Airport.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 52.453899,
       "lon": -1.74803,
       "provider": "arcgis",
       "zoom": 2.7
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/BIRMINGHAM_CONTROL_TOWER_-_panoramio.jpg/1280px-BIRMINGHAM_CONTROL_TOWER_-_panoramio.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/2/23/Air_Traffic_Control_Tower%2C_Birmingham_Airport.jpg"
+    ],
+    "rejected": []
   },
   "BJL": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/9/98/Avvoltoi_all%27aeroporto_di_Banjul.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 13.338,
       "lon": -16.652201,
       "provider": "arcgis",
       "zoom": 2.6
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/9/98/Avvoltoi_all%27aeroporto_di_Banjul.jpg"
+    ],
+    "rejected": []
   },
   "BKI": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Aerial_view_of_Kota_Kinabalu_International_Airport.jpg/1280px-Aerial_view_of_Kota_Kinabalu_International_Airport.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Aerial_view_of_Kota_Kinabalu_31_December_2023_02.jpg/1280px-Aerial_view_of_Kota_Kinabalu_31_December_2023_02.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 5.932743,
       "lon": 116.049324,
       "provider": "arcgis",
       "zoom": 2.75
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Aerial_view_of_Kota_Kinabalu_International_Airport.jpg/1280px-Aerial_view_of_Kota_Kinabalu_International_Airport.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Aerial_view_of_Kota_Kinabalu_31_December_2023_02.jpg/1280px-Aerial_view_of_Kota_Kinabalu_31_December_2023_02.jpg"
+    ],
+    "rejected": []
   },
   "BKK": {
+    "aerial": {
+      "lat": 13.6925,
+      "lon": 100.75,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bangkok_-_Suvarnabhumi_International_%28BKK_-_VTBS%29_AN1822384.jpg/500px-Bangkok_-_Suvarnabhumi_International_%28BKK_-_VTBS%29_AN1822384.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/VTBS-Tower.JPG/500px-VTBS-Tower.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/202402_Concourse_A_of_Suvarnabhumi_International_Airport.jpg/120px-202402_Concourse_A_of_Suvarnabhumi_International_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Suvarnabhumi_architecture_%2831108307925%29.jpg/500px-Suvarnabhumi_architecture_%2831108307925%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 13.6925,
-      "lon": 100.75,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "BLQ": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Bologna_Guglielmo_Marconi_Airport_aerial.jpg/500px-Bologna_Guglielmo_Marconi_Airport_aerial.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Bologna_Guglielmo_Marconi_Airport_Terminal.jpg/500px-Bologna_Guglielmo_Marconi_Airport_Terminal.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 44.5354,
       "lon": 11.2887,
       "provider": "arcgis",
       "zoom": 2.8
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Bologna_Guglielmo_Marconi_Airport_aerial.jpg/500px-Bologna_Guglielmo_Marconi_Airport_aerial.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Bologna_Guglielmo_Marconi_Airport_Terminal.jpg/500px-Bologna_Guglielmo_Marconi_Airport_Terminal.jpg"
+    ],
+    "rejected": []
   },
   "BLR": {
+    "aerial": {
+      "lat": 13.1979,
+      "lon": 77.706299,
+      "provider": "arcgis",
+      "zoom": 2.8
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/BangaloreIndia.jpg/1280px-BangaloreIndia.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Kempegowda-international-airport.jpg/1280px-Kempegowda-international-airport.jpg",
@@ -487,42 +494,42 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Terminal_1_of_Kempegowda_International_Airport.jpg/500px-Terminal_1_of_Kempegowda_International_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Terminal_2_Departure_of_Kempegowda_International_Airport.jpg/500px-Terminal_2_Departure_of_Kempegowda_International_Airport.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 13.1979,
-      "lon": 77.706299,
-      "provider": "arcgis",
-      "zoom": 2.8
-    }
+    "rejected": []
   },
   "BMA": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Bromma_Flygplats%2C_20230528%2C_bild_1.jpg/1280px-Bromma_Flygplats%2C_20230528%2C_bild_1.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Stockholm_Bromma_Airport.jpg/500px-Stockholm_Bromma_Airport.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 59.354401,
       "lon": 17.9417,
       "provider": "arcgis",
       "zoom": 2.4
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Bromma_Flygplats%2C_20230528%2C_bild_1.jpg/1280px-Bromma_Flygplats%2C_20230528%2C_bild_1.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Stockholm_Bromma_Airport.jpg/500px-Stockholm_Bromma_Airport.jpg"
+    ],
+    "rejected": []
   },
   "BNA": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Nashville_International_Airport_Aerial_June_2011.jpg/1280px-Nashville_International_Airport_Aerial_June_2011.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Nashville_by_Sentinel-2%2C_2020-07-11_%28cropped%29.jpg/500px-Nashville_by_Sentinel-2%2C_2020-07-11_%28cropped%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Nashville_International_Airport_2021.jpg/500px-Nashville_International_Airport_2021.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 36.1245,
       "lon": -86.6782,
       "provider": "arcgis",
       "zoom": 3
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Nashville_International_Airport_Aerial_June_2011.jpg/1280px-Nashville_International_Airport_Aerial_June_2011.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Nashville_by_Sentinel-2%2C_2020-07-11_%28cropped%29.jpg/500px-Nashville_by_Sentinel-2%2C_2020-07-11_%28cropped%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Nashville_International_Airport_2021.jpg/500px-Nashville_International_Airport_2021.jpg"
+    ],
+    "rejected": []
   },
   "BNE": {
+    "aerial": {
+      "lat": -27.38333333,
+      "lon": 153.11833333,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/9/9e/BrisAirport.png",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Brisbane_aerial_view_05.jpg/1280px-Brisbane_aerial_view_05.jpg",
@@ -532,30 +539,30 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Brisbane_Airport_Control_Tower_seen_from_Domestic_Terminal_railway_station%2C_Brisbane%2C_2021.jpg/500px-Brisbane_Airport_Control_Tower_seen_from_Domestic_Terminal_railway_station%2C_Brisbane%2C_2021.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Brisbane_International_Airport3.JPG/330px-Brisbane_International_Airport3.JPG"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -27.38333333,
-      "lon": 153.11833333,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "BOG": {
+    "aerial": {
+      "lat": 4.70138889,
+      "lon": -74.14694444,
+      "provider": "arcgis",
+      "zoom": 2.9
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Apron_or_Ramp_internacional_airport_%22El_Dorado%22%2C_Bogot%C3%A1%2C_Colombia_-_Landing_View_1.jpg/1280px-Apron_or_Ramp_internacional_airport_%22El_Dorado%22%2C_Bogot%C3%A1%2C_Colombia_-_Landing_View_1.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Aeropuerto_Internacional_El_Dorado_2.jpg/1280px-Aeropuerto_Internacional_El_Dorado_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/9/96/El-dorado-from-air.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2018_Aeropuerto_El_Dorado_de_Bogot%C3%A1_-_Ventanales_del_muelle_nacional.jpg/500px-2018_Aeropuerto_El_Dorado_de_Bogot%C3%A1_-_Ventanales_del_muelle_nacional.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 4.70138889,
-      "lon": -74.14694444,
-      "provider": "arcgis",
-      "zoom": 2.9
-    }
+    "rejected": []
   },
   "BOM": {
+    "aerial": {
+      "lat": 19.090999288722823,
+      "lon": 72.86645911453745,
+      "provider": "arcgis",
+      "zoom": 2.7
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Chhatrapati_Shivaji_International_Airport_3.jpg/500px-Chhatrapati_Shivaji_International_Airport_3.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Mumbai_International_Airport%2C_India._%2813906862097%29.jpg/500px-Mumbai_International_Airport%2C_India._%2813906862097%29.jpg",
@@ -566,30 +573,30 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Chhatrapati_Shivaji_Maharaj_International_Airport.jpg/500px-Chhatrapati_Shivaji_Maharaj_International_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Terminal_2B.jpg/500px-Terminal_2B.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 19.090999288722823,
-      "lon": 72.86645911453745,
-      "provider": "arcgis",
-      "zoom": 2.7
-    }
+    "rejected": []
   },
   "BOS": {
+    "aerial": {
+      "lat": 42.36197,
+      "lon": -71.0079,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Boston_Logan_International_Airport_on_Massachusetts_Bay_%28iss072e311839%29_%28cropped%29.jpg/500px-Boston_Logan_International_Airport_on_Massachusetts_Bay_%28iss072e311839%29_%28cropped%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/2007_09_23_bos-lax_003.JPG_%281437514992%29.jpg/500px-2007_09_23_bos-lax_003.JPG_%281437514992%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/KBOS_%281%29_03.jpg/500px-KBOS_%281%29_03.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/KBOS_%281%29_12.jpg/500px-KBOS_%281%29_12.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 42.36197,
-      "lon": -71.0079,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "BRU": {
+    "aerial": {
+      "lat": 50.90138889,
+      "lon": 4.48444444,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/2023_-_S%C3%A3o_Miguel_-_A%C3%A7ores_%2853254652847%29.jpg/1280px-2023_-_S%C3%A3o_Miguel_-_A%C3%A7ores_%2853254652847%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Brussels_Airport_%282%29_%2816222853594%29.jpg/1280px-Brussels_Airport_%282%29_%2816222853594%29.jpg",
@@ -598,15 +605,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Brussels_Airport_Runway_25_R.jpg/500px-Brussels_Airport_Runway_25_R.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Controletoren_Brussel-Nationaal.jpg/500px-Controletoren_Brussel-Nationaal.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 50.90138889,
-      "lon": 4.48444444,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "BSB": {
+    "aerial": {
+      "lat": -15.869167,
+      "lon": -47.920834,
+      "provider": "arcgis",
+      "zoom": 2.9
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/b/b2/Brasiliaarportaerial.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Boeing_757_%28American_Airlines%29_5843.jpg/1280px-Boeing_757_%28American_Airlines%29_5843.jpg",
@@ -622,29 +629,29 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Bras%C3%ADlia_-_Aeroporto_Internacional_03.jpg/1280px-Bras%C3%ADlia_-_Aeroporto_Internacional_03.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Brasilia_WPM_20210721_206_133_L4_BAND3210_2m_%28cropped%29.jpg/500px-Brasilia_WPM_20210721_206_133_L4_BAND3210_2m_%28cropped%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -15.869167,
-      "lon": -47.920834,
-      "provider": "arcgis",
-      "zoom": 2.9
-    }
+    "rejected": []
   },
   "BSL": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Euroairport_from_the_air_%287262130986%29.jpg/500px-Euroairport_from_the_air_%287262130986%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/A%C3%A9roport_B%C3%A2le-Mulhouse_2.jpg/500px-A%C3%A9roport_B%C3%A2le-Mulhouse_2.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/A%C3%A9roport_de_B%C3%A2le_003.jpg/500px-A%C3%A9roport_de_B%C3%A2le_003.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 47.60068,
       "lon": 7.521117,
       "provider": "arcgis",
       "zoom": 2.75
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Euroairport_from_the_air_%287262130986%29.jpg/500px-Euroairport_from_the_air_%287262130986%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/A%C3%A9roport_B%C3%A2le-Mulhouse_2.jpg/500px-A%C3%A9roport_B%C3%A2le-Mulhouse_2.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/A%C3%A9roport_de_B%C3%A2le_003.jpg/500px-A%C3%A9roport_de_B%C3%A2le_003.jpg"
+    ],
+    "rejected": []
   },
   "BUD": {
+    "aerial": {
+      "lat": 47.43944444,
+      "lon": 19.26194444,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Budapest%2C_Hungary_ESA23505779_%28cropped%29.tiff/lossy-page1-500px-Budapest%2C_Hungary_ESA23505779_%28cropped%29.tiff.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ferihegy2_rep%C3%BCl%C5%91g%C3%A9p-%C3%A1ll%C3%A1sok.jpg/500px-Ferihegy2_rep%C3%BCl%C5%91g%C3%A9p-%C3%A1ll%C3%A1sok.jpg",
@@ -652,29 +659,29 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Budapest_Airport-201402.jpg/500px-Budapest_Airport-201402.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Liszt_Ferenc_Repuloter_2-es_terminal_varocsarnok_06.JPG/500px-Liszt_Ferenc_Repuloter_2-es_terminal_varocsarnok_06.JPG"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 47.43944444,
-      "lon": 19.26194444,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "BWI": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/BWI_airport_terminal.jpg/500px-BWI_airport_terminal.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/BWI_Overhead.jpg/330px-BWI_Overhead.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/M-130_BWI.jpg/500px-M-130_BWI.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 39.17621752810581,
       "lon": -76.66846616299559,
       "provider": "arcgis",
       "zoom": 2.95
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/BWI_airport_terminal.jpg/500px-BWI_airport_terminal.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/BWI_Overhead.jpg/330px-BWI_Overhead.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/M-130_BWI.jpg/500px-M-130_BWI.jpg"
+    ],
+    "rejected": []
   },
   "BWN": {
+    "aerial": {
+      "lat": 4.944772273036684,
+      "lon": 114.93146837872247,
+      "provider": "arcgis",
+      "zoom": 2.6
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Brunei_International_Airport_%2818403054078%29.jpg/1280px-Brunei_International_Airport_%2818403054078%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/BWN_terminal.jpg/1280px-BWN_terminal.jpg",
@@ -688,29 +695,29 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Brunei_International_Airport_23_September_2024_14.jpg/1280px-Brunei_International_Airport_23_September_2024_14.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Brunei_International_Airport_23_September_2024_15.jpg/1280px-Brunei_International_Airport_23_September_2024_15.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 4.944772273036684,
-      "lon": 114.93146837872247,
-      "provider": "arcgis",
-      "zoom": 2.6
-    }
+    "rejected": []
   },
   "CAI": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/5/5a/Cairoairport.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/5/5c/CairoAirport-Terminal1.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flickr_-_Bakar_88_-_An_Internal_Path%2C_Cairo_Airport_Terminal_3_%28HDR%29.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 30.12194444,
       "lon": 31.40555556,
       "provider": "arcgis",
       "zoom": 3
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/5/5a/Cairoairport.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/5/5c/CairoAirport-Terminal1.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flickr_-_Bakar_88_-_An_Internal_Path%2C_Cairo_Airport_Terminal_3_%28HDR%29.jpg"
+    ],
+    "rejected": []
   },
   "CAN": {
+    "aerial": {
+      "lat": 23.3925,
+      "lon": 113.29888889,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/New_Canton_Airport_under_construction_20020829_ISS005-E-11582.JPG/1280px-New_Canton_Airport_under_construction_20020829_ISS005-E-11582.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/20241207_Aerial_view_of_Guangzhou_Baiyun_International_Airport.jpg/1280px-20241207_Aerial_view_of_Guangzhou_Baiyun_International_Airport.jpg",
@@ -719,15 +726,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Guangzhou_Baiyun_International_Airport_Terminal_2.jpg/500px-Guangzhou_Baiyun_International_Airport_Terminal_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Guangzhou_Baiyun_International_Airport_Terminal_1.jpg/250px-Guangzhou_Baiyun_International_Airport_Terminal_1.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 23.3925,
-      "lon": 113.29888889,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "CBR": {
+    "aerial": {
+      "lat": -35.3069,
+      "lon": 149.195007,
+      "provider": "arcgis",
+      "zoom": 2.6
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/CanberraAirportSky.jpg/1280px-CanberraAirportSky.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Canberra_Airport_Nov_08.JPG/1280px-Canberra_Airport_Nov_08.JPG",
@@ -741,25 +748,25 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Bus_stop_at_Canberra_Airport_July_2017.jpg/500px-Bus_stop_at_Canberra_Airport_July_2017.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Canberra_Airport_-_panoramio.jpg/1280px-Canberra_Airport_-_panoramio.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -35.3069,
-      "lon": 149.195007,
-      "provider": "arcgis",
-      "zoom": 2.6
-    }
+    "rejected": []
   },
   "CCS": {
-    "approved": [],
-    "rejected": [],
     "aerial": {
       "lat": 10.605040668648098,
       "lon": -66.99199162114537,
       "provider": "arcgis",
       "zoom": 2.8
-    }
+    },
+    "approved": [],
+    "rejected": []
   },
   "CCU": {
+    "aerial": {
+      "lat": 22.657126204738454,
+      "lon": 88.44683237885462,
+      "provider": "arcgis",
+      "zoom": 2.8
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/ATC_complex_CCU.JPG/500px-ATC_complex_CCU.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bird_eye_view_of_the_new_terminal.jpg/500px-Bird_eye_view_of_the_new_terminal.jpg",
@@ -768,29 +775,29 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Kolkata_Airport_New_Terminal_Outside_view.JPG/500px-Kolkata_Airport_New_Terminal_Outside_view.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Jai_Hind_Metro_Station_%28Nov_2024-Apr_2025%29_time_lapse_pics_13.jpg/500px-Jai_Hind_Metro_Station_%28Nov_2024-Apr_2025%29_time_lapse_pics_13.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 22.657126204738454,
-      "lon": 88.44683237885462,
-      "provider": "arcgis",
-      "zoom": 2.8
-    }
+    "rejected": []
   },
   "CDG": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Charles_De_Gaulle_Airport.jpg/500px-Charles_De_Gaulle_Airport.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Terminal_1_of_CDG_Airport.jpg/500px-Terminal_1_of_CDG_Airport.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/CDG-aerialview.jpg/500px-CDG-aerialview.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 49.00866483209239,
       "lon": 2.5561231544493395,
       "provider": "arcgis",
       "zoom": 3.65
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Charles_De_Gaulle_Airport.jpg/500px-Charles_De_Gaulle_Airport.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Terminal_1_of_CDG_Airport.jpg/500px-Terminal_1_of_CDG_Airport.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/CDG-aerialview.jpg/500px-CDG-aerialview.jpg"
+    ],
+    "rejected": []
   },
   "CEB": {
+    "aerial": {
+      "lat": 10.309261,
+      "lon": 123.97974,
+      "provider": "arcgis",
+      "zoom": 2.75
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/MACTAN_CEBU_INTERNATIONAL_AIRPORT_AERIAL_VIEW.jpg/500px-MACTAN_CEBU_INTERNATIONAL_AIRPORT_AERIAL_VIEW.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mactan-Cebu_International_Airport_%28view_from_PAL_A321_RP-C9926%29_2018-06-15.jpg/500px-Mactan-Cebu_International_Airport_%28view_from_PAL_A321_RP-C9926%29_2018-06-15.jpg",
@@ -798,15 +805,15 @@
       "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Mactan_Cebu_International_Airport_%28Lapu-Lapu_City%2C_Cebu%3B_09-04-2022%29.jpg/500px-Mactan_Cebu_International_Airport_%28Lapu-Lapu_City%2C_Cebu%3B_09-04-2022%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Cebu_%28Lapu-Lapu%29_-_Mactan_International_%28Gen_Benito_Ebuen_AB%29_%28CEB_-_RPVM%29_AN2256521.jpg/500px-Cebu_%28Lapu-Lapu%29_-_Mactan_International_%28Gen_Benito_Ebuen_AB%29_%28CEB_-_RPVM%29_AN2256521.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 10.309261,
-      "lon": 123.97974,
-      "provider": "arcgis",
-      "zoom": 2.75
-    }
+    "rejected": []
   },
   "CGK": {
+    "aerial": {
+      "lat": -6.123412615729177,
+      "lon": 106.65614346215858,
+      "provider": "arcgis",
+      "zoom": 2.9
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Jakarta_Airport_-_panoramio.jpg/1280px-Jakarta_Airport_-_panoramio.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Tangerang%2C_Tangerang_City%2C_Banten%2C_Indonesia_-_panoramio_%289%29.jpg/1280px-Tangerang%2C_Tangerang_City%2C_Banten%2C_Indonesia_-_panoramio_%289%29.jpg",
@@ -817,15 +824,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Pelaporan_Masuk_Penumpang_Terminal_3_Bandara_Soekarno_Hatta_%28Januari_2025%29.jpg/500px-Pelaporan_Masuk_Penumpang_Terminal_3_Bandara_Soekarno_Hatta_%28Januari_2025%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/CGK_T3_%285%29.jpg/500px-CGK_T3_%285%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -6.123412615729177,
-      "lon": 106.65614346215858,
-      "provider": "arcgis",
-      "zoom": 2.9
-    }
+    "rejected": []
   },
   "CGN": {
+    "aerial": {
+      "lat": 50.865898,
+      "lon": 7.14274,
+      "provider": "arcgis",
+      "zoom": 2.85
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/a/a8/Cologne_-_Bonn_%28-_Konrad_Adenauer_-_Wahn%29_%28CGN_-_EDDK%29_AN0367990.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/K%C3%B6ln-Bonn_Airport_181120.jpg/1280px-K%C3%B6ln-Bonn_Airport_181120.jpg",
@@ -836,15 +843,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Koeln-Bonn-Airport11.JPG/500px-Koeln-Bonn-Airport11.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Cologne_Bonn_Airport_-_Passage_Terminal_1-Terminal_2_-_in_times_of_COVID-19_pandemic-7242.jpg/1280px-Cologne_Bonn_Airport_-_Passage_Terminal_1-Terminal_2_-_in_times_of_COVID-19_pandemic-7242.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 50.865898,
-      "lon": 7.14274,
-      "provider": "arcgis",
-      "zoom": 2.85
-    }
+    "rejected": []
   },
   "CHC": {
+    "aerial": {
+      "lat": -43.48754957999321,
+      "lon": 172.53358746696034,
+      "provider": "arcgis",
+      "zoom": 2.6
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/CHC_airport.jpg/1280px-CHC_airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Landing_at_Christchurch%2C_1992_-_Flickr_-_PhillipC.jpg/1280px-Landing_at_Christchurch%2C_1992_-_Flickr_-_PhillipC.jpg",
@@ -865,15 +872,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Christchurch_Airport.jpg/500px-Christchurch_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Christchurch_International_Airport_tower%2C_May_2025.jpg/1280px-Christchurch_International_Airport_tower%2C_May_2025.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -43.48754957999321,
-      "lon": 172.53358746696034,
-      "provider": "arcgis",
-      "zoom": 2.6
-    }
+    "rejected": []
   },
   "CKG": {
+    "aerial": {
+      "lat": 29.726779220788046,
+      "lon": 106.65347385462555,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/a/a7/BusyCKG_UsualDay.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/9/99/Chongqing_%28-_Jiangbei%29_%28CKG_-_ZUCK%29_AN2134080.jpg",
@@ -881,15 +888,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/ChongqingMetroLine3_Departing.jpg/500px-ChongqingMetroLine3_Departing.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/f/fb/Airport%2C_Terminal_JP7407090.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 29.726779220788046,
-      "lon": 106.65347385462555,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "CLT": {
+    "aerial": {
+      "lat": 35.21246976211277,
+      "lon": -80.94525467894273,
+      "provider": "arcgis",
+      "zoom": 3.25
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Charlotte_Douglas_Airport_December_2022.jpg/1280px-Charlotte_Douglas_Airport_December_2022.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/f/f6/CLT_Airport_Atrium.jpg",
@@ -899,15 +906,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/KCLT_%281%29_18.jpg/500px-KCLT_%281%29_18.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/KCLT_%281%29_19.jpg/500px-KCLT_%281%29_19.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 35.21246976211277,
-      "lon": -80.94525467894273,
-      "provider": "arcgis",
-      "zoom": 3.25
-    }
+    "rejected": []
   },
   "CMB": {
+    "aerial": {
+      "lat": 7.179042703919837,
+      "lon": 79.8837238853304,
+      "provider": "arcgis",
+      "zoom": 2.7
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/2/25/22_boeing_772_app_cmb.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/BIA_Tower.jpg/1280px-BIA_Tower.jpg",
@@ -918,27 +925,27 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Pilots_point_of_view_onboard_a_US_Marine_Corps_%28USMC%29_KC-130_Hercules_aircraft_on_final_approach_to_the_Airfield_at_Colombo%2C_Sri_Lanka%2C_during_Exercise_BENGLE_TIGER._The_Exercise_is_-_DPLA_-_363abc530fd1918ece23a5607874a391.jpeg/1280px-thumbnail.jpeg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Elevated_section_of_the_CKE.jpg/500px-Elevated_section_of_the_CKE.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 7.179042703919837,
-      "lon": 79.8837238853304,
-      "provider": "arcgis",
-      "zoom": 2.7
-    }
+    "rejected": []
   },
   "CMN": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/1/1f/Mohammed_V_International_Airport_detail_ISS005-E-10903.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 33.36773004523777,
       "lon": -7.588538079030837,
       "provider": "arcgis",
       "zoom": 2.85
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/1/1f/Mohammed_V_International_Airport_detail_ISS005-E-10903.jpg"
+    ],
+    "rejected": []
   },
   "CNX": {
+    "aerial": {
+      "lat": 18.769169780740214,
+      "lon": 98.96344652297797,
+      "provider": "arcgis",
+      "zoom": 2.75
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Chiang_Mai_Intl_Airport.jpg/1280px-Chiang_Mai_Intl_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/ChiangmaiAirport-1.JPG/1280px-ChiangmaiAirport-1.JPG",
@@ -946,42 +953,42 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Chiang_mai_air_port_gezien_van_af_wat_phrathat_doi_suthep_-_panoramio.jpg/1280px-Chiang_mai_air_port_gezien_van_af_wat_phrathat_doi_suthep_-_panoramio.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Panoramic_view_of_Chiang_Mai_International_Airport_%28I%29.jpg/500px-Panoramic_view_of_Chiang_Mai_International_Airport_%28I%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 18.769169780740214,
-      "lon": 98.96344652297797,
-      "provider": "arcgis",
-      "zoom": 2.75
-    }
+    "rejected": []
   },
   "COK": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/0/06/Cochin_international_airport_terminal.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Cial_terminal_3_from_runway.jpg/1280px-Cial_terminal_3_from_runway.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Cochin_International_Airport_Terminal_3_departure_area%2C_23_May_2017_%282%29.jpg/500px-Cochin_International_Airport_Terminal_3_departure_area%2C_23_May_2017_%282%29.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 10.151047,
       "lon": 76.400838,
       "provider": "arcgis",
       "zoom": 2.95
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/0/06/Cochin_international_airport_terminal.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Cial_terminal_3_from_runway.jpg/1280px-Cial_terminal_3_from_runway.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Cochin_International_Airport_Terminal_3_departure_area%2C_23_May_2017_%282%29.jpg/500px-Cochin_International_Airport_Terminal_3_departure_area%2C_23_May_2017_%282%29.jpg"
+    ],
+    "rejected": []
   },
   "COR": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Aeropuerto_C%C3%B3rdoba_COR_1_-_Entrada.jpg/500px-Aeropuerto_C%C3%B3rdoba_COR_1_-_Entrada.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Aeropuerto_de_C%C3%B3rdoba_%28Argentina%29_2010-08-10.jpg/500px-Aeropuerto_de_C%C3%B3rdoba_%28Argentina%29_2010-08-10.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": -31.312346,
       "lon": -64.208329,
       "provider": "arcgis",
       "zoom": 2.8
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Aeropuerto_C%C3%B3rdoba_COR_1_-_Entrada.jpg/500px-Aeropuerto_C%C3%B3rdoba_COR_1_-_Entrada.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Aeropuerto_de_C%C3%B3rdoba_%28Argentina%29_2010-08-10.jpg/500px-Aeropuerto_de_C%C3%B3rdoba_%28Argentina%29_2010-08-10.jpg"
+    ],
+    "rejected": []
   },
   "CPH": {
+    "aerial": {
+      "lat": 55.61805556,
+      "lon": 12.65611111,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/b/b5/Copenhagen_Airport_control_tower.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Copenhagen_Airport_Mai_2009_PD_093.JPG/1280px-Copenhagen_Airport_Mai_2009_PD_093.JPG",
@@ -990,15 +997,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Copenhagen_airport_from_air.jpg/500px-Copenhagen_airport_from_air.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Copenhagen_Airport_Mai_2009_PD_086.JPG/500px-Copenhagen_Airport_Mai_2009_PD_086.JPG"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 55.61805556,
-      "lon": 12.65611111,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "CPT": {
+    "aerial": {
+      "lat": -33.97403,
+      "lon": 18.604333,
+      "provider": "arcgis",
+      "zoom": 2.65
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Greater_Cape_Town_12.02.2007_16-44-07.2007_16-44-9.JPG/1280px-Greater_Cape_Town_12.02.2007_16-44-07.2007_16-44-9.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/2013.01.03_Ciudad_del_Cabo%2C_ZA_%2822%29.JPG/500px-2013.01.03_Ciudad_del_Cabo%2C_ZA_%2822%29.JPG",
@@ -1006,28 +1013,28 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Cape_Town_International_Airport_Departures_Area.jpg/500px-Cape_Town_International_Airport_Departures_Area.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Cape_Town_International_Airport.jpg/500px-Cape_Town_International_Airport.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -33.97403,
-      "lon": 18.604333,
-      "provider": "arcgis",
-      "zoom": 2.65
-    }
+    "rejected": []
   },
   "CTA": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Aeroporto_di_catania%2C_veduta_etna.jpg/500px-Aeroporto_di_catania%2C_veduta_etna.jpg",
-      "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Aeroporto_di_Catania_-_Catania_Airport.JPG/500px-Aeroporto_di_Catania_-_Catania_Airport.JPG"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 37.466801,
       "lon": 15.0664,
       "provider": "arcgis",
       "zoom": 2.65
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Aeroporto_di_catania%2C_veduta_etna.jpg/500px-Aeroporto_di_catania%2C_veduta_etna.jpg",
+      "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Aeroporto_di_Catania_-_Catania_Airport.JPG/500px-Aeroporto_di_Catania_-_Catania_Airport.JPG"
+    ],
+    "rejected": []
   },
   "CTU": {
+    "aerial": {
+      "lat": 30.558257,
+      "lon": 103.945966,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Outside_of_CTU_Terminal_2.jpg/500px-Outside_of_CTU_Terminal_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Terminal_2_of_Chengdu_Shuangliu_Airport.jpg/500px-Terminal_2_of_Chengdu_Shuangliu_Airport.jpg",
@@ -1036,15 +1043,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Terminal_1_Airside_of_Chengdu_Shuangliu_Airport.jpg/500px-Terminal_1_Airside_of_Chengdu_Shuangliu_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/201908_Terminal_1_of_Chengdu_Shuangliu_International_Airport.jpg/500px-201908_Terminal_1_of_Chengdu_Shuangliu_International_Airport.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 30.558257,
-      "lon": 103.945966,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "CUN": {
+    "aerial": {
+      "lat": 21.040817,
+      "lon": -86.87347,
+      "provider": "arcgis",
+      "zoom": 2.85
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/MMUN008.jpg/500px-MMUN008.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Exterior_aeropuerto_internacional_de_cancun.jpg/500px-Exterior_aeropuerto_internacional_de_cancun.jpg",
@@ -1053,15 +1060,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/MMUN007.jpg/500px-MMUN007.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Tren_Maya_Estaci%C3%B3n_Canc%C3%BAn_Piso_Superior.jpg/500px-Tren_Maya_Estaci%C3%B3n_Canc%C3%BAn_Piso_Superior.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 21.040817,
-      "lon": -86.87347,
-      "provider": "arcgis",
-      "zoom": 2.85
-    }
+    "rejected": []
   },
   "DAD": {
+    "aerial": {
+      "lat": 16.044015943444293,
+      "lon": 108.1993353259912,
+      "provider": "arcgis",
+      "zoom": 2.75
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Da_Nang_Airport_Runway.jpg/1280px-Da_Nang_Airport_Runway.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Sunset_at_Da_Nang_International_Airport.jpg/1280px-Sunset_at_Da_Nang_International_Airport.jpg",
@@ -1070,15 +1077,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/2024_Da_Nang_International_Airport_%28DAD%29_-_international_terminal_-_img_09.jpg/500px-2024_Da_Nang_International_Airport_%28DAD%29_-_international_terminal_-_img_09.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/2024_Da_Nang_International_Airport_%28DAD%29_-_international_terminal_-_img_14.jpg/500px-2024_Da_Nang_International_Airport_%28DAD%29_-_international_terminal_-_img_14.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 16.044015943444293,
-      "lon": 108.1993353259912,
-      "provider": "arcgis",
-      "zoom": 2.75
-    }
+    "rejected": []
   },
   "DAL": {
+    "aerial": {
+      "lat": 32.84722222,
+      "lon": -96.85166667,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/5/55/KDAL_ATCT_%282986073040%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/7/73/As_luck_would_have_it_%283013696220%29.jpg",
@@ -1089,15 +1096,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Main_terminal_at_Dallas_Love_Field_Airport.jpg/500px-Main_terminal_at_Dallas_Love_Field_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Dallas_Love_Field_%2840736439252%29.jpg/1280px-Dallas_Love_Field_%2840736439252%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 32.84722222,
-      "lon": -96.85166667,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "DAR": {
+    "aerial": {
+      "lat": -6.873499,
+      "lon": 39.207288,
+      "provider": "arcgis",
+      "zoom": 2.65
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Dar_es_Salaam_Airport_approach.jpg/1280px-Dar_es_Salaam_Airport_approach.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Radar_Tower_-_Julius_Nyerere_International_Airport.JPG/1280px-Radar_Tower_-_Julius_Nyerere_International_Airport.JPG",
@@ -1108,15 +1115,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Aeropuerto_de_Dar_Es_Salam_20251214_141318.jpg/1280px-Aeropuerto_de_Dar_Es_Salam_20251214_141318.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Aeropuerto_de_Dar_Es_Salam_20251129_122455.jpg/1280px-Aeropuerto_de_Dar_Es_Salam_20251129_122455.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -6.873499,
-      "lon": 39.207288,
-      "provider": "arcgis",
-      "zoom": 2.65
-    }
+    "rejected": []
   },
   "DCA": {
+    "aerial": {
+      "lat": 38.8521,
+      "lon": -77.037697,
+      "provider": "arcgis",
+      "zoom": 2.5
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/GravellyPointPlaneWatching3.jpg/1280px-GravellyPointPlaneWatching3.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Reagan_National_Airport.jpg/1280px-Reagan_National_Airport.jpg",
@@ -1137,15 +1144,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/NewConcourse-RonaldReaganWashingtonNationalAirport.jpg/500px-NewConcourse-RonaldReaganWashingtonNationalAirport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/DCA_12_2014_668.JPG/500px-DCA_12_2014_668.JPG"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 38.8521,
-      "lon": -77.037697,
-      "provider": "arcgis",
-      "zoom": 2.5
-    }
+    "rejected": []
   },
   "DEL": {
+    "aerial": {
+      "lat": 28.55353197026091,
+      "lon": 77.09518625357867,
+      "provider": "arcgis",
+      "zoom": 3.25
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Atc-igi.jpg/1280px-Atc-igi.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Delhi_Airport_from_Runway_1.jpg/1280px-Delhi_Airport_from_Runway_1.jpg",
@@ -1162,15 +1169,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Indira_Gandhi_International_Airport.JPG/500px-Indira_Gandhi_International_Airport.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Domestic_Terminal_of_IGI.jpg/500px-Domestic_Terminal_of_IGI.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 28.55353197026091,
-      "lon": 77.09518625357867,
-      "provider": "arcgis",
-      "zoom": 3.25
-    }
+    "rejected": []
   },
   "DEN": {
+    "aerial": {
+      "lat": 39.86166667,
+      "lon": -104.67305556,
+      "provider": "arcgis",
+      "zoom": 4.45
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Denver_International_Airport_from_the_air.jpg/1280px-Denver_International_Airport_from_the_air.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Diasolarfarm.jpg/1280px-Diasolarfarm.jpg",
@@ -1184,15 +1191,10 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/DenverAirport2023.jpg/500px-DenverAirport2023.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Denver_International_Airport_Main_Terminal_early_morning2.jpg/500px-Denver_International_Airport_Main_Terminal_early_morning2.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 39.86166667,
-      "lon": -104.67305556,
-      "provider": "arcgis",
-      "zoom": 4.45
-    }
+    "rejected": []
   },
   "DFW": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/DFWAirportOverview.jpg/500px-DFWAirportOverview.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Dallas_-_Fort_Worth_International_Airport.jpg/500px-Dallas_-_Fort_Worth_International_Airport.jpg",
@@ -1202,18 +1204,19 @@
     "rejected": []
   },
   "DKR": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Aeroport_LSS_Dakar.jpg/500px-Aeroport_LSS_Dakar.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 14.743405987771737,
       "lon": -17.47984226431718,
       "provider": "arcgis",
       "zoom": 2.8
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Aeroport_LSS_Dakar.jpg/500px-Aeroport_LSS_Dakar.jpg"
+    ],
+    "rejected": []
   },
   "DME": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/0082_Domodedovo_International_Airport_16th_of_August_2016.jpg/1280px-0082_Domodedovo_International_Airport_16th_of_August_2016.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/0096_Domodedovo_International_Airport_16th_of_August_2016.jpg/1280px-0096_Domodedovo_International_Airport_16th_of_August_2016.jpg",
@@ -1225,6 +1228,12 @@
     "rejected": []
   },
   "DMM": {
+    "aerial": {
+      "lat": 26.4691,
+      "lon": 49.798209,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/SamaDammam.JPG/1280px-SamaDammam.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Dammam0135.jpg/1280px-Dammam0135.jpg",
@@ -1235,15 +1244,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/KFIA%27s_Domestic_Departures_and_Arrivals_Floor.jpg/1280px-KFIA%27s_Domestic_Departures_and_Arrivals_Floor.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/A_Picture_of_KFIA%27s_Terminal_-_March_2024.png/500px-A_Picture_of_KFIA%27s_Terminal_-_March_2024.png"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 26.4691,
-      "lon": 49.798209,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "DOH": {
+    "aerial": {
+      "lat": 25.274145597474405,
+      "lon": 51.6078582031718,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/a/a3/Hamad_International_Airport_Qatar.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Hamad_International_Airport.jpg/1280px-Hamad_International_Airport.jpg",
@@ -1252,15 +1261,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/QAT_Doha%2C_Hamad_International_Airport_043.jpg/500px-QAT_Doha%2C_Hamad_International_Airport_043.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Hamad_International_Airport_Doha_Qatar_2.jpg/500px-Hamad_International_Airport_Doha_Qatar_2.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 25.274145597474405,
-      "lon": 51.6078582031718,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "DPS": {
+    "aerial": {
+      "lat": -8.748409,
+      "lon": 115.167123,
+      "provider": "arcgis",
+      "zoom": 2.65
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Ngurah_Rai_International_Airport_MRD-1.jpg/1280px-Ngurah_Rai_International_Airport_MRD-1.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ngurah_Rai_Airport_-_Bali.jpg/1280px-Ngurah_Rai_Airport_-_Bali.jpg",
@@ -1274,15 +1283,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Terminal_Internasional_Bandara_Ngurah_Rai_Bali.jpg/1280px-Terminal_Internasional_Bandara_Ngurah_Rai_Bali.jpg",
       "https://upload.wikimedia.org/wikipedia/en/thumb/8/8e/Exterior_of_Ngurah_Rai_International_Airport_in_2014.jpg/500px-Exterior_of_Ngurah_Rai_International_Airport_in_2014.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -8.748409,
-      "lon": 115.167123,
-      "provider": "arcgis",
-      "zoom": 2.65
-    }
+    "rejected": []
   },
   "DTW": {
+    "aerial": {
+      "lat": 42.2125,
+      "lon": -83.35333333,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/a/ab/Detroit_Metropolitan_Wayne_County_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/5/56/Detroit_-_Metropolitan_Wayne_County_%28DTW_-_KDTW%29_AN0423516.jpg",
@@ -1300,44 +1309,44 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/DTWNorth.jpg/330px-DTWNorth.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/DTW_North_Terminal.jpg/500px-DTW_North_Terminal.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 42.2125,
-      "lon": -83.35333333,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "DUB": {
+    "aerial": {
+      "lat": 53.42138889,
+      "lon": -6.27,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/f/fe/Car_parks_and_bus_lanes%2C_Dublin_Airport_-_geograph.org.uk_-_364473.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Departure_from_Dublin_Airport_onboard_Aer_Lingus_A320.jpg/1280px-Departure_from_Dublin_Airport_onboard_Aer_Lingus_A320.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Dublin_Airport_-_Empty_Plane_Parking_Space_-_panoramio.jpg/1280px-Dublin_Airport_-_Empty_Plane_Parking_Space_-_panoramio.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Aer_Lingus_%28EI-BXB%29%2C_Dublin%2C_May_1994.jpg/500px-Aer_Lingus_%28EI-BXB%29%2C_Dublin%2C_May_1994.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 53.42138889,
-      "lon": -6.27,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "DUR": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/KSIA-Passenger-Terminal.jpg/500px-KSIA-Passenger-Terminal.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/KSIA-terminal-Aug09.jpg/500px-KSIA-terminal-Aug09.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/KSIA-Departures.jpg/1280px-KSIA-Departures.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": -29.6144444444,
       "lon": 31.1197222222,
       "provider": "arcgis",
       "zoom": 2.85
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/KSIA-Passenger-Terminal.jpg/500px-KSIA-Passenger-Terminal.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/KSIA-terminal-Aug09.jpg/500px-KSIA-terminal-Aug09.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/KSIA-Departures.jpg/1280px-KSIA-Departures.jpg"
+    ],
+    "rejected": []
   },
   "DUS": {
+    "aerial": {
+      "lat": 51.28944444,
+      "lon": 6.76666667,
+      "provider": "arcgis",
+      "zoom": 2.7
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/D%C3%BCsseldorf_Airport_-_DUS_-_Flughafen_D%C3%BCsseldorf_%2810713861223%29.jpg/1280px-D%C3%BCsseldorf_Airport_-_DUS_-_Flughafen_D%C3%BCsseldorf_%2810713861223%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/D%C3%BCsseldorf_Airport_-_DUS_-_Flughafen_D%C3%BCsseldorf_%2810713698263%29.jpg/1280px-D%C3%BCsseldorf_Airport_-_DUS_-_Flughafen_D%C3%BCsseldorf_%2810713698263%29.jpg",
@@ -1348,15 +1357,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/D%C3%BCsseldorf_-_International_%28Rhein-Ruhr_-_Lohausen%29_%28DUS_-_EDDL%29_AN0381573.jpg/500px-D%C3%BCsseldorf_-_International_%28Rhein-Ruhr_-_Lohausen%29_%28DUS_-_EDDL%29_AN0381573.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/DUS_Tower_Skytrain.jpg/500px-DUS_Tower_Skytrain.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 51.28944444,
-      "lon": 6.76666667,
-      "provider": "arcgis",
-      "zoom": 2.7
-    }
+    "rejected": []
   },
   "DVO": {
+    "aerial": {
+      "lat": 7.12552,
+      "lon": 125.646004,
+      "provider": "arcgis",
+      "zoom": 2.4
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/1/18/Davao_International_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/4/4c/DavaoAirportRunway.JPG",
@@ -1365,15 +1374,15 @@
       "https://upload.wikimedia.org/wikipedia/en/thumb/8/83/Old_Davao_City_airport.jpg/500px-Old_Davao_City_airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Davao_International_Airport%2C_runway_%28Diversion_Road%2C_Davao_City%3B_11-24-2021%29.jpg/500px-Davao_International_Airport%2C_runway_%28Diversion_Road%2C_Davao_City%3B_11-24-2021%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 7.12552,
-      "lon": 125.646004,
-      "provider": "arcgis",
-      "zoom": 2.4
-    }
+    "rejected": []
   },
   "DXB": {
+    "aerial": {
+      "lat": 25.25277778,
+      "lon": 55.36444444,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/4/4d/Airbus_A320-232%2C_IndiGo_AN2222664.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/6/64/Dubai_-_International_%28DXB_-_OMDB%29_AN1885939.jpg",
@@ -1394,15 +1403,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Dubai_-_Airport_International_-Terminal_2_-_%D8%AF%D8%A8%D9%8A_-_%D8%A7%D9%84%D9%85%D8%B7%D8%A7%D8%B1_%D8%A7%D9%84%D8%AF%D9%88%D9%84%D9%8A_-Terminal_2_-_panoramio.jpg/500px-Dubai_-_Airport_International_-Terminal_2_-_%D8%AF%D8%A8%D9%8A_-_%D8%A7%D9%84%D9%85%D8%B7%D8%A7%D8%B1_%D8%A7%D9%84%D8%AF%D9%88%D9%84%D9%8A_-Terminal_2_-_panoramio.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Cargo_Terminal_and_T2%2C_DXB.jpg/500px-Cargo_Terminal_and_T2%2C_DXB.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 25.25277778,
-      "lon": 55.36444444,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "EDI": {
+    "aerial": {
+      "lat": 55.950145,
+      "lon": -3.372288,
+      "provider": "arcgis",
+      "zoom": 2.75
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/a/a9/Airside_at_Edinburgh_Airport_-_geograph.org.uk_-_5544833.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/b/b0/Airside_at_Edinburgh_Airport_-_geograph.org.uk_-_5902417.jpg",
@@ -1411,28 +1420,28 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/EDI_AIRPORT_FROM_FLIGHT_ORY-KEF_757_ICELANDAIR_TF-FIK_%2835461420664%29.jpg/500px-EDI_AIRPORT_FROM_FLIGHT_ORY-KEF_757_ICELANDAIR_TF-FIK_%2835461420664%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Edinburgh_Airport_-_geograph.org.uk_-_3588330.jpg/500px-Edinburgh_Airport_-_geograph.org.uk_-_3588330.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 55.950145,
-      "lon": -3.372288,
-      "provider": "arcgis",
-      "zoom": 2.75
-    }
+    "rejected": []
   },
   "ESB": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ankara_Esenboga_International_Airport.jpg/500px-Ankara_Esenboga_International_Airport.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Airport_Caf%C3%A9_at_Esenbo%C4%9Fa_Havaliman%C4%B1%2C_Ankara%2C_Turkey.jpg/500px-Airport_Caf%C3%A9_at_Esenbo%C4%9Fa_Havaliman%C4%B1%2C_Ankara%2C_Turkey.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 40.128101,
       "lon": 32.995098,
       "provider": "arcgis",
       "zoom": 3
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ankara_Esenboga_International_Airport.jpg/500px-Ankara_Esenboga_International_Airport.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Airport_Caf%C3%A9_at_Esenbo%C4%9Fa_Havaliman%C4%B1%2C_Ankara%2C_Turkey.jpg/500px-Airport_Caf%C3%A9_at_Esenbo%C4%9Fa_Havaliman%C4%B1%2C_Ankara%2C_Turkey.jpg"
+    ],
+    "rejected": []
   },
   "EWR": {
+    "aerial": {
+      "lat": 40.6894,
+      "lon": -74.170545,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/EWR_Terminal_A_2005_night.jpg/1280px-EWR_Terminal_A_2005_night.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/8/8e/Newark_Airport1.jpg",
@@ -1448,15 +1457,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/New_terminal_A_EWR_2.jpg/500px-New_terminal_A_EWR_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Square_%28Unsplash%29.jpg/500px-Square_%28Unsplash%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 40.6894,
-      "lon": -74.170545,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "EZE": {
+    "aerial": {
+      "lat": -34.82222222,
+      "lon": -58.53583333,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Aeropuerto_Ministro_Pistarini%2C_Ezeiza%2C_Buenos_Aires%2C_Argentina.jpg/1280px-Aeropuerto_Ministro_Pistarini%2C_Ezeiza%2C_Buenos_Aires%2C_Argentina.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Aeropuerto_Internacional_Ministro_Pistarini%2C_AA_2014.jpg/1280px-Aeropuerto_Internacional_Ministro_Pistarini%2C_AA_2014.jpg",
@@ -1473,15 +1482,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/EZE_Terminal_A_2.jpg/500px-EZE_Terminal_A_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/EZE07.jpg/500px-EZE07.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -34.82222222,
-      "lon": -58.53583333,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "FAO": {
+    "aerial": {
+      "lat": 37.015909,
+      "lon": -7.970939,
+      "provider": "arcgis",
+      "zoom": 2.55
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/20220909_154134_Faro_Airport_ex_LH1163_D_AIEN.jpg/500px-20220909_154134_Faro_Airport_ex_LH1163_D_AIEN.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Faro_Airport_Terminal.jpg/500px-Faro_Airport_Terminal.jpg",
@@ -1491,57 +1500,57 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Faro_Airport_control_tower%2C_02_May_2016.JPG/500px-Faro_Airport_control_tower%2C_02_May_2016.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/2022_09_09_LFPR_ex_LH1163_D_AIEN.jpg/500px-2022_09_09_LFPR_ex_LH1163_D_AIEN.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 37.015909,
-      "lon": -7.970939,
-      "provider": "arcgis",
-      "zoom": 2.55
-    }
+    "rejected": []
   },
   "FCO": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Rome%2C_Italy_ESA24383157_%28cropped%29.jpeg/500px-Rome%2C_Italy_ESA24383157_%28cropped%29.jpeg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Aeroporto_Fiumicino_-_Torre_ENAV_ristrutturata_2015.jpeg/500px-Aeroporto_Fiumicino_-_Torre_ENAV_ristrutturata_2015.jpeg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Rome%2C_Fiumcino%2C_14_Sept._2011_-_Flickr_-_PhillipC.jpg/500px-Rome%2C_Fiumcino%2C_14_Sept._2011_-_Flickr_-_PhillipC.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 41.81090734861413,
       "lon": 12.241708273259912,
       "provider": "arcgis",
       "zoom": 3.6
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Rome%2C_Italy_ESA24383157_%28cropped%29.jpeg/500px-Rome%2C_Italy_ESA24383157_%28cropped%29.jpeg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Aeroporto_Fiumicino_-_Torre_ENAV_ristrutturata_2015.jpeg/500px-Aeroporto_Fiumicino_-_Torre_ENAV_ristrutturata_2015.jpeg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Rome%2C_Fiumcino%2C_14_Sept._2011_-_Flickr_-_PhillipC.jpg/500px-Rome%2C_Fiumcino%2C_14_Sept._2011_-_Flickr_-_PhillipC.jpg"
+    ],
+    "rejected": []
   },
   "FLL": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Fort_Lauderdale-Hollywood_International_Airport_%28cropped%29.JPG/500px-Fort_Lauderdale-Hollywood_International_Airport_%28cropped%29.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Fort_Lauderdale_Airport_Terminal_1_hallway.jpg/500px-Fort_Lauderdale_Airport_Terminal_1_hallway.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Saladattesa.jpg/500px-Saladattesa.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 26.0725,
       "lon": -80.15277778,
       "provider": "arcgis",
       "zoom": 3
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Fort_Lauderdale-Hollywood_International_Airport_%28cropped%29.JPG/500px-Fort_Lauderdale-Hollywood_International_Airport_%28cropped%29.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Fort_Lauderdale_Airport_Terminal_1_hallway.jpg/500px-Fort_Lauderdale_Airport_Terminal_1_hallway.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Saladattesa.jpg/500px-Saladattesa.jpg"
+    ],
+    "rejected": []
   },
   "FOR": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Aeroporto_Internacional_Pinto_Martins_%281%29.png/500px-Aeroporto_Internacional_Pinto_Martins_%281%29.png",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Vista_do_Aeroporto_Internacional_de_Fortaleza_Pinto_Martins.jpg/500px-Vista_do_Aeroporto_Internacional_de_Fortaleza_Pinto_Martins.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Fortaleza%2C_centro_da_cidade_e_aeroporto.JPG/500px-Fortaleza%2C_centro_da_cidade_e_aeroporto.JPG"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": -3.775833,
       "lon": -38.532222,
       "provider": "arcgis",
       "zoom": 2.55
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Aeroporto_Internacional_Pinto_Martins_%281%29.png/500px-Aeroporto_Internacional_Pinto_Martins_%281%29.png",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Vista_do_Aeroporto_Internacional_de_Fortaleza_Pinto_Martins.jpg/500px-Vista_do_Aeroporto_Internacional_de_Fortaleza_Pinto_Martins.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Fortaleza%2C_centro_da_cidade_e_aeroporto.JPG/500px-Fortaleza%2C_centro_da_cidade_e_aeroporto.JPG"
+    ],
+    "rejected": []
   },
   "FRA": {
+    "aerial": {
+      "lat": 50.034223768179345,
+      "lon": 8.562661286872247,
+      "provider": "arcgis",
+      "zoom": 4
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/FRA_June2013.JPG/500px-FRA_June2013.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/FRA_T3_2024.jpg/500px-FRA_T3_2024.jpg",
@@ -1549,15 +1558,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Germany_frankfurt_airport_terminal-1.JPG/500px-Germany_frankfurt_airport_terminal-1.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lufthansa_Aviation_Center_after_sunset_-_Frankfurt_-_Germany_-_near_Airport_Frankfurt_-_Fraport_-_06.jpg/500px-Lufthansa_Aviation_Center_after_sunset_-_Frankfurt_-_Germany_-_near_Airport_Frankfurt_-_Fraport_-_06.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 50.034223768179345,
-      "lon": 8.562661286872247,
-      "provider": "arcgis",
-      "zoom": 4
-    }
+    "rejected": []
   },
   "FUK": {
+    "aerial": {
+      "lat": 33.585899353027344,
+      "lon": 130.4510040283203,
+      "provider": "arcgis",
+      "zoom": 2.45
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/140721_Fukuoka_Airport_Fukuoka_Japan02s3.jpg/1280px-140721_Fukuoka_Airport_Fukuoka_Japan02s3.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/140721_Fukuoka_Airport_Fukuoka_Japan03s3.jpg/1280px-140721_Fukuoka_Airport_Fukuoka_Japan03s3.jpg",
@@ -1566,15 +1575,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/FukuokaAirportTerminal2AtNight.jpg/500px-FukuokaAirportTerminal2AtNight.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Fukuoka_Airport_International_Terminal_Departure_Floor.jpg/500px-Fukuoka_Airport_International_Terminal_Departure_Floor.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 33.585899353027344,
-      "lon": 130.4510040283203,
-      "provider": "arcgis",
-      "zoom": 2.45
-    }
+    "rejected": []
   },
   "GDL": {
+    "aerial": {
+      "lat": 20.523342,
+      "lon": -103.310108,
+      "provider": "arcgis",
+      "zoom": 2.75
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Terminal_1_Guadalajara_Intl.jpg/500px-Terminal_1_Guadalajara_Intl.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/GDL_%2810%29.jpg/500px-GDL_%2810%29.jpg",
@@ -1583,15 +1592,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/GDL_%282%29.jpg/500px-GDL_%282%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GDL_%286%29.jpg/500px-GDL_%286%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 20.523342,
-      "lon": -103.310108,
-      "provider": "arcgis",
-      "zoom": 2.75
-    }
+    "rejected": []
   },
   "GIG": {
+    "aerial": {
+      "lat": -22.808552040081523,
+      "lon": -43.24931647136564,
+      "provider": "arcgis",
+      "zoom": 3.15
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Riodejaneiro_aerea_aeroportogaleao-131756%28cut%29.jpg/500px-Riodejaneiro_aerea_aeroportogaleao-131756%28cut%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Aeroporto_galeao_rj_ME.jpg/500px-Aeroporto_galeao_rj_ME.jpg",
@@ -1600,58 +1609,58 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/05192016_saguao_pier4_roberto_castro_me.jpg/330px-05192016_saguao_pier4_roberto_castro_me.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/08052016_galeao.jpg/330px-08052016_galeao.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -22.808552040081523,
-      "lon": -43.24931647136564,
-      "provider": "arcgis",
-      "zoom": 3.15
-    }
+    "rejected": []
   },
   "GLA": {
+    "aerial": {
+      "lat": 55.871899,
+      "lon": -4.43306,
+      "provider": "arcgis",
+      "zoom": 2.85
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Aerial_photograph%2C_Glasgow_Airport.jpg/1280px-Aerial_photograph%2C_Glasgow_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Arriving_at_Glasgow_Airport_%2851526879439%29.jpg/1280px-Arriving_at_Glasgow_Airport_%2851526879439%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Aerial_photograph%2C_Glasgow_Airport_%28cropped%29.jpg/1280px-Aerial_photograph%2C_Glasgow_Airport_%28cropped%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/GlasgowAirportFromAir.jpg/500px-GlasgowAirportFromAir.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 55.871899,
-      "lon": -4.43306,
-      "provider": "arcgis",
-      "zoom": 2.85
-    }
+    "rejected": []
   },
   "GMP": {
+    "aerial": {
+      "lat": 37.5583,
+      "lon": 126.791,
+      "provider": "arcgis",
+      "zoom": 2.8
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/6/64/Gimpo_airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Gimpo_International_Airport.jpg/1280px-Gimpo_International_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/6/65/RKSS_Domestic.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/4/4c/Gimpo_International_Airport_%28cropped%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 37.5583,
-      "lon": 126.791,
-      "provider": "arcgis",
-      "zoom": 2.8
-    }
+    "rejected": []
   },
   "GOI": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Goa-Vasco_03-2016_12_Dabolim_Airport.jpg/500px-Goa-Vasco_03-2016_12_Dabolim_Airport.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Dabolim_airport%2C_Goa%2C_en_route_to_embarkation_point.jpg/500px-Dabolim_airport%2C_Goa%2C_en_route_to_embarkation_point.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 15.380062,
       "lon": 73.833328,
       "provider": "arcgis",
       "zoom": 2.8
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Goa-Vasco_03-2016_12_Dabolim_Airport.jpg/500px-Goa-Vasco_03-2016_12_Dabolim_Airport.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Dabolim_airport%2C_Goa%2C_en_route_to_embarkation_point.jpg/500px-Dabolim_airport%2C_Goa%2C_en_route_to_embarkation_point.jpg"
+    ],
+    "rejected": []
   },
   "GOT": {
+    "aerial": {
+      "lat": 57.6628,
+      "lon": 12.2798,
+      "provider": "arcgis",
+      "zoom": 2.95
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Landvetter_Air_View.jpg/500px-Landvetter_Air_View.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Volvo_EX90_on_display_at_Landvetter_Airport.jpg/500px-Volvo_EX90_on_display_at_Landvetter_Airport.jpg",
@@ -1659,15 +1668,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Gothenburg-Landvetter_Flughafen_01.JPG/500px-Gothenburg-Landvetter_Flughafen_01.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Gothenburg-Landvetter_Flughafen_04.JPG/500px-Gothenburg-Landvetter_Flughafen_04.JPG"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 57.6628,
-      "lon": 12.2798,
-      "provider": "arcgis",
-      "zoom": 2.95
-    }
+    "rejected": []
   },
   "GRU": {
+    "aerial": {
+      "lat": -23.43555556,
+      "lon": -46.47305556,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/a/ab/Aeroporto_chile.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/AeroportoGuarulhos_AereaAmpliacao.jpg/1280px-AeroportoGuarulhos_AereaAmpliacao.jpg",
@@ -1684,15 +1693,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Aeroporto_de_Cumbica_-_Terminal_3.jpg/500px-Aeroporto_de_Cumbica_-_Terminal_3.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Entrega_da_Linha_13_Jade_da_CPTM_%E2%80%A2_Esta%C3%A7%C3%A3o_Aeroporto-Guarulhos_%E2%80%A2_2.jpg/500px-Entrega_da_Linha_13_Jade_da_CPTM_%E2%80%A2_Esta%C3%A7%C3%A3o_Aeroporto-Guarulhos_%E2%80%A2_2.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": -23.43555556,
-      "lon": -46.47305556,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "GUA": {
+    "aerial": {
+      "lat": 14.582896,
+      "lon": -90.527515,
+      "provider": "arcgis",
+      "zoom": 2.55
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Aeropuerto_desde_Crowne_Plaza_%2833492132484%29.jpg/1280px-Aeropuerto_desde_Crowne_Plaza_%2833492132484%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/1/1d/Aeropuerto_la_Aurora.jpg",
@@ -1707,30 +1716,30 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/MGGT11.jpg/500px-MGGT11.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/MGGT8.jpg/500px-MGGT8.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 14.582896,
-      "lon": -90.527515,
-      "provider": "arcgis",
-      "zoom": 2.55
-    }
+    "rejected": []
   },
   "GVA": {
+    "aerial": {
+      "lat": 46.238098,
+      "lon": 6.10895,
+      "provider": "arcgis",
+      "zoom": 2.85
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Geneva_airport_from_air.jpg/500px-Geneva_airport_from_air.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Aile_Est_pier_of_Terminal_1_at_Geneva_Airport_June_2023.jpg/500px-Aile_Est_pier_of_Terminal_1_at_Geneva_Airport_June_2023.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Lobby_Geneva_International_Airport_%28July_2023%29.jpg/500px-Lobby_Geneva_International_Airport_%28July_2023%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GVA_apron_from_twr.jpg/500px-GVA_apron_from_twr.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 46.238098,
-      "lon": 6.10895,
-      "provider": "arcgis",
-      "zoom": 2.85
-    }
+    "rejected": []
   },
   "GYD": {
+    "aerial": {
+      "lat": 40.47130340895428,
+      "lon": 50.051591003965406,
+      "provider": "arcgis",
+      "zoom": 2.8
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Heydar_Aliyev_Aeropuerto-_Baku_%28Azerbaiy%C3%A1n%29.png/1280px-Heydar_Aliyev_Aeropuerto-_Baku_%28Azerbaiy%C3%A1n%29.png",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Heyd%C9%99r_%C6%8Fliyev_Beyn%C9%99lxalq_Aeroportunun_i%C3%A7i.JPG/1280px-Heyd%C9%99r_%C6%8Fliyev_Beyn%C9%99lxalq_Aeroportunun_i%C3%A7i.JPG",
@@ -1757,32 +1766,32 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Terminal_1_%28Baku_airport%29.jpg/1280px-Terminal_1_%28Baku_airport%29.jpg"
     ],
     "rejected": [],
-    "aerial": {
-      "lat": 40.47130340895428,
-      "lon": 50.051591003965406,
-      "provider": "arcgis",
-      "zoom": 2.8
-    },
     "coords": {
       "lat": 40.46716102697975,
       "lon": 50.05212668678479
     }
   },
   "GYE": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/29._Aeropuerto_de_Guayaquil_%284%29.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Aeropuerto_de_Guayaquil_Ecuador_1747.jpg/1280px-Aeropuerto_de_Guayaquil_Ecuador_1747.jpg",
-      "https://upload.wikimedia.org/wikipedia/en/thumb/a/aa/Aeropuerto_de_Guayaquil_Ecuador_1748.jpg/500px-Aeropuerto_de_Guayaquil_Ecuador_1748.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": -2.15742,
       "lon": -79.883598,
       "provider": "arcgis",
       "zoom": 2.7
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/3/34/29._Aeropuerto_de_Guayaquil_%284%29.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Aeropuerto_de_Guayaquil_Ecuador_1747.jpg/1280px-Aeropuerto_de_Guayaquil_Ecuador_1747.jpg",
+      "https://upload.wikimedia.org/wikipedia/en/thumb/a/aa/Aeropuerto_de_Guayaquil_Ecuador_1748.jpg/500px-Aeropuerto_de_Guayaquil_Ecuador_1748.jpg"
+    ],
+    "rejected": []
   },
   "HAK": {
+    "aerial": {
+      "lat": 19.940730143316603,
+      "lon": 110.46060871378855,
+      "provider": "arcgis",
+      "zoom": 2.7
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/6/67/%E6%B5%B7%E5%8F%A3%E7%BE%8E%E5%85%B0%E6%9C%BA%E5%9C%BA%E5%A1%94%E6%A5%BC-By_Bigball_-_panoramio.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/a/ad/%E8%BD%AC%E5%85%A5%E6%BB%91%E8%A1%8C%E9%81%932010_-_panoramio.jpg",
@@ -1796,15 +1805,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Haikou_Meilan_Airport_T2_20220620.jpg/500px-Haikou_Meilan_Airport_T2_20220620.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Haikou_Meilan_Airport_T2_Departure_hall_20220620.jpg/500px-Haikou_Meilan_Airport_T2_Departure_hall_20220620.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 19.940730143316603,
-      "lon": 110.46060871378855,
-      "provider": "arcgis",
-      "zoom": 2.7
-    }
+    "rejected": []
   },
   "HAM": {
+    "aerial": {
+      "lat": 53.63254494427082,
+      "lon": 9.987807092511012,
+      "provider": "arcgis",
+      "zoom": 2.9
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Warten_auf_den_Staatsgast_-_panoramio_-_Arnold_Schott.jpg/1280px-Warten_auf_den_Staatsgast_-_panoramio_-_Arnold_Schott.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Hamburg_airport_terminals.jpg/1280px-Hamburg_airport_terminals.jpg",
@@ -1823,15 +1832,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/HAM_4.jpg/1280px-HAM_4.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Wv_HAM_banner.jpg/1280px-Wv_HAM_banner.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 53.63254494427082,
-      "lon": 9.987807092511012,
-      "provider": "arcgis",
-      "zoom": 2.9
-    }
+    "rejected": []
   },
   "HAN": {
+    "aerial": {
+      "lat": 21.219896813316602,
+      "lon": 105.80288639700441,
+      "provider": "arcgis",
+      "zoom": 2.7
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Hanoi_Noibai6.jpg/1280px-Hanoi_Noibai6.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Hanoi_Noibai11.jpg/1280px-Hanoi_Noibai11.jpg",
@@ -1842,15 +1851,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Noi_Bai_International_Airport_Control_Tower_20231213.jpg/1280px-Noi_Bai_International_Airport_Control_Tower_20231213.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hanoi_Noi_Bai_airport.jpg/1280px-Hanoi_Noi_Bai_airport.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 21.219896813316602,
-      "lon": 105.80288639700441,
-      "provider": "arcgis",
-      "zoom": 2.7
-    }
+    "rejected": []
   },
   "HAV": {
+    "aerial": {
+      "lat": 22.989200592041016,
+      "lon": -82.40910339355469,
+      "provider": "arcgis",
+      "zoom": 2.7
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/4/48/JM_Havana.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/CUBA_-_panoramio_%2888%29.jpg/1280px-CUBA_-_panoramio_%2888%29.jpg",
@@ -1864,15 +1873,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Torrecontrolhabana.JPG/500px-Torrecontrolhabana.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Havana_airport_T3.JPG/500px-Havana_airport_T3.JPG"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 22.989200592041016,
-      "lon": -82.40910339355469,
-      "provider": "arcgis",
-      "zoom": 2.7
-    }
+    "rejected": []
   },
   "HEL": {
+    "aerial": {
+      "lat": 60.31722222,
+      "lon": 24.96333333,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Helsinki-Vantaa_airport.jpg/500px-Helsinki-Vantaa_airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Helsinki_Airport_from_air_in_the_1960s.jpeg/500px-Helsinki_Airport_from_air_in_the_1960s.jpeg",
@@ -1885,15 +1894,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Finnair_head_office_05JUN2015.JPG/500px-Finnair_head_office_05JUN2015.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Helsinki-Vantaan_kiitotie_33.jpg/500px-Helsinki-Vantaan_kiitotie_33.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 60.31722222,
-      "lon": 24.96333333,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "HKG": {
+    "aerial": {
+      "lat": 22.312005415135868,
+      "lon": 113.91309113603523,
+      "provider": "arcgis",
+      "zoom": 3.35
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/a/ae/A%C3%A9roport_de_Hong-Kong.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/b/ba/GFS_HQ.jpg",
@@ -1921,15 +1930,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/SkyPier_201111.JPG/500px-SkyPier_201111.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Airport_MTR_Station%2C_Mar_06.JPG/500px-Airport_MTR_Station%2C_Mar_06.JPG"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 22.312005415135868,
-      "lon": 113.91309113603523,
-      "provider": "arcgis",
-      "zoom": 3.35
-    }
+    "rejected": []
   },
   "HKT": {
+    "aerial": {
+      "lat": 8.113257,
+      "lon": 98.3174,
+      "provider": "arcgis",
+      "zoom": 2.75
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Phuket_Airsport_in_early_2025_01.jpg/1280px-Phuket_Airsport_in_early_2025_01.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Phuket_Airsport_in_early_2025_02.jpg/1280px-Phuket_Airsport_in_early_2025_02.jpg",
@@ -1938,15 +1947,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Phuket_Airport_Prasertwit-1.jpg/500px-Phuket_Airport_Prasertwit-1.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/PhuketAirport02.jpg/500px-PhuketAirport02.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 8.113257,
-      "lon": 98.3174,
-      "provider": "arcgis",
-      "zoom": 2.75
-    }
+    "rejected": []
   },
   "HND": {
+    "aerial": {
+      "lat": 35.55333333,
+      "lon": 139.78111111,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/JEX_B737-800%28JA316J%29_approach_%40RJTT_HND_%283438957536%29.jpg/500px-JEX_B737-800%28JA316J%29_approach_%40RJTT_HND_%283438957536%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Tokyo_International_Airport_Terminal_1_-01.jpg/250px-Tokyo_International_Airport_Terminal_1_-01.jpg",
@@ -1962,15 +1971,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Haneda_airport_international_terminal_005.jpg/500px-Haneda_airport_international_terminal_005.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/All_haneda.jpg/500px-All_haneda.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 35.55333333,
-      "lon": 139.78111111,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "HNL": {
+    "aerial": {
+      "lat": 21.31861111,
+      "lon": -157.9225,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Aerial_Photo_of_Daniel_K._Inouye_International_Airport.jpg/500px-Aerial_Photo_of_Daniel_K._Inouye_International_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/1981-09-15_12-00-00_United_States_Hawaii_Aliamanu.JPG/500px-1981-09-15_12-00-00_United_States_Hawaii_Aliamanu.JPG",
@@ -1982,15 +1991,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Daniel_K._Inouye_International_Airport_Hawaiian_Garden_2.jpg/250px-Daniel_K._Inouye_International_Airport_Hawaiian_Garden_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Daniel_K._Inouye_International_Airport_Japanese_Garden.jpg/250px-Daniel_K._Inouye_International_Airport_Japanese_Garden.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 21.31861111,
-      "lon": -157.9225,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "HOU": {
+    "aerial": {
+      "lat": 29.645336,
+      "lon": -95.276812,
+      "provider": "arcgis",
+      "zoom": 2.8
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/WilliamPHobbyAerial.jpg/1280px-WilliamPHobbyAerial.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/HobbyAirportTerminalInside.JPG/1280px-HobbyAirportTerminalInside.JPG",
@@ -2007,27 +2016,27 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Inside_William_P._Hobby_Airport.jpg/1280px-Inside_William_P._Hobby_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/1940_Air_Terminal_Museum.jpg/500px-1940_Air_Terminal_Museum.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 29.645336,
-      "lon": -95.276812,
-      "provider": "arcgis",
-      "zoom": 2.8
-    }
+    "rejected": []
   },
   "HPH": {
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Departure_CatBi.jpg/500px-Departure_CatBi.jpg"
-    ],
-    "rejected": [],
     "aerial": {
       "lat": 20.817428,
       "lon": 106.724315,
       "provider": "arcgis",
       "zoom": 2.6
-    }
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Departure_CatBi.jpg/500px-Departure_CatBi.jpg"
+    ],
+    "rejected": []
   },
   "HRG": {
+    "aerial": {
+      "lat": 27.176776,
+      "lon": 33.796692,
+      "provider": "arcgis",
+      "zoom": 3
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Ausreisekontrolle_Flughafen_Hurghada.JPG/1280px-Ausreisekontrolle_Flughafen_Hurghada.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Egypt%2C_Hurghada%2C_near_airport_-_panoramio_-_Alx_R_%286%29.jpg/1280px-Egypt%2C_Hurghada%2C_near_airport_-_panoramio_-_Alx_R_%286%29.jpg",
@@ -2045,15 +2054,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/20251008_Hurghada_International_Airport_03_%2844715%29.jpg/1280px-20251008_Hurghada_International_Airport_03_%2844715%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/20251008_Hurghada_International_Airport_03_%2882950%29.jpg/1280px-20251008_Hurghada_International_Airport_03_%2882950%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 27.176776,
-      "lon": 33.796692,
-      "provider": "arcgis",
-      "zoom": 3
-    }
+    "rejected": []
   },
   "HYD": {
+    "aerial": {
+      "lat": 17.233613652173915,
+      "lon": 78.43098275330397,
+      "provider": "arcgis",
+      "zoom": 2.85
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Rajiv_Gandhi_International_Airport_View.jpg/1280px-Rajiv_Gandhi_International_Airport_View.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Aerial_view_in_Hyderabad_Airport_21.jpg/1280px-Aerial_view_in_Hyderabad_Airport_21.jpg",
@@ -2068,15 +2077,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/HYD-CARGO-RAMP-IMG_1510-Edit_%2822301372810%29.jpg/500px-HYD-CARGO-RAMP-IMG_1510-Edit_%2822301372810%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Airport_Approach_Road%2C_Hyderabad_International_Airport%2C_Shamshabad%2C_Telangana.jpg/330px-Airport_Approach_Road%2C_Hyderabad_International_Airport%2C_Shamshabad%2C_Telangana.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 17.233613652173915,
-      "lon": 78.43098275330397,
-      "provider": "arcgis",
-      "zoom": 2.85
-    }
+    "rejected": []
   },
   "IAD": {
+    "aerial": {
+      "lat": 38.94700434782609,
+      "lon": -77.45741004845816,
+      "provider": "arcgis",
+      "zoom": 3.7
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Jonescrusher.JPG/1280px-Jonescrusher.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Dulles_Airport%2C_Virginia_LCCN2011632504.tif/lossy-page1-1280px-Dulles_Airport%2C_Virginia_LCCN2011632504.tif.jpg",
@@ -2088,15 +2097,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Washington_Dulles_International_Airport_at_Dusk.jpg/500px-Washington_Dulles_International_Airport_at_Dusk.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Dulles_Airport_tower_2008.jpg/500px-Dulles_Airport_tower_2008.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 38.94700434782609,
-      "lon": -77.45741004845816,
-      "provider": "arcgis",
-      "zoom": 3.7
-    }
+    "rejected": []
   },
   "IAH": {
+    "aerial": {
+      "lat": 29.98586086956522,
+      "lon": -95.34046960352423,
+      "provider": "arcgis",
+      "zoom": 4
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Airport_ceiling_-_George_Bush_International_Airport.jpg/1280px-Airport_ceiling_-_George_Bush_International_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bush_Terminal_E.jpg/1280px-Bush_Terminal_E.jpg",
@@ -2106,15 +2115,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/IAH_George_Bush_Intercontinental_Airport.jpg/500px-IAH_George_Bush_Intercontinental_Airport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/FlagPosts.JPG/330px-FlagPosts.JPG"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 29.98586086956522,
-      "lon": -95.34046960352423,
-      "provider": "arcgis",
-      "zoom": 4
-    }
+    "rejected": []
   },
   "ICN": {
+    "aerial": {
+      "lat": 37.46333333,
+      "lon": 126.44,
+      "provider": "arcgis",
+      "zoom": 3.7
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Incheon_International_Airport_Seoul_Korea_-_panoramio_%281%29.jpg/1280px-Incheon_International_Airport_Seoul_Korea_-_panoramio_%281%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Incheon_International_Airport_Seoul_Korea_-_panoramio_%282%29.jpg/1280px-Incheon_International_Airport_Seoul_Korea_-_panoramio_%282%29.jpg",
@@ -2142,15 +2151,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Bus_Station_Incheon_Airport.JPG/500px-Bus_Station_Incheon_Airport.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Incheon_Airport_Train_Terminal%2C_Korea.jpg/500px-Incheon_Airport_Train_Terminal%2C_Korea.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 37.46333333,
-      "lon": 126.44,
-      "provider": "arcgis",
-      "zoom": 3.7
-    }
+    "rejected": []
   },
   "IST": {
+    "aerial": {
+      "lat": 41.27530048086956,
+      "lon": 28.72834165665198,
+      "provider": "arcgis",
+      "zoom": 3.6
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/20260129_Beyaz%C4%B1t_%C3%96zt%C3%BCrk_-%C5%9Eey_2.jpg/1280px-20260129_Beyaz%C4%B1t_%C3%96zt%C3%BCrk_-%C5%9Eey_2.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/20260129_Beyaz%C4%B1t_%C3%96zt%C3%BCrk_-%C5%9Eey_1.jpg/1280px-20260129_Beyaz%C4%B1t_%C3%96zt%C3%BCrk_-%C5%9Eey_1.jpg",
@@ -2162,15 +2171,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Istanbul_airport_tower.jpg/500px-Istanbul_airport_tower.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/%C4%B0stanbul_Havaliman%C4%B1_Station_%284%29.jpg/500px-%C4%B0stanbul_Havaliman%C4%B1_Station_%284%29.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 41.27530048086956,
-      "lon": 28.72834165665198,
-      "provider": "arcgis",
-      "zoom": 3.6
-    }
+    "rejected": []
   },
   "ITM": {
+    "aerial": {
+      "lat": 34.78300952173913,
+      "lon": 135.440688030837,
+      "provider": "arcgis",
+      "zoom": 2.5
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/3/33/Osaka_Airport01.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Itami_Airport_terminal.jpg/1280px-Itami_Airport_terminal.jpg",
@@ -2201,15 +2210,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/VC-25airforce1_20051116_in_Osaka.jpg/500px-VC-25airforce1_20051116_in_Osaka.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Oosaka_monorail.jpg/500px-Oosaka_monorail.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 34.78300952173913,
-      "lon": 135.440688030837,
-      "provider": "arcgis",
-      "zoom": 2.5
-    }
+    "rejected": []
   },
   "JED": {
+    "aerial": {
+      "lat": 21.691409657391304,
+      "lon": 39.15621556867841,
+      "provider": "arcgis",
+      "zoom": 3.7
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/1/1b/King_Abdulaziz_International_Airport_%28JED%29%2C_Jeddah_Saudi_Arabia_-_panoramio_%281%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Jeddah_Airport_%28223316807%29.jpeg/1280px-Jeddah_Airport_%28223316807%29.jpeg",
@@ -2231,15 +2240,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Haj_terminal.jpg/500px-Haj_terminal.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/JEDairport_aquarium.jpg/500px-JEDairport_aquarium.jpg"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 21.691409657391304,
-      "lon": 39.15621556867841,
-      "provider": "arcgis",
-      "zoom": 3.7
-    }
+    "rejected": []
   },
   "JFK": {
+    "aerial": {
+      "lat": 40.64222656782609,
+      "lon": -73.7822721499119,
+      "provider": "arcgis",
+      "zoom": 3.65
+    },
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/2/2e/Jfkintlairport.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Ama_la_Vida_-_Flickr_-_Aeropuerto_JFK_en_New_York._009_%2814352180464%29.jpg/1280px-Ama_la_Vida_-_Flickr_-_Aeropuerto_JFK_en_New_York._009_%2814352180464%29.jpg",
@@ -2257,15 +2266,10 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/John_F._Kennedy_Airport_T8_Departures_20240602.jpg/500px-John_F._Kennedy_Airport_T8_Departures_20240602.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Departing_JFK.JPG/500px-Departing_JFK.JPG"
     ],
-    "rejected": [],
-    "aerial": {
-      "lat": 40.64222656782609,
-      "lon": -73.7822721499119,
-      "provider": "arcgis",
-      "zoom": 3.65
-    }
+    "rejected": []
   },
   "a220": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/QantasLink_A220_%E2%80%9CMinyma_Kutjara_Tjukurpa%E2%80%9D_Livery.jpg/1280px-QantasLink_A220_%E2%80%9CMinyma_Kutjara_Tjukurpa%E2%80%9D_Livery.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/CS100-FTV1.jpg/500px-CS100-FTV1.jpg",
@@ -2307,6 +2311,7 @@
     ]
   },
   "a300": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/B-2301_at_the_Civil_Aviation_Museum_of_China_%2820240518141835%29.jpg/500px-B-2301_at_the_Civil_Aviation_Museum_of_China_%2820240518141835%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Airbus_A300B4-220_-_China_Airlines_-_B-194.jpg/960px-Airbus_A300B4-220_-_China_Airlines_-_B-194.jpg",
@@ -2367,6 +2372,7 @@
     ]
   },
   "a310": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Airbus_A310-304_-_C-GVAT_-_Air_Transat_-_Seen_at_YQB.jpg/1280px-Airbus_A310-304_-_C-GVAT_-_Air_Transat_-_Seen_at_YQB.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/FRANKFURT_AUG_1992_SUDAN_AIRWAYS_AIRBUS_A310_F-OGQN_%2816138666680%29.jpg/1280px-FRANKFURT_AUG_1992_SUDAN_AIRWAYS_AIRBUS_A310_F-OGQN_%2816138666680%29.jpg",
@@ -2401,6 +2407,7 @@
     ]
   },
   "a318": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Frontier_Airlines_Fawn_Airbus_A318-111_N808FR.jpg/500px-Frontier_Airlines_Fawn_Airbus_A318-111_N808FR.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Airbus_A318-112_%2819751900080%29.jpg/500px-Airbus_A318-112_%2819751900080%29.jpg",
@@ -2417,6 +2424,7 @@
     ]
   },
   "a319": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/b/bb/Airbus_319_of_Rossiya_Airlines.png",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/N177XF.jpg/1280px-N177XF.jpg",
@@ -2446,6 +2454,7 @@
     ]
   },
   "a320": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Avi%C3%B3n_de_PeninsulyFly.jpg/1280px-Avi%C3%B3n_de_PeninsulyFly.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Airbus_A320-100_Air_France_%28AFR%29_F-GFKQ_-_MSN_002_%2810655931213%29.jpg/500px-Airbus_A320-100_Air_France_%28AFR%29_F-GFKQ_-_MSN_002_%2810655931213%29.jpg",
@@ -2521,6 +2530,7 @@
     ]
   },
   "a321": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/VP-BEU_%2852555259170%29.jpg/1280px-VP-BEU_%2852555259170%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Airbus_A321-200_Almasria_SU-TCP._Moscow_31.07.2025.jpg/1280px-Airbus_A321-200_Almasria_SU-TCP._Moscow_31.07.2025.jpg",
@@ -2558,6 +2568,7 @@
     ]
   },
   "a330": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg/500px-Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Airbus_A330-301%2C_Air_Inter_AN0198153.jpg/500px-Airbus_A330-301%2C_Air_Inter_AN0198153.jpg",
@@ -2614,6 +2625,7 @@
     ]
   },
   "a330-200": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Airbus_A330-202%2C_Canada_3000_AN0170340.jpg/800px-Airbus_A330-202%2C_Canada_3000_AN0170340.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/A6-DCA_Etihad_Airways_Airbus_A330-243F_%2831902400564%29.jpg/800px-A6-DCA_Etihad_Airways_Airbus_A330-243F_%2831902400564%29.jpg",
@@ -2664,6 +2676,7 @@
     ]
   },
   "a330neo": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/A330_NEO_Corsair.jpg/800px-A330_NEO_Corsair.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/9K-APF_Airbus_A330-841_Kuwait_Airways_Frankfurt_22.6.22.jpg/800px-9K-APF_Airbus_A330-841_Kuwait_Airways_Frankfurt_22.6.22.jpg",
@@ -2684,6 +2697,7 @@
     ]
   },
   "a340-600": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/9/92/LH_Airbus_A340-600.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Frankfurt_Airport_Lufthansa_Airbus_A340-313_D-AIGY_%28DSC02566%29.jpg/500px-Frankfurt_Airport_Lufthansa_Airbus_A340-313_D-AIGY_%28DSC02566%29.jpg",
@@ -2728,6 +2742,7 @@
     ]
   },
   "a350": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Qatar_Airways_Airbus_A350-941_A7-ALA_15.Jan.2015_First_commercial_service_Doha-Frankfurt_%2816260395846%29.jpg/500px-Qatar_Airways_Airbus_A350-941_A7-ALA_15.Jan.2015_First_commercial_service_Doha-Frankfurt_%2816260395846%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/EC-MXV_Airbus_A350-900_Iberia_LHR_30.3.21.jpg/500px-EC-MXV_Airbus_A350-900_Iberia_LHR_30.3.21.jpg",
@@ -2756,6 +2771,7 @@
     ]
   },
   "a350-1000": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Qatar_Airways_Airbus_A350-1000_%28A7-ANA%29.jpg/800px-Qatar_Airways_Airbus_A350-1000_%28A7-ANA%29.jpg"
     ],
@@ -2778,6 +2794,7 @@
     ]
   },
   "a380": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/A6-EDY_A380_Emirates_31_jan_2013_jfk_%288442269364%29_%28cropped%29.jpg/500px-A6-EDY_A380_Emirates_31_jan_2013_jfk_%288442269364%29_%28cropped%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Singapore_Airlines_A380-841_%289V-SKB%29_landing_at_Singapore_Changi_Airport_%283%29.jpg/500px-Singapore_Airlines_A380-841_%289V-SKB%29_landing_at_Singapore_Changi_Airport_%283%29.jpg",
@@ -2852,6 +2869,7 @@
     ]
   },
   "atr42": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/ATR_42-400MP_Surveyor%2C_Italy_-_Coast_Guard_JP6664322.jpg/960px-ATR_42-400MP_Surveyor%2C_Italy_-_Coast_Guard_JP6664322.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/ATR_42-600_ATR_%22House_colors%22_F-WWLY_-_MSN_811_%289739865503%29.jpg/960px-ATR_42-600_ATR_%22House_colors%22_F-WWLY_-_MSN_811_%289739865503%29.jpg",
@@ -2920,6 +2938,7 @@
     ]
   },
   "atr72": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/ATR_72-500_Firefly_%28FFM%29_F-WWEJ_-_MSN_934_-_Will_be_9M-FYH_%285408419954%29.jpg/1280px-ATR_72-500_Firefly_%28FFM%29_F-WWEJ_-_MSN_934_-_Will_be_9M-FYH_%285408419954%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/ATR_72-500_Firefly_%28FFM%29_F-WWEJ_-_MSN_934_-_Will_be_9M-FYH_%285407810669%29.jpg/1280px-ATR_72-500_Firefly_%28FFM%29_F-WWEJ_-_MSN_934_-_Will_be_9M-FYH_%285407810669%29.jpg",
@@ -2992,6 +3011,7 @@
     ]
   },
   "b717": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Delta_Air_Lines_Boeing_717-231_N927AT_Landing_on_Runway_22_at_Blue_Grass_Airport_in_2025.jpg/1280px-Delta_Air_Lines_Boeing_717-231_N927AT_Landing_on_Runway_22_at_Blue_Grass_Airport_in_2025.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Delta_Air_Lines_Boeing_717-2BD_%E2%80%98N996AT%E2%80%99_%40IND.jpg/1280px-Delta_Air_Lines_Boeing_717-2BD_%E2%80%98N996AT%E2%80%99_%40IND.jpg",
@@ -3014,6 +3034,7 @@
     ]
   },
   "b727": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/20-10-90_C-GYNH_Toronto_%2825893153948%29.jpg/1280px-20-10-90_C-GYNH_Toronto_%2825893153948%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/10-8-84_BOS_N296US_%2824450360087%29.jpg/1280px-10-8-84_BOS_N296US_%2824450360087%29.jpg",
@@ -3095,6 +3116,7 @@
     ]
   },
   "b737-700": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Fly%2C_Eivind_Saetre.jpg/1280px-Fly%2C_Eivind_Saetre.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/2/2f/Boeing_737_Next_Generation_%28412684579%29.jpg",
@@ -3140,6 +3162,7 @@
     ]
   },
   "b737-900": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Fly%2C_Eivind_Saetre.jpg/960px-Fly%2C_Eivind_Saetre.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/B737_%284405228676%29.jpg/960px-B737_%284405228676%29.jpg",
@@ -3177,6 +3200,7 @@
     ]
   },
   "b737classic": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Classic_Colors_Southwest_Airlines_N648SW_Boeing_737-3H4_SJC.jpg/500px-Classic_Colors_Southwest_Airlines_N648SW_Boeing_737-3H4_SJC.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Boeing_737-301_N301P_Piedmont_La_Guardia_17.08.85.jpg/500px-Boeing_737-301_N301P_Piedmont_La_Guardia_17.08.85.jpg",
@@ -3207,6 +3231,7 @@
     ]
   },
   "b737max": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Alaska_737_Max_9.jpg/500px-Alaska_737_Max_9.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/9M-LRF_-_Boeing_737-8_MAX_-_Batik_Air_Malaysia_-_42994_-_VGHS.jpg/500px-9M-LRF_-_Boeing_737-8_MAX_-_Batik_Air_Malaysia_-_42994_-_VGHS.jpg",
@@ -3238,6 +3263,7 @@
     ]
   },
   "b737ng": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/c/cb/B737_%284405228676%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/2/2f/Boeing_737_Next_Generation_%28412684579%29.jpg",
@@ -3289,6 +3315,7 @@
     ]
   },
   "b747": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Air_Force_One_Experience_%2849752931207%29.jpg/1280px-Air_Force_One_Experience_%2849752931207%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/f/f7/LH_Boeing_747-400.jpg",
@@ -3345,6 +3372,7 @@
     ]
   },
   "b757": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/BOEING_AIRPLANES_-_757_AND_767_-_NARA_-_17471049.jpg/1280px-BOEING_AIRPLANES_-_757_AND_767_-_NARA_-_17471049.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Boeing_757_Griletto_Linhas_A%C3%A9reas.png/1280px-Boeing_757_Griletto_Linhas_A%C3%A9reas.png",
@@ -3385,6 +3413,7 @@
     ]
   },
   "b767": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Boeing_767_12.jpg/1280px-Boeing_767_12.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/4K-AZ81_BABEK_-_Boeing_767-32L%28ER%29_-_Azerbaijan_Airlines.jpg/1280px-4K-AZ81_BABEK_-_Boeing_767-32L%28ER%29_-_Azerbaijan_Airlines.jpg",
@@ -3443,6 +3472,7 @@
     ]
   },
   "b777": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/B777-300er_de_SWISS.jpg/1280px-B777-300er_de_SWISS.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Boeing_777_N771KW_Eastern_l%C4%85duje_w_Poznaniu_%C5%81awnicy_Airport_-_luty_2026.jpg/1280px-Boeing_777_N771KW_Eastern_l%C4%85duje_w_Poznaniu_%C5%81awnicy_Airport_-_luty_2026.jpg",
@@ -3495,6 +3525,7 @@
     ]
   },
   "b777-200": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Boeing_777_N771KW_Eastern_l%C4%85duje_w_Poznaniu_%C5%81awnicy_Airport_-_luty_2026.jpg/960px-Boeing_777_N771KW_Eastern_l%C4%85duje_w_Poznaniu_%C5%81awnicy_Airport_-_luty_2026.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Cathay_Pacific_Boeing_777-200%3B_B-HNL%40HKG.jpg/800px-Cathay_Pacific_Boeing_777-200%3B_B-HNL%40HKG.jpg",
@@ -3538,6 +3569,7 @@
     ]
   },
   "b777-9": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Boeing_777-9_front_view.jpg/960px-Boeing_777-9_front_view.jpg"
     ],
@@ -3563,6 +3595,7 @@
     ]
   },
   "b787": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Boeing_787_N1015B_ANA_Airlines_%2827611880663%29_%28cropped%29.jpg/500px-Boeing_787_N1015B_ANA_Airlines_%2827611880663%29_%28cropped%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Norwegian_Boeing_787-9_%28EI-LNI%29_above_clouds.jpg/500px-Norwegian_Boeing_787-9_%28EI-LNI%29_above_clouds.jpg",
@@ -3597,6 +3630,7 @@
     ]
   },
   "c919": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/B-919A%40PEK_%2820221226151722%29.jpg/800px-B-919A%40PEK_%2820221226151722%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/%28SGP-Singapore%29_China_Eastern_Airlines_Comac_C919-100ER_B-919A_%40_Singapore_Airshow_2024-02-25_%282%29.jpg/800px-%28SGP-Singapore%29_China_Eastern_Airlines_Comac_C919-100ER_B-919A_%40_Singapore_Airshow_2024-02-25_%282%29.jpg",
@@ -3620,6 +3654,7 @@
     ]
   },
   "crj1000": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/EC-JTU_%288544702097%29.jpg/500px-EC-JTU_%288544702097%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Bombardier_CRJ-1000NextGen%2C_Iberia_Regional_%28Air_Nostrum%29_JP7089098.jpg/800px-Bombardier_CRJ-1000NextGen%2C_Iberia_Regional_%28Air_Nostrum%29_JP7089098.jpg",
@@ -3635,6 +3670,7 @@
     ]
   },
   "crj200": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/N466SW_LAX_%2830314755488%29.jpg/500px-N466SW_LAX_%2830314755488%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bombardier_CRJ-100_Lufthansa_D-ACJJ_-_MSN_7298_-_Now_in_UTair_fleet_as_VQ-BGU_%283238726666%29.jpg/500px-Bombardier_CRJ-100_Lufthansa_D-ACJJ_-_MSN_7298_-_Now_in_UTair_fleet_as_VQ-BGU_%283238726666%29.jpg",
@@ -3647,6 +3683,7 @@
     "rejected": []
   },
   "crj700": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/EC-JTU_%288544702097%29.jpg/500px-EC-JTU_%288544702097%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Delta_Connection_Canadair_CRJ700%3B_N613QX%40SLC%3B09.10.2011_621ab_%286300028326%29.jpg/500px-Delta_Connection_Canadair_CRJ700%3B_N613QX%40SLC%3B09.10.2011_621ab_%286300028326%29.jpg",
@@ -3665,6 +3702,7 @@
     ]
   },
   "crj900": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Canadair_CRJ-1000_%28EC-LPG%29_de_Air_Nostrum_%28cropped%29.JPG/500px-Canadair_CRJ-1000_%28EC-LPG%29_de_Air_Nostrum_%28cropped%29.JPG",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Bombardier_CRJ-1000NextGen%2C_Iberia_Regional_%28Air_Nostrum%29_JP7089098.jpg/500px-Bombardier_CRJ-1000NextGen%2C_Iberia_Regional_%28Air_Nostrum%29_JP7089098.jpg",
@@ -3683,6 +3721,7 @@
     ]
   },
   "dash8classic": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Air_Canada_Jazz_De_Havilland_Canada_DHC-8-102_Dash_8_C-GANQ_833_%287097889771%29.jpg/500px-Air_Canada_Jazz_De_Havilland_Canada_DHC-8-102_Dash_8_C-GANQ_833_%287097889771%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Air_Iceland_Connect_-_Dash_8-200_-_TF_FXG_%28Quintin_Soloviev%29.png/500px-Air_Iceland_Connect_-_Dash_8-200_-_TF_FXG_%28Quintin_Soloviev%29.png",
@@ -3698,6 +3737,7 @@
     ]
   },
   "dash8q400": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Hamburg_Airport_Wider%C3%B8e_Bombardier_DHC-8-402Q_LN-WDR_%28DSC08713%29.jpg/500px-Hamburg_Airport_Wider%C3%B8e_Bombardier_DHC-8-402Q_LN-WDR_%28DSC08713%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/De_Havilland_Canada_DHC-8-102_Dash_8_at_1984_Farnborough_Airshow.jpg/500px-De_Havilland_Canada_DHC-8-102_Dash_8_at_1984_Farnborough_Airshow.jpg",
@@ -3717,6 +3757,7 @@
     ]
   },
   "e170": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Lot.embraer.e-170-100st.sp-ldd.arp.jpg/500px-Lot.embraer.e-170-100st.sp-ldd.arp.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hannover_Airport_Air_France_Hop_Embraer_ERJ-170STD_F-HBXC_%28DSC04968%29.jpg/500px-Hannover_Airport_Air_France_Hop_Embraer_ERJ-170STD_F-HBXC_%28DSC04968%29.jpg"
@@ -3727,6 +3768,7 @@
     ]
   },
   "e175": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/N199SY_SkyWest_Embraer_175_for_Alaska_Airlines.jpg/500px-N199SY_SkyWest_Embraer_175_for_Alaska_Airlines.jpg"
     ],
@@ -3736,6 +3778,7 @@
     ]
   },
   "e190": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/KLM_Cityhopper_-_Embraer_190LR_-_AN2571563.jpg/500px-KLM_Cityhopper_-_Embraer_190LR_-_AN2571563.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/First_Embraer_E190_ever_built%2C_retired_in_Kingman%2C_AZ.jpg/500px-First_Embraer_E190_ever_built%2C_retired_in_Kingman%2C_AZ.jpg",
@@ -3749,6 +3792,7 @@
     ]
   },
   "e195e2": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wider%C3%B8e%2C_LN-WEA%2C_Embraer_E190-E2_%40_HEL.jpg/500px-Wider%C3%B8e%2C_LN-WEA%2C_Embraer_E190-E2_%40_HEL.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PR-ZGQ_%2839770747914%29.jpg/500px-PR-ZGQ_%2839770747914%29.jpg",
@@ -3763,6 +3807,7 @@
     "rejected": []
   },
   "md83": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/1/1e/MD80_SAS_%285822320224%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/MD83_Aircraft_of_TezJet.jpg/500px-MD83_Aircraft_of_TezJet.jpg",
@@ -3818,6 +3863,7 @@
     ]
   },
   "md90": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Delta_McDonnell_Douglas_MD-90-30_N908DA_%282933350256%29.jpg/500px-Delta_McDonnell_Douglas_MD-90-30_N908DA_%282933350256%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/McDonnell_Douglas_MD-90-30_AN0701630.jpg/960px-McDonnell_Douglas_MD-90-30_AN0701630.jpg",
@@ -3840,6 +3886,7 @@
     ]
   },
   "ssj100": {
+    "aerial": null,
     "approved": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/SSJ-100_Rossiya_Airlines_RA-89061._Moscow_31.07.2025.jpg/960px-SSJ-100_Rossiya_Airlines_RA-89061._Moscow_31.07.2025.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/SSJ-100_Yamal_Airlines._Moscow_31.07.2025.jpg/960px-SSJ-100_Yamal_Airlines._Moscow_31.07.2025.jpg",
@@ -3901,5 +3948,76 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/SSJ-100_bort1_engine.jpg/800px-SSJ-100_bort1_engine.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/SSJ-100-95_SUKHOI_SUPERJET_95001.png/960px-SSJ-100-95_SUKHOI_SUPERJET_95001.png"
     ]
+  },
+  "JIB": {
+    "aerial": {
+      "provider": "arcgis",
+      "lat": 11.5473,
+      "lon": 43.1595,
+      "zoom": 2.7
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/9/96/Djibouti-Ambouli_International_Airport_Onyshchenko.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Djibouti_International_Airport_%2824547214573%29.jpg/1280px-Djibouti_International_Airport_%2824547214573%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/9/97/Djibouti%E2%80%93Ambouli_International_Airport_Apron_View.png",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Djibouti-Ambouli_International_Airport_Onyshchenko.jpg/500px-Djibouti-Ambouli_International_Airport_Onyshchenko.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Djibouti%E2%80%93Ambouli_International_Airport_Apron_View.png/500px-Djibouti%E2%80%93Ambouli_International_Airport_Apron_View.png"
+    ],
+    "rejected": []
+  },
+  "JNB": {
+    "aerial": {
+      "provider": "arcgis",
+      "lat": -26.137124494658632,
+      "lon": 28.24871485943775,
+      "zoom": 3.3
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Ekurhuleni%2C_South_Africa_by_Planet_Labs_%28cropped%29.jpg/500px-Ekurhuleni%2C_South_Africa_by_Planet_Labs_%28cropped%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Ekurhuleni_Aerotropolis.jpg/500px-Ekurhuleni_Aerotropolis.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Arriv%C3%A9e_et_retour_-_WikiIndaba_2024_5.jpg/500px-Arriv%C3%A9e_et_retour_-_WikiIndaba_2024_5.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/L%27a%C3%A9roport_OR_TAMBO_de_Johanesbourg_19.jpg/500px-L%27a%C3%A9roport_OR_TAMBO_de_Johanesbourg_19.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/A_collection_of_aircraft_at_Johannesburg_OR_Tambo_International_Airport.jpg/500px-A_collection_of_aircraft_at_Johannesburg_OR_Tambo_International_Airport.jpg"
+    ],
+    "rejected": []
+  },
+  "KBP": {
+    "aerial": {
+      "provider": "arcgis",
+      "lat": 50.345001,
+      "lon": 30.894699,
+      "zoom": 3
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Boryspil_International_Airport_Kyiv.jpg/500px-Boryspil_International_Airport_Kyiv.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Borispol_B_terminal.jpg/500px-Borispol_B_terminal.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Kiev_-_Borispol_%28KBP_-_UKBB%29_AN2315249.jpg/500px-Kiev_-_Borispol_%28KBP_-_UKBB%29_AN2315249.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Boryspil_International_Airport_Kyiv_Terminal.jpg/500px-Boryspil_International_Airport_Kyiv_Terminal.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/%D0%90%D1%8D%D1%80%D0%BE%D0%B4%D1%80%D0%BE%D0%BC%D1%8B_%D0%B8_%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D1%8B-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%2C_%D0%9A%D0%B8%D0%B5%D0%B2_-_%D0%91%D0%BE%D1%80%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C_RP94559.jpg/500px-%D0%90%D1%8D%D1%80%D0%BE%D0%B4%D1%80%D0%BE%D0%BC%D1%8B_%D0%B8_%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D1%8B-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%2C_%D0%9A%D0%B8%D0%B5%D0%B2_-_%D0%91%D0%BE%D1%80%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C_RP94559.jpg"
+    ],
+    "rejected": []
+  },
+  "KEF": {
+    "aerial": {
+      "provider": "arcgis",
+      "lat": 63.97529718875502,
+      "lon": -22.622262387309235,
+      "zoom": 3.8
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Gospelch_Midnight_Sun.JPG/1280px-Gospelch_Midnight_Sun.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Keflav%C3%ADk_old_1.jpg/1280px-Keflav%C3%ADk_old_1.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Keflav%C3%ADk_old_4.jpg/1280px-Keflav%C3%ADk_old_4.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Keflav%C3%ADk_Airport_tarmac.jpg/1280px-Keflav%C3%ADk_Airport_tarmac.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ursus_Major_and_Aurora_Borealis_over_Keflavik_airport_%2815761364142%29.jpg/1280px-Ursus_Major_and_Aurora_Borealis_over_Keflavik_airport_%2815761364142%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Keflav%C3%ADk_International_Airport_%2831001876723%29.jpg/1280px-Keflav%C3%ADk_International_Airport_%2831001876723%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Keflav%C3%ADk_International_Airport_%2831439039070%29.jpg/1280px-Keflav%C3%ADk_International_Airport_%2831439039070%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Keflav%C3%ADk_International_Airport_%2831439017330%29.jpg/1280px-Keflav%C3%ADk_International_Airport_%2831439017330%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Iceland_%2819425499013%29.jpg/1280px-Iceland_%2819425499013%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/SSJ100_Keflavik_runways_%285160518757%29.jpg/500px-SSJ100_Keflavik_runways_%285160518757%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/2006-05-27-082806_Iceland_Keflav%C3%ADk.jpg/500px-2006-05-27-082806_Iceland_Keflav%C3%ADk.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Keflav%C3%ADk_International_Airport_%28seen_from_runway%29.jpg/500px-Keflav%C3%ADk_International_Airport_%28seen_from_runway%29.jpg"
+    ],
+    "rejected": []
   }
 }
