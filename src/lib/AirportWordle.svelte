@@ -196,7 +196,7 @@
       scored.push({ ap: a, rank });
     }
     scored.sort((a, b) => a.rank - b.rank || a.ap.name.localeCompare(b.ap.name));
-    return scored.slice(0, 8).map((s) => s.ap);
+    return scored.map((s) => s.ap);
   });
 
   function commitGuess(ap: AirportEntry) {

@@ -191,7 +191,7 @@
       scored.push({ plane: a, rank });
     }
     scored.sort((a, b) => a.rank - b.rank || a.plane.name.localeCompare(b.plane.name));
-    return scored.slice(0, 8).map((s) => s.plane);
+    return scored.map((s) => s.plane);
   });
 
   function commitGuess(plane: MilitaryAircraft) {
