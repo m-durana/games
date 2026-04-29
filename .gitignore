@@ -31,6 +31,7 @@ dist-ssr
 # AI reviewer scratch (patches go through scripts/merge-aircraft-review-patches.mjs)
 tmp/*
 docs/*
+prompts/*
 
 # Windows / Cygwin crash dumps
 *.stackdump
