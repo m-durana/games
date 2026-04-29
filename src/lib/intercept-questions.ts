@@ -34,7 +34,7 @@ const T_HIGH_AND_CLOSE: InterceptTemplate = {
       options,
       correctIndex: 2,
       answer: options[2],
-      explanation: 'Inside 5 nm, 800 ft high is unsalvageable on a stabilized approach — going missed is the right call. S-turning that close to the threshold compounds the problem; continuing busts stabilized-approach criteria.',
+      explanation: 'Inside 5 nm, 800 ft high is unsalvageable on a stabilized approach - going missed is the right call. S-turning that close to the threshold compounds the problem; continuing busts stabilized-approach criteria.',
       scenario,
     };
   },
@@ -81,11 +81,11 @@ const T_TAILWIND: InterceptTemplate = {
     return {
       mode: 'intercept',
       templateId: 'tailwind-on-runway',
-      prompt: `${scenario.state.callsign}, ${scenario.airportIata}. Cleared ${scenario.approachName}. Wind ${fmtHeading(windFrom)}/${windKt} — that's a ${windKt}-kt tailwind on RWY ${ctx.approach.runway}. What now?`,
+      prompt: `${scenario.state.callsign}, ${scenario.airportIata}. Cleared ${scenario.approachName}. Wind ${fmtHeading(windFrom)}/${windKt} - that's a ${windKt}-kt tailwind on RWY ${ctx.approach.runway}. What now?`,
       options,
       correctIndex: 1,
       answer: options[1],
-      explanation: `Tailwind > 10 kt is outside most operators' landing limits. RWY ${ctx.reciprocalDesignator} faces into wind — request the reciprocal.`,
+      explanation: `Tailwind > 10 kt is outside most operators' landing limits. RWY ${ctx.reciprocalDesignator} faces into wind - request the reciprocal.`,
       scenario,
     };
   },
@@ -109,11 +109,11 @@ const T_LIGHT_TAILWIND: InterceptTemplate = {
     return {
       mode: 'intercept',
       templateId: 'light-tailwind',
-      prompt: `${scenario.state.callsign}, ${scenario.airportIata} ${scenario.approachName}. Wind ${fmtHeading(windFrom)}/${windKt} — light tailwind on RWY ${ctx.approach.runway}. What's your call?`,
+      prompt: `${scenario.state.callsign}, ${scenario.airportIata} ${scenario.approachName}. Wind ${fmtHeading(windFrom)}/${windKt} - light tailwind on RWY ${ctx.approach.runway}. What's your call?`,
       options,
       correctIndex: 0,
       answer: options[0],
-      explanation: `Most operators allow up to 10 kt tailwind for landing; ${windKt} kt is within tolerance — continue.`,
+      explanation: `Most operators allow up to 10 kt tailwind for landing; ${windKt} kt is within tolerance - continue.`,
       scenario,
     };
   },
@@ -127,7 +127,7 @@ const T_FAST_VECTOR: InterceptTemplate = {
     const altitude = (ctx.airport.elevationFt ?? 0) + 5000;
     const scenario = buildScenario(ctx, { range, altitude, speed: 250, windFrom: 0, windKt: 0 }, rng);
     const options = [
-      'Accept — start descent now',
+      'Accept - start descent now',
       'Request delay vectors',
       'Request lower for the intercept',
     ];
@@ -163,7 +163,7 @@ const T_REASONABLE_VECTOR: InterceptTemplate = {
       options,
       correctIndex: 0,
       answer: options[0],
-      explanation: '180 kt at 3500 ft AGL with 10 nm to run is well-positioned for a stabilized intercept — accept.',
+      explanation: '180 kt at 3500 ft AGL with 10 nm to run is well-positioned for a stabilized intercept - accept.',
       scenario,
     };
   },
@@ -181,17 +181,17 @@ const T_CROSSWIND_VISUAL: InterceptTemplate = {
     const scenario = buildScenario(ctx, { range, altitude, speed: 170, windFrom, windKt }, rng);
     const options = [
       'Accept the visual',
-      'Decline — stay on the ILS',
+      'Decline - stay on the ILS',
       'Ask for vectors away from the wind',
     ];
     return {
       mode: 'intercept',
       templateId: 'crosswind-visual',
-      prompt: `${scenario.state.callsign}, ${scenario.airportIata}. Tower offers visual to RWY ${ctx.approach.runway}. Wind ${fmtHeading(windFrom)}/${windKt} — ~${windKt}-kt crosswind. ILS already loaded. What's your call?`,
+      prompt: `${scenario.state.callsign}, ${scenario.airportIata}. Tower offers visual to RWY ${ctx.approach.runway}. Wind ${fmtHeading(windFrom)}/${windKt} - ~${windKt}-kt crosswind. ILS already loaded. What's your call?`,
       options,
       correctIndex: 1,
       answer: options[1],
-      explanation: 'A 22–30 kt crosswind on a visual is at or beyond demonstrated values for most types. The ILS gives you a stabilized lateral reference all the way down — keep it.',
+      explanation: 'A 22–30 kt crosswind on a visual is at or beyond demonstrated values for most types. The ILS gives you a stabilized lateral reference all the way down - keep it.',
       scenario,
     };
   },
@@ -230,7 +230,7 @@ const T_LOW_AND_FAST: InterceptTemplate = {
     const altitude = (ctx.airport.elevationFt ?? 0) + 1200;
     const scenario = buildScenario(ctx, { range, altitude, speed: 220, windFrom: 0, windKt: 0 }, rng);
     const options = [
-      'Continue — slow down on the way',
+      'Continue - slow down on the way',
       'Go missed and request re-sequence',
       'S-turn to bleed energy',
     ];
@@ -241,7 +241,7 @@ const T_LOW_AND_FAST: InterceptTemplate = {
       options,
       correctIndex: 1,
       answer: options[1],
-      explanation: 'You\'re 100+ kt above target speed inside 5 nm and below glideslope — no clean stabilization possible. Go missed.',
+      explanation: 'You\'re 100+ kt above target speed inside 5 nm and below glideslope - no clean stabilization possible. Go missed.',
       scenario,
     };
   },
@@ -256,7 +256,7 @@ const T_LOC_CAPTURED_HIGH: InterceptTemplate = {
     const altitude = Math.round((ctx.airport.elevationFt ?? 0) + gsAlt + 400);
     const scenario = buildScenario(ctx, { range, altitude, speed: 190, windFrom: 0, windKt: 0 }, rng);
     const options = [
-      'Capture from above — increase descent rate',
+      'Capture from above - increase descent rate',
       'S-turn to drop below glideslope',
       'Go missed',
     ];

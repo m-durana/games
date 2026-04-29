@@ -171,8 +171,8 @@
         <div class="mode-info">
           <p><strong>Read the scope.</strong> Tags show callsign / altitude (×100 ft, ↑↓ = climb/descend) / speed (kt) / heading. Short trend line = where they're going next.</p>
           <ul>
-            <li><strong>Conflict</strong> — tap the two blips on a collision course. Watch for converging headings at similar altitudes (within ~1000 ft) and closing range.</li>
-            <li><strong>Direct</strong> — a pilot asked for a shortcut. Approve only if the new track stays clear of other traffic and the active final.</li>
+            <li><strong>Conflict</strong> - tap the two blips on a collision course. Watch for converging headings at similar altitudes (within ~1000 ft) and closing range.</li>
+            <li><strong>Direct</strong> - a pilot asked for a shortcut. Approve only if the new track stays clear of other traffic and the active final.</li>
           </ul>
           <p class="tip">Wind tag in the corner sets the runway in use and biases ground speed on final.</p>
         </div>

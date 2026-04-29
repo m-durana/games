@@ -122,7 +122,7 @@
           <ul>
             <li>0° points up (north). 090° = right (east), 180° = down (south), 270° = left (west).</li>
             <li>Your aircraft is the blue triangle. The target fix is the highlighted diamond.</li>
-            <li>Smaller dots are nearby fixes — ignore them, they're just chart clutter.</li>
+            <li>Smaller dots are nearby fixes - ignore them, they're just chart clutter.</li>
           </ul>
           <p class="tip">Harder difficulty = decoy headings closer together, so estimate carefully.</p>
         </div>

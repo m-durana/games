@@ -1,5 +1,6 @@
 import airportData from '../data/airport-wordle.json';
 import curatedPhotos from '../data/airport-photos.json';
+import curatedAerials from '../data/airport-aerials.json';
 import { poolCountryFilter } from './engine';
 
 export type HubAlliance = 'Star Alliance' | 'SkyTeam' | 'oneworld' | 'Independent';
@@ -323,11 +324,15 @@ async function fetchFromWikiMediaList(wikiTitle: string): Promise<string[]> {
 }
 
 const CURATED = curatedPhotos as Record<string, string[]>;
+const AERIALS = curatedAerials as Record<string, string>;
 
-export async function fetchAirportImages(ap: AirportEntry): Promise<string[]> {
-  const curated = CURATED[ap.iata];
-  if (curated && curated.length > 0) return curated;
+export function airportAerialUrl(iata: string): string | null {
+  return AERIALS[iata] ?? null;
+}
 
+// Wikipedia/Commons fetch - always live, used by the review tool which needs
+// the full candidate set regardless of what's already curated.
+export async function fetchAirportCandidates(ap: AirportEntry): Promise<string[]> {
   const cacheKey = ap.iata;
   if (imageListCache.has(cacheKey)) return imageListCache.get(cacheKey) ?? [];
   const existing = inFlight.get(cacheKey);
@@ -350,6 +355,17 @@ export async function fetchAirportImages(ap: AirportEntry): Promise<string[]> {
   })();
   inFlight.set(cacheKey, promise);
   return promise;
+}
+
+export async function fetchAirportImages(ap: AirportEntry): Promise<string[]> {
+  const aerial = AERIALS[ap.iata];
+  const curated = CURATED[ap.iata];
+  if (curated && curated.length > 0) {
+    return aerial ? [aerial, ...curated] : curated;
+  }
+  const live = await fetchAirportCandidates(ap);
+  if (aerial && !live.includes(aerial)) return [aerial, ...live];
+  return live;
 }
 
 // --- Round picking ------------------------------------------------------

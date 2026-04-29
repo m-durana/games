@@ -16,7 +16,7 @@ export type RadarKind = 'conflict' | 'direct';
 
 interface RadarBaseQuestion {
   kind: RadarKind;
-  /** For AtcResults compatibility — always 'radar'. */
+  /** For AtcResults compatibility - always 'radar'. */
   mode: 'radar';
   prompt: string;
   /** Human-readable correct-answer string (shown in the recap). */
@@ -241,7 +241,7 @@ function buildConflictQuestion(difficulty: Difficulty, rng: Rng): ConflictQuesti
     }
   }
 
-  // Final verification — should be exactly one conflict (the seeded pair).
+  // Final verification - should be exactly one conflict (the seeded pair).
   const finalConflicts = findConflicts({ aircraft }, horizonSec, sepNm);
   const pair = finalConflicts.find((c) => (c.a.id === 'ac-0' && c.b.id === 'ac-1') || (c.a.id === 'ac-1' && c.b.id === 'ac-0')) ?? finalConflicts[0];
   const scenario = scenarioFromBase(base, aircraft);
@@ -249,7 +249,7 @@ function buildConflictQuestion(difficulty: Difficulty, rng: Rng): ConflictQuesti
   return {
     kind: 'conflict',
     mode: 'radar',
-    prompt: `Conflict near ${scenario.airportIata} — which two will lose separation?`,
+    prompt: `Conflict near ${scenario.airportIata} - which two will lose separation?`,
     answer: `${a.callsign} ↔ ${b.callsign}`,
     explanation: `Both aircraft are at FL${Math.round(a.altitude / 100)} on converging tracks; minimum predicted separation ${pair.minSeparation.toFixed(1)} nm in ${pair.tSeconds}s.`,
     scenario,
@@ -274,7 +274,7 @@ function buildDirectQuestion(difficulty: Difficulty, rng: Rng): DirectQuestion {
     speed: 380 + Math.floor(rng() * 80),
   };
 
-  // Random "destination" headings — we'll point requester at a heading.
+  // Random "destination" headings - we'll point requester at a heading.
   const destHeading = Math.floor(rng() * 360);
 
   // Other traffic
@@ -305,21 +305,21 @@ function buildDirectQuestion(difficulty: Difficulty, rng: Rng): DirectQuestion {
   if (conflicts.length === 0) {
     correctIndex = 0;
     correctAnswer = 'Approve direct';
-    explanation = 'No traffic on the requested track within 4 minutes — clean approval.';
+    explanation = 'No traffic on the requested track within 4 minutes - clean approval.';
   } else {
     // Find the blocker aircraft
     const conflict = conflicts[0];
     const blocker = conflict.a.id === 'ac-req' ? conflict.b : conflict.a;
     blockerCallsign = blocker.callsign;
     if (Math.abs(requesterDirect.altitude - blocker.altitude) > 800 || conflict.tSeconds > 180) {
-      // Borderline — "approve after" is the safer call
+      // Borderline - "approve after" is the safer call
       correctIndex = 1;
       correctAnswer = `Approve after ${blocker.callsign}`;
-      explanation = `${blocker.callsign} is on a converging track — let it pass first, then approve.`;
+      explanation = `${blocker.callsign} is on a converging track - let it pass first, then approve.`;
     } else {
       correctIndex = 2;
       correctAnswer = 'Deny';
-      explanation = `${blocker.callsign} is at the same level on a head-on track inside 3 min — deny outright.`;
+      explanation = `${blocker.callsign} is at the same level on a head-on track inside 3 min - deny outright.`;
     }
   }
 
@@ -331,7 +331,7 @@ function buildDirectQuestion(difficulty: Difficulty, rng: Rng): DirectQuestion {
   return {
     kind: 'direct',
     mode: 'radar',
-    prompt: `${scenario.airportIata} — ${requester.callsign} requests direct destination (heading ${destHeading.toString().padStart(3, '0')}). Your call?`,
+    prompt: `${scenario.airportIata} - ${requester.callsign} requests direct destination (heading ${destHeading.toString().padStart(3, '0')}). Your call?`,
     answer: correctAnswer,
     explanation,
     scenario,

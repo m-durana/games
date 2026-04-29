@@ -388,7 +388,7 @@
 
       {#if !cropping}
         <div class="actions">
-          <button class="ghost" onclick={skip}>Skip — none of these</button>
+          <button class="ghost" onclick={skip}>Skip - none of these</button>
         </div>
       {/if}
     </section>

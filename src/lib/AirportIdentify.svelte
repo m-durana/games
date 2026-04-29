@@ -2,6 +2,7 @@
   import { fly } from 'svelte/transition';
   import { onMount } from 'svelte';
   import {
+    airportAerialUrl,
     airportEntryByIata,
     pooledAirports,
     airportsForDifficulty,
@@ -198,7 +199,13 @@
     photoIndex = 0;
     const urls = await fetchAirportImages(ap);
     if (ap.iata === current?.iata) {
-      photoUrls = shuffle(urls);
+      const aerial = airportAerialUrl(ap.iata);
+      if (aerial) {
+        const rest = shuffle(urls.filter((u) => u !== aerial));
+        photoUrls = [aerial, ...rest];
+      } else {
+        photoUrls = shuffle(urls);
+      }
       photoLoading = false;
     }
   }
@@ -360,7 +367,7 @@
           {:else if photoLoading}
             <div class="photo-loading">Loading photo…</div>
           {:else}
-            <div class="photo-loading">No photo available — see <a href="https://en.wikipedia.org/wiki/{current.wikipedia.replaceAll(' ', '_')}" target="_blank" rel="noreferrer">Wikipedia</a>.</div>
+            <div class="photo-loading">No photo available - see <a href="https://en.wikipedia.org/wiki/{current.wikipedia.replaceAll(' ', '_')}" target="_blank" rel="noreferrer">Wikipedia</a>.</div>
           {/if}
         </div>
 
@@ -368,20 +375,20 @@
           <div class="hints">
             {#if stage >= 1}
               <div class="hint">
-                <span class="hint-tag">Hint 1 — Country</span>
+                <span class="hint-tag">Hint 1 - Country</span>
                 <p>In <strong>{current.country}</strong>.</p>
               </div>
             {/if}
             {#if stage >= 2}
               <div class="hint">
-                <span class="hint-tag">Hint 2 — Hub alliance & city</span>
+                <span class="hint-tag">Hint 2 - Hub alliance & city</span>
                 <p>Hub for <strong>{current.hubAlliance}</strong> · {current.city}</p>
               </div>
             {/if}
           </div>
 
           {#if lastWrong}
-            <div class="wrong-note">Not <strong>{lastWrong}</strong>. {stage < maxStage ? 'Here\'s another hint — try again.' : ''}</div>
+            <div class="wrong-note">Not <strong>{lastWrong}</strong>. {stage < maxStage ? 'Here\'s another hint - try again.' : ''}</div>
           {/if}
 
           <div class="prompt-row">

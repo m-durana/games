@@ -57,7 +57,7 @@ export function buildInterceptRound(difficulty: Difficulty, rng: Rng = defaultRn
   }
   const ctxs = approachContexts();
   if (ctxs.length === 0) {
-    throw new Error('No approach contexts available — intercepts mode needs radarscope/data approaches.');
+    throw new Error('No approach contexts available - intercepts mode needs radarscope/data approaches.');
   }
 
   const out: InterceptQuestion[] = [];

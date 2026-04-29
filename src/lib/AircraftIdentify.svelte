@@ -149,7 +149,7 @@
   );
   const maxStage = $derived(difficulty === 'hard' ? 2 : 3);
 
-  // Grouped dropdown options — full aircraft list (a guess outside the easy pool is allowed but limits learning).
+  // Grouped dropdown options - full aircraft list (a guess outside the easy pool is allowed but limits learning).
   const groupedOptions = $derived(groupByManufacturer(pooledAircraft()));
 
   function groupByManufacturer(list: Aircraft[]): { manufacturer: string; planes: Aircraft[] }[] {
@@ -163,7 +163,7 @@
       .sort((a, b) => a.manufacturer.localeCompare(b.manufacturer));
   }
 
-  // Distractors for stage 3 multiple choice — prefer same family or same body class
+  // Distractors for stage 3 multiple choice - prefer same family or same body class
   const choices = $derived(buildChoices(current));
 
   function buildChoices(answer: Aircraft): string[] {
@@ -386,7 +386,7 @@
           {:else if photoLoading}
             <div class="photo-loading">Loading photo…</div>
           {:else}
-            <div class="photo-loading">No photo available — see <a href="https://en.wikipedia.org/wiki/{current.wikipedia.replaceAll(' ', '_')}" target="_blank" rel="noreferrer">Wikipedia</a>.</div>
+            <div class="photo-loading">No photo available - see <a href="https://en.wikipedia.org/wiki/{current.wikipedia.replaceAll(' ', '_')}" target="_blank" rel="noreferrer">Wikipedia</a>.</div>
           {/if}
         </div>
 
@@ -394,20 +394,20 @@
           <div class="hints">
             {#if stage >= 1}
               <div class="hint">
-                <span class="hint-tag">Hint 1 — Maker</span>
+                <span class="hint-tag">Hint 1 - Maker</span>
                 <p>This is a <strong>{current.manufacturer}</strong>.</p>
               </div>
             {/if}
             {#if stage >= 2}
               <div class="hint">
-                <span class="hint-tag">Hint 2 — Family</span>
+                <span class="hint-tag">Hint 2 - Family</span>
                 <p>It belongs to the <strong>{current.family}</strong> family.</p>
               </div>
             {/if}
           </div>
 
           {#if lastWrong}
-            <div class="wrong-note">Not <strong>{lastWrong}</strong>. {stage < maxStage ? 'Here\'s another hint — try again.' : ''}</div>
+            <div class="wrong-note">Not <strong>{lastWrong}</strong>. {stage < maxStage ? 'Here\'s another hint - try again.' : ''}</div>
           {/if}
 
           <div class="prompt-row">

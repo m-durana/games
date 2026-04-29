@@ -2,7 +2,7 @@
   import { untrack } from 'svelte';
   import reviewAirportData from '../data/airport-review-airports.json';
   import seedReviewState from '../data/airport-review-state.json';
-  import { airports as modeledAirports, fetchAirportImages, regionOf, regionLabel, type AirportEntry } from './airports-game';
+  import { airports as modeledAirports, fetchAirportCandidates, regionOf, regionLabel, type AirportEntry } from './airports-game';
 
   interface Props {
     onHome: () => void;
@@ -64,7 +64,7 @@
     ...(AZURE_MAPS_KEY ? (['azure'] as const) : []),
   ];
   // Slider range: 0 = closest game frame, max = widest game frame. Each step
-  // halves linear extent — matches Web Mercator tile zoom and keeps the
+  // halves linear extent - matches Web Mercator tile zoom and keeps the
   // box-fraction formula uniform across providers. The user can opt into
   // EXTRA_LEVELS more zoom-out steps for very large airports (FRA, DEN, ORD).
   const BASE_ZOOM_LEVELS = 4;
@@ -103,15 +103,17 @@
     }
     return out;
   }
-  // Seed bundled with the build (work-in-progress dump). Local edits win — we
-  // only fall back to the seed entry if the user hasn't touched that airport.
+  // Seed bundled with the build is authoritative - once a review round-trips
+  // through Share → commit → redeploy, that file is the source of truth.
+  // localStorage is kept only for airports the seed doesn't cover yet, so a
+  // stale browser cache can't shadow the latest committed state.
   function loadState(): Record<string, ReviewEntry> {
     const seed = sanitizeState(seedReviewState as Record<string, any>);
     try {
       const raw = localStorage.getItem(KEY);
       if (!raw) return seed;
       const local = sanitizeState(JSON.parse(raw));
-      return { ...seed, ...local };
+      return { ...local, ...seed };
     } catch { return seed; }
   }
   function persist() { localStorage.setItem(KEY, JSON.stringify(state)); }
@@ -139,7 +141,7 @@
   let lightboxIndex: number | null = $state(null);
   let thumbCursor = $state(0);
   let thumbsGridWidth = $state(0);
-  // Matches the CSS minmax(140px, 1fr) — keep in sync if the CSS changes.
+  // Matches the CSS minmax(140px, 1fr) - keep in sync if the CSS changes.
   const THUMB_MIN_PX = 140;
   const gridCols = $derived(Math.max(1, Math.floor(thumbsGridWidth / THUMB_MIN_PX) || 1));
   let coords: { lat: number; lon: number } | null = $state(null);
@@ -233,7 +235,7 @@
     error = '';
     photos = [];
     try {
-      const fetched = await fetchAirportImages(a);
+      const fetched = await fetchAirportCandidates(a);
       if (current?.iata !== a.iata) return;
       const seen = new Set<string>();
       photos = fetched.filter((url) => {
@@ -351,7 +353,7 @@
       const z = tileZoom(zoomIndex).toFixed(2);
       return `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${c.lon},${c.lat},${z},0,0/1024x1024?access_token=${encodeURIComponent(MAPBOX_TOKEN)}`;
     }
-    // azure: static API requires integer zoom — snap.
+    // azure: static API requires integer zoom - snap.
     const z = Math.round(tileZoom(zoomIndex));
     const params = new URLSearchParams({
       'api-version': '2024-04-01', tilesetId: 'microsoft.imagery',
@@ -453,7 +455,7 @@
   let coordEditError = $state('');
 
   // Accepts "lat, lon", "lat lon", or a Google Maps share URL containing
-  // !3d{lat}!4d{lon} or @lat,lon — anything we can pull two finite numbers out of.
+  // !3d{lat}!4d{lon} or @lat,lon - anything we can pull two finite numbers out of.
   function parseLatLon(raw: string): { lat: number; lon: number } | null {
     const trimmed = raw.trim();
     if (!trimmed) return null;
@@ -475,7 +477,7 @@
     if (!current) return;
     const parsed = parseLatLon(manualCoordInput);
     if (!parsed) {
-      manualCoordError = 'Could not parse — try "lat, lon" (e.g. 31.7226, 35.9933)';
+      manualCoordError = 'Could not parse - try "lat, lon" (e.g. 31.7226, 35.9933)';
       return;
     }
     manualCoordError = '';
@@ -498,7 +500,7 @@
     if (!current) return;
     const parsed = parseLatLon(coordEditInput);
     if (!parsed) {
-      coordEditError = 'Could not parse — try "lat, lon" (e.g. 31.7226, 35.9933)';
+      coordEditError = 'Could not parse - try "lat, lon" (e.g. 31.7226, 35.9933)';
       return;
     }
     const id = current.iata;

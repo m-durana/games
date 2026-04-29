@@ -109,8 +109,8 @@
     const url = buildShareUrl(blob);
     const grid = results.map((r) => (r.correct ? '🟩' : '🟥')).join('');
     const header = daily
-      ? `Airline Trivia · Daily ${todayKey()}`
-      : `Airline Trivia · ${modeTitle(mode)} · ${difficultyLabel(difficulty)}`;
+      ? `Flight Deck · Daily ${todayKey()}`
+      : `Flight Deck · ${modeTitle(mode)} · ${difficultyLabel(difficulty)}`;
     const text = `${header}\n${grid} ${score}/${ROUND_LENGTH}\n${url}`;
 
     try {
@@ -122,7 +122,7 @@
         setTimeout(() => (shareState = 'idle'), 1600);
       }
     } catch {
-      // user cancelled or denied — silent
+      // user cancelled or denied - silent
     }
   }
 </script>

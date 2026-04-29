@@ -27,8 +27,18 @@
     onStartAirportWordle: (difficulty: Difficulty) => void;
     onStartAirportIdentify: (difficulty: Difficulty) => void;
     onStartAtc: (mode: AtcMode, difficulty: Difficulty) => void;
+    onOpenIntro: (intro: IntroKey, difficulty: Difficulty) => void;
     onOpenHistory: (entry: HistoryEntry) => void;
   }
+
+  type IntroKey =
+    | 'aircraftIdentify'
+    | 'militaryIdentify'
+    | 'atcDecode'
+    | 'atcCompose'
+    | 'atcCleared'
+    | 'atcIntercept'
+    | 'atcRadar';
 
   let {
     onStart,
@@ -42,8 +52,15 @@
     onStartAirportWordle,
     onStartAirportIdentify,
     onStartAtc,
+    onOpenIntro,
     onOpenHistory,
   }: Props = $props();
+
+  function openGuide(e: Event, key: IntroKey) {
+    e.stopPropagation();
+    e.preventDefault();
+    onOpenIntro(key, difficulty);
+  }
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
   const atcModes: AtcMode[] = ['callsign', 'decode', 'compose', 'atcMix', 'radar', 'cleared', 'intercept'];
   const ATC_ICONS: Record<AtcMode, string> = {
@@ -250,7 +267,7 @@
     <button class="mode-tile" onclick={() => onStartAirportIdentify(difficulty)}>
       <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/camera.svg" alt="" aria-hidden="true" />
       <span class="tile-title">Airport Identify</span>
-      <span class="tile-desc">Photo of an airport — guess with progressive hints.</span>
+      <span class="tile-desc">Photo of an airport - guess with progressive hints.</span>
     </button>
   </div>
 </section>
@@ -259,9 +276,10 @@
   <span class="modes-label">Aircraft</span>
   <div class="modes-grid">
     <button class="mode-tile" onclick={() => onStartAircraftIdentify(difficulty)}>
+      <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'aircraftIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'aircraftIdentify'); }}>?</span>
       <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/plane.svg" alt="" aria-hidden="true" />
       <span class="tile-title">Aircraft Identify</span>
-      <span class="tile-desc">Photo of a plane — guess with hints.</span>
+      <span class="tile-desc">Photo of a plane - guess with hints.</span>
     </button>
     <button class="mode-tile" onclick={() => onStartAircraftWordle(difficulty)}>
       <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/grid-3x3.svg" alt="" aria-hidden="true" />
@@ -269,9 +287,10 @@
       <span class="tile-desc">{difficulty === 'hard' ? '5 guesses' : '6 guesses'}, attribute clues each round.</span>
     </button>
     <button class="mode-tile" onclick={() => onStartMilitaryIdentify(difficulty)}>
+      <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'militaryIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'militaryIdentify'); }}>?</span>
       <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/crosshair.svg" alt="" aria-hidden="true" />
       <span class="tile-title">Military Identify</span>
-      <span class="tile-desc">Photo of a military aircraft — guess with progressive hints.</span>
+      <span class="tile-desc">Photo of a military aircraft - guess with progressive hints.</span>
     </button>
     <button class="mode-tile" onclick={() => onStartMilitaryWordle(difficulty)}>
       <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/swords.svg" alt="" aria-hidden="true" />
@@ -286,7 +305,11 @@
   <div class="modes-grid">
     {#each atcModes as mode}
       {@const best = loadAtcBest(mode, difficulty)}
+      {@const introKey = mode === 'decode' ? 'atcDecode' : mode === 'compose' ? 'atcCompose' : mode === 'cleared' ? 'atcCleared' : mode === 'intercept' ? 'atcIntercept' : mode === 'radar' ? 'atcRadar' : null}
       <button class="mode-tile" onclick={() => onStartAtc(mode, difficulty)}>
+        {#if introKey}
+          <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>
+        {/if}
         <img class="tile-icon" src={atcIcon(mode)} alt="" aria-hidden="true" />
         <span class="tile-title">{atcModeTitle(mode)}</span>
         <span class="tile-desc">{atcModeDescription(mode)}</span>
@@ -605,6 +628,36 @@
     line-height: 1.3;
     min-height: 1.8em;
     max-width: 100%;
+  }
+  .guide-btn {
+    position: absolute;
+    top: 0.3rem;
+    left: 0.35rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 1px solid rgba(96, 150, 186, 0.45);
+    color: var(--accent);
+    font-family: var(--font-main);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.12s;
+  }
+  .guide-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    transform: scale(1.08);
+  }
+  .guide-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
   .tile-best {
     position: absolute;

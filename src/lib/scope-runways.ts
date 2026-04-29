@@ -15,8 +15,7 @@ export function airportRunwaysToScope(airport: RealAirport, activeRunway?: RealR
       const isActive = activeRunway != null && rw === activeRunway;
       return {
         // For the active runway, use the .he end as threshold (the landing
-        // direction we treat as "current"). For inactive ones, .le is fine —
-        // the strip renders the same regardless of which end is the threshold.
+        // direction we treat as "current"). For inactive ones, .le is fine - // the strip renders the same regardless of which end is the threshold.
         threshold: geoToScope(center, isActive ? rw.he : rw.le),
         heading: isActive ? rw.he.headingDegT : rw.le.headingDegT,
         lengthNm: rw.lengthFt / FT_PER_NM,

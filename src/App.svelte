@@ -23,6 +23,9 @@
   import HistoryDetail from './lib/HistoryDetail.svelte';
   import AircraftWordle from './lib/AircraftWordle.svelte';
   import AircraftIdentify from './lib/AircraftIdentify.svelte';
+  import Intro from './lib/Intro.svelte';
+  import IntroImageReview from './lib/IntroImageReview.svelte';
+  import { getIntro } from './lib/intros';
   import AtcRound from './lib/AtcRound.svelte';
   import AtcResults from './lib/AtcResults.svelte';
   import AtcRadarRound from './lib/AtcRadarRound.svelte';
@@ -38,7 +41,7 @@
   import { evaluateAchievements } from './lib/achievements';
   import { loadSettings } from './lib/engine';
 
-  type ReviewTarget = 'tails' | 'logos' | 'aircraft' | 'military' | 'airports';
+  type ReviewTarget = 'tails' | 'logos' | 'aircraft' | 'military' | 'airports' | 'introImages';
   type View =
     | { kind: 'home' }
     | { kind: 'round'; mode: Mode; difficulty: Difficulty; daily: boolean; mixed?: boolean }
@@ -54,6 +57,7 @@
     | { kind: 'aircraftReview' }
     | { kind: 'militaryReview' }
     | { kind: 'airportReview' }
+    | { kind: 'introImageReview' }
     | { kind: 'reviewLock'; target: ReviewTarget }
     | { kind: 'historyDetail'; entry: HistoryEntry }
     | { kind: 'aircraftWordle'; difficulty: Difficulty }
@@ -66,7 +70,49 @@
     | { kind: 'atcRadarRound'; difficulty: Difficulty }
     | { kind: 'clearedRound'; difficulty: Difficulty }
     | { kind: 'interceptRound'; difficulty: Difficulty }
-    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] | ClearedRoundResult[] | InterceptRoundResult[] };
+    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] | ClearedRoundResult[] | InterceptRoundResult[] }
+    | { kind: 'intro'; intro: IntroKey; difficulty: Difficulty };
+
+  type IntroKey =
+    | 'aircraftIdentify'
+    | 'militaryIdentify'
+    | 'atcDecode'
+    | 'atcCompose'
+    | 'atcCleared'
+    | 'atcIntercept'
+    | 'atcRadar';
+
+  const INTRO_TITLES: Record<IntroKey, string> = {
+    aircraftIdentify: 'Aircraft Identify · Field guide',
+    militaryIdentify: 'Military Identify · Field guide',
+    atcDecode: 'Decode ATC · Phraseology primer',
+    atcCompose: 'Readback Builder · How readbacks work',
+    atcCleared: 'Cleared Direct · Bearings & headings',
+    atcIntercept: 'Radar Intercepts · Stabilized approach gates',
+    atcRadar: 'ATC Radar · Reading the scope',
+  };
+
+  function introSlides(key: IntroKey) {
+    return getIntro(key);
+  }
+
+  function startFromIntro(key: IntroKey, d: Difficulty) {
+    switch (key) {
+      case 'aircraftIdentify': startAircraftIdentify(d); return;
+      case 'militaryIdentify': startMilitaryIdentify(d); return;
+      case 'atcDecode': startAtc('decode', d); return;
+      case 'atcCompose': startAtc('compose', d); return;
+      case 'atcCleared': startAtc('cleared', d); return;
+      case 'atcIntercept': startAtc('intercept', d); return;
+      case 'atcRadar': startAtc('radar', d); return;
+    }
+  }
+
+  function openIntro(key: IntroKey, d: Difficulty) {
+    clearShareParam();
+    menuOpen = false;
+    view = { kind: 'intro', intro: key, difficulty: d };
+  }
 
   let view: View = $state({ kind: 'home' });
   let menuOpen = $state(false);
@@ -193,6 +239,7 @@
     if (target === 'aircraft') return { kind: 'aircraftReview' };
     if (target === 'military') return { kind: 'militaryReview' };
     if (target === 'airports') return { kind: 'airportReview' };
+    if (target === 'introImages') return { kind: 'introImageReview' };
     return { kind: 'tailReview' };
   }
 
@@ -317,7 +364,7 @@
       const review = params.get('review');
       if (params.get('pin') === REVIEW_PIN) localStorage.setItem(REVIEW_AUTH_KEY, '1');
       if (review === 'airport') openReview('airports');
-      if (review === 'tails' || review === 'logos' || review === 'aircraft' || review === 'military' || review === 'airports') openReview(review);
+      if (review === 'tails' || review === 'logos' || review === 'aircraft' || review === 'military' || review === 'airports' || review === 'introImages') openReview(review);
       // Restore view from URL hash on first load (e.g. someone opens a deep link).
       // Skip if a shared round or review screen already claimed the view.
       if (view.kind === 'home' && window.location.hash) {
@@ -341,7 +388,7 @@
     <div class="brand-left">
       <a href="/">← miro.build</a>
     </div>
-    <div class="brand-center">Airline Trivia</div>
+    <div class="brand-center">Flight Deck</div>
     <div class="brand-right">
       {#if view.kind === 'home'}
         <button class="menu-btn" onclick={() => (menuOpen = !menuOpen)} aria-label="Menu" aria-expanded={menuOpen}>
@@ -376,6 +423,7 @@
       onStartAirportWordle={startAirportWordle}
       onStartAirportIdentify={startAirportIdentify}
       onStartAtc={startAtc}
+      onOpenIntro={openIntro}
       onOpenHistory={(entry) => { menuOpen = false; view = { kind: 'historyDetail', entry }; }}
     />
   {:else if view.kind === 'round'}
@@ -421,10 +469,12 @@
     <MilitaryReview onHome={home} />
   {:else if view.kind === 'airportReview'}
     <AirportReview onHome={home} />
+  {:else if view.kind === 'introImageReview'}
+    <IntroImageReview onHome={home} />
   {:else if view.kind === 'reviewLock'}
     {@const v = view}
     <ReviewLock
-      label={v.target === 'logos' ? 'Logo review' : v.target === 'aircraft' ? 'Aircraft photo review' : v.target === 'military' ? 'Military photo review' : v.target === 'airports' ? 'Airport photo review' : 'Tail review'}
+      label={v.target === 'logos' ? 'Logo review' : v.target === 'aircraft' ? 'Aircraft photo review' : v.target === 'military' ? 'Military photo review' : v.target === 'airports' ? 'Airport photo review' : v.target === 'introImages' ? 'Intro image review' : 'Tail review'}
       onUnlock={(pin) => unlockReview(v.target, pin)}
       onHome={home}
     />
@@ -470,6 +520,14 @@
       difficulty={v.difficulty}
       onFinish={(r) => finishIntercept(v.difficulty, r)}
       onQuit={home}
+    />
+  {:else if view.kind === 'intro'}
+    {@const v = view}
+    <Intro
+      title={INTRO_TITLES[v.intro]}
+      slides={introSlides(v.intro)}
+      onStart={() => startFromIntro(v.intro, v.difficulty)}
+      onCancel={home}
     />
   {:else if view.kind === 'atcResults'}
     {@const v = view}

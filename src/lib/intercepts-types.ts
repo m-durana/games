@@ -1,4 +1,4 @@
-// Type-only module — keeps the import graph clean for the intercepts mode.
+// Type-only module - keeps the import graph clean for the intercepts mode.
 // `intercepts.ts`, `intercept-scenario.ts`, and `intercept-questions.ts` all
 // import from here; nothing imports back the other way.
 

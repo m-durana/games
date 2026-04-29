@@ -167,7 +167,7 @@
   const remaining = $derived(maxGuesses - guesses.length);
   const finished = $derived(solved || exhausted);
   // True when the most recent guess has every attribute green but is still
-  // the wrong aircraft — this surprises players, so call it out explicitly.
+  // the wrong aircraft - this surprises players, so call it out explicitly.
   const allGreenButWrong = $derived(
     guesses.length > 0 &&
       !solved &&
@@ -445,7 +445,7 @@
         {#if !finished}
           {#if allGreenButWrong}
             <div class="green-note">
-              All attributes match — but it's still not the mystery aircraft. Variants in
+              All attributes match - but it's still not the mystery aircraft. Variants in
               the same family share the same maker, body, engines, etc.; the answer is a
               different one. Keep guessing.
             </div>

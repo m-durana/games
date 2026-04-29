@@ -1,6 +1,6 @@
 // Cleared Direct: ATC clears the player aircraft direct to a named fix. The
 // scope shows the aircraft + the target fix (highlighted) on a real-airport
-// chart. The player's job is to read the radar — eyeball the bearing — and
+// chart. The player's job is to read the radar - eyeball the bearing - and
 // pick the right heading from four options. Real navigation skill, not
 // label-matching.
 
@@ -13,7 +13,7 @@ import { airportRunwaysToScope } from './scope-runways';
 export const CLEARED_ROUND_LENGTH = 10;
 
 export interface ClearedQuestion {
-  /** For AtcResults compatibility — always 'cleared'. */
+  /** For AtcResults compatibility - always 'cleared'. */
   mode: 'cleared';
   prompt: string;
   /** Human-readable correct answer (e.g. "Heading 075"). */
@@ -30,7 +30,7 @@ export interface ClearedScenario extends Scenario {
   airportName: string;
   airportIata: string;
   airportIcao: string;
-  /** Visible fixes — at minimum, the target. */
+  /** Visible fixes - at minimum, the target. */
   waypoints: Waypoint[];
   /** ID of the highlighted target waypoint. */
   targetWaypointId: string;
@@ -119,7 +119,7 @@ function fmtHeading(deg: number): string {
 // ---- Question builder --------------------------------------------------------
 // Mechanic: the radar shows the player aircraft + the target fix (highlighted).
 // Optional decoy fixes are drawn unlabeled as plain diamonds so the player
-// can't read the answer off the labels — they have to look at where the
+// can't read the answer off the labels - they have to look at where the
 // target fix is and mentally estimate the bearing. Four heading buttons; pick
 // the closest. Difficulty narrows the decoy spread.
 
@@ -127,7 +127,7 @@ function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion
   const airport = pick(airportPool(), rng);
   const rangeNm = 25;
 
-  // Aircraft position — somewhere mid-scope, heading inbound-ish.
+  // Aircraft position - somewhere mid-scope, heading inbound-ish.
   const acBearing = rng() * 360;
   const acDist = 14 + rng() * 6; // 14..20 nm from center
   const ar = acBearing * DEG2RAD;
@@ -135,7 +135,7 @@ function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion
   const acHeading = Math.floor(rng() * 360);
   const tas = 280 + Math.floor(rng() * 80);
 
-  // Target fix — placed somewhere with a clean readable bearing from the
+  // Target fix - placed somewhere with a clean readable bearing from the
   // aircraft. Distance 8..18 nm from the aircraft so it's clearly visible.
   let targetPos: { x: number; y: number };
   let safety = 0;

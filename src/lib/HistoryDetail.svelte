@@ -63,7 +63,7 @@
             </span>
           {:else}
             <span class="ans" class:good={r.correct}>
-              {r.correct ? `Correct at stage ${r.hintStage + 1} (+${r.earned} pt${r.earned === 1 ? '' : 's'})` : `Wrong — picked ${r.picked ?? '—'}`}
+              {r.correct ? `Correct at stage ${r.hintStage + 1} (+${r.earned} pt${r.earned === 1 ? '' : 's'})` : `Wrong - picked ${r.picked ?? ' - '}`}
             </span>
           {/if}
           {#if expanded === i}

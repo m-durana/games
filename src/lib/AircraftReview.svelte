@@ -1,5 +1,6 @@
 <script lang="ts">
   import { aircraft, fetchAircraftImages, type Aircraft } from './aircraft';
+  import seedReviewState from '../data/aircraft-review-baseline.json';
 
   interface Props {
     onHome: () => void;
@@ -8,7 +9,7 @@
 
   // Per-aircraft review state, keyed by aircraft id.
   // approvedUrl: the photo the user said "OK" to (one per aircraft).
-  // rejected: URLs marked "type on livery" — kept so we don't re-show them
+  // rejected: URLs marked "type on livery" - kept so we don't re-show them
   //   on the next visit and so the export carries this signal.
   interface ReviewEntry {
     // All photos the user said "Good" to. Multiple per aircraft so the game
@@ -41,8 +42,7 @@
   function sameUrl(a: string, b: string): boolean {
     return canonUrl(a) === canonUrl(b);
   }
-  // Wikimedia's thumb pipeline occasionally fails for specific files —
-  // it returns an HTML error which Firefox blocks via OpaqueResponseBlocking.
+  // Wikimedia's thumb pipeline occasionally fails for specific files - // it returns an HTML error which Firefox blocks via OpaqueResponseBlocking.
   // Convert .../commons/thumb/x/yy/Foo.jpg/800px-Foo.jpg → .../commons/x/yy/Foo.jpg
   // so we can swap the broken thumb for the original on <img onerror>.
   function fullSizeUrl(u: string): string {
@@ -54,26 +54,32 @@
     const full = fullSizeUrl(img.src);
     if (full && full !== img.src) img.src = full;
   }
+  function sanitizeState(parsed: Record<string, Partial<ReviewEntry> & { approvedUrl?: string }>): Record<string, ReviewEntry> {
+    const out: Record<string, ReviewEntry> = {};
+    for (const id in parsed) {
+      const e = parsed[id] ?? {};
+      const approved = Array.isArray(e.approved)
+        ? e.approved
+        : e.approvedUrl ? [e.approvedUrl] : [];
+      const rejected = Array.isArray(e.rejected) ? e.rejected : [];
+      const verified = Array.isArray(e.verified) ? e.verified.filter((u) => approved.includes(u)) : [];
+      const fetchedCount = typeof (e as { fetchedCount?: number }).fetchedCount === 'number'
+        ? (e as { fetchedCount?: number }).fetchedCount
+        : undefined;
+      out[id] = { approved, rejected, verified, fetchedCount };
+    }
+    return out;
+  }
+  // Bundled baseline (committed) is authoritative - local edits only keep ids
+  // the baseline doesn't already cover, so a stale browser can't shadow it.
   function loadState(): Record<string, ReviewEntry> {
+    const seed = sanitizeState(seedReviewState as Record<string, any>);
     try {
       const raw = localStorage.getItem(KEY);
-      if (!raw) return {};
-      const parsed = JSON.parse(raw) as Record<string, Partial<ReviewEntry> & { approvedUrl?: string }>;
-      const out: Record<string, ReviewEntry> = {};
-      for (const id in parsed) {
-        const e = parsed[id] ?? {};
-        const approved = Array.isArray(e.approved)
-          ? e.approved
-          : e.approvedUrl ? [e.approvedUrl] : [];
-        const rejected = Array.isArray(e.rejected) ? e.rejected : [];
-        const verified = Array.isArray(e.verified) ? e.verified.filter((u) => approved.includes(u)) : [];
-        const fetchedCount = typeof (e as { fetchedCount?: number }).fetchedCount === 'number'
-          ? (e as { fetchedCount?: number }).fetchedCount
-          : undefined;
-        out[id] = { approved, rejected, verified, fetchedCount };
-      }
-      return out;
-    } catch { return {}; }
+      if (!raw) return seed;
+      const local = sanitizeState(JSON.parse(raw));
+      return { ...local, ...seed };
+    } catch { return seed; }
   }
   function persist() { localStorage.setItem(KEY, JSON.stringify(state)); }
 
@@ -90,7 +96,7 @@
   let importText = $state('');
 
   // Cursor walks the FULL image queue (in fetched order), not a filtered list.
-  // Prev/next can revisit any photo — including rejected ones — so the user
+  // Prev/next can revisit any photo - including rejected ones - so the user
   // can change their mind by re-clicking Good or Not good.
   let cursor = $state(0);
 
@@ -188,7 +194,7 @@
         }
       }
       if (urls.length === 0) {
-        error = 'No photos returned. Wikimedia may be rate-limiting — wait a moment and try Skip / Prev plane to retry.';
+        error = 'No photos returned. Wikimedia may be rate-limiting - wait a moment and try Skip / Prev plane to retry.';
       }
     } catch (err) {
       if (a.id !== current?.id) return;
@@ -213,7 +219,7 @@
   // Per-aircraft review status used by the dropdown and the header counter.
   // 'partial' only fires when we KNOW there are more photos to mark
   // (fetchedCount is set and exceeds marks). Unknown count is treated as
-  // reviewed — no nagging hint.
+  // reviewed - no nagging hint.
   function reviewStatus(id: string): 'unreviewed' | 'partial' | 'reviewed' {
     const e = state[id];
     const ac = e?.approved?.length ?? 0;
@@ -249,7 +255,7 @@
     const url = currentPhoto;
     const alreadyRejected = e.rejected.some((u) => sameUrl(u, url));
     const nextRejected = alreadyRejected ? e.rejected : [...e.rejected, url];
-    // Rejecting overrides any prior approval — also drops any verification.
+    // Rejecting overrides any prior approval - also drops any verification.
     const nextApproved = e.approved.filter((u) => !sameUrl(u, url));
     const nextVerified = (e.verified ?? []).filter((u) => !sameUrl(u, url));
     state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: nextVerified } };
@@ -313,8 +319,39 @@
     }
   });
 
+  // LIFO history of verify-mode mutations. Each entry is a full state +
+  // cursor snapshot, captured *before* the action; verifyUndo() restores it.
+  // State is small (kbs), cap at 30 to keep memory trivial.
+  type VerifySnapshot = { state: Record<string, ReviewEntry>; cursor: number; showAll: boolean };
+  let verifyHistory: VerifySnapshot[] = $state([]);
+  const VERIFY_HISTORY_MAX = 30;
+  function snapshotForUndo() {
+    const cloned: Record<string, ReviewEntry> = {};
+    for (const [id, e] of Object.entries(state)) {
+      cloned[id] = {
+        approved: [...e.approved],
+        rejected: [...e.rejected],
+        verified: [...(e.verified ?? [])],
+        ...(e.fetchedCount !== undefined ? { fetchedCount: e.fetchedCount } : {}),
+      };
+    }
+    const next = [...verifyHistory, { state: cloned, cursor: verifyCursor, showAll: verifyShowAll }];
+    if (next.length > VERIFY_HISTORY_MAX) next.shift();
+    verifyHistory = next;
+  }
+  function verifyUndo() {
+    if (verifyHistory.length === 0) return;
+    const last = verifyHistory[verifyHistory.length - 1];
+    state = last.state;
+    verifyShowAll = last.showAll;
+    verifyCursor = last.cursor;
+    verifyHistory = verifyHistory.slice(0, -1);
+    persist();
+  }
+
   function verifyConfirm() {
     if (!verifyCurrent) return;
+    snapshotForUndo();
     const { id, url } = verifyCurrent;
     const e = ensureEntry(id);
     if (!(e.verified ?? []).includes(url)) {
@@ -333,6 +370,7 @@
     if (!verifyCurrent || !reassignTarget) return;
     const { id: fromId, url } = verifyCurrent;
     if (reassignTarget === fromId) { verifyConfirm(); return; }
+    snapshotForUndo();
     const fromEntry = ensureEntry(fromId);
     const toEntry = ensureEntry(reassignTarget);
     state = {
@@ -359,6 +397,7 @@
 
   function verifyRemove() {
     if (!verifyCurrent) return;
+    snapshotForUndo();
     const { id, url } = verifyCurrent;
     const e = ensureEntry(id);
     state = {
@@ -377,6 +416,7 @@
 
   function verifyUnverify() {
     if (!verifyCurrent) return;
+    snapshotForUndo();
     const { id, url } = verifyCurrent;
     const e = ensureEntry(id);
     state = {
@@ -501,14 +541,14 @@
           <button class="ok" onclick={verifyConfirm}>
             {verifyCurrent.verified ? '✓ Already verified · keep' : 'Confirm correct'}
           </button>
-          <button class="reject" onclick={verifyRemove}>Wrong / not visible — remove</button>
+          <button class="reject" onclick={verifyRemove}>Wrong / not visible - remove</button>
         </div>
 
         <div class="reassign">
           <label for="reassign-select" class="muted">Reassign to a different type:</label>
           <div class="reassign-row">
             <select id="reassign-select" bind:value={reassignTarget}>
-              <option value="">— pick correct aircraft —</option>
+              <option value=""> - pick correct aircraft - </option>
               {#each aircraft as a}
                 <option value={a.id} disabled={a.id === verifyCurrent.id}>
                   {a.name}{a.id === verifyCurrent.id ? ' (current)' : ''}
@@ -523,6 +563,9 @@
 
         <div class="cycle">
           <button onclick={verifyPrev} disabled={verifyCursor === 0}>← prev</button>
+          <button onclick={verifyUndo} disabled={verifyHistory.length === 0} title="Undo last confirm / remove / reassign / un-verify">
+            ↶ undo{verifyHistory.length > 0 ? ` (${verifyHistory.length})` : ''}
+          </button>
           {#if verifyCurrent.verified}
             <button onclick={verifyUnverify}>un-verify</button>
           {/if}

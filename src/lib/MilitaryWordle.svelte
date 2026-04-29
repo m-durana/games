@@ -436,7 +436,7 @@
         {#if !finished}
           {#if allGreenButWrong}
             <div class="green-note">
-              All attributes match — but it's still not the mystery aircraft. Variants
+              All attributes match - but it's still not the mystery aircraft. Variants
               of the same family share maker, role, era, etc.; the answer is a different
               one. Keep guessing.
             </div>

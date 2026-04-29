@@ -49,7 +49,7 @@ const EASY_IDS = new Set([
   'e190', 'atr72',
 ]);
 
-// Hard: only the confusable variants — same family or near-twin to something
+// Hard: only the confusable variants - same family or near-twin to something
 // in Easy. Forces the player to actually distinguish A319 vs A320 vs A321,
 // 737 Classic vs NG vs MAX, CRJ200 vs 700 vs 900, E170 vs E175, etc. Cuts
 // out the easy iconic aircraft so Hard isn't just "Medium + a few extras".
@@ -126,7 +126,7 @@ export const ATTRIBUTE_INFO: AttributeInfo[] = [
   },
   {
     label: 'Engine',
-    description: 'Engine type — turbofan jets vs turboprops.',
+    description: 'Engine type - turbofan jets vs turboprops.',
     values: ['Turbofan', 'Turboprop'],
   },
   {
@@ -378,7 +378,7 @@ export async function fetchAircraftImages(plane: Aircraft): Promise<string[]> {
         combined.push(src);
       }
     }
-    // Don't cache empty results — likely a transient timeout / rate-limit.
+    // Don't cache empty results - likely a transient timeout / rate-limit.
     if (combined.length > 0) imageListCache.set(cacheKey, combined);
     inFlight.delete(cacheKey);
     return combined;

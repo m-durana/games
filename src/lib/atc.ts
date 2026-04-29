@@ -138,7 +138,7 @@ function buildCallsignQuestion(difficulty: Difficulty, rng: Rng): AtcQuestion {
   const sameAlliance = widePool.filter(
     (x) => x.airline.iata !== entry.airline.iata && x.airline.alliance && x.airline.alliance === entry.airline.alliance,
   );
-  // Hand-authored confusables go first — these are the deliberate trap pairs.
+  // Hand-authored confusables go first - these are the deliberate trap pairs.
   const confusableNames = CALLSIGN_CONFUSABLES[answer] ?? [];
   const confusables = widePool.filter((x) => confusableNames.includes(x.meta.callsign as string));
   const ranked = [
@@ -167,8 +167,7 @@ function buildCallsignQuestion(difficulty: Difficulty, rng: Rng): AtcQuestion {
 }
 
 function distractorsForDatum(item: AtcDatum, source: AtcDatum[], difficulty: Difficulty, rng: Rng): string[] {
-  // Prefer hand-crafted distractors that share vocabulary with the answer —
-  // those defeat the keyword-matching shortcut. Fall back to other items only
+  // Prefer hand-crafted distractors that share vocabulary with the answer - // those defeat the keyword-matching shortcut. Fall back to other items only
   // when none are provided.
   if (item.distractors && item.distractors.length >= 3) {
     return shuffle(item.distractors, rng).slice(0, 3);
@@ -253,7 +252,7 @@ function buildSingleQuestion(mode: AtcQuestionMode, difficulty: Difficulty, rng:
 export function buildAtcRound(mode: AtcMode, difficulty: Difficulty, rng: Rng = defaultRng()): AtcQuestion[] {
   // 'radar', 'cleared', and 'intercept' have their own builders in
   // atc-radar.ts / cleared-direct.ts / intercepts.ts and never reach this
-  // function — App.svelte dispatches to their dedicated round components.
+  // function - App.svelte dispatches to their dedicated round components.
   if (mode === 'radar' || mode === 'cleared' || mode === 'intercept') return [];
   const modes: AtcQuestionMode[] = mode === 'atcMix'
     ? ['callsign', 'decode', 'compose']

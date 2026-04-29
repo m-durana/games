@@ -23,7 +23,7 @@ export function savePool(p: Pool) {
   localStorage.setItem(POOL_KEY, p);
 }
 
-// Western Europe — used for the "US + Europe" pool. Russia is intentionally
+// Western Europe - used for the "US + Europe" pool. Russia is intentionally
 // excluded so the pool reads as a Western/NATO-aligned grouping (consistent
 // with how the military origin buckets treat Russia as its own bloc).
 export const EU_COUNTRIES = new Set([
@@ -191,7 +191,7 @@ export function pool(difficulty: Difficulty): Airline[] {
     if (difficulty === 'medium') return t <= 2;
     // Hard: only Tier 3 (obscure airlines). Previously hard was "all tiers",
     // which made it the same content as medium plus a few extras. Now it's
-    // genuinely harder — every answer is from the obscure pool.
+    // genuinely harder - every answer is from the obscure pool.
     return t === 3;
   });
 }
@@ -245,7 +245,7 @@ function answerFor(airline: Airline, mode: Mode): string {
   if (mode === 'country') return airline.country;
   // The route-based modes are special-cased entirely in buildQuestion (the answer
   // there depends on a randomly-picked top-3 entry, not on the airline alone).
-  // Returning '' here is fine — buildQuestion never falls through to this for them.
+  // Returning '' here is fine - buildQuestion never falls through to this for them.
   if (mode === 'airportAirline' || mode === 'airlineDest' || mode === 'airportConn') return '';
   // mode === 'logo' or 'reverseGroup' or 'tail' or 'code': answer is the airline name
   return airline.name;
@@ -269,7 +269,7 @@ function optionPool(mode: Mode, sourcePool: Airline[]): string[] {
     return [...set];
   }
   if (mode === 'airlineDest' || mode === 'airportConn') {
-    // Pool of airport IATA codes — use airports we know about.
+    // Pool of airport IATA codes - use airports we know about.
     for (const code in airports) set.add(code);
     return [...set];
   }
@@ -622,7 +622,7 @@ function buildQuestion(
     ];
     if (difficulty === 'hard') {
       if (m.icao) variants.push({ kind: 'icao', value: m.icao });
-      // Skip callsigns that are essentially the airline name re-spoken — those
+      // Skip callsigns that are essentially the airline name re-spoken - those
       // are giveaways once the airline appears in the options. Same overlap
       // rule as the ATC callsign quiz uses.
       if (m.callsign && !callsignIsObviousFor(airline.name, m.callsign)) {
@@ -802,7 +802,7 @@ function isObviousGroup(a: Airline): boolean {
   return false;
 }
 
-// Logos with the airline name visible (wordmarks) — populated via the logo
+// Logos with the airline name visible (wordmarks) - populated via the logo
 // review tool's "wordmark?" toggle. Filtered out of the logo quiz on hard so
 // the game tests visual recognition rather than reading.
 const WORDMARK_LOGOS = new Set<string>((logoFlagsData as { wordmark: string[] }).wordmark);
@@ -814,7 +814,7 @@ function eligibleFor(mode: Mode, sourcePool: Airline[], difficulty?: Difficulty)
     return sourcePool.filter((a) => !airlineRevealsCountry(a));
   }
   if (mode === 'logo' && difficulty === 'hard') {
-    // Hard logo mode: skip airlines whose logo is a wordmark — those are
+    // Hard logo mode: skip airlines whose logo is a wordmark - those are
     // reading tests rather than visual recognition.
     return sourcePool.filter((a) => !WORDMARK_LOGOS.has(a.iata));
   }
@@ -995,7 +995,7 @@ export function explainAnswer(q: Question): string {
     }
     case 'logo':
     case 'tail':
-      return `${a.name} — ${a.country}${a.alliance ? `, ${a.alliance}` : ''}.${founded}`;
+      return `${a.name} - ${a.country}${a.alliance ? `, ${a.alliance}` : ''}.${founded}`;
     case 'reverseGroup':
       return `${a.name} (${a.country}) belongs to ${a.group}.`;
     case 'airportAirline': {
@@ -1014,7 +1014,7 @@ export function explainAnswer(q: Question): string {
       const parts = [`IATA ${a.iata}`];
       if (meta.icao) parts.push(`ICAO ${meta.icao}`);
       if (meta.callsign) parts.push(`callsign "${meta.callsign}"`);
-      return `${a.name} — ${parts.join(', ')}.`;
+      return `${a.name} - ${parts.join(', ')}.`;
     }
     case 'whereAmI': {
       const ap = q.airport ?? a.hub;
@@ -1084,9 +1084,9 @@ export function modeTitle(mode: Mode): string {
 
 export function modeDescription(mode: Mode): string {
   switch (mode) {
-    case 'group': return 'Identify the parent group an airline belongs to — or whether it operates independently.';
+    case 'group': return 'Identify the parent group an airline belongs to - or whether it operates independently.';
     case 'alliance': return 'Star Alliance, Oneworld, SkyTeam, or no alliance at all?';
-    case 'hub': return "Pick the airline's primary hub airport — the one it bases the bulk of its operation at.";
+    case 'hub': return "Pick the airline's primary hub airport - the one it bases the bulk of its operation at.";
     case 'logo': return 'Identify the airline from its logo.';
     case 'country': return "Pick the country where the airline is registered / headquartered.";
     case 'reverseGroup': return 'Given a group (e.g. Lufthansa Group), select every airline that belongs to it. There may be one correct answer or several.';
@@ -1100,7 +1100,7 @@ export function modeDescription(mode: Mode): string {
     case 'militaryWordle': return 'Deduce a mystery military aircraft from attribute feedback across maker, origin, role, era, engines, wings, and speed.';
     case 'militaryIdentify': return 'Identify a military aircraft from a photo. Take optional hints (maker, then origin and role) at a point cost.';
     case 'whereAmI': return "Given an airport's top destinations, deduce which airport it is. Distractors share a region; hard mode also draws from the same alliance's hubs.";
-    case 'hubOf': return 'Given an airport, pick the airline whose primary hub it is. Hard mode uses airports with multiple hub tenants — answer is the dominant carrier by traffic.';
+    case 'hubOf': return 'Given an airport, pick the airline whose primary hub it is. Hard mode uses airports with multiple hub tenants - answer is the dominant carrier by traffic.';
     case 'airportWordle': return 'Deduce a mystery airport from attribute feedback across country, region, hub alliance, traffic tier, runways, layout, and latitude band.';
     case 'airportIdentify': return 'Identify an airport from a photo (terminal, tower, or aerial view) with progressive hints.';
   }

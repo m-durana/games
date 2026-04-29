@@ -116,10 +116,10 @@
         <div class="mode-info">
           <p><strong>You're vectoring a jet onto the ILS.</strong> Read the scope, then pick the call ATC should make.</p>
           <ul>
-            <li><strong>Glidepath</strong> — a 3° slope is roughly <em>300 ft per nm</em> from the threshold. 9 nm out ≈ 3000 ft AGL. Above that is high; below is low.</li>
-            <li><strong>Speed</strong> — clean inbound is ~210 kt, ~180 kt at 10 nm, then 160 in the gate. Hot at short final = unstable.</li>
-            <li><strong>Intercept angle</strong> — ≤30° to the localizer is normal. Steeper angles overshoot, especially with a tailwind from base.</li>
-            <li><strong>Wind</strong> — a tailwind on final raises ground speed (same indicated speed reads worse). Strong crosswind needs a wider base leg.</li>
+            <li><strong>Glidepath</strong> - a 3° slope is roughly <em>300 ft per nm</em> from the threshold. 9 nm out ≈ 3000 ft AGL. Above that is high; below is low.</li>
+            <li><strong>Speed</strong> - clean inbound is ~210 kt, ~180 kt at 10 nm, then 160 in the gate. Hot at short final = unstable.</li>
+            <li><strong>Intercept angle</strong> - ≤30° to the localizer is normal. Steeper angles overshoot, especially with a tailwind from base.</li>
+            <li><strong>Wind</strong> - a tailwind on final raises ground speed (same indicated speed reads worse). Strong crosswind needs a wider base leg.</li>
           </ul>
           <p class="tip">Typical calls: <em>continue approach</em>, <em>reduce speed</em>, <em>descend now</em>, <em>extend / S-turn</em>, <em>go around</em>. The call has to fix the worst problem first.</p>
         </div>

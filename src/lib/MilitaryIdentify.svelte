@@ -356,7 +356,7 @@
           {:else if photoLoading}
             <div class="photo-loading">Loading photo…</div>
           {:else}
-            <div class="photo-loading">No photo available — see <a href="https://en.wikipedia.org/wiki/{current.wikipedia.replaceAll(' ', '_')}" target="_blank" rel="noreferrer">Wikipedia</a>.</div>
+            <div class="photo-loading">No photo available - see <a href="https://en.wikipedia.org/wiki/{current.wikipedia.replaceAll(' ', '_')}" target="_blank" rel="noreferrer">Wikipedia</a>.</div>
           {/if}
         </div>
 
@@ -364,20 +364,20 @@
           <div class="hints">
             {#if stage >= 1}
               <div class="hint">
-                <span class="hint-tag">Hint 1 — Maker</span>
+                <span class="hint-tag">Hint 1 - Maker</span>
                 <p>Built by <strong>{current.manufacturer}</strong>.</p>
               </div>
             {/if}
             {#if stage >= 2}
               <div class="hint">
-                <span class="hint-tag">Hint 2 — Origin & role</span>
+                <span class="hint-tag">Hint 2 - Origin & role</span>
                 <p>{current.origin} · <strong>{current.role}</strong></p>
               </div>
             {/if}
           </div>
 
           {#if lastWrong}
-            <div class="wrong-note">Not <strong>{lastWrong}</strong>. {stage < maxStage ? 'Here\'s another hint — try again.' : ''}</div>
+            <div class="wrong-note">Not <strong>{lastWrong}</strong>. {stage < maxStage ? 'Here\'s another hint - try again.' : ''}</div>
           {/if}
 
           <div class="prompt-row">

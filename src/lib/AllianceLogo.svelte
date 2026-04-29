@@ -12,7 +12,7 @@
     'Star Alliance': { bg: '#0a2c5a', fg: '#ffffff', symbol: '★' },
     'Oneworld': { bg: '#1a1a1a', fg: '#ffffff', symbol: '◉' },
     'SkyTeam': { bg: '#c8102e', fg: '#ffffff', symbol: '✈' },
-    'Independent': { bg: '#2e2e33', fg: '#9aa0a6', symbol: '—' },
+    'Independent': { bg: '#2e2e33', fg: '#9aa0a6', symbol: ' - ' },
   };
 
   const s = $derived(styles[alliance] ?? styles['Independent']);

@@ -441,7 +441,7 @@
         {#if !finished}
           {#if allGreenButWrong}
             <div class="green-note">
-              All attributes match — but it's still not the mystery airport. Different
+              All attributes match - but it's still not the mystery airport. Different
               airports can share country, region, alliance, traffic tier, etc.; the
               answer is a different one. Keep guessing.
             </div>

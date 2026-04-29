@@ -13,7 +13,7 @@
     if (s >= 30) return 'Caffeinated.';
     if (s >= 20) return 'Steady cruise.';
     if (s >= 10) return 'Warming up.';
-    return 'Try again — combos pay off.';
+    return 'Try again - combos pay off.';
   }
 </script>
 

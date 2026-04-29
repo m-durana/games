@@ -77,7 +77,7 @@ export type AttrMatch = 'hit' | 'close' | 'miss';
 
 // Tighter regional buckets: same region → "close" on Origin.
 // US is its own bucket (NATO membership doesn't make it "close" to a UK or
-// French jet — different design lineage and procurement). Western European
+// French jet - different design lineage and procurement). Western European
 // designs cluster together. Russia and China are each their own bucket.
 const ORIGIN_BLOC: Record<string, string> = {
   'United States': 'North America',
@@ -204,7 +204,7 @@ export const ATTRIBUTE_INFO: AttributeInfo[] = [
   },
   {
     label: 'Origin',
-    description: 'Country of design. Same region (North America, Europe, Russia, China, East Asia) counts as a "close" match — Europe and the US are NOT considered close.',
+    description: 'Country of design. Same region (North America, Europe, Russia, China, East Asia) counts as a "close" match - Europe and the US are NOT considered close.',
     values: uniqueSorted(military.map((a) => a.origin)),
   },
   {

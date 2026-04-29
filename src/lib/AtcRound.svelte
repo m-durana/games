@@ -202,7 +202,7 @@
         return;
       }
       if (picked !== null) return;
-      // Chip-builder modes are touch/click only — no number-key shortcuts.
+      // Chip-builder modes are touch/click only - no number-key shortcuts.
       if (current.mode === 'compose') return;
       const n = parseInt(e.key, 10);
       if (n >= 1 && n <= current.options.length) choose(current.options[n - 1]);
