@@ -3,11 +3,12 @@
 // radarscope/data) and asks one of three question types: spot the conflict,
 // sequence to final, or approve a direct request.
 
-import type { Aircraft, Scenario } from 'radarscope';
+import type { Aircraft, Runway, Scenario } from 'radarscope';
 import { findConflicts } from 'radarscope';
 import { airportsByType, geoToScope, type RealAirport, type RealRunway } from 'radarscope/data';
 import type { Difficulty } from './types';
 import { airlines, airlineMeta } from './engine';
+import { airportRunwaysToScope } from './scope-runways';
 
 export const RADAR_ROUND_LENGTH = 10;
 
@@ -50,6 +51,8 @@ export interface RadarScenario extends Scenario {
   airportName: string;
   airportIata: string;
   airportIcao: string;
+  /** Every runway at the airport, in scope coords. Render with showFinal=false. */
+  allRunways: Runway[];
 }
 
 export interface RadarRoundResult {
@@ -176,6 +179,7 @@ function scenarioFromBase(
       heading: base.finalCourse,
       lengthNm: base.runway.lengthFt / FT_PER_NM,
     },
+    allRunways: airportRunwaysToScope(base.airport),
     wind,
     rangeNm: base.rangeNm,
   };
@@ -210,103 +214,76 @@ function randomScopePos(rng: Rng, minNm: number, maxNm: number): { x: number; y:
 // ---- Question 1: conflict spotter --------------------------------------------
 
 function buildConflictQuestion(difficulty: Difficulty, rng: Rng): ConflictQuestion {
-  const aircraftCount = difficulty === 'easy' ? 3 : difficulty === 'medium' ? 5 : 6;
+  const aircraftCount = difficulty === 'easy' ? 4 : difficulty === 'medium' ? 6 : 7;
   const horizonSec = difficulty === 'hard' ? 120 : 180;
   const sepNm = difficulty === 'hard' ? 3 : 5;
 
-  // Try several seedings until we get exactly one conflict pair.
-  for (let attempt = 0; attempt < 60; attempt++) {
-    const base = buildScenarioBase(rng);
-    const aircraft = seedConflictAircraft(rng, aircraftCount, base);
-    const conflicts = findConflicts({ aircraft }, horizonSec, sepNm);
-    if (conflicts.length !== 1) continue;
-    const pair = conflicts[0];
-    const scenario = scenarioFromBase(base, aircraft);
-    const a = aircraft.find((ac) => ac.id === pair.a.id)!;
-    const b = aircraft.find((ac) => ac.id === pair.b.id)!;
-    return {
-      kind: 'conflict',
-      mode: 'radar',
-      prompt: `Conflict near ${scenario.airportIata} — which two will lose separation?`,
-      answer: `${a.callsign} ↔ ${b.callsign}`,
-      explanation: `Both aircraft are at FL${Math.round(a.altitude / 100)} on converging tracks; minimum predicted separation ${pair.minSeparation.toFixed(1)} nm in ${pair.tSeconds}s.`,
-      scenario,
-      conflictPair: [a.id, b.id],
-    };
-  }
-  // Fallback: deterministic head-on pair plus distractors.
-  return fallbackConflictQuestion(rng);
-}
+  const base = buildScenarioBase(rng);
 
-function seedConflictAircraft(rng: Rng, count: number, base: ScenarioBase): Aircraft[] {
-  // Place one true conflict pair: head-on at coordinated altitudes.
+  // Step 1: place a guaranteed-conflict pair.
   const meetingAlt = 14000 + Math.floor(rng() * 12) * 1000;
   const headingA = Math.floor(rng() * 360);
   const headingB = (headingA + 180) % 360;
-  // Place A and B 12 nm apart along headingA's track, both fast.
   const meetingPoint = randomScopePos(rng, 5, 12);
-  const offsetNm = 12;
+  const offsetNm = 10;
   const dxA = Math.sin((headingA * Math.PI) / 180) * offsetNm;
   const dyA = -Math.cos((headingA * Math.PI) / 180) * offsetNm;
-  const cs1 = genCallsign(rng);
-  const cs2 = genCallsign(rng);
+  const speedA = 380 + Math.floor(rng() * 80);
+  const speedB = 380 + Math.floor(rng() * 80);
   const a: Aircraft = {
     id: 'ac-0',
-    callsign: cs1.callsign,
+    callsign: genCallsign(rng).callsign,
     pos: { x: meetingPoint.x - dxA, y: meetingPoint.y - dyA },
     heading: headingA,
     altitude: meetingAlt,
-    speed: 380 + Math.floor(rng() * 80),
+    speed: speedA,
   };
   const b: Aircraft = {
     id: 'ac-1',
-    callsign: cs2.callsign,
+    callsign: genCallsign(rng).callsign,
     pos: { x: meetingPoint.x + dxA, y: meetingPoint.y + dyA },
     heading: headingB,
     altitude: meetingAlt,
-    speed: 380 + Math.floor(rng() * 80),
+    speed: speedB,
   };
+  const aircraft: Aircraft[] = [a, b];
 
-  const distractors: Aircraft[] = [];
-  while (distractors.length < count - 2) {
-    const cs = genCallsign(rng);
-    const pos = randomScopePos(rng, 8, base.rangeNm - 4);
-    // Random heading; altitude differs by at least 2000 ft to ensure no vertical conflict.
-    const altOffset = (Math.floor(rng() * 8) + 2) * 1000 * (rng() < 0.5 ? -1 : 1);
+  // Step 2: add distractors one at a time, rejecting any that introduce a 2nd conflict.
+  let safety = 0;
+  let nextId = 2;
+  while (aircraft.length < aircraftCount && safety < 400) {
+    safety++;
+    // Altitude offset of ≥2000 ft from the conflict pair guarantees no vertical
+    // conflict with them; we still verify against findConflicts to catch
+    // distractor-vs-distractor collisions.
+    const altOffset = (2 + Math.floor(rng() * 6)) * 1000 * (rng() < 0.5 ? -1 : 1);
     const candidate: Aircraft = {
-      id: `ac-${distractors.length + 2}`,
-      callsign: cs.callsign,
-      pos,
+      id: `ac-${nextId}`,
+      callsign: genCallsign(rng).callsign,
+      pos: randomScopePos(rng, 8, base.rangeNm - 4),
       heading: Math.floor(rng() * 360),
       altitude: Math.max(5000, Math.min(40000, meetingAlt + altOffset)),
       speed: 240 + Math.floor(rng() * 200),
     };
-    distractors.push(candidate);
+    const test = [...aircraft, candidate];
+    const conflicts = findConflicts({ aircraft: test }, horizonSec, sepNm);
+    if (conflicts.length === 1 && conflicts[0].a.id === 'ac-0' && conflicts[0].b.id === 'ac-1') {
+      aircraft.push(candidate);
+      nextId++;
+    }
   }
-  return [a, b, ...distractors];
-}
 
-function fallbackConflictQuestion(rng: Rng): ConflictQuestion {
-  const base = buildScenarioBase(rng);
-  const cs1 = genCallsign(rng);
-  const cs2 = genCallsign(rng);
-  const a: Aircraft = {
-    id: 'ac-0', callsign: cs1.callsign, pos: { x: 0, y: -8 }, heading: 180, altitude: 16000, speed: 400,
-  };
-  const b: Aircraft = {
-    id: 'ac-1', callsign: cs2.callsign, pos: { x: 0, y: 8 }, heading: 0, altitude: 16000, speed: 400,
-  };
-  const cs3 = genCallsign(rng);
-  const c: Aircraft = {
-    id: 'ac-2', callsign: cs3.callsign, pos: { x: -10, y: 0 }, heading: 90, altitude: 22000, speed: 350,
-  };
-  const scenario = scenarioFromBase(base, [a, b, c]);
+  // Final verification — should be exactly one conflict (the seeded pair).
+  const finalConflicts = findConflicts({ aircraft }, horizonSec, sepNm);
+  const pair = finalConflicts.find((c) => (c.a.id === 'ac-0' && c.b.id === 'ac-1') || (c.a.id === 'ac-1' && c.b.id === 'ac-0')) ?? finalConflicts[0];
+  const scenario = scenarioFromBase(base, aircraft);
+
   return {
     kind: 'conflict',
     mode: 'radar',
     prompt: `Conflict near ${scenario.airportIata} — which two will lose separation?`,
     answer: `${a.callsign} ↔ ${b.callsign}`,
-    explanation: 'Head-on at the same altitude; closure rate is ~800 kt.',
+    explanation: `Both aircraft are at FL${Math.round(a.altitude / 100)} on converging tracks; minimum predicted separation ${pair.minSeparation.toFixed(1)} nm in ${pair.tSeconds}s.`,
     scenario,
     conflictPair: [a.id, b.id],
   };

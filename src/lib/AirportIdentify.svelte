@@ -243,8 +243,6 @@
     pickChoice(guess.name);
   }
 
-  let recorded: AirportIdentifyResult[] = $state([]);
-
   function nextQuestion() {
     const isCorrect = picked === current.name;
     const earned = isCorrect ? stagePoints[stage] : 0;

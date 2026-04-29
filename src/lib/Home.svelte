@@ -45,13 +45,15 @@
     onOpenHistory,
   }: Props = $props();
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
-  const atcModes: AtcMode[] = ['callsign', 'decode', 'compose', 'atcMix', 'radar'];
+  const atcModes: AtcMode[] = ['callsign', 'decode', 'compose', 'atcMix', 'radar', 'cleared', 'intercept'];
   const ATC_ICONS: Record<AtcMode, string> = {
     callsign: 'radio',
     decode: 'message-square-text',
     compose: 'spell-check',
     atcMix: 'shuffle',
     radar: 'radar',
+    cleared: 'navigation',
+    intercept: 'plane-landing',
   };
 
   function atcIcon(m: AtcMode): string {

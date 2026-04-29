@@ -12,7 +12,7 @@
     type AtcQuestion,
     type AtcRoundResult,
   } from './atc';
-  import { difficultyLabel, loadSettings } from './engine';
+  import { difficultyLabel, loadPool, loadSettings } from './engine';
   import * as Sound from './sound';
 
   interface Props {
@@ -24,16 +24,89 @@
 
   let { mode, difficulty, onFinish, onQuit }: Props = $props();
 
+  const SESSION_KEY = 'atc:session';
+  interface SavedSession {
+    v: 1;
+    mode: AtcMode;
+    difficulty: Difficulty;
+    pool: 'all' | 'us' | 'us_eu';
+    questions: AtcQuestion[];
+    index: number;
+    picked: string | null;
+    results: AtcRoundResult[];
+    placedIdx: number[];
+  }
+  function loadSession(): SavedSession | null {
+    if (typeof localStorage === 'undefined') return null;
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return null;
+      const s = JSON.parse(raw) as SavedSession;
+      if (s.v !== 1) return null;
+      return s;
+    } catch {
+      return null;
+    }
+  }
+
   // svelte-ignore state_referenced_locally
-  let questions: AtcQuestion[] = $state(buildAtcRound(mode, difficulty));
-  let index = $state(0);
-  let picked: string | null = $state(null);
-  let results: AtcRoundResult[] = $state([]);
+  const initial = (() => {
+    const saved = loadSession();
+    // svelte-ignore state_referenced_locally
+    const currentPool = loadPool();
+    const canResume =
+      !!saved &&
+      // svelte-ignore state_referenced_locally
+      saved.mode === mode &&
+      // svelte-ignore state_referenced_locally
+      saved.difficulty === difficulty &&
+      saved.pool === currentPool &&
+      saved.questions.length > 0 &&
+      saved.index < saved.questions.length;
+    if (canResume) {
+      return {
+        questions: saved!.questions,
+        index: saved!.index,
+        picked: saved!.picked,
+        results: saved!.results,
+        placedIdx: saved!.placedIdx,
+      };
+    }
+    // svelte-ignore state_referenced_locally
+    return {
+      questions: buildAtcRound(mode, difficulty),
+      index: 0,
+      picked: null as string | null,
+      results: [] as AtcRoundResult[],
+      placedIdx: [] as number[],
+    };
+  })();
+
+  let questions: AtcQuestion[] = $state(initial.questions);
+  let index = $state(initial.index);
+  let picked: string | null = $state(initial.picked);
+  let results: AtcRoundResult[] = $state(initial.results);
   let showInfo = $state(false);
   let advanceTimer: number | null = null;
 
   // Compose-mode state: which token-bank indices have been placed (in order).
-  let placedIdx: number[] = $state([]);
+  let placedIdx: number[] = $state(initial.placedIdx);
+
+  $effect(() => {
+    if (typeof localStorage === 'undefined') return;
+    const session: SavedSession = {
+      v: 1,
+      mode,
+      difficulty,
+      pool: loadPool(),
+      questions,
+      index,
+      picked,
+      results,
+      placedIdx,
+    };
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  });
 
   const current = $derived(questions[index]);
   const score = $derived(results.filter((r) => r.correct).length);
@@ -100,6 +173,7 @@
 
   function advance(finalResults = results) {
     if (index + 1 >= questions.length) {
+      if (typeof localStorage !== 'undefined') localStorage.removeItem(SESSION_KEY);
       onFinish(finalResults);
       return;
     }

@@ -28,6 +28,7 @@
   let pickedOption: string | null = $state(null);
   let committed = $state(false);
   let results: RadarRoundResult[] = $state([]);
+  let showInfo = $state(false);
   let advanceTimer: number | null = null;
 
   const current = $derived(questions[index]);
@@ -95,7 +96,16 @@
     else { Sound.wrong(); Sound.vibrate(35); }
     const nextResults = [...results, { question: current, picked: pickedHuman, correct }];
     results = nextResults;
-    advanceTimer = window.setTimeout(() => advance(nextResults), 1800);
+    if (correct) {
+      // Auto-advance on correct; wait for explicit Next on wrong so the
+      // player has time to read the explanation.
+      advanceTimer = window.setTimeout(() => advance(nextResults), 1400);
+    }
+  }
+
+  function next() {
+    if (advanceTimer !== null) { clearTimeout(advanceTimer); advanceTimer = null; }
+    advance();
   }
 
   function advance(finalResults = results) {
@@ -108,6 +118,8 @@
     pickedOption = null;
     committed = false;
   }
+
+  const lastResult = $derived(results[results.length - 1]);
 
   function dotState(i: number): 'todo' | 'now' | 'correct' | 'wrong' {
     if (i < results.length) return results[i].correct ? 'correct' : 'wrong';
@@ -124,6 +136,11 @@
   onMount(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') { onQuit(); return; }
+      if (committed && !lastResult?.correct && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        next();
+        return;
+      }
       if (committed) return;
       if (current.kind === 'direct') {
         const n = parseInt(e.key, 10);
@@ -162,7 +179,25 @@
         <span class="mode-pill">ATC Radar</span>
         <span class="diff-pill">{difficultyLabel(difficulty)}</span>
         <span class="kind-pill">{current.kind}</span>
+        <button
+          class="info-btn"
+          aria-label="How this mode works"
+          aria-expanded={showInfo}
+          onclick={() => (showInfo = !showInfo)}
+        >ⓘ</button>
       </div>
+
+      {#if showInfo}
+        <div class="mode-info">
+          <p><strong>Read the scope.</strong> Tags show callsign / altitude (×100 ft, ↑↓ = climb/descend) / speed (kt) / heading. Short trend line = where they're going next.</p>
+          <ul>
+            <li><strong>Conflict</strong> — tap the two blips on a collision course. Watch for converging headings at similar altitudes (within ~1000 ft) and closing range.</li>
+            <li><strong>Sequence</strong> — tap the inbounds in landing order. Closer to final + lower altitude lands first; faster aircraft eat into the gap.</li>
+            <li><strong>Direct</strong> — a pilot asked for a shortcut. Approve only if the new track stays clear of other traffic and the active final.</li>
+          </ul>
+          <p class="tip">Wind tag in the corner sets the runway in use and biases ground speed on final.</p>
+        </div>
+      {/if}
 
       <div class="prompt-block">
         <h2>{current.prompt}</h2>
@@ -173,6 +208,9 @@
 
       <div class="scope-wrap">
         <RadarScope scenario={current.scenario} size={520}>
+          {#each current.scenario.allRunways as rw, i (i)}
+            <RunwayMarker runway={rw} showFinal={false} />
+          {/each}
           {#if current.scenario.runway}
             <RunwayMarker runway={current.scenario.runway} showFinal />
           {/if}
@@ -216,15 +254,23 @@
       {/if}
 
       {#if committed}
-        <div class="feedback" class:good={results[results.length - 1]?.correct} class:bad={!results[results.length - 1]?.correct}>
+        <div class="feedback" class:good={lastResult?.correct} class:bad={!lastResult?.correct}>
+          {#if !lastResult?.correct}
+            <div class="fb-row"><span class="fb-label">You picked</span><span class="fb-val">{lastResult?.picked}</span></div>
+          {/if}
           <div class="fb-row"><span class="fb-label">Correct</span><span class="fb-val">{current.answer}</span></div>
           <p class="explain">{current.explanation}</p>
+          {#if !lastResult?.correct}
+            <button class="next" onclick={next}>Next →</button>
+          {/if}
         </div>
       {/if}
     </div>
   {/key}
   <div class="kb-legend" aria-hidden="true">
-    {#if current?.kind === 'direct'}
+    {#if committed && !lastResult?.correct}
+      <span><kbd>Enter</kbd> next</span>
+    {:else if current?.kind === 'direct'}
       <span><kbd>1</kbd>-<kbd>3</kbd> pick</span>
     {:else}
       <span><kbd>1</kbd>-<kbd>{current?.scenario.aircraft.length ?? 4}</kbd> tap aircraft</span>
@@ -285,6 +331,36 @@
     color: var(--muted);
   }
   .mode-pill { background: var(--accent); color: var(--bg); font-weight: 600; }
+  .info-btn {
+    margin-left: auto;
+    width: 26px; height: 26px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+  .info-btn:hover { color: var(--accent); border-color: var(--panel-line); }
+  .info-btn[aria-expanded="true"] {
+    background: rgba(163, 206, 241, 0.45);
+    border-color: rgba(96, 150, 186, 0.65);
+    color: var(--accent);
+  }
+  .mode-info {
+    padding: 0.65rem 0.8rem;
+    background: rgba(163, 206, 241, 0.35);
+    border: 1px solid rgba(96, 150, 186, 0.28);
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted);
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .mode-info p { margin: 0; }
+  .mode-info ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.25rem; }
+  .mode-info strong { color: var(--text); font-weight: 600; }
+  .mode-info .tip { font-size: 0.75rem; opacity: 0.85; }
   .prompt-block { display: flex; flex-direction: column; gap: 0.25rem; }
   .prompt-block h2 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; }
   .sel { color: var(--muted); font-size: 0.8125rem; }
@@ -334,6 +410,17 @@
   .fb-label { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
   .fb-val { font-size: 0.9rem; font-weight: 500; }
   .explain { font-size: 0.8125rem; color: var(--muted); line-height: 1.4; }
+  .next {
+    align-self: flex-end;
+    background: var(--accent);
+    color: var(--bg);
+    border: 0;
+    border-radius: 6px;
+    padding: 0.45rem 1rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
   .kb-legend {
     display: flex; gap: 0.875rem; justify-content: center; align-items: center;
     color: var(--muted); font-size: 0.6875rem;

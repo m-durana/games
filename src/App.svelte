@@ -26,9 +26,13 @@
   import AtcRound from './lib/AtcRound.svelte';
   import AtcResults from './lib/AtcResults.svelte';
   import AtcRadarRound from './lib/AtcRadarRound.svelte';
+  import ClearedDirectRound from './lib/ClearedDirectRound.svelte';
+  import InterceptRound from './lib/InterceptRound.svelte';
   import type { Difficulty, HistoryEntry, Mode, RoundResult } from './lib/types';
   import type { AtcMode, AtcRoundResult } from './lib/atc';
   import type { RadarRoundResult } from './lib/atc-radar';
+  import type { ClearedRoundResult } from './lib/cleared-direct';
+  import type { InterceptRoundResult } from './lib/intercepts';
   import { readSharedFromUrl, type SharedRound } from './lib/share';
   import type { Achievement } from './lib/achievements';
   import { evaluateAchievements } from './lib/achievements';
@@ -60,7 +64,9 @@
     | { kind: 'airportIdentify'; difficulty: Difficulty }
     | { kind: 'atcRound'; mode: AtcMode; difficulty: Difficulty }
     | { kind: 'atcRadarRound'; difficulty: Difficulty }
-    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] };
+    | { kind: 'clearedRound'; difficulty: Difficulty }
+    | { kind: 'interceptRound'; difficulty: Difficulty }
+    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] | ClearedRoundResult[] | InterceptRoundResult[] };
 
   let view: View = $state({ kind: 'home' });
   let menuOpen = $state(false);
@@ -140,11 +146,10 @@
   function startAtc(mode: AtcMode, difficulty: Difficulty) {
     clearShareParam();
     menuOpen = false;
-    if (mode === 'radar') {
-      view = { kind: 'atcRadarRound', difficulty };
-    } else {
-      view = { kind: 'atcRound', mode, difficulty };
-    }
+    if (mode === 'radar') view = { kind: 'atcRadarRound', difficulty };
+    else if (mode === 'cleared') view = { kind: 'clearedRound', difficulty };
+    else if (mode === 'intercept') view = { kind: 'interceptRound', difficulty };
+    else view = { kind: 'atcRound', mode, difficulty };
   }
 
   function finishStandard(mode: Mode, difficulty: Difficulty, daily: boolean, mixed: boolean, results: RoundResult[]) {
@@ -157,6 +162,14 @@
 
   function finishRadar(difficulty: Difficulty, results: RadarRoundResult[]) {
     view = { kind: 'atcResults', mode: 'radar', difficulty, results };
+  }
+
+  function finishCleared(difficulty: Difficulty, results: ClearedRoundResult[]) {
+    view = { kind: 'atcResults', mode: 'cleared', difficulty, results };
+  }
+
+  function finishIntercept(difficulty: Difficulty, results: InterceptRoundResult[]) {
+    view = { kind: 'atcResults', mode: 'intercept', difficulty, results };
   }
 
   function finishSpeed(score: number, isNewBest: boolean) {
@@ -215,7 +228,7 @@
     'airportAirline','airlineDest','airportConn','code','whereAmI','hubOf',
   ];
   const DIFFS: Difficulty[] = ['easy','medium','hard'];
-  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix','radar'];
+  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix','radar','cleared','intercept'];
 
   function viewHash(v: View): string | null {
     switch (v.kind) {
@@ -236,6 +249,8 @@
       case 'airportIdentify': return `#/airport-identify?difficulty=${v.difficulty}`;
       case 'atcRound': return `#/atc/${v.mode}?difficulty=${v.difficulty}`;
       case 'atcRadarRound': return `#/atc/radar?difficulty=${v.difficulty}`;
+      case 'clearedRound': return `#/atc/cleared?difficulty=${v.difficulty}`;
+      case 'interceptRound': return `#/atc/intercept?difficulty=${v.difficulty}`;
       default: return null; // results / shared / review screens don't deep-link
     }
   }
@@ -262,6 +277,8 @@
     if (a === 'liveries') return { kind: 'browse' };
     if (a === 'atc' && ATC_MODES.includes(b as AtcMode) && d) {
       if (b === 'radar') return { kind: 'atcRadarRound', difficulty: d };
+      if (b === 'cleared') return { kind: 'clearedRound', difficulty: d };
+      if (b === 'intercept') return { kind: 'interceptRound', difficulty: d };
       return { kind: 'atcRound', mode: b as AtcMode, difficulty: d };
     }
     if (d) {
@@ -438,6 +455,20 @@
     <AtcRadarRound
       difficulty={v.difficulty}
       onFinish={(r) => finishRadar(v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'clearedRound'}
+    {@const v = view}
+    <ClearedDirectRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishCleared(v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'interceptRound'}
+    {@const v = view}
+    <InterceptRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishIntercept(v.difficulty, r)}
       onQuit={home}
     />
   {:else if view.kind === 'atcResults'}

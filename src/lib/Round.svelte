@@ -9,6 +9,7 @@
     buildMixedRound,
     buildRound,
     explainAnswer,
+    loadPool,
     loadSettings,
     modeDescription,
     modeLabel,
@@ -35,18 +36,112 @@
 
   let { mode, difficulty, daily = false, mixed = false, onFinish, onQuit }: Props = $props();
 
+  // Resume only applies to regular standard rounds, not daily/mixed (those are
+  // either deterministic-by-date or randomized one-shot mixes).
+  const SESSION_KEY = 'round:standard:session';
+  interface SavedRound {
+    v: 1;
+    mode: Mode;
+    difficulty: Difficulty;
+    pool: 'all' | 'us' | 'us_eu';
+    questions: Question[];
+    index: number;
+    picked: string | null;
+    selected: string[];
+    submitted: boolean;
+    results: RoundResult[];
+    streak: number;
+  }
+  function loadRoundSession(): SavedRound | null {
+    if (typeof localStorage === 'undefined') return null;
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return null;
+      const s = JSON.parse(raw) as SavedRound;
+      if (s.v !== 1) return null;
+      return s;
+    } catch {
+      return null;
+    }
+  }
+
   // svelte-ignore state_referenced_locally
-  let questions: Question[] = $state(
-    daily ? buildDailyRound(todayKey()) : mixed ? buildMixedRound() : buildRound(mode, difficulty),
-  );
-  let index = $state(0);
-  let picked: string | null = $state(null);
-  let selected: string[] = $state([]);
-  let submitted = $state(false);
-  let results: RoundResult[] = $state([]);
-  let streak = $state(0);
+  const initial = (() => {
+    if (daily || mixed) {
+      return {
+        // svelte-ignore state_referenced_locally
+        questions: daily ? buildDailyRound(todayKey()) : buildMixedRound(),
+        index: 0,
+        picked: null as string | null,
+        selected: [] as string[],
+        submitted: false,
+        results: [] as RoundResult[],
+        streak: 0,
+      };
+    }
+    const saved = loadRoundSession();
+    // svelte-ignore state_referenced_locally
+    const currentPool = loadPool();
+    const canResume =
+      !!saved &&
+      // svelte-ignore state_referenced_locally
+      saved.mode === mode &&
+      // svelte-ignore state_referenced_locally
+      saved.difficulty === difficulty &&
+      saved.pool === currentPool &&
+      saved.questions.length > 0 &&
+      saved.index < saved.questions.length;
+    if (canResume) {
+      return {
+        questions: saved!.questions,
+        index: saved!.index,
+        picked: saved!.picked,
+        selected: saved!.selected,
+        submitted: saved!.submitted,
+        results: saved!.results,
+        streak: saved!.streak,
+      };
+    }
+    // svelte-ignore state_referenced_locally
+    return {
+      questions: buildRound(mode, difficulty),
+      index: 0,
+      picked: null as string | null,
+      selected: [] as string[],
+      submitted: false,
+      results: [] as RoundResult[],
+      streak: 0,
+    };
+  })();
+
+  let questions: Question[] = $state(initial.questions);
+  let index = $state(initial.index);
+  let picked: string | null = $state(initial.picked);
+  let selected: string[] = $state(initial.selected);
+  let submitted = $state(initial.submitted);
+  let results: RoundResult[] = $state(initial.results);
+  let streak = $state(initial.streak);
   let advanceTimer: number | null = null;
   let showInfo = $state(false);
+
+  $effect(() => {
+    if (typeof localStorage === 'undefined') return;
+    if (daily || mixed) return;
+    const session: SavedRound = {
+      v: 1,
+      mode,
+      difficulty,
+      pool: loadPool(),
+      questions,
+      index,
+      picked,
+      selected,
+      submitted,
+      results,
+      streak,
+    };
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  });
 
   const current = $derived(questions[index]);
   const isMulti = $derived(current?.mode === 'reverseGroup' && Array.isArray(current?.answers));
@@ -115,6 +210,9 @@
 
   function advance(finalResults = results) {
     if (index + 1 >= questions.length) {
+      if (typeof localStorage !== 'undefined' && !daily && !mixed) {
+        localStorage.removeItem(SESSION_KEY);
+      }
       onFinish(finalResults);
       return;
     }

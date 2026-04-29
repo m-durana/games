@@ -2,8 +2,8 @@ import atcData from '../data/atc.json';
 import type { Difficulty } from './types';
 import { airlineMeta, pooledAirlines } from './engine';
 
-export type AtcMode = 'callsign' | 'decode' | 'compose' | 'atcMix' | 'radar';
-type AtcQuestionMode = Exclude<AtcMode, 'atcMix' | 'radar'>;
+export type AtcMode = 'callsign' | 'decode' | 'compose' | 'atcMix' | 'radar' | 'cleared' | 'intercept';
+type AtcQuestionMode = Exclude<AtcMode, 'atcMix' | 'radar' | 'cleared' | 'intercept'>;
 type AtcTier = Difficulty;
 
 export interface AtcQuestion {
@@ -251,9 +251,10 @@ function buildSingleQuestion(mode: AtcQuestionMode, difficulty: Difficulty, rng:
 }
 
 export function buildAtcRound(mode: AtcMode, difficulty: Difficulty, rng: Rng = defaultRng()): AtcQuestion[] {
-  // 'radar' has its own builder (buildRadarRound in atc-radar.ts) and never
-  // reaches this function — App.svelte dispatches to <AtcRadarRound> directly.
-  if (mode === 'radar') return [];
+  // 'radar', 'cleared', and 'intercept' have their own builders in
+  // atc-radar.ts / cleared-direct.ts / intercepts.ts and never reach this
+  // function — App.svelte dispatches to their dedicated round components.
+  if (mode === 'radar' || mode === 'cleared' || mode === 'intercept') return [];
   const modes: AtcQuestionMode[] = mode === 'atcMix'
     ? ['callsign', 'decode', 'compose']
     : [mode];
@@ -279,6 +280,8 @@ export function atcModeTitle(mode: AtcMode | AtcQuestionMode): string {
     case 'compose': return 'Readback Builder';
     case 'atcMix': return 'ATC Mix';
     case 'radar': return 'ATC Radar';
+    case 'cleared': return 'Cleared Direct';
+    case 'intercept': return 'Radar Intercepts';
   }
 }
 
@@ -289,6 +292,8 @@ export function atcModeDescription(mode: AtcMode | AtcQuestionMode): string {
     case 'compose': return 'Tap chips in order to build the correct readback. Some are decoys.';
     case 'atcMix': return 'Mixed callsign, decode, and readback-builder questions.';
     case 'radar': return 'Read the scope. Spot conflicts, sequence to final, approve direct requests.';
+    case 'cleared': return 'ATC clears you direct to a fix on the map. Pick the heading.';
+    case 'intercept': return 'Judgment calls on ILS approaches: high, fast, crosswind, tailwind.';
   }
 }
 

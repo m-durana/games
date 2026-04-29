@@ -9,8 +9,10 @@
     type AtcRoundResult,
   } from './atc';
   import type { RadarRoundResult } from './atc-radar';
+  import type { ClearedRoundResult } from './cleared-direct';
+  import type { InterceptRoundResult } from './intercepts';
 
-  type RecapResult = AtcRoundResult | RadarRoundResult;
+  type RecapResult = AtcRoundResult | RadarRoundResult | ClearedRoundResult | InterceptRoundResult;
   import { difficultyLabel } from './engine';
   import * as Sound from './sound';
 
