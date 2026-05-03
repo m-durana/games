@@ -888,7 +888,9 @@
     role="dialog"
     aria-modal="true"
     aria-label="Photo preview"
+    tabindex="-1"
     onclick={closeLightbox}
+    onkeydown={(e) => { if (e.key === 'Escape') closeLightbox(); }}
   >
     <div class="lightbox-inner" role="presentation" onclick={(e) => e.stopPropagation()}>
       <img src={lbUrl} alt={`${current?.name ?? ''} preview`} />
@@ -974,12 +976,7 @@
     border-color: var(--good);
     background: rgba(34, 197, 94, 0.05);
   }
-  .stage.rejected {
-    border-color: rgba(239, 68, 68, 0.55);
-    background: rgba(239, 68, 68, 0.04);
-  }
   .status-good { color: var(--good); font-weight: 600; }
-  .status-bad { color: var(--bad); font-weight: 600; }
   .img-wrap {
     display: block;
     background: #fff;
@@ -1021,17 +1018,11 @@
     border: 1px solid var(--border);
   }
   .primary-actions .ok { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-  .primary-actions .ok.on { background: var(--good); border-color: var(--good); color: var(--bg); }
   .primary-actions .reject { background: var(--surface-2); color: var(--text); }
   .primary-actions .reject:hover {
     background: rgba(239, 68, 68, 0.12);
     border-color: rgba(239, 68, 68, 0.55);
     color: var(--bad);
-  }
-  .primary-actions .reject.on {
-    background: var(--bad);
-    border-color: var(--bad);
-    color: var(--bg);
   }
   .gallery-stage { gap: 0.75rem; }
   .gallery-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
@@ -1218,18 +1209,6 @@
     font-family: var(--font-main);
     font-size: 0.6875rem;
   }
-  .next-plane {
-    margin-top: 0.25rem;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-size: 0.8125rem;
-    font-weight: 500;
-  }
-  .next-plane:disabled { opacity: 0.4; }
-  .next-plane:not(:disabled):hover { border-color: var(--panel-line); }
   .empty {
     text-align: center;
     padding: 1rem;
