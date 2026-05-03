@@ -20,6 +20,9 @@
     // Approved photos that have been *type-verified* (the aircraft in the
     // photo actually matches the id it's filed under). Subset of approved.
     verified: string[];
+    // Photos the AI campaign never reviewed at all - need a visual quality
+    // pass in Curate mode. When user marks Good they move to approved.
+    unchecked?: string[];
     // Total photos returned by the last successful Wikimedia fetch. Used
     // to tell "all photos marked" from "still some in the queue" in the
     // jump-to dropdown without having to refetch.
@@ -63,10 +66,11 @@
         : e.approvedUrl ? [e.approvedUrl] : [];
       const rejected = Array.isArray(e.rejected) ? e.rejected : [];
       const verified = Array.isArray(e.verified) ? e.verified.filter((u) => approved.includes(u)) : [];
+      const unchecked = Array.isArray(e.unchecked) ? e.unchecked : [];
       const fetchedCount = typeof (e as { fetchedCount?: number }).fetchedCount === 'number'
         ? (e as { fetchedCount?: number }).fetchedCount
         : undefined;
-      out[id] = { approved, rejected, verified, fetchedCount };
+      out[id] = { approved, rejected, verified, unchecked, fetchedCount };
     }
     return out;
   }
@@ -129,6 +133,9 @@
   const partialAircraft = $derived(
     aircraft.filter((a) => reviewStatus(a.id) === 'partial').length,
   );
+  const totalUncheckedPhotos = $derived(
+    Object.values(state).reduce((n, e) => n + (e.unchecked?.length ?? 0), 0),
+  );
 
   $effect(() => {
     if (!current) return;
@@ -177,14 +184,20 @@
     try {
       const urls = await fetchAircraftImages(a);
       if (a.id !== current?.id) return;
+      // Merge in unchecked URLs (AI-campaign skipped these — visual quality unknown).
+      // These take priority in the queue so the user clears them first.
+      const e0 = state[a.id];
+      const uncheckedUrls = e0?.unchecked ?? [];
+      const fetchedSet = new Set(urls.map(canonUrl));
+      const uncheckedNew = uncheckedUrls.filter((u) => !fetchedSet.has(canonUrl(u)));
+      const allUrls = [...uncheckedNew, ...urls];
       // Put unreviewed photos first so the user lands on actual work to do
       // instead of re-scrolling past stuff they've already marked. Order is
       // frozen at load time so marking a photo doesn't reshuffle mid-session.
-      const e0 = state[a.id];
       const seen = new Set<string>();
       for (const u of [...(e0?.approved ?? []), ...(e0?.rejected ?? [])]) seen.add(canonUrl(u));
-      const unreviewed = urls.filter((u) => !seen.has(canonUrl(u)));
-      const reviewed = urls.filter((u) => seen.has(canonUrl(u)));
+      const unreviewed = allUrls.filter((u) => !seen.has(canonUrl(u)));
+      const reviewed = allUrls.filter((u) => seen.has(canonUrl(u)));
       images = [...unreviewed, ...reviewed];
       if (urls.length > 0) {
         const e = ensureEntry(a.id);
@@ -209,9 +222,9 @@
 
   function ensureEntry(id: string): ReviewEntry {
     if (!state[id]) {
-      state = { ...state, [id]: { approved: [], rejected: [], verified: [] } };
+      state = { ...state, [id]: { approved: [], rejected: [], verified: [], unchecked: [] } };
     } else if (!Array.isArray(state[id].verified)) {
-      state = { ...state, [id]: { ...state[id], verified: [] } };
+      state = { ...state, [id]: { ...state[id], verified: [], unchecked: state[id].unchecked ?? [] } };
     }
     return state[id];
   }
@@ -243,7 +256,9 @@
     const nextApproved = alreadyApproved ? e.approved : [...e.approved, url];
     // Approving overrides any prior rejection (matched canonically).
     const nextRejected = e.rejected.filter((u) => !sameUrl(u, url));
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: e.verified ?? [] } };
+    // Mark as visually checked - drop from the unchecked queue.
+    const nextUnchecked = (e.unchecked ?? []).filter((u) => !sameUrl(u, url));
+    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: e.verified ?? [], unchecked: nextUnchecked, fetchedCount: e.fetchedCount } };
     persist();
     advanceCursor();
   }
@@ -258,7 +273,8 @@
     // Rejecting overrides any prior approval - also drops any verification.
     const nextApproved = e.approved.filter((u) => !sameUrl(u, url));
     const nextVerified = (e.verified ?? []).filter((u) => !sameUrl(u, url));
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: nextVerified } };
+    const nextUnchecked = (e.unchecked ?? []).filter((u) => !sameUrl(u, url));
+    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: nextVerified, unchecked: nextUnchecked, fetchedCount: e.fetchedCount } };
     persist();
     advanceCursor();
   }
@@ -332,6 +348,7 @@
         approved: [...e.approved],
         rejected: [...e.rejected],
         verified: [...(e.verified ?? [])],
+        unchecked: [...(e.unchecked ?? [])],
         ...(e.fetchedCount !== undefined ? { fetchedCount: e.fetchedCount } : {}),
       };
     }
@@ -379,6 +396,8 @@
         approved: fromEntry.approved.filter((u) => u !== url),
         rejected: fromEntry.rejected,
         verified: (fromEntry.verified ?? []).filter((u) => u !== url),
+        unchecked: (fromEntry.unchecked ?? []).filter((u) => u !== url),
+        fetchedCount: fromEntry.fetchedCount,
       },
       [reassignTarget]: {
         approved: toEntry.approved.includes(url) ? toEntry.approved : [...toEntry.approved, url],
@@ -386,6 +405,8 @@
         verified: (toEntry.verified ?? []).includes(url)
           ? (toEntry.verified ?? [])
           : [...(toEntry.verified ?? []), url],
+        unchecked: toEntry.unchecked ?? [],
+        fetchedCount: toEntry.fetchedCount,
       },
     };
     persist();
@@ -406,6 +427,8 @@
         approved: e.approved.filter((u) => u !== url),
         rejected: e.rejected.includes(url) ? e.rejected : [...e.rejected, url],
         verified: (e.verified ?? []).filter((u) => u !== url),
+        unchecked: (e.unchecked ?? []).filter((u) => u !== url),
+        fetchedCount: e.fetchedCount,
       },
     };
     persist();
@@ -447,6 +470,22 @@
     link.click();
     URL.revokeObjectURL(url);
   }
+  // Build a fresh aircraft-photos.json snapshot: per family, just the verified URLs.
+  // The user drops the downloaded file into src/data/aircraft-photos.json and rebuilds.
+  function downloadGamePool() {
+    const photos: Record<string, string[]> = {};
+    for (const id of Object.keys(state)) {
+      const verified = state[id]?.verified ?? [];
+      if (verified.length > 0) photos[id] = [...verified];
+    }
+    const blob = new Blob([JSON.stringify(photos, null, 2) + '\n'], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'aircraft-photos.json';
+    link.click();
+    URL.revokeObjectURL(url);
+  }
   async function shareToLuke() {
     sharing = true; shareError = ''; shareUrl = '';
     try {
@@ -466,13 +505,14 @@
   function applyImport() {
     try {
       // Tolerate the older single-approvedUrl shape too.
-      type AnyEntry = { approved?: string[]; approvedUrl?: string; rejected?: string[]; verified?: string[]; fetchedCount?: number };
+      type AnyEntry = { approved?: string[]; approvedUrl?: string; rejected?: string[]; verified?: string[]; unchecked?: string[]; fetchedCount?: number };
       const data = JSON.parse(importText) as Record<string, AnyEntry>;
       const merged = { ...state };
       for (const [id, e] of Object.entries(data)) {
         const approved = e.approved ?? (e.approvedUrl ? [e.approvedUrl] : []);
         const verified = (e.verified ?? []).filter((u) => approved.includes(u));
-        const next: ReviewEntry = { approved, rejected: e.rejected ?? [], verified };
+        const unchecked = e.unchecked ?? [];
+        const next: ReviewEntry = { approved, rejected: e.rejected ?? [], verified, unchecked };
         if (typeof e.fetchedCount === 'number') next.fetchedCount = e.fetchedCount;
         merged[id] = next;
       }
@@ -490,6 +530,7 @@
   <h1>Aircraft photo review</h1>
   <p>
     {aircraftWithAnyApproval}/{aircraft.length} aircraft with ≥1 approved · {totalApprovedPhotos} photos approved · {verifyTotalVerified}/{verifyTotalApproved} type-verified
+    {#if totalUncheckedPhotos > 0} · <span class="unreviewed-badge">⊘ {totalUncheckedPhotos} unchecked (need visual review)</span>{/if}
     {#if unreviewedAircraft > 0} · <span class="unreviewed-badge">● {unreviewedAircraft} unreviewed</span>{/if}
     {#if partialAircraft > 0} · <span class="partial-badge">◐ {partialAircraft} partial</span>{/if}
   </p>
@@ -664,6 +705,7 @@
   <div class="export-actions">
     <button onclick={exportData}>Copy JSON</button>
     <button onclick={downloadJson}>Download aircraft-review.json</button>
+    <button onclick={downloadGamePool}>Download aircraft-photos.json (game pool)</button>
     <button onclick={shareToLuke} disabled={sharing}>{sharing ? 'Uploading…' : 'Share to Luke'}</button>
     <button class="ghost" onclick={() => (showImport = !showImport)}>{showImport ? 'Hide import' : 'Import'}</button>
   </div>
