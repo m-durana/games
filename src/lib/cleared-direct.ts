@@ -15,7 +15,13 @@ export const CLEARED_ROUND_LENGTH = 10;
 export interface ClearedQuestion {
   /** For AtcResults compatibility - always 'cleared'. */
   mode: 'cleared';
+  /** The game's question to the player (e.g. "What heading?"). */
   prompt: string;
+  /** What ATC actually says on the radio - the clearance. Rendered as a
+   *  speech bubble so the player learns to recognise real phraseology. */
+  atcCall?: string;
+  /** Things the player reads off instruments / charts, not heard on the radio. */
+  instruments?: string;
   /** Human-readable correct answer (e.g. "Heading 075"). */
   answer: string;
   explanation: string;
@@ -123,6 +129,20 @@ function fmtHeading(deg: number): string {
 // target fix is and mentally estimate the bearing. Four heading buttons; pick
 // the closest. Difficulty narrows the decoy spread.
 
+/** Compute the wind correction angle (degrees) needed to track `course` true at
+ *  a given true airspeed (kt) given a wind blowing FROM `windFrom` at `windKt`.
+ *  Positive = crab into the wind to the right of course. Returns the heading
+ *  the pilot must fly. */
+function headingForTrack(course: number, tas: number, windFrom: number, windKt: number): number {
+  // Wind angle relative to course: positive = wind from the right.
+  const wcaInputAngle = ((windFrom - course + 540) % 360) - 180;
+  const wcaRad = (wcaInputAngle * Math.PI) / 180;
+  // Standard E6B wind correction: sin(wca) = (windKt / tas) * sin(wind angle).
+  const sinWca = (windKt / tas) * Math.sin(wcaRad);
+  const wcaDeg = (Math.asin(Math.max(-1, Math.min(1, sinWca))) * 180) / Math.PI;
+  return ((course + wcaDeg) % 360 + 360) % 360;
+}
+
 function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion {
   const airport = pick(airportPool(), rng);
   const rangeNm = 25;
@@ -185,10 +205,30 @@ function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion
     speed: tas,
   };
 
-  // Correct heading: bearing from aircraft to target, rounded to nearest 10°.
-  const correctHeading = roundTo10(bearingFromTo(acPos, targetPos));
+  // Wind: hard mode introduces a real wind that pushes you off-track unless
+  // you crab into it. Easy/medium have light or no wind so the answer is
+  // simply the bearing. The correct heading is the heading-to-track for the
+  // bearing under that wind — eyeballing the bearing isn't enough on hard.
+  let windFrom = 0;
+  let windKt = 0;
+  if (difficulty === 'medium') {
+    windKt = 8 + Math.floor(rng() * 8);
+    windFrom = Math.floor(rng() * 360);
+  } else if (difficulty === 'hard') {
+    windKt = 25 + Math.floor(rng() * 20);
+    windFrom = Math.floor(rng() * 360);
+  }
+
+  // Correct heading: bearing from aircraft to target (the *track* ATC cleared)
+  // adjusted for the wind correction angle so the resulting track matches.
+  const trackBearing = bearingFromTo(acPos, targetPos);
+  const correctHeadingExact = headingForTrack(trackBearing, tas, windFrom, windKt);
+  const correctHeading = roundTo10(correctHeadingExact);
 
   // Decoy headings: spread depends on difficulty. Always avoid duplicates.
+  // Hard mode includes a "no-wind bearing" decoy so players who skip the wind
+  // correction get an answer that *looks* right but isn't.
+  const noWindHeading = roundTo10(trackBearing);
   const offsets =
     difficulty === 'easy'
       ? [40, -40, 80]
@@ -197,7 +237,14 @@ function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion
         : [15, -15, 30];
   const headings = new Set<number>([correctHeading]);
   const options: number[] = [correctHeading];
+  // On hard, seed the no-wind bearing as a decoy when it differs from the
+  // correct heading (≥10° drift). This is the trap the wind creates.
+  if (difficulty === 'hard' && noWindHeading !== correctHeading) {
+    headings.add(noWindHeading);
+    options.push(noWindHeading);
+  }
   for (const off of offsets) {
+    if (options.length >= 4) break;
     const h = roundTo10((correctHeading + off + 360) % 360);
     if (headings.has(h)) {
       // shift by +10 to avoid duplicate
@@ -228,13 +275,25 @@ function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion
     waypoints,
     targetWaypointId: target.id,
     rangeNm,
+    wind: windKt > 0 ? { from: windFrom, kt: windKt } : undefined,
   };
+
+  const wcaSigned = Math.round(((correctHeadingExact - trackBearing + 540) % 360) - 180);
+  const windNote =
+    windKt > 0
+      ? ` Wind ${fmtHeading(windFrom)}/${windKt} - crab ${Math.abs(wcaSigned)}° ${wcaSigned >= 0 ? 'right' : 'left'} of the track to hold ${fmtHeading(roundTo10(trackBearing))}°.`
+      : '';
 
   return {
     mode: 'cleared',
-    prompt: `${callsign}, near ${scenario.airportIata}: cleared direct ${targetName}. What heading?`,
+    atcCall: `${callsign}, cleared direct ${targetName}.`,
+    instruments: windKt > 0 ? `Wind ${fmtHeading(windFrom)}/${windKt} (also on the wind tag).` : undefined,
+    prompt: 'What heading?',
     answer: `Heading ${fmtHeading(correctHeading)}`,
-    explanation: `${targetName} is bearing ${fmtHeading(correctHeading)}° from your position. Eyeball it on the scope: 0° = north (up), 090° = east (right), 180° = south, 270° = west.`,
+    explanation:
+      windKt > 0
+        ? `${targetName} bears ${fmtHeading(roundTo10(trackBearing))}° from you.${windNote} Resulting heading: ${fmtHeading(correctHeading)}°.`
+        : `${targetName} is bearing ${fmtHeading(correctHeading)}° from your position. Eyeball it on the scope: 0° = north (up), 090° = east (right), 180° = south, 270° = west.`,
     scenario,
     options,
     correctIndex,

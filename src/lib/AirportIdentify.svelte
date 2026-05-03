@@ -3,10 +3,10 @@
   import { onMount } from 'svelte';
   import {
     airportAerialUrl,
+    airportApprovedPhotos,
     airportEntryByIata,
     pooledAirports,
     airportsForDifficulty,
-    fetchAirportImages,
     pickRoundAirport,
     AIRPORT_ROUND_LENGTH,
     regionOf,
@@ -135,13 +135,11 @@
     };
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
   });
-  let photoUrls: string[] = $state([]);
-  let photoIndex = $state(0);
-  let photoLoading = $state(true);
+  let showGallery = $state(false);
 
-  const photoUrl = $derived(photoUrls.length > 0 ? photoUrls[photoIndex % photoUrls.length] : null);
-  const hasMultiplePhotos = $derived(photoUrls.length > 1);
   const current = $derived(answers[index]);
+  const aerialUrl = $derived(current ? airportAerialUrl(current.iata) : null);
+  const groundPhotos = $derived(current ? airportApprovedPhotos(current.iata) : []);
 
   const stagePoints = $derived(
     difficulty === 'easy' ? [3, 2, 2, 1] : difficulty === 'hard' ? [6, 4, 2, 0] : [4, 3, 2, 1],
@@ -193,28 +191,10 @@
     return a;
   }
 
-  async function loadPhoto(ap: AirportEntry) {
-    photoLoading = true;
-    photoUrls = [];
-    photoIndex = 0;
-    const urls = await fetchAirportImages(ap);
-    if (ap.iata === current?.iata) {
-      const aerial = airportAerialUrl(ap.iata);
-      if (aerial) {
-        const rest = shuffle(urls.filter((u) => u !== aerial));
-        photoUrls = [aerial, ...rest];
-      } else {
-        photoUrls = shuffle(urls);
-      }
-      photoLoading = false;
-    }
-  }
-  function cyclePhoto() {
-    if (photoUrls.length > 1) photoIndex = (photoIndex + 1) % photoUrls.length;
-  }
-
   $effect(() => {
-    if (current) loadPhoto(current);
+    // Each new airport: collapse the gallery so the player starts on the aerial.
+    void current;
+    showGallery = false;
   });
 
   function nextHint() { if (stage < maxStage) stage += 1; }
@@ -357,19 +337,25 @@
         </div>
 
         <div class="photo-stage">
-          {#if photoUrl}
-            <img src={photoUrl} alt="Airport to identify" class="photo" />
-            {#if hasMultiplePhotos && !revealed}
-              <button class="photo-cycle" onclick={cyclePhoto} aria-label="Show a different photo">
-                Different photo ({(photoIndex % photoUrls.length) + 1}/{photoUrls.length})
+          {#if aerialUrl}
+            <img src={aerialUrl} alt="Airport aerial to identify" class="photo" />
+            {#if groundPhotos.length > 0 && !revealed}
+              <button class="photo-cycle" onclick={() => (showGallery = !showGallery)} aria-expanded={showGallery}>
+                {showGallery ? 'Hide images' : `Show me images (${groundPhotos.length})`}
               </button>
             {/if}
-          {:else if photoLoading}
-            <div class="photo-loading">Loading photo…</div>
           {:else}
-            <div class="photo-loading">No photo available - see <a href="https://en.wikipedia.org/wiki/{current.wikipedia.replaceAll(' ', '_')}" target="_blank" rel="noreferrer">Wikipedia</a>.</div>
+            <div class="photo-loading">No aerial available for this airport.</div>
           {/if}
         </div>
+
+        {#if showGallery && groundPhotos.length > 0 && !revealed}
+          <div class="gallery">
+            {#each groundPhotos as url, i}
+              <img src={url} alt={`${current.name} photo ${i + 1}`} loading="lazy" />
+            {/each}
+          </div>
+        {/if}
 
         {#if !revealed}
           <div class="hints">
@@ -522,6 +508,23 @@
   .photo-cycle:hover { border-color: var(--accent); color: var(--accent); }
   .photo { width: 100%; height: 100%; object-fit: contain; display: block; }
   .photo-loading { color: var(--muted); font-size: 0.875rem; padding: 1rem; text-align: center; }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.4rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem;
+  }
+  .gallery img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 4px;
+    background: #fff;
+    cursor: zoom-in;
+  }
   .hints { display: flex; flex-direction: column; gap: 0.5rem; }
   .hint {
     padding: 0.625rem 0.75rem;

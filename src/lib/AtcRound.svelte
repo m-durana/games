@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
+  import { flip } from 'svelte/animate';
   import { onDestroy, onMount } from 'svelte';
   import type { Difficulty } from './types';
   import {
@@ -247,10 +248,20 @@
         <p class="mode-info">{atcModeDescription(mode === 'atcMix' ? current.mode : mode)}</p>
       {/if}
 
-      <div class="prompt-block">
-        <span class="prompt-label">{atcPromptLabel(current.mode)}</span>
-        <h2>{current.prompt}</h2>
-      </div>
+      {#if current.mode === 'decode' || current.mode === 'compose'}
+        <div class="atc-call">
+          <img class="atc-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/tower-control.svg" alt="" aria-hidden="true" />
+          <div class="atc-bubble">
+            <span class="prompt-label">{atcPromptLabel(current.mode)}</span>
+            <h2>{current.prompt}</h2>
+          </div>
+        </div>
+      {:else}
+        <div class="prompt-block">
+          <span class="prompt-label">{atcPromptLabel(current.mode)}</span>
+          <h2>{current.prompt}</h2>
+        </div>
+      {/if}
 
       {#if current.mode === 'compose' && current.tokens}
         {@const tokens = current.tokens}
@@ -266,8 +277,9 @@
             {#if placedIdx.length === 0}
               <span class="compose-hint">Tap words below in order</span>
             {:else}
-              {#each placedIdx as i}
+              {#each placedIdx as i (i)}
                 <button
+                  animate:flip={{ duration: 220 }}
                   class="chip placed"
                   disabled={picked !== null}
                   onclick={() => unplaceToken(i)}
@@ -280,12 +292,15 @@
           {/if}
         </div>
 
+        {@const bankItems = tokens
+          .map((tok, i) => ({ tok, i }))
+          .filter(({ i }) => !placedIdx.includes(i))}
         <div class="compose-bank" class:disabled={picked !== null}>
-          {#each tokens as tok, i}
+          {#each bankItems as { tok, i } (i)}
             <button
+              animate:flip={{ duration: 220 }}
               class="chip"
-              class:used={placedIdx.includes(i)}
-              disabled={picked !== null || placedIdx.includes(i)}
+              disabled={picked !== null}
               onclick={() => placeToken(i)}
             >{tok}</button>
           {/each}
@@ -493,6 +508,53 @@
     font-weight: 600;
     letter-spacing: 0;
     line-height: 1.2;
+  }
+  .atc-call {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.5rem 0;
+  }
+  .atc-icon {
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+    margin-top: 6px;
+    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
+  }
+  .atc-bubble {
+    position: relative;
+    flex: 1;
+    background: #18242f;
+    border: 1px solid rgba(96, 150, 186, 0.45);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    min-width: 0;
+  }
+  .atc-bubble .prompt-label { text-align: left; margin-bottom: 0.25rem; font-size: 0.78rem; }
+  .atc-bubble h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+    text-align: left;
+  }
+  .atc-bubble::before, .atc-bubble::after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 16px;
+    width: 0; height: 0;
+    border-style: solid;
+  }
+  .atc-bubble::before {
+    border-width: 8px 11px 8px 0;
+    border-color: transparent rgba(96, 150, 186, 0.45) transparent transparent;
+  }
+  .atc-bubble::after {
+    left: -8px;
+    top: 17px;
+    border-width: 7px 10px 7px 0;
+    border-color: transparent #18242f transparent transparent;
   }
 
   .options {

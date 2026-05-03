@@ -171,22 +171,66 @@
         <div class="mode-info">
           <p><strong>Read the scope.</strong> Tags show callsign / altitude (×100 ft, ↑↓ = climb/descend) / speed (kt) / heading. Short trend line = where they're going next.</p>
           <ul>
-            <li><strong>Conflict</strong> - tap the two blips on a collision course. Watch for converging headings at similar altitudes (within ~1000 ft) and closing range.</li>
+            <li><strong>Conflict</strong> - tap the two blips on a collision course. Watch for converging headings (any angle, not just head-on) at similar altitudes within ~1000 ft. <strong>↑/↓ next to a blip</strong> means it's climbing or descending — a descender can cross another aircraft's level before they meet.</li>
             <li><strong>Direct</strong> - a pilot asked for a shortcut. Approve only if the new track stays clear of other traffic and the active final.</li>
           </ul>
           <p class="tip">Wind tag in the corner sets the runway in use and biases ground speed on final.</p>
         </div>
       {/if}
 
-      <div class="prompt-block">
-        <h2>{current.prompt}</h2>
-        {#if !committed}
-          <span class="sel">{selectionLabel()}</span>
+      <div class="right-col">
+        {#if current.kind === 'direct' && current.pilotCall}
+          <div class="atc-call pilot-call">
+            <img class="atc-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/plane.svg" alt="" aria-hidden="true" />
+            <div class="atc-bubble">
+              <span class="bubble-tag">Pilot</span>
+              {current.pilotCall}
+            </div>
+          </div>
+        {/if}
+        <div class="game-q">
+          <h2>{current.prompt}</h2>
+          {#if !committed}
+            <span class="sel">{selectionLabel()}</span>
+          {/if}
+        </div>
+
+        {#if current.kind === 'direct'}
+          <div class="options" class:disabled={committed}>
+            {#each current.options as opt, i}
+              {@const isCorrect = i === current.correctIndex}
+              {@const wasPicked = pickedOption === opt}
+              <button
+                class="option"
+                class:correct={committed && isCorrect}
+                class:wrong={committed && wasPicked && !isCorrect}
+                class:reveal={committed && !wasPicked && !isCorrect}
+                disabled={committed}
+                onclick={() => pickOption(opt, i)}
+              >
+                <span class="key" aria-hidden="true">{i + 1}</span>
+                <span class="opt-text">{opt}</span>
+              </button>
+            {/each}
+          </div>
+        {/if}
+
+        {#if committed}
+          <div class="feedback" class:good={lastResult?.correct} class:bad={!lastResult?.correct}>
+            {#if !lastResult?.correct}
+              <div class="fb-row"><span class="fb-label">You picked</span><span class="fb-val">{lastResult?.picked}</span></div>
+            {/if}
+            <div class="fb-row"><span class="fb-label">Correct</span><span class="fb-val">{current.answer}</span></div>
+            <p class="explain">{current.explanation}</p>
+            {#if !lastResult?.correct}
+              <button class="next" onclick={next}>Next →</button>
+            {/if}
+          </div>
         {/if}
       </div>
 
       <div class="scope-wrap">
-        <RadarScope scenario={current.scenario}>
+        <RadarScope scenario={current.scenario} size={1200}>
           {#each current.scenario.aircraft as ac (ac.id)}
             {@const sel = pickedIds.includes(ac.id)}
             {@const conf = conflictHighlightIds.has(ac.id)}
@@ -196,6 +240,21 @@
               conflict={conf}
               onclick={current.kind === 'direct' ? undefined : clickAircraft}
             />
+            {@const vr = current.kind === 'conflict' ? current.verticalRates?.[ac.id] : undefined}
+            {#if vr}
+              <text
+                x={ac.pos.x - 0.6}
+                y={ac.pos.y + 0.2}
+                font-size="0.95"
+                font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+                fill={vr > 0 ? '#7ddc8a' : '#f5b461'}
+                text-anchor="end"
+                paint-order="stroke"
+                stroke="#0c1116"
+                stroke-width="0.18"
+                pointer-events="none"
+              >{vr > 0 ? '↑' : '↓'}</text>
+            {/if}
           {/each}
           {#if current.scenario.wind}
             <WindTag
@@ -205,39 +264,6 @@
           {/if}
         </RadarScope>
       </div>
-
-      {#if current.kind === 'direct'}
-        <div class="options" class:disabled={committed}>
-          {#each current.options as opt, i}
-            {@const isCorrect = i === current.correctIndex}
-            {@const wasPicked = pickedOption === opt}
-            <button
-              class="option"
-              class:correct={committed && isCorrect}
-              class:wrong={committed && wasPicked && !isCorrect}
-              class:reveal={committed && !wasPicked && !isCorrect}
-              disabled={committed}
-              onclick={() => pickOption(opt, i)}
-            >
-              <span class="key" aria-hidden="true">{i + 1}</span>
-              <span class="opt-text">{opt}</span>
-            </button>
-          {/each}
-        </div>
-      {/if}
-
-      {#if committed}
-        <div class="feedback" class:good={lastResult?.correct} class:bad={!lastResult?.correct}>
-          {#if !lastResult?.correct}
-            <div class="fb-row"><span class="fb-label">You picked</span><span class="fb-val">{lastResult?.picked}</span></div>
-          {/if}
-          <div class="fb-row"><span class="fb-label">Correct</span><span class="fb-val">{current.answer}</span></div>
-          <p class="explain">{current.explanation}</p>
-          {#if !lastResult?.correct}
-            <button class="next" onclick={next}>Next →</button>
-          {/if}
-        </div>
-      {/if}
     </div>
   {/key}
   <div class="kb-legend" aria-hidden="true">
@@ -291,9 +317,25 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 0.875rem;
-    display: flex; flex-direction: column; gap: 0.75rem;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "info" "scope" "right";
   }
-  .card-head { display: flex; gap: 0.4rem; align-items: center; }
+  @media (min-width: 820px) {
+    .card {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      grid-template-areas:
+        "head head"
+        "info info"
+        "scope right";
+      align-items: start;
+    }
+  }
+  .card-head { grid-area: head; display: flex; gap: 0.4rem; align-items: center; }
+  .mode-info { grid-area: info; }
+  .scope-wrap { grid-area: scope; }
+  .right-col { grid-area: right; display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
   .mode-pill, .diff-pill, .kind-pill {
     font-size: 0.6875rem;
     text-transform: uppercase;
@@ -334,15 +376,54 @@
   .mode-info ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.25rem; }
   .mode-info strong { color: var(--text); font-weight: 600; }
   .mode-info .tip { font-size: 0.75rem; opacity: 0.85; }
-  .prompt-block { display: flex; flex-direction: column; gap: 0.25rem; }
-  .prompt-block h2 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; }
-  .sel { color: var(--muted); font-size: 0.8125rem; }
+  .atc-call h2 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; margin: 0; }
+  .sel { color: var(--muted); font-size: 0.8125rem; display: block; margin-top: 0.25rem; }
+  .atc-call { display: flex; align-items: flex-start; gap: 0.6rem; }
+  .atc-icon {
+    width: 32px; height: 32px;
+    flex-shrink: 0;
+    margin-top: 4px;
+    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
+  }
+  .atc-bubble {
+    position: relative;
+    flex: 1;
+    background: #18242f;
+    border: 1px solid rgba(96, 150, 186, 0.45);
+    border-radius: 12px;
+    padding: 0.7rem 0.85rem;
+    min-width: 0;
+  }
+  .atc-bubble::before, .atc-bubble::after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 12px;
+    width: 0; height: 0;
+    border-style: solid;
+  }
+  .atc-bubble::before {
+    border-width: 7px 10px 7px 0;
+    border-color: transparent rgba(96, 150, 186, 0.45) transparent transparent;
+  }
+  .atc-bubble::after {
+    left: -8px;
+    top: 13px;
+    border-width: 6px 9px 6px 0;
+    border-color: transparent #18242f transparent transparent;
+  }
   .scope-wrap {
     display: flex; justify-content: center;
     background: #0c1116;
     border-radius: 8px;
     padding: 0.5rem;
     --scope-bg: #0c1116;
+    min-width: 0;
+  }
+  .scope-wrap :global(svg.radarscope) {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
   }
   .options { display: grid; grid-template-columns: 1fr; gap: 0.4rem; }
   .options.disabled { pointer-events: none; }

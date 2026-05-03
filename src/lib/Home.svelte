@@ -62,7 +62,40 @@
     onOpenIntro(key, difficulty);
   }
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
-  const atcModes: AtcMode[] = ['callsign', 'decode', 'compose', 'atcMix', 'radar', 'cleared', 'intercept'];
+  // atcMix is now reachable only via the category Mix button; it's no longer
+  // listed as its own chip per user request (see categoryMix below).
+  const atcModes: AtcMode[] = ['callsign', 'decode', 'compose', 'radar', 'cleared', 'intercept'];
+
+  type CategoryKey = 'airline' | 'airport' | 'aircraft' | 'atc';
+  function categoryMix(cat: CategoryKey) {
+    if (cat === 'atc') {
+      onStartAtc('atcMix', difficulty);
+      return;
+    }
+    if (cat === 'airline') {
+      const m = visibleAirlineModes[Math.floor(Math.random() * visibleAirlineModes.length)];
+      onStart(m, difficulty);
+      return;
+    }
+    if (cat === 'airport') {
+      const r = Math.random();
+      if (r < 0.7) {
+        const m = airportRoundModes[Math.floor(Math.random() * airportRoundModes.length)];
+        onStart(m, difficulty);
+      } else if (r < 0.85) {
+        onStartAirportWordle(difficulty);
+      } else {
+        onStartAirportIdentify(difficulty);
+      }
+      return;
+    }
+    // aircraft: random of the 4 plane/military modes
+    const r = Math.random();
+    if (r < 0.25) onStartAircraftIdentify(difficulty);
+    else if (r < 0.5) onStartAircraftWordle(difficulty);
+    else if (r < 0.75) onStartMilitaryIdentify(difficulty);
+    else onStartMilitaryWordle(difficulty);
+  }
   const ATC_ICONS: Record<AtcMode, string> = {
     callsign: 'radio',
     decode: 'message-square-text',
@@ -229,7 +262,13 @@
 
 <div class="modes-sections">
 <section class="modes-wrap">
-  <span class="modes-label">Airlines</span>
+  <div class="modes-head">
+    <span class="modes-label">Airlines</span>
+    <button class="mix-btn" type="button" onclick={() => categoryMix('airline')} aria-label="Random airline mode">
+      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
+      <span>Mix</span>
+    </button>
+  </div>
   <div class="modes-grid">
     {#each visibleAirlineModes as mode}
       {@const best = loadBest(mode, difficulty)}
@@ -246,7 +285,13 @@
 </section>
 
 <section class="modes-wrap">
-  <span class="modes-label">Airports</span>
+  <div class="modes-head">
+    <span class="modes-label">Airports</span>
+    <button class="mix-btn" type="button" onclick={() => categoryMix('airport')} aria-label="Random airport mode">
+      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
+      <span>Mix</span>
+    </button>
+  </div>
   <div class="modes-grid">
     {#each airportRoundModes as mode}
       {@const best = loadBest(mode, difficulty)}
@@ -273,7 +318,13 @@
 </section>
 
 <section class="modes-wrap">
-  <span class="modes-label">Aircraft</span>
+  <div class="modes-head">
+    <span class="modes-label">Aircraft</span>
+    <button class="mix-btn" type="button" onclick={() => categoryMix('aircraft')} aria-label="Random aircraft mode">
+      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
+      <span>Mix</span>
+    </button>
+  </div>
   <div class="modes-grid">
     <button class="mode-tile" onclick={() => onStartAircraftIdentify(difficulty)}>
       <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'aircraftIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'aircraftIdentify'); }}>?</span>
@@ -301,7 +352,13 @@
 </section>
 
 <section class="modes-wrap">
-  <span class="modes-label">ATC</span>
+  <div class="modes-head">
+    <span class="modes-label">ATC</span>
+    <button class="mix-btn" type="button" onclick={() => categoryMix('atc')} aria-label="ATC Mix - random question type each round">
+      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
+      <span>Mix</span>
+    </button>
+  </div>
   <div class="modes-grid">
     {#each atcModes as mode}
       {@const best = loadAtcBest(mode, difficulty)}
@@ -573,6 +630,13 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+  .modes-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-right: 0.25rem;
+  }
   .modes-label {
     font-size: 0.6875rem;
     font-family: var(--font-main);
@@ -580,6 +644,28 @@
     text-transform: uppercase;
     color: var(--muted);
     padding-left: 0.25rem;
+  }
+  .mix-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.18rem 0.55rem 0.18rem 0.4rem;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid rgba(96, 150, 186, 0.45);
+    color: var(--accent);
+    font-family: var(--font-main);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s, transform 0.12s;
+  }
+  .mix-btn:hover { background: rgba(163, 206, 241, 0.18); border-color: rgba(96, 150, 186, 0.75); }
+  .mix-btn:active { transform: scale(0.96); }
+  .mix-btn img {
+    width: 13px; height: 13px;
+    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
   }
   .modes-grid {
     display: grid;

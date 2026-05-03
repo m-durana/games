@@ -86,12 +86,17 @@ function normalizeTokens(s: string): string[] {
 }
 
 function callsignIsObvious(airlineName: string, callsign: string): boolean {
-  const nameTokens = new Set(normalizeTokens(airlineName));
-  const csTokens = normalizeTokens(callsign);
-  if (csTokens.length === 0) return true;
-  // If every meaningful token of the callsign appears in the airline name,
-  // the callsign is essentially the airline name.
-  return csTokens.every((t) => nameTokens.has(t));
+  const nameTokens = normalizeTokens(airlineName);
+  const cs = callsign.toLowerCase().replace(/[^a-z0-9]+/g, '');
+  if (cs.length < 3) return true;
+  for (const t of nameTokens) {
+    if (t.length < 4) continue; // short tokens like 'air', 'jet' aren't enough on their own
+    // Callsign contains a name token: QATARI ⊃ 'qatar', AIRFRANS ⊃ 'air'... (token len ≥4 only).
+    if (cs.includes(t)) return true;
+    // Callsign is contained in a name token: 'iberia' ⊂ 'iberia'.
+    if (t.includes(cs)) return true;
+  }
+  return false;
 }
 
 function defaultRng(): Rng {

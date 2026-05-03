@@ -18,7 +18,11 @@ interface RadarBaseQuestion {
   kind: RadarKind;
   /** For AtcResults compatibility - always 'radar'. */
   mode: 'radar';
+  /** Game question to the player (e.g. "Which two will lose separation?"). */
   prompt: string;
+  /** Pilot voice on the radio (only direct-request mode). The player is the
+   *  controller; this is a pilot calling in. Rendered as a speech bubble. */
+  pilotCall?: string;
   /** Human-readable correct-answer string (shown in the recap). */
   answer: string;
   explanation: string;
@@ -29,6 +33,10 @@ export interface ConflictQuestion extends RadarBaseQuestion {
   kind: 'conflict';
   /** Aircraft IDs of the true conflict pair. */
   conflictPair: [string, string];
+  /** Vertical rates in ft/min, keyed by aircraft id. Positive = climb, negative = descent.
+   *  Aircraft not present here are level. Hard-mode scenarios use this to seed
+   *  altitude-crossover conflicts where one aircraft descends through another's level. */
+  verticalRates?: Record<string, number>;
 }
 
 export interface DirectQuestion extends RadarBaseQuestion {
@@ -181,79 +189,222 @@ function randomScopePos(rng: Rng, minNm: number, maxNm: number): { x: number; y:
 
 // ---- Question 1: conflict spotter --------------------------------------------
 
+/** Project an aircraft's position forward by `tSec` seconds. */
+function projectPos(ac: Aircraft, tSec: number): { x: number; y: number } {
+  const dNm = (ac.speed / 3600) * tSec;
+  const r = (ac.heading * Math.PI) / 180;
+  return { x: ac.pos.x + Math.sin(r) * dNm, y: ac.pos.y - Math.cos(r) * dNm };
+}
+
+/** Project altitude forward by `tSec` seconds given a vertical rate (ft/min). */
+function projectAlt(altFt: number, vrFtPerMin: number, tSec: number): number {
+  return altFt + (vrFtPerMin * tSec) / 60;
+}
+
+interface VConflict {
+  a: Aircraft;
+  b: Aircraft;
+  minSeparation: number;
+  tSeconds: number;
+  /** Vertical separation in ft at the time of minimum lateral separation. */
+  vSepFt: number;
+}
+
+/** Conflict detector that respects per-aircraft vertical rates. Two aircraft
+ *  are in conflict when their lateral separation drops below `sepNm` AND
+ *  vertical separation drops below `sepFt` at the same instant within the horizon. */
+function findVConflicts(
+  aircraft: Aircraft[],
+  vRates: Record<string, number>,
+  horizonSec: number,
+  sepNm: number,
+  sepFt = 1000,
+): VConflict[] {
+  const out: VConflict[] = [];
+  const step = Math.max(1, Math.floor(horizonSec / 60));
+  for (let i = 0; i < aircraft.length; i++) {
+    for (let j = i + 1; j < aircraft.length; j++) {
+      const u = aircraft[i];
+      const d = aircraft[j];
+      const vu = vRates[u.id] ?? 0;
+      const vd = vRates[d.id] ?? 0;
+      let minLat = Infinity;
+      let tAtMin = 0;
+      let vSepAtMin = Math.abs(u.altitude - d.altitude);
+      let conflict = false;
+      for (let t = 0; t <= horizonSec; t += step) {
+        const pu = projectPos(u, t);
+        const pd = projectPos(d, t);
+        const lat = Math.hypot(pu.x - pd.x, pu.y - pd.y);
+        const au = projectAlt(u.altitude, vu, t);
+        const ad = projectAlt(d.altitude, vd, t);
+        const vSep = Math.abs(au - ad);
+        if (lat < minLat) {
+          minLat = lat;
+          tAtMin = t;
+          vSepAtMin = vSep;
+        }
+        if (lat < sepNm && vSep < sepFt) conflict = true;
+      }
+      if (conflict) out.push({ a: u, b: d, minSeparation: minLat, tSeconds: tAtMin, vSepFt: vSepAtMin });
+    }
+  }
+  return out;
+}
+
 function buildConflictQuestion(difficulty: Difficulty, rng: Rng): ConflictQuestion {
-  const aircraftCount = difficulty === 'easy' ? 4 : difficulty === 'medium' ? 6 : 7;
+  const aircraftCount = difficulty === 'easy' ? 4 : difficulty === 'medium' ? 6 : 9;
   const horizonSec = difficulty === 'hard' ? 120 : 180;
   const sepNm = difficulty === 'hard' ? 3 : 5;
 
   const base = buildScenarioBase(rng);
 
-  // Step 1: place a guaranteed-conflict pair.
-  const meetingAlt = 14000 + Math.floor(rng() * 12) * 1000;
+  // Heading-convergence variety. Easy stays head-on (180°). Medium spans
+  // beam-to-head-on (90°-180°). Hard goes anywhere from converging to nearly
+  // overtaking (45°-180°), so the player can't pattern-match opposing arrows.
+  const minDelta = difficulty === 'easy' ? 175 : difficulty === 'medium' ? 90 : 45;
+  const maxDelta = 180;
+  const headingDelta = minDelta + Math.floor(rng() * (maxDelta - minDelta + 1));
   const headingA = Math.floor(rng() * 360);
-  const headingB = (headingA + 180) % 360;
+  const headingB = (headingA + headingDelta) % 360;
+
+  // Altitude crossover (hard only): one aircraft descends through the other's
+  // level so they're not co-altitude *now* but will be at the meeting time.
+  // This rewards reading the trend, not just the current FL.
+  const useCrossover = difficulty === 'hard' && rng() < 0.5;
+  const meetingAlt = 14000 + Math.floor(rng() * 12) * 1000;
+
   const meetingPoint = randomScopePos(rng, 5, 12);
-  const offsetNm = 10;
-  const dxA = Math.sin((headingA * Math.PI) / 180) * offsetNm;
-  const dyA = -Math.cos((headingA * Math.PI) / 180) * offsetNm;
   const speedA = 380 + Math.floor(rng() * 80);
   const speedB = 380 + Math.floor(rng() * 80);
+
+  // Position the pair so they collide AT meetingPoint within the detector's
+  // horizon, accounting for their actual speeds. Must stay < horizonSec or
+  // the conflict happens past the lookahead and the detector reports nothing
+  // (then `pair` is undefined when we build the explanation).
+  const maxT = Math.max(60, horizonSec - 15);
+  const tToMeet = 60 + Math.floor(rng() * Math.max(1, maxT - 60));
+  const distA = (speedA / 3600) * tToMeet;
+  const distB = (speedB / 3600) * tToMeet;
+  // Aircraft is OFFSET FROM meeting BACKWARDS along its heading: pos = meeting - heading*dist.
+  const ar = (headingA * Math.PI) / 180;
+  const br = (headingB * Math.PI) / 180;
+  const posA = { x: meetingPoint.x - Math.sin(ar) * distA, y: meetingPoint.y + Math.cos(ar) * distA };
+  const posB = { x: meetingPoint.x - Math.sin(br) * distB, y: meetingPoint.y + Math.cos(br) * distB };
+
+  let altA = meetingAlt;
+  let altB = meetingAlt;
+  let vrA = 0;
+  let vrB = 0;
+  if (useCrossover) {
+    // The higher aircraft descends 2000 ft over the time-to-meet. They cross
+    // through each other's level at the conflict point (meetingAlt - 1000).
+    const aIsHigh = rng() < 0.5;
+    altA = aIsHigh ? meetingAlt + 1000 : meetingAlt - 1000;
+    altB = aIsHigh ? meetingAlt - 1000 : meetingAlt + 1000;
+    const descentFtPerMin = -(2000 * 60) / tToMeet;
+    if (aIsHigh) vrA = descentFtPerMin;
+    else vrB = descentFtPerMin;
+  }
+
   const a: Aircraft = {
     id: 'ac-0',
     callsign: genCallsign(rng).callsign,
-    pos: { x: meetingPoint.x - dxA, y: meetingPoint.y - dyA },
+    pos: posA,
     heading: headingA,
-    altitude: meetingAlt,
+    altitude: altA,
     speed: speedA,
   };
   const b: Aircraft = {
     id: 'ac-1',
     callsign: genCallsign(rng).callsign,
-    pos: { x: meetingPoint.x + dxA, y: meetingPoint.y + dyA },
+    pos: posB,
     heading: headingB,
-    altitude: meetingAlt,
+    altitude: altB,
     speed: speedB,
   };
   const aircraft: Aircraft[] = [a, b];
+  const vRates: Record<string, number> = {};
+  if (vrA !== 0) vRates[a.id] = vrA;
+  if (vrB !== 0) vRates[b.id] = vrB;
 
   // Step 2: add distractors one at a time, rejecting any that introduce a 2nd conflict.
+  // Hard mode adds "near-miss" distractors: aircraft that look threatening
+  // (similar altitude, converging heading) but stay just outside separation.
   let safety = 0;
   let nextId = 2;
-  while (aircraft.length < aircraftCount && safety < 400) {
+  while (aircraft.length < aircraftCount && safety < 600) {
     safety++;
-    // Altitude offset of ≥2000 ft from the conflict pair guarantees no vertical
-    // conflict with them; we still verify against findConflicts to catch
-    // distractor-vs-distractor collisions.
-    const altOffset = (2 + Math.floor(rng() * 6)) * 1000 * (rng() < 0.5 ? -1 : 1);
+    const isFalsePositive = difficulty === 'hard' && aircraft.length < aircraftCount - 2 && rng() < 0.55;
+    let altOffset: number;
+    let heading: number;
+    let pos: { x: number; y: number };
+    let speed: number;
+    let candidateVr = 0;
+    if (isFalsePositive) {
+      // Looks dangerous: 1500-2500 ft offset (just safe vertically), heading
+      // converging toward the conflict region, but won't actually breach.
+      altOffset = (1500 + Math.floor(rng() * 1100)) * (rng() < 0.5 ? -1 : 1);
+      heading = (headingA + 90 + Math.floor(rng() * 180)) % 360;
+      pos = randomScopePos(rng, 10, 22);
+      speed = 280 + Math.floor(rng() * 160);
+      // Some near-misses also have a small vertical rate that brings them
+      // almost-but-not-quite into the conflict layer.
+      if (rng() < 0.4) candidateVr = (rng() < 0.5 ? -1 : 1) * (200 + Math.floor(rng() * 400));
+    } else {
+      altOffset = (3 + Math.floor(rng() * 6)) * 1000 * (rng() < 0.5 ? -1 : 1);
+      heading = Math.floor(rng() * 360);
+      pos = randomScopePos(rng, 8, base.rangeNm - 4);
+      speed = 240 + Math.floor(rng() * 200);
+    }
     const candidate: Aircraft = {
       id: `ac-${nextId}`,
       callsign: genCallsign(rng).callsign,
-      pos: randomScopePos(rng, 8, base.rangeNm - 4),
-      heading: Math.floor(rng() * 360),
+      pos,
+      heading,
       altitude: Math.max(5000, Math.min(40000, meetingAlt + altOffset)),
-      speed: 240 + Math.floor(rng() * 200),
+      speed,
     };
+    const testRates = candidateVr !== 0 ? { ...vRates, [candidate.id]: candidateVr } : vRates;
     const test = [...aircraft, candidate];
-    const conflicts = findConflicts({ aircraft: test }, horizonSec, sepNm);
+    const conflicts = findVConflicts(test, testRates, horizonSec, sepNm);
     if (conflicts.length === 1 && conflicts[0].a.id === 'ac-0' && conflicts[0].b.id === 'ac-1') {
       aircraft.push(candidate);
+      if (candidateVr !== 0) vRates[candidate.id] = candidateVr;
       nextId++;
     }
   }
 
-  // Final verification - should be exactly one conflict (the seeded pair).
-  const finalConflicts = findConflicts({ aircraft }, horizonSec, sepNm);
+  const finalConflicts = findVConflicts(aircraft, vRates, horizonSec, sepNm);
   const pair = finalConflicts.find((c) => (c.a.id === 'ac-0' && c.b.id === 'ac-1') || (c.a.id === 'ac-1' && c.b.id === 'ac-0')) ?? finalConflicts[0];
   const scenario = scenarioFromBase(base, aircraft);
+
+  // Defensive: if (somehow) the seeded pair didn't register a conflict, fall
+  // back to a generic explanation rather than crashing on undefined.
+  const minSep = pair?.minSeparation ?? 0;
+  const tSec = pair?.tSeconds ?? tToMeet;
+  const vSep = pair?.vSepFt ?? Math.abs(altA - altB);
+
+  let explanation: string;
+  if (useCrossover) {
+    const descender = vrA < 0 ? a : b;
+    const leveler = descender === a ? b : a;
+    explanation = `${descender.callsign} is descending through ${leveler.callsign}'s level (FL${Math.round(leveler.altitude / 100)}); minimum predicted separation ${minSep.toFixed(1)} nm with ${Math.round(vSep)} ft vertical in ${tSec}s.`;
+  } else if (headingDelta < 170) {
+    explanation = `Converging at ${headingDelta}° at FL${Math.round(a.altitude / 100)}; minimum predicted separation ${minSep.toFixed(1)} nm in ${tSec}s.`;
+  } else {
+    explanation = `Both aircraft are at FL${Math.round(a.altitude / 100)} on opposing tracks; minimum predicted separation ${minSep.toFixed(1)} nm in ${tSec}s.`;
+  }
 
   return {
     kind: 'conflict',
     mode: 'radar',
-    prompt: `Conflict near ${scenario.airportIata} - which two will lose separation?`,
+    prompt: `Tap the two aircraft on a collision course near ${scenario.airportIata}.`,
     answer: `${a.callsign} ↔ ${b.callsign}`,
-    explanation: `Both aircraft are at FL${Math.round(a.altitude / 100)} on converging tracks; minimum predicted separation ${pair.minSeparation.toFixed(1)} nm in ${pair.tSeconds}s.`,
+    explanation,
     scenario,
     conflictPair: [a.id, b.id],
+    verticalRates: Object.keys(vRates).length > 0 ? vRates : undefined,
   };
 }
 
@@ -331,7 +482,8 @@ function buildDirectQuestion(difficulty: Difficulty, rng: Rng): DirectQuestion {
   return {
     kind: 'direct',
     mode: 'radar',
-    prompt: `${scenario.airportIata} - ${requester.callsign} requests direct destination (heading ${destHeading.toString().padStart(3, '0')}). Your call?`,
+    pilotCall: `${requester.callsign}, request direct destination, heading ${destHeading.toString().padStart(3, '0')}.`,
+    prompt: 'Your call?',
     answer: correctAnswer,
     explanation,
     scenario,

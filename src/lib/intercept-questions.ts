@@ -273,6 +273,110 @@ const T_LOC_CAPTURED_HIGH: InterceptTemplate = {
   },
 };
 
+const T_GUSTY_CROSSWIND: InterceptTemplate = {
+  id: 'gusty-crosswind',
+  difficulty: ['hard'],
+  build(ctx, rng): InterceptQuestion {
+    const range = 6;
+    const altitude = (ctx.airport.elevationFt ?? 0) + 2200;
+    const finalCourse = ctx.approach.finalCourseT;
+    const windFrom = crosswindFor(finalCourse, rng() < 0.5 ? 'left' : 'right');
+    const windKt = 18 + Math.floor(rng() * 6);
+    const gustKt = windKt + 14 + Math.floor(rng() * 6);
+    const scenario = buildScenario(ctx, { range, altitude, speed: 165, windFrom, windKt: gustKt }, rng);
+    const options = [
+      'Continue - add half the gust factor to Vref',
+      'Go around - request a longer final',
+      'Divert to the alternate',
+    ];
+    return {
+      mode: 'intercept',
+      templateId: 'gusty-crosswind',
+      prompt: `${scenario.state.callsign}, ${scenario.airportIata} ${scenario.approachName}. 6 nm out, wind ${fmtHeading(windFrom)}/${windKt}G${gustKt} - within crosswind limit but gusty. Your call?`,
+      options,
+      correctIndex: 0,
+      answer: options[0],
+      explanation: 'Standard technique: add half the gust factor (here ~7 kt) to your reference speed for margin. Crosswind is within limit; going around or diverting now is overkill.',
+      scenario,
+    };
+  },
+};
+
+const T_BROKEN_CEILING: InterceptTemplate = {
+  id: 'broken-ceiling',
+  difficulty: ['medium', 'hard'],
+  build(ctx, rng): InterceptQuestion {
+    const range = 7;
+    const altitude = (ctx.airport.elevationFt ?? 0) + 2400;
+    const scenario = buildScenario(ctx, { range, altitude, speed: 170, windFrom: 0, windKt: 0 }, rng);
+    const options = [
+      'Continue the approach to minima',
+      'Go missed now - below minima',
+      'Request a hold for weather to lift',
+    ];
+    return {
+      mode: 'intercept',
+      templateId: 'broken-ceiling',
+      prompt: `${scenario.state.callsign}, ${scenario.approachName}. ATIS reports broken 400 ft, vis 1¼ sm. ILS minima are DA 250 ft, RVR 4000. You're 7 nm out. Your call?`,
+      options,
+      correctIndex: 0,
+      answer: options[0],
+      explanation: 'Reported ceiling and visibility are above published minima. You\'re legal to fly the approach to DA - if you don\'t see the runway environment there, then go missed. Holding pre-emptively wastes fuel for nothing.',
+      scenario,
+    };
+  },
+};
+
+const T_CONFLICTING_TRAFFIC_FINAL: InterceptTemplate = {
+  id: 'conflicting-traffic-final',
+  difficulty: ['hard'],
+  build(ctx, rng): InterceptQuestion {
+    const range = 8;
+    const altitude = (ctx.airport.elevationFt ?? 0) + 3000;
+    const scenario = buildScenario(ctx, { range, altitude, speed: 180, windFrom: 0, windKt: 0 }, rng);
+    const options = [
+      'Accept - keep visual separation',
+      'Request a 360° turn for spacing',
+      'Break off - request re-vectoring behind the traffic',
+    ];
+    return {
+      mode: 'intercept',
+      templateId: 'conflicting-traffic-final',
+      prompt: `${scenario.state.callsign}, ${scenario.approachName}. Traffic 11 o'clock, 2 nm, slower jet on a converging base. Tower asks: "report traffic in sight - maintain visual separation." You see them. Your call?`,
+      options,
+      correctIndex: 0,
+      answer: options[0],
+      explanation: 'You have the traffic in sight and accepted visual separation - that\'s the cleanest fix. A 360° on final inside 8 nm wrecks your own stabilization; breaking off pushes work onto ATC for no reason.',
+      scenario,
+    };
+  },
+};
+
+const T_RNP_VS_ILS: InterceptTemplate = {
+  id: 'rnp-vs-ils',
+  difficulty: ['medium', 'hard'],
+  build(ctx, rng): InterceptQuestion {
+    const range = 12;
+    const altitude = (ctx.airport.elevationFt ?? 0) + 4000;
+    const scenario = buildScenario(ctx, { range, altitude, speed: 200, windFrom: 0, windKt: 0 }, rng);
+    const options = [
+      `Accept ${scenario.approachName}`,
+      'Request the RNP/GPS approach instead',
+      'Request vectors back around',
+    ];
+    return {
+      mode: 'intercept',
+      templateId: 'rnp-vs-ils',
+      prompt: `${scenario.state.callsign}, ${scenario.airportIata}. Cleared ${scenario.approachName}. Note: NOTAM shows ILS glideslope OUT OF SERVICE. Your call?`,
+      options,
+      correctIndex: 1,
+      answer: options[1],
+      explanation: 'GS out of service means the ILS becomes a localizer-only approach with higher minima. If RNP/GPS LPV is available it gives you a real vertical guide to lower minima - prefer it. Vectors around just delays the same decision.',
+      scenario,
+    };
+  },
+};
+
 export const INTERCEPT_TEMPLATES: InterceptTemplate[] = [
   T_HIGH_AND_CLOSE,
   T_HIGH_BUT_FAR,
@@ -284,4 +388,8 @@ export const INTERCEPT_TEMPLATES: InterceptTemplate[] = [
   T_SPACING_REDUCE,
   T_LOW_AND_FAST,
   T_LOC_CAPTURED_HIGH,
+  T_GUSTY_CROSSWIND,
+  T_BROKEN_CEILING,
+  T_CONFLICTING_TRAFFIC_FINAL,
+  T_RNP_VS_ILS,
 ];

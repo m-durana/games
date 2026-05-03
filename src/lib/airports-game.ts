@@ -1,7 +1,20 @@
 import airportData from '../data/airport-wordle.json';
 import curatedPhotos from '../data/airport-photos.json';
 import curatedAerials from '../data/airport-aerials.json';
+import reviewState from '../data/airport-review-state.json';
 import { poolCountryFilter } from './engine';
+
+interface ReviewAerialSpec {
+  provider: 'arcgis' | 'mapbox' | 'azure';
+  lat: number;
+  lon: number;
+  zoom: number;
+}
+interface ReviewStateEntry {
+  aerial?: ReviewAerialSpec | null;
+  approved?: string[];
+}
+const REVIEW_STATE = reviewState as Record<string, ReviewStateEntry>;
 
 export type HubAlliance = 'Star Alliance' | 'SkyTeam' | 'oneworld' | 'Independent';
 export type Region = 'NA' | 'SA' | 'EU' | 'ME' | 'AF' | 'AS' | 'OC';
@@ -92,16 +105,20 @@ export function terminalBucket(n: number): TerminalBucket {
   return '4+';
 }
 
-// Difficulty pools.
-const EASY_IATAS = new Set([
-  'JFK', 'LHR', 'CDG', 'DXB', 'NRT', 'LAX', 'FRA', 'SIN', 'HKG', 'AMS',
-  'ORD', 'ATL', 'IST', 'SYD', 'BCN', 'MAD', 'ICN', 'PEK', 'DOH', 'SFO',
+// Difficulty is paxYearlyM-based, applied within whatever pool the caller
+// chose. A small EASY_FORCE / HARD_FORCE override list exists for airports
+// whose recognizability doesn't track passenger volume (e.g. KBP).
+const EASY_PAX_THRESHOLD = 50;   // ~mega hubs
+const HARD_PAX_THRESHOLD = 25;   // ~Mid/Small tier
+const EASY_FORCE = new Set<string>([
+  // Iconic enough to be easy regardless of pax tier.
+  'SYD', 'ZRH', 'KEF',
 ]);
-// Hard pool: confusables / regional.
-const HARD_IATAS = new Set([
-  'LGA', 'EWR', 'IAD', 'BWI', 'MDW', 'HND', 'KIX', 'PKX', 'PVG', 'CAN',
-  'LGW', 'STN', 'LCY', 'ORY', 'BVA', 'HAM', 'TXL', 'BER', 'MUC', 'DUS',
-  'GRU', 'GIG', 'SCL', 'EZE', 'BOG', 'MEX', 'YYZ', 'YVR', 'YUL',
+const HARD_FORCE = new Set<string>([
+  // Pax-large but recognizability is regional - keep them in hard.
+  'KBP', 'LED', 'SVO', 'PVG', 'PEK',
+  'CGK', 'CAN', 'CTU', 'KMG', 'XIY',
+  'JED', 'RUH', 'CMB', 'BLR', 'BOM',
 ]);
 
 function applyPool(list: AirportEntry[]): AirportEntry[] {
@@ -112,10 +129,29 @@ export function pooledAirports(): AirportEntry[] {
   return applyPool(airports);
 }
 
+// Source of truth for "this airport has been reviewed and is playable in the
+// Identify game" - requires both an approved aerial spec and at least one
+// approved ground photo in the bundled review state.
+export function isReviewedAirport(iata: string): boolean {
+  const e = REVIEW_STATE[iata];
+  return !!(e && e.aerial && e.approved && e.approved.length > 0);
+}
+
+export function reviewedAirports(): AirportEntry[] {
+  return applyPool(airports.filter((a) => isReviewedAirport(a.iata)));
+}
+
 export function airportsForDifficulty(d: AirportDifficulty): AirportEntry[] {
-  if (d === 'easy') return applyPool(airports.filter((a) => EASY_IATAS.has(a.iata)));
-  if (d === 'hard') return applyPool(airports.filter((a) => HARD_IATAS.has(a.iata)));
-  return applyPool(airports);
+  const pool = reviewedAirports();
+  if (d === 'easy') {
+    return pool.filter(
+      (a) => !HARD_FORCE.has(a.iata) && (a.paxYearlyM >= EASY_PAX_THRESHOLD || EASY_FORCE.has(a.iata)),
+    );
+  }
+  if (d === 'hard') {
+    return pool.filter((a) => (a.paxYearlyM < HARD_PAX_THRESHOLD || HARD_FORCE.has(a.iata)) && !EASY_FORCE.has(a.iata));
+  }
+  return pool;
 }
 
 export function airportEntryByIata(iata: string): AirportEntry | null {
@@ -326,8 +362,60 @@ async function fetchFromWikiMediaList(wikiTitle: string): Promise<string[]> {
 const CURATED = curatedPhotos as Record<string, string[]>;
 const AERIALS = curatedAerials as Record<string, string>;
 
+// Build the ArcGIS export URL from a review-state spec. Mirrors the
+// AirportReview tool's `buildAerialUrl` for arcgis (the only provider used by
+// review state today). Country-aware closest-span keeps US frames tighter.
+function buildArcgisAerialUrl(spec: ReviewAerialSpec, country: string): string {
+  const closest = country === 'United States' ? 0.006 : 0.008;
+  const span = closest * Math.pow(2, Math.max(0, spec.zoom));
+  const half = span / 2;
+  const west = spec.lon - half, east = spec.lon + half;
+  const south = spec.lat - half, north = spec.lat + half;
+  const endpoint = country === 'United States'
+    ? 'https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/exportImage'
+    : 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export';
+  const params = new URLSearchParams({
+    bbox: `${west},${south},${east},${north}`,
+    bboxSR: '4326', imageSR: '4326', size: '1024,1024',
+    format: country === 'United States' ? 'jpgpng' : 'jpg', f: 'image',
+  });
+  return `${endpoint}?${params.toString()}`;
+}
+
 export function airportAerialUrl(iata: string): string | null {
+  const spec = REVIEW_STATE[iata]?.aerial;
+  if (spec && spec.provider === 'arcgis') {
+    const ap = airports.find((a) => a.iata === iata);
+    if (ap) return buildArcgisAerialUrl(spec, ap.country);
+  }
   return AERIALS[iata] ?? null;
+}
+
+export function airportApprovedPhotos(iata: string): string[] {
+  const e = REVIEW_STATE[iata];
+  return e?.approved ?? [];
+}
+
+// Canonical key for a Wikimedia Commons image: the underlying filename.
+// Necessary because the same file can surface from category and article
+// endpoints with different thumb widths and `/thumb/` prefixes, defeating a
+// raw URL Set.
+export function commonsFileKey(url: string): string {
+  // matches .../commons/<x>/<xx>/<File> and .../commons/thumb/<x>/<xx>/<File>/<size>px-<File>
+  const m = url.match(/\/commons\/(?:thumb\/)?[0-9a-f]\/[0-9a-f]{2}\/([^/?#]+?)(?:\/\d+px-[^/?#]+)?(?:[?#].*)?$/i);
+  return m ? decodeURIComponent(m[1]).toLowerCase() : url.toLowerCase();
+}
+
+export function dedupeByCommonsFile(urls: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const u of urls) {
+    const k = commonsFileKey(u);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(u);
+  }
+  return out;
 }
 
 // Wikipedia/Commons fetch - always live, used by the review tool which needs
@@ -344,11 +432,7 @@ export async function fetchAirportCandidates(ap: AirportEntry): Promise<string[]
       fetchFromCommonsCategory(category),
       fetchFromWikiMediaList(ap.wikipedia),
     ]);
-    const seen = new Set<string>();
-    const combined: string[] = [];
-    for (const src of [...fromCategory, ...fromArticle]) {
-      if (!seen.has(src)) { seen.add(src); combined.push(src); }
-    }
+    const combined = dedupeByCommonsFile([...fromCategory, ...fromArticle]);
     if (combined.length > 0) imageListCache.set(cacheKey, combined);
     inFlight.delete(cacheKey);
     return combined;
@@ -358,9 +442,12 @@ export async function fetchAirportCandidates(ap: AirportEntry): Promise<string[]
 }
 
 export async function fetchAirportImages(ap: AirportEntry): Promise<string[]> {
-  const aerial = AERIALS[ap.iata];
-  const curated = CURATED[ap.iata];
-  if (curated && curated.length > 0) {
+  const aerial = airportAerialUrl(ap.iata);
+  // Approved photos from review state win over the legacy curated list -
+  // they're the explicit "I checked these and they're good" set.
+  const approved = airportApprovedPhotos(ap.iata);
+  const curated = approved.length > 0 ? approved : (CURATED[ap.iata] ?? []);
+  if (curated.length > 0) {
     return aerial ? [aerial, ...curated] : curated;
   }
   const live = await fetchAirportCandidates(ap);

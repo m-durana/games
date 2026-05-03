@@ -1,4 +1,21 @@
 {
+  "ADD": {
+    "aerial": {
+      "lat": 8.97777778,
+      "lon": 38.79944444,
+      "provider": "arcgis",
+      "zoom": 2.5
+    },
+    "approved": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Addis_Ababa_-_Bole_International_%28ADD_-_HAAB%29_AN1002414.jpg/500px-Addis_Ababa_-_Bole_International_%28ADD_-_HAAB%29_AN1002414.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Aeropuerto_Internacional_Bole_2022_3.jpg/500px-Aeropuerto_Internacional_Bole_2022_3.jpg"
+    ],
+    "rejected": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Addis_Ababa_Bole_International_Airport_in_2024.03.jpg/500px-Addis_Ababa_Bole_International_Airport_in_2024.03.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Addis_Ababa_Bole_International_Airport_in_2024.02.jpg/500px-Addis_Ababa_Bole_International_Airport_in_2024.02.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Addis_Abeba_airport%2C_16-12-2021.jpg/500px-Addis_Abeba_airport%2C_16-12-2021.jpg"
+    ]
+  },
   "ABJ": {
     "aerial": {
       "lat": 5.264534348675271,
@@ -99,23 +116,6 @@
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm_2.jpg/500px-Adnan_Menderes_Havaliman%C4%B1_%C4%B0%C3%A7_G%C3%B6r%C3%BCn%C3%BCm_2.jpg"
     ],
     "rejected": []
-  },
-  "ADD": {
-    "aerial": {
-      "lat": 8.97777778,
-      "lon": 38.79944444,
-      "provider": "arcgis",
-      "zoom": 2.5
-    },
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Addis_Ababa_-_Bole_International_%28ADD_-_HAAB%29_AN1002414.jpg/500px-Addis_Ababa_-_Bole_International_%28ADD_-_HAAB%29_AN1002414.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Aeropuerto_Internacional_Bole_2022_3.jpg/500px-Aeropuerto_Internacional_Bole_2022_3.jpg"
-    ],
-    "rejected": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Addis_Ababa_Bole_International_Airport_in_2024.03.jpg/500px-Addis_Ababa_Bole_International_Airport_in_2024.03.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Addis_Ababa_Bole_International_Airport_in_2024.02.jpg/500px-Addis_Ababa_Bole_International_Airport_in_2024.02.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Addis_Abeba_airport%2C_16-12-2021.jpg/500px-Addis_Abeba_airport%2C_16-12-2021.jpg"
-    ]
   },
   "ADL": {
     "aerial": {
@@ -3954,69 +3954,26 @@
       "provider": "arcgis",
       "lat": 11.5473,
       "lon": 43.1595,
-      "zoom": 2.7
+      "zoom": 2.4
     },
     "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/9/96/Djibouti-Ambouli_International_Airport_Onyshchenko.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Djibouti_International_Airport_%2824547214573%29.jpg/1280px-Djibouti_International_Airport_%2824547214573%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/9/97/Djibouti%E2%80%93Ambouli_International_Airport_Apron_View.png",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Djibouti-Ambouli_International_Airport_Onyshchenko.jpg/500px-Djibouti-Ambouli_International_Airport_Onyshchenko.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Djibouti%E2%80%93Ambouli_International_Airport_Apron_View.png/500px-Djibouti%E2%80%93Ambouli_International_Airport_Apron_View.png"
+      "https://upload.wikimedia.org/wikipedia/commons/9/96/Djibouti-Ambouli_International_Airport_Onyshchenko.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Djibouti_International_Airport_%2824547214573%29.jpg/1280px-Djibouti_International_Airport_%2824547214573%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "https://upload.wikimedia.org/wikipedia/commons/9/97/Djibouti%E2%80%93Ambouli_International_Airport_Apron_View.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
     ],
     "rejected": []
   },
   "JNB": {
     "aerial": {
       "provider": "arcgis",
-      "lat": -26.137124494658632,
-      "lon": 28.24871485943775,
-      "zoom": 3.3
-    },
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Ekurhuleni%2C_South_Africa_by_Planet_Labs_%28cropped%29.jpg/500px-Ekurhuleni%2C_South_Africa_by_Planet_Labs_%28cropped%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Ekurhuleni_Aerotropolis.jpg/500px-Ekurhuleni_Aerotropolis.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Arriv%C3%A9e_et_retour_-_WikiIndaba_2024_5.jpg/500px-Arriv%C3%A9e_et_retour_-_WikiIndaba_2024_5.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/L%27a%C3%A9roport_OR_TAMBO_de_Johanesbourg_19.jpg/500px-L%27a%C3%A9roport_OR_TAMBO_de_Johanesbourg_19.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/A_collection_of_aircraft_at_Johannesburg_OR_Tambo_International_Airport.jpg/500px-A_collection_of_aircraft_at_Johannesburg_OR_Tambo_International_Airport.jpg"
-    ],
-    "rejected": []
-  },
-  "KBP": {
-    "aerial": {
-      "provider": "arcgis",
-      "lat": 50.345001,
-      "lon": 30.894699,
+      "lat": -26.13333333,
+      "lon": 28.25,
       "zoom": 3
     },
     "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Boryspil_International_Airport_Kyiv.jpg/500px-Boryspil_International_Airport_Kyiv.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Borispol_B_terminal.jpg/500px-Borispol_B_terminal.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Kiev_-_Borispol_%28KBP_-_UKBB%29_AN2315249.jpg/500px-Kiev_-_Borispol_%28KBP_-_UKBB%29_AN2315249.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Boryspil_International_Airport_Kyiv_Terminal.jpg/500px-Boryspil_International_Airport_Kyiv_Terminal.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/%D0%90%D1%8D%D1%80%D0%BE%D0%B4%D1%80%D0%BE%D0%BC%D1%8B_%D0%B8_%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D1%8B-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%2C_%D0%9A%D0%B8%D0%B5%D0%B2_-_%D0%91%D0%BE%D1%80%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C_RP94559.jpg/500px-%D0%90%D1%8D%D1%80%D0%BE%D0%B4%D1%80%D0%BE%D0%BC%D1%8B_%D0%B8_%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D1%8B-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%2C_%D0%9A%D0%B8%D0%B5%D0%B2_-_%D0%91%D0%BE%D1%80%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C_RP94559.jpg"
-    ],
-    "rejected": []
-  },
-  "KEF": {
-    "aerial": {
-      "provider": "arcgis",
-      "lat": 63.97529718875502,
-      "lon": -22.622262387309235,
-      "zoom": 3.8
-    },
-    "approved": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Gospelch_Midnight_Sun.JPG/1280px-Gospelch_Midnight_Sun.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Keflav%C3%ADk_old_1.jpg/1280px-Keflav%C3%ADk_old_1.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Keflav%C3%ADk_old_4.jpg/1280px-Keflav%C3%ADk_old_4.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Keflav%C3%ADk_Airport_tarmac.jpg/1280px-Keflav%C3%ADk_Airport_tarmac.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ursus_Major_and_Aurora_Borealis_over_Keflavik_airport_%2815761364142%29.jpg/1280px-Ursus_Major_and_Aurora_Borealis_over_Keflavik_airport_%2815761364142%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Keflav%C3%ADk_International_Airport_%2831001876723%29.jpg/1280px-Keflav%C3%ADk_International_Airport_%2831001876723%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Keflav%C3%ADk_International_Airport_%2831439039070%29.jpg/1280px-Keflav%C3%ADk_International_Airport_%2831439039070%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Keflav%C3%ADk_International_Airport_%2831439017330%29.jpg/1280px-Keflav%C3%ADk_International_Airport_%2831439017330%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Iceland_%2819425499013%29.jpg/1280px-Iceland_%2819425499013%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/SSJ100_Keflavik_runways_%285160518757%29.jpg/500px-SSJ100_Keflavik_runways_%285160518757%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/2006-05-27-082806_Iceland_Keflav%C3%ADk.jpg/500px-2006-05-27-082806_Iceland_Keflav%C3%ADk.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Keflav%C3%ADk_International_Airport_%28seen_from_runway%29.jpg/500px-Keflav%C3%ADk_International_Airport_%28seen_from_runway%29.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Ekurhuleni%2C_South_Africa_by_Planet_Labs_%28cropped%29.jpg/500px-Ekurhuleni%2C_South_Africa_by_Planet_Labs_%28cropped%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Arriv%C3%A9e_et_retour_-_WikiIndaba_2024_5.jpg/500px-Arriv%C3%A9e_et_retour_-_WikiIndaba_2024_5.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Ekurhuleni_Aerotropolis.jpg/500px-Ekurhuleni_Aerotropolis.jpg"
     ],
     "rejected": []
   }

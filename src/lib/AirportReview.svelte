@@ -2,7 +2,7 @@
   import { untrack } from 'svelte';
   import reviewAirportData from '../data/airport-review-airports.json';
   import seedReviewState from '../data/airport-review-state.json';
-  import { airports as modeledAirports, fetchAirportCandidates, regionOf, regionLabel, type AirportEntry } from './airports-game';
+  import { airports as modeledAirports, fetchAirportCandidates, commonsFileKey, regionOf, regionLabel, type AirportEntry } from './airports-game';
 
   interface Props {
     onHome: () => void;
@@ -237,11 +237,15 @@
     try {
       const fetched = await fetchAirportCandidates(a);
       if (current?.iata !== a.iata) return;
+      // Dedupe by Commons filename, not raw URL: the same file routinely shows
+      // up from both endpoints with different `/thumb/<size>px-` prefixes,
+      // which is why reviewers were seeing the same picture twice.
       const seen = new Set<string>();
       photos = fetched.filter((url) => {
         if (looksLikeStaleAerial(url)) return false;
-        if (seen.has(url)) return false;
-        seen.add(url);
+        const key = commonsFileKey(url);
+        if (seen.has(key)) return false;
+        seen.add(key);
         return true;
       });
     } catch (err) {

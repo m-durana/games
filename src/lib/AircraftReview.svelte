@@ -237,8 +237,10 @@
     const e = state[id];
     const ac = e?.approved?.length ?? 0;
     const rc = e?.rejected?.length ?? 0;
+    const uc = e?.unchecked?.length ?? 0;
     const fc = e?.fetchedCount;
-    if (ac === 0 && rc === 0) return 'unreviewed';
+    if (ac === 0 && rc === 0 && uc === 0) return 'unreviewed';
+    if (uc > 0) return 'partial';
     if (typeof fc === 'number' && ac + rc < fc) return 'partial';
     return 'reviewed';
   }
@@ -642,9 +644,10 @@
         {@const e = state[a.id]}
         {@const ac = e?.approved?.length ?? 0}
         {@const rc = e?.rejected?.length ?? 0}
+        {@const uc = e?.unchecked?.length ?? 0}
         {@const fc = e?.fetchedCount}
         {@const status = reviewStatus(a.id)}
-        {@const remaining = typeof fc === 'number' ? Math.max(0, fc - ac - rc) : 0}
+        {@const remaining = uc > 0 ? uc : (typeof fc === 'number' ? Math.max(0, fc - ac - rc) : 0)}
         <option value={a.id}>
           {status === 'unreviewed' ? '● ' : status === 'partial' ? '◐ ' : '   '}{i + 1}. {a.name}{ac > 0 ? ` · ${ac} good` : ''}{rc > 0 ? ` · ${rc} not good` : ''}{status === 'unreviewed' ? ' · unreviewed' : ''}{status === 'partial' ? ` · ${remaining} left` : ''}
         </option>
