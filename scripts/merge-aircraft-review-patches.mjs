@@ -21,8 +21,10 @@ function loadJson(p) { return JSON.parse(readFileSync(p, 'utf8')); }
 function saveJson(p, obj) { writeFileSync(p, JSON.stringify(obj, null, 2) + '\n'); }
 
 function ensureFam(baseline, fam) {
-  if (!baseline[fam]) baseline[fam] = { approved: [], rejected: [], verified: [] };
-  return baseline[fam];
+  if (!baseline[fam]) baseline[fam] = { approved: [], rejected: [], verified: [], unsure: [] };
+  const e = baseline[fam];
+  if (!e.unsure) e.unsure = [];
+  return e;
 }
 
 function applyPatch(baseline, patch) {
@@ -35,17 +37,23 @@ function applyPatch(baseline, patch) {
   const sApp = new Set(src.approved || []);
   const sRej = new Set(src.rejected || []);
   const sVer = new Set(src.verified || []);
+  const sUns = new Set(src.unsure || []);
   let nVer = 0, nRej = 0, nRef = 0, nUns = 0;
   for (const v of patch.verdicts || []) {
     if (v.verdict === 'verified') {
       // Verifier may now act on non-approved URLs too — ensure it lands in approved.
       if (!sApp.has(v.url)) sApp.add(v.url);
       if (!sVer.has(v.url)) { sVer.add(v.url); nVer++; }
-    } else if (v.verdict === 'rejected' || v.verdict === 'unsure') {
+    } else if (v.verdict === 'rejected') {
       if (sApp.has(v.url)) { sApp.delete(v.url); }
       sVer.delete(v.url);
       sRej.add(v.url);
-      if (v.verdict === 'rejected') nRej++; else nUns++;
+      nRej++;
+    } else if (v.verdict === 'unsure') {
+      if (sApp.has(v.url)) { sApp.delete(v.url); }
+      sVer.delete(v.url);
+      sUns.add(v.url);
+      nUns++;
     } else if (v.verdict === 'refile') {
       const target = v.refile_to;
       if (!target) { console.warn(`  refile without refile_to: ${v.url}`); continue; }
@@ -67,6 +75,7 @@ function applyPatch(baseline, patch) {
   src.approved = [...sApp];
   src.rejected = [...sRej];
   src.verified = [...sVer];
+  src.unsure = [...sUns];
   return { verified: nVer, rejected: nRej, refiled: nRef, unsure: nUns };
 }
 
@@ -78,22 +87,24 @@ function refreshLog(baseline, processedPatches) {
       const approved = (e.approved || []).length;
       const verified = (e.verified || []).length;
       const rejected = (e.rejected || []).length;
+      const unsure = (e.unsure || []).length;
       const pending = approved - verified;
-      return { fam, approved, verified, rejected, pending };
+      return { fam, approved, verified, rejected, unsure, pending };
     })
     .sort((a, b) => b.pending - a.pending);
   const totals = rows.reduce((acc, r) => ({
     approved: acc.approved + r.approved,
     verified: acc.verified + r.verified,
     rejected: acc.rejected + r.rejected,
+    unsure: acc.unsure + r.unsure,
     pending: acc.pending + r.pending,
-  }), { approved: 0, verified: 0, rejected: 0, pending: 0 });
+  }), { approved: 0, verified: 0, rejected: 0, unsure: 0, pending: 0 });
 
   const tally = [
-    '| family | pending | verified | rejected | approved |',
-    '|---|---:|---:|---:|---:|',
-    ...rows.map(r => `| \`${r.fam}\` | ${r.pending} | ${r.verified} | ${r.rejected} | ${r.approved} |`),
-    `| **total** | **${totals.pending}** | **${totals.verified}** | **${totals.rejected}** | **${totals.approved}** |`,
+    '| family | pending | verified | rejected | unsure | approved |',
+    '|---|---:|---:|---:|---:|---:|',
+    ...rows.map(r => `| \`${r.fam}\` | ${r.pending} | ${r.verified} | ${r.rejected} | ${r.unsure} | ${r.approved} |`),
+    `| **total** | **${totals.pending}** | **${totals.verified}** | **${totals.rejected}** | **${totals.unsure}** | **${totals.approved}** |`,
     '',
     `_Last refreshed: ${new Date().toISOString()}_`,
   ].join('\n');
@@ -124,7 +135,7 @@ function refreshLog(baseline, processedPatches) {
       lines.push('');
     }
     if (unsure.length) {
-      lines.push(`**Unsure (${unsure.length}) — moved to rejected, please human-check:**`);
+      lines.push(`**Unsure (${unsure.length}) — needs human review:**`);
       lines.push('');
       for (const v of unsure) {
         lines.push(`- (conf ${v.confidence.toFixed(2)}): ${v.reason}`);
