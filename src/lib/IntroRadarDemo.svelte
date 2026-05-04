@@ -7,6 +7,13 @@
     | 'cleared-clock'
     | 'cleared-wind'
     | 'radar-traffic'
+    | 'radar-conflict-altitudes'
+    | 'radar-direct-clear'
+    | 'radar-direct-blocked'
+    | 'radar-vector-final'
+    | 'radar-vector-deflected'
+    | 'radar-wake-pair'
+    | 'radar-sequence-fan'
     | 'intercept-localizer'
     | 'intercept-glideslope-side';
 
@@ -68,6 +75,107 @@
         aircraft: [
           { id: 'a1', callsign: 'AAL123', pos: { x: -16, y: 0 }, heading: 90, altitude: 11000, speed: 280 },
           { id: 'a2', callsign: 'DAL456', pos: { x: 0, y: 16 }, heading: 360, altitude: 11000, speed: 280 },
+        ],
+      },
+    },
+    'radar-conflict-altitudes': {
+      rings: [10, 20],
+      note: 'Both at FL110, vectors crossing in the centre. Three other aircraft are SAFE: KLM (FL230, 12,000 ft above), UAL (FL060, 5,000 ft below), AFR (heading away, no closure).',
+      scenario: {
+        rangeNm: 30,
+        aircraft: [
+          { id: 'c1', callsign: 'AAL123 110', pos: { x: -14, y: 2 }, heading: 90, altitude: 11000, speed: 280 },
+          { id: 'c2', callsign: 'DAL456 110', pos: { x: 2, y: 14 }, heading: 360, altitude: 11000, speed: 280 },
+          { id: 'c3', callsign: 'KLM77 230', pos: { x: 10, y: -10 }, heading: 270, altitude: 23000, speed: 320 },
+          { id: 'c4', callsign: 'UAL12 060', pos: { x: -10, y: -14 }, heading: 45, altitude: 6000, speed: 240 },
+          { id: 'c5', callsign: 'AFR9 180', pos: { x: 14, y: 6 }, heading: 70, altitude: 18000, speed: 300 },
+        ],
+      },
+    },
+    'radar-direct-clear': {
+      rings: [10, 20],
+      targetId: 'wp-dest',
+      note: 'BAW42 requests direct KELOR. The proposed track (toward the highlighted fix) is clear of other traffic - APPROVE.',
+      scenario: {
+        rangeNm: 30,
+        aircraft: [
+          { id: 'r1', callsign: 'BAW42', pos: { x: -10, y: 12 }, heading: 30, altitude: 24000, speed: 380 },
+          { id: 'r2', callsign: 'DLH9 350', pos: { x: 14, y: -14 }, heading: 270, altitude: 35000, speed: 420 },
+        ],
+        waypoints: [
+          { id: 'wp-dest', label: 'KELOR', pos: { x: 6, y: -10 } },
+        ],
+      },
+    },
+    'radar-direct-blocked': {
+      rings: [10, 20],
+      targetId: 'wp-dest',
+      note: 'BAW42 requests direct ABABO. The track would cross IBE7 at the same FL on a head-on heading - DENY.',
+      scenario: {
+        rangeNm: 30,
+        aircraft: [
+          { id: 'r1', callsign: 'BAW42 240', pos: { x: -14, y: 8 }, heading: 60, altitude: 24000, speed: 380 },
+          { id: 'r2', callsign: 'IBE7 240', pos: { x: 12, y: -8 }, heading: 240, altitude: 24000, speed: 380 },
+        ],
+        waypoints: [
+          { id: 'wp-dest', label: 'ABABO', pos: { x: 10, y: -6 } },
+        ],
+      },
+    },
+    'radar-vector-final': {
+      rings: [5, 10, 15],
+      note: 'Two aircraft on final to runway 27. SWR321 leads at 5 nm. KLM77 trails at 7 nm but 30 kt faster - the gap is closing toward less than 3 nm at the threshold.',
+      scenario: {
+        rangeNm: 18,
+        runways: [
+          { threshold: { x: 3, y: 0 }, heading: 270, lengthNm: 0.6, showFinal: true },
+        ],
+        aircraft: [
+          { id: 'l', callsign: 'SWR321 leader', pos: { x: -2, y: 0 }, heading: 270, altitude: 2500, speed: 160 },
+          { id: 't', callsign: 'KLM77 trailer', pos: { x: -4, y: 0 }, heading: 270, altitude: 3500, speed: 190 },
+        ],
+      },
+    },
+    'radar-vector-deflected': {
+      rings: [5, 10, 15],
+      note: 'Same scenario, but ATC turned the trailer 30° right for ~3 minutes. The longer ground track buys spacing - by the time it turns back onto final, the gap is legal.',
+      scenario: {
+        rangeNm: 18,
+        runways: [
+          { threshold: { x: 3, y: 0 }, heading: 270, lengthNm: 0.6, showFinal: true },
+        ],
+        aircraft: [
+          { id: 'l', callsign: 'SWR321 leader', pos: { x: -2, y: 0 }, heading: 270, altitude: 2500, speed: 160 },
+          { id: 't', callsign: 'KLM77 vectored', pos: { x: -4, y: 0 }, heading: 300, altitude: 3500, speed: 190 },
+        ],
+      },
+    },
+    'radar-wake-pair': {
+      rings: [5, 10],
+      note: 'B777 (Heavy) ahead of A320 (Medium) on final to runway 09. Required wake spacing for Heavy → Medium: 5 nm. Currently 4 nm - SHORT. Slow the trailer or vector for more spacing.',
+      scenario: {
+        rangeNm: 14,
+        runways: [
+          { threshold: { x: -3, y: 0 }, heading: 90, lengthNm: 0.6, showFinal: true },
+        ],
+        aircraft: [
+          { id: 'lead', callsign: 'AAL12 H 777', pos: { x: 1, y: 0 }, heading: 90, altitude: 2200, speed: 150 },
+          { id: 'trail', callsign: 'EZY9 M 320', pos: { x: 5, y: 0 }, heading: 90, altitude: 3000, speed: 165 },
+        ],
+      },
+    },
+    'radar-sequence-fan': {
+      rings: [10, 20],
+      note: 'Three inbounds for runway 27 from different bearings. ETA = distance / ground speed. AFR (8 nm @ 220 kt) lands first; DLH (10 nm @ 200 kt) second; BAW (14 nm @ 230 kt) third.',
+      scenario: {
+        rangeNm: 28,
+        runways: [
+          { threshold: { x: 4, y: 0 }, heading: 270, lengthNm: 0.6, showFinal: true },
+        ],
+        aircraft: [
+          { id: 's1', callsign: 'AFR1 8nm 220', pos: { x: -4, y: -3 }, heading: 80, altitude: 4000, speed: 220 },
+          { id: 's2', callsign: 'DLH9 10nm 200', pos: { x: -6, y: 6 }, heading: 110, altitude: 5000, speed: 200 },
+          { id: 's3', callsign: 'BAW3 14nm 230', pos: { x: -10, y: -8 }, heading: 50, altitude: 7000, speed: 230 },
         ],
       },
     },

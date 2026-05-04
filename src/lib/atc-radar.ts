@@ -16,8 +16,6 @@ export type RadarKind = 'conflict' | 'direct';
 
 interface RadarBaseQuestion {
   kind: RadarKind;
-  /** For AtcResults compatibility - always 'radar'. */
-  mode: 'radar';
   /** Game question to the player (e.g. "Which two will lose separation?"). */
   prompt: string;
   /** Pilot voice on the radio (only direct-request mode). The player is the
@@ -31,6 +29,8 @@ interface RadarBaseQuestion {
 
 export interface ConflictQuestion extends RadarBaseQuestion {
   kind: 'conflict';
+  /** For AtcResults recap pill. */
+  mode: 'conflict';
   /** Aircraft IDs of the true conflict pair. */
   conflictPair: [string, string];
   /** Vertical rates in ft/min, keyed by aircraft id. Positive = climb, negative = descent.
@@ -41,6 +41,8 @@ export interface ConflictQuestion extends RadarBaseQuestion {
 
 export interface DirectQuestion extends RadarBaseQuestion {
   kind: 'direct';
+  /** For AtcResults recap pill. */
+  mode: 'direct';
   /** Three button labels. */
   options: string[];
   /** Index of the correct option in `options`. */
@@ -398,7 +400,7 @@ function buildConflictQuestion(difficulty: Difficulty, rng: Rng): ConflictQuesti
 
   return {
     kind: 'conflict',
-    mode: 'radar',
+    mode: 'conflict',
     prompt: `Tap the two aircraft on a collision course near ${scenario.airportIata}.`,
     answer: `${a.callsign} ↔ ${b.callsign}`,
     explanation,
@@ -481,7 +483,7 @@ function buildDirectQuestion(difficulty: Difficulty, rng: Rng): DirectQuestion {
   const scenario = scenarioFromBase(base, all);
   return {
     kind: 'direct',
-    mode: 'radar',
+    mode: 'direct',
     pilotCall: `${requester.callsign}, request direct destination, heading ${destHeading.toString().padStart(3, '0')}.`,
     prompt: 'Your call?',
     answer: correctAnswer,
@@ -502,4 +504,12 @@ export function buildRadarRound(difficulty: Difficulty, rng: Rng = defaultRng())
     out.push(kind === 'conflict' ? buildConflictQuestion(difficulty, rng) : buildDirectQuestion(difficulty, rng));
   }
   return shuffle(out, rng);
+}
+
+export function buildConflictRound(difficulty: Difficulty, rng: Rng = defaultRng()): ConflictQuestion[] {
+  return Array.from({ length: RADAR_ROUND_LENGTH }, () => buildConflictQuestion(difficulty, rng));
+}
+
+export function buildDirectRound(difficulty: Difficulty, rng: Rng = defaultRng()): DirectQuestion[] {
+  return Array.from({ length: RADAR_ROUND_LENGTH }, () => buildDirectQuestion(difficulty, rng));
 }

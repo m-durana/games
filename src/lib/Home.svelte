@@ -14,6 +14,7 @@
   } from './engine';
   import { loadSpeedBest } from './achievements';
   import { atcModeDescription, atcModeTitle, loadAtcBest, type AtcMode } from './atc';
+  import { clearAllProgress, clearProgress, listProgress, type ProgressEntry } from './progress';
 
   interface Props {
     onStart: (mode: Mode, difficulty: Difficulty) => void;
@@ -29,6 +30,7 @@
     onStartAtc: (mode: AtcMode, difficulty: Difficulty) => void;
     onOpenIntro: (intro: IntroKey, difficulty: Difficulty) => void;
     onOpenHistory: (entry: HistoryEntry) => void;
+    onResumeProgress: (entry: ProgressEntry) => void;
   }
 
   type IntroKey =
@@ -38,7 +40,12 @@
     | 'atcCompose'
     | 'atcCleared'
     | 'atcIntercept'
-    | 'atcRadar';
+    | 'radarConflict'
+    | 'radarDirect'
+    | 'radarVector'
+    | 'radarSequence'
+    | 'radarResolve'
+    | 'radarDepart';
 
   let {
     onStart,
@@ -54,7 +61,24 @@
     onStartAtc,
     onOpenIntro,
     onOpenHistory,
+    onResumeProgress,
   }: Props = $props();
+
+  let inProgress: ProgressEntry[] = $state(listProgress());
+  function refreshInProgress() { inProgress = listProgress(); }
+  function deleteEntry(key: string) {
+    clearProgress(key);
+    refreshInProgress();
+  }
+  function clearAllInProgress() {
+    if (!confirm('Delete all saved progress?')) return;
+    clearAllProgress();
+    refreshInProgress();
+  }
+  function resumeEntry(entry: ProgressEntry) {
+    onResumeProgress(entry);
+  }
+  let inProgressExpanded = $state(false);
 
   function openGuide(e: Event, key: IntroKey) {
     e.stopPropagation();
@@ -64,12 +88,25 @@
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
   // atcMix is now reachable only via the category Mix button; it's no longer
   // listed as its own chip per user request (see categoryMix below).
-  const atcModes: AtcMode[] = ['callsign', 'decode', 'compose', 'radar', 'cleared', 'intercept'];
+  // 'intercept' is temporarily disabled - it's a pilot-side decision and the
+  // top-down radar view is the wrong viewpoint. Keep code intact for a future
+  // cockpit / instruments-only game mode (see docs/potential-intercept-mode.md).
+  // 'callsign' lives under the Airlines category - it's an airline-name quiz
+  // at heart. The Radio category covers what's actually said on the radio.
+  const atcModes: AtcMode[] = ['decode', 'compose', 'cleared'];
+  const callsignBest = $derived(loadAtcBest('callsign', difficulty));
+  // Radar modes - their own category. All run on the top-down scope.
+  const radarModes: AtcMode[] = ['conflict', 'direct', 'vector', 'sequence', 'resolve', 'depart'];
 
-  type CategoryKey = 'airline' | 'airport' | 'aircraft' | 'atc';
+  type CategoryKey = 'airline' | 'airport' | 'aircraft' | 'atc' | 'radar';
   function categoryMix(cat: CategoryKey) {
     if (cat === 'atc') {
       onStartAtc('atcMix', difficulty);
+      return;
+    }
+    if (cat === 'radar') {
+      const m = radarModes[Math.floor(Math.random() * radarModes.length)];
+      onStartAtc(m, difficulty);
       return;
     }
     if (cat === 'airline') {
@@ -101,9 +138,14 @@
     decode: 'message-square-text',
     compose: 'spell-check',
     atcMix: 'shuffle',
-    radar: 'radar',
     cleared: 'navigation',
     intercept: 'plane-landing',
+    conflict: 'radar',
+    direct: 'send',
+    vector: 'split',
+    sequence: 'list-ordered',
+    resolve: 'shield-alert',
+    depart: 'plane-takeoff',
   };
 
   function atcIcon(m: AtcMode): string {
@@ -281,6 +323,14 @@
         {/if}
       </button>
     {/each}
+    <button class="mode-tile" onclick={() => onStartAtc('callsign', difficulty)}>
+      <img class="tile-icon" src={atcIcon('callsign')} alt="" aria-hidden="true" />
+      <span class="tile-title">{atcModeTitle('callsign')}</span>
+      <span class="tile-desc">{atcModeDescription('callsign')}</span>
+      {#if callsignBest > 0}
+        <span class="tile-best">{callsignBest}/10</span>
+      {/if}
+    </button>
   </div>
 </section>
 
@@ -353,8 +403,8 @@
 
 <section class="modes-wrap">
   <div class="modes-head">
-    <span class="modes-label">ATC</span>
-    <button class="mix-btn" type="button" onclick={() => categoryMix('atc')} aria-label="ATC Mix - random question type each round">
+    <span class="modes-label">Radio</span>
+    <button class="mix-btn" type="button" onclick={() => categoryMix('atc')} aria-label="Radio Mix - random question type each round">
       <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
       <span>Mix</span>
     </button>
@@ -362,7 +412,34 @@
   <div class="modes-grid">
     {#each atcModes as mode}
       {@const best = loadAtcBest(mode, difficulty)}
-      {@const introKey = mode === 'decode' ? 'atcDecode' : mode === 'compose' ? 'atcCompose' : mode === 'cleared' ? 'atcCleared' : mode === 'intercept' ? 'atcIntercept' : mode === 'radar' ? 'atcRadar' : null}
+      {@const introKey = mode === 'decode' ? 'atcDecode' : mode === 'compose' ? 'atcCompose' : mode === 'cleared' ? 'atcCleared' : mode === 'intercept' ? 'atcIntercept' : null}
+      <button class="mode-tile" onclick={() => onStartAtc(mode, difficulty)}>
+        {#if introKey}
+          <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>
+        {/if}
+        <img class="tile-icon" src={atcIcon(mode)} alt="" aria-hidden="true" />
+        <span class="tile-title">{atcModeTitle(mode)}</span>
+        <span class="tile-desc">{atcModeDescription(mode)}</span>
+        {#if best > 0}
+          <span class="tile-best">{best}/10</span>
+        {/if}
+      </button>
+    {/each}
+  </div>
+</section>
+
+<section class="modes-wrap">
+  <div class="modes-head">
+    <span class="modes-label">Radar</span>
+    <button class="mix-btn" type="button" onclick={() => categoryMix('radar')} aria-label="Random radar mode">
+      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
+      <span>Mix</span>
+    </button>
+  </div>
+  <div class="modes-grid">
+    {#each radarModes as mode}
+      {@const best = loadAtcBest(mode, difficulty)}
+      {@const introKey = mode === 'conflict' ? 'radarConflict' : mode === 'direct' ? 'radarDirect' : mode === 'vector' ? 'radarVector' : mode === 'sequence' ? 'radarSequence' : mode === 'resolve' ? 'radarResolve' : mode === 'depart' ? 'radarDepart' : null}
       <button class="mode-tile" onclick={() => onStartAtc(mode, difficulty)}>
         {#if introKey}
           <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>
@@ -378,6 +455,39 @@
   </div>
 </section>
 </div>
+
+{#if inProgress.length > 0}
+  {@const visibleEntries = inProgressExpanded ? inProgress : inProgress.slice(0, 3)}
+  <section class="in-progress">
+    <div class="in-progress-head">
+      <span class="in-progress-label">In progress</span>
+      <button class="ip-clear-all" type="button" onclick={clearAllInProgress}>Clear all</button>
+    </div>
+    <ul class="ip-list">
+      {#each visibleEntries as entry (entry.key)}
+        <li class="ip-row">
+          <button class="ip-resume" type="button" onclick={() => resumeEntry(entry)}>
+            <span class="ip-cat">{entry.category}</span>
+            <span class="ip-label">{entry.label}</span>
+            <span class="ip-progress">{entry.currentIndex}/{entry.total}</span>
+          </button>
+          <button
+            class="ip-del"
+            type="button"
+            aria-label="Delete {entry.label}"
+            title="Delete"
+            onclick={() => deleteEntry(entry.key)}
+          >✕</button>
+        </li>
+      {/each}
+    </ul>
+    {#if inProgress.length > 3}
+      <button class="ip-toggle" type="button" onclick={() => (inProgressExpanded = !inProgressExpanded)}>
+        {inProgressExpanded ? 'Show less' : `View more (${inProgress.length - 3})`}
+      </button>
+    {/if}
+  </section>
+{/if}
 
 {#if history.length > 0}
   <section class="recent">
@@ -816,4 +926,102 @@
     min-width: 4ch;
     text-align: right;
   }
+
+  .in-progress {
+    margin: 0.75rem 0 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 0.875rem;
+  }
+  .in-progress-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .in-progress-label {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .ip-clear-all {
+    background: none;
+    border: 0;
+    color: var(--muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+  }
+  .ip-clear-all:hover { color: var(--bad); background: var(--surface-2); }
+  .ip-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .ip-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0.4rem;
+  }
+  .ip-resume {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text);
+    font-size: 0.875rem;
+  }
+  .ip-resume:hover { border-color: var(--accent); }
+  .ip-cat {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .ip-label { font-weight: 500; flex: 1; min-width: 0; }
+  .ip-progress {
+    color: var(--muted);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+  .ip-toggle {
+    margin-top: 0.4rem;
+    background: none;
+    border: 0;
+    color: var(--accent);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    padding: 0.25rem 0.4rem;
+    border-radius: 4px;
+  }
+  .ip-toggle:hover { background: var(--surface-2); }
+  .ip-del {
+    width: 32px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.875rem;
+  }
+  .ip-del:hover { color: var(--bad); border-color: rgba(239, 68, 68, 0.55); }
 </style>

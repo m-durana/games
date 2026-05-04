@@ -20,6 +20,7 @@
     todayKey,
   } from './engine';
   import { recordModePlayed } from './achievements';
+  import { clearProgress, progressKey, recordProgress, sessionKey } from './progress';
   import * as Sound from './sound';
   import Logo from './Logo.svelte';
   import AllianceLogo from './AllianceLogo.svelte';
@@ -38,7 +39,10 @@
 
   // Resume only applies to regular standard rounds, not daily/mixed (those are
   // either deterministic-by-date or randomized one-shot mixes).
-  const SESSION_KEY = 'round:standard:session';
+  // svelte-ignore state_referenced_locally
+  const SESSION_KEY = sessionKey('standard', difficulty, mode);
+  // svelte-ignore state_referenced_locally
+  const PKEY = progressKey('standard', difficulty, mode);
   interface SavedRound {
     v: 1;
     mode: Mode;
@@ -124,9 +128,14 @@
   let advanceTimer: number | null = null;
   let showInfo = $state(false);
 
+  const AIRLINE_MODES = new Set<Mode>(['group','alliance','hub','logo','country','reverseGroup','tail']);
+  // svelte-ignore state_referenced_locally
+  const category = AIRLINE_MODES.has(mode) ? 'Airlines' : 'Airports';
+
   $effect(() => {
     if (typeof localStorage === 'undefined') return;
     if (daily || mixed) return;
+    if (index === 0 && results.length === 0) return;
     const session: SavedRound = {
       v: 1,
       mode,
@@ -141,6 +150,18 @@
       streak,
     };
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    recordProgress({
+      key: PKEY,
+      gameKind: 'standard',
+      label: `${modeTitle(mode)} · ${difficulty}`,
+      category,
+      mode,
+      difficulty,
+      currentIndex: index,
+      total: questions.length,
+      savedAt: 0,
+      sessionStorageKey: SESSION_KEY,
+    });
   });
 
   const current = $derived(questions[index]);
@@ -210,8 +231,8 @@
 
   function advance(finalResults = results) {
     if (index + 1 >= questions.length) {
-      if (typeof localStorage !== 'undefined' && !daily && !mixed) {
-        localStorage.removeItem(SESSION_KEY);
+      if (!daily && !mixed) {
+        clearProgress(PKEY);
       }
       onFinish(finalResults);
       return;

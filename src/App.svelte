@@ -31,15 +31,31 @@
   import AtcRadarRound from './lib/AtcRadarRound.svelte';
   import ClearedDirectRound from './lib/ClearedDirectRound.svelte';
   import InterceptRound from './lib/InterceptRound.svelte';
+  import VectoringRound from './lib/VectoringRound.svelte';
+  import SequencingRound from './lib/SequencingRound.svelte';
+  import ResolveRound from './lib/ResolveRound.svelte';
+  import DepartRound from './lib/DepartRound.svelte';
+  import PfdLab from './lib/PfdLab.svelte';
   import type { Difficulty, HistoryEntry, Mode, RoundResult } from './lib/types';
   import type { AtcMode, AtcRoundResult } from './lib/atc';
   import type { RadarRoundResult } from './lib/atc-radar';
   import type { ClearedRoundResult } from './lib/cleared-direct';
   import type { InterceptRoundResult } from './lib/intercepts';
+  import type { VectorRoundResult } from './lib/vectoring';
+  import type { SequenceRoundResult } from './lib/sequencing';
+  import type { ResolveRoundResult } from './lib/resolve';
+  import type { DepartRoundResult } from './lib/depart';
   import { readSharedFromUrl, type SharedRound } from './lib/share';
   import type { Achievement } from './lib/achievements';
   import { evaluateAchievements } from './lib/achievements';
   import { loadSettings } from './lib/engine';
+  import {
+    clearProgress,
+    getProgress,
+    listProgress,
+    progressKey,
+    type ProgressEntry,
+  } from './lib/progress';
 
   type ReviewTarget = 'tails' | 'logos' | 'aircraft' | 'military' | 'airports' | 'introImages';
   type View =
@@ -67,11 +83,16 @@
     | { kind: 'airportWordle'; difficulty: Difficulty }
     | { kind: 'airportIdentify'; difficulty: Difficulty }
     | { kind: 'atcRound'; mode: AtcMode; difficulty: Difficulty }
-    | { kind: 'atcRadarRound'; difficulty: Difficulty }
+    | { kind: 'atcRadarRound'; radarMode: 'conflict' | 'direct'; difficulty: Difficulty }
     | { kind: 'clearedRound'; difficulty: Difficulty }
     | { kind: 'interceptRound'; difficulty: Difficulty }
-    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] | ClearedRoundResult[] | InterceptRoundResult[] }
-    | { kind: 'intro'; intro: IntroKey; difficulty: Difficulty };
+    | { kind: 'vectorRound'; difficulty: Difficulty }
+    | { kind: 'sequenceRound'; difficulty: Difficulty }
+    | { kind: 'resolveRound'; difficulty: Difficulty }
+    | { kind: 'departRound'; difficulty: Difficulty }
+    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] | ClearedRoundResult[] | InterceptRoundResult[] | VectorRoundResult[] | SequenceRoundResult[] | ResolveRoundResult[] | DepartRoundResult[] }
+    | { kind: 'intro'; intro: IntroKey; difficulty: Difficulty }
+    | { kind: 'pfdLab' };
 
   type IntroKey =
     | 'aircraftIdentify'
@@ -80,7 +101,12 @@
     | 'atcCompose'
     | 'atcCleared'
     | 'atcIntercept'
-    | 'atcRadar';
+    | 'radarConflict'
+    | 'radarDirect'
+    | 'radarVector'
+    | 'radarSequence'
+    | 'radarResolve'
+    | 'radarDepart';
 
   const INTRO_TITLES: Record<IntroKey, string> = {
     aircraftIdentify: 'Aircraft Identify · Field guide',
@@ -89,7 +115,12 @@
     atcCompose: 'Readback Builder · How readbacks work',
     atcCleared: 'Cleared Direct · Bearings & headings',
     atcIntercept: 'Radar Intercepts · Stabilized approach gates',
-    atcRadar: 'ATC Radar · Reading the scope',
+    radarConflict: 'Conflict Spot · Reading the scope',
+    radarDirect: 'Direct Request · Find the blip',
+    radarVector: 'Vectoring · Open the spacing',
+    radarSequence: 'Sequencing · Order them onto the runway',
+    radarResolve: 'Conflict Resolution · Pick the way out',
+    radarDepart: 'Departure Release · Hold or go',
   };
 
   function introSlides(key: IntroKey) {
@@ -104,7 +135,12 @@
       case 'atcCompose': startAtc('compose', d); return;
       case 'atcCleared': startAtc('cleared', d); return;
       case 'atcIntercept': startAtc('intercept', d); return;
-      case 'atcRadar': startAtc('radar', d); return;
+      case 'radarConflict': startAtc('conflict', d); return;
+      case 'radarDirect': startAtc('direct', d); return;
+      case 'radarVector': startAtc('vector', d); return;
+      case 'radarSequence': startAtc('sequence', d); return;
+      case 'radarResolve': startAtc('resolve', d); return;
+      case 'radarDepart': startAtc('depart', d); return;
     }
   }
 
@@ -117,6 +153,34 @@
   let view: View = $state({ kind: 'home' });
   let menuOpen = $state(false);
   let toastQueue: Achievement[] = $state([]);
+  let pendingStart: { entry: ProgressEntry; proceed: () => void } | null = $state(null);
+
+  function maybeStart(key: string, proceed: () => void) {
+    const entry = getProgress(key);
+    if (entry && entry.currentIndex < entry.total) {
+      pendingStart = { entry, proceed };
+    } else {
+      proceed();
+    }
+  }
+
+  function resumePending() {
+    const p = pendingStart;
+    pendingStart = null;
+    if (p) p.proceed();
+  }
+
+  function startOverPending() {
+    const p = pendingStart;
+    pendingStart = null;
+    if (!p) return;
+    clearProgress(p.entry.key);
+    p.proceed();
+  }
+
+  function cancelPending() {
+    pendingStart = null;
+  }
   const REVIEW_AUTH_KEY = 'review-pin-ok';
   const REVIEW_PIN = import.meta.env.VITE_REVIEW_PIN || 'miro-review';
 
@@ -130,9 +194,11 @@
   }
 
   function start(mode: Mode, difficulty: Difficulty) {
-    clearShareParam();
-    menuOpen = false;
-    view = { kind: 'round', mode, difficulty, daily: false };
+    maybeStart(progressKey('standard', difficulty, mode), () => {
+      clearShareParam();
+      menuOpen = false;
+      view = { kind: 'round', mode, difficulty, daily: false };
+    });
   }
 
   function startDaily() {
@@ -160,9 +226,11 @@
   }
 
   function startAircraftIdentify(difficulty: Difficulty) {
-    clearShareParam();
-    menuOpen = false;
-    view = { kind: 'aircraftIdentify', difficulty };
+    maybeStart(progressKey('aircraftIdentify', difficulty), () => {
+      clearShareParam();
+      menuOpen = false;
+      view = { kind: 'aircraftIdentify', difficulty };
+    });
   }
 
   function startMilitaryWordle(difficulty: Difficulty) {
@@ -172,9 +240,11 @@
   }
 
   function startMilitaryIdentify(difficulty: Difficulty) {
-    clearShareParam();
-    menuOpen = false;
-    view = { kind: 'militaryIdentify', difficulty };
+    maybeStart(progressKey('militaryIdentify', difficulty), () => {
+      clearShareParam();
+      menuOpen = false;
+      view = { kind: 'militaryIdentify', difficulty };
+    });
   }
 
   function startAirportWordle(difficulty: Difficulty) {
@@ -184,18 +254,82 @@
   }
 
   function startAirportIdentify(difficulty: Difficulty) {
-    clearShareParam();
-    menuOpen = false;
-    view = { kind: 'airportIdentify', difficulty };
+    maybeStart(progressKey('airportIdentify', difficulty), () => {
+      clearShareParam();
+      menuOpen = false;
+      view = { kind: 'airportIdentify', difficulty };
+    });
+  }
+
+  function atcProgressKey(mode: AtcMode, difficulty: Difficulty): string {
+    if (mode === 'conflict' || mode === 'direct') return progressKey('radar', difficulty, mode);
+    if (mode === 'vector') return progressKey('vector', difficulty);
+    if (mode === 'sequence') return progressKey('sequence', difficulty);
+    if (mode === 'resolve') return progressKey('resolve', difficulty);
+    if (mode === 'depart') return progressKey('depart', difficulty);
+    if (mode === 'cleared') return progressKey('cleared', difficulty);
+    if (mode === 'intercept') return progressKey('intercept', difficulty);
+    return progressKey('atc', difficulty, mode);
   }
 
   function startAtc(mode: AtcMode, difficulty: Difficulty) {
+    maybeStart(atcProgressKey(mode, difficulty), () => {
+      clearShareParam();
+      menuOpen = false;
+      if (mode === 'conflict') view = { kind: 'atcRadarRound', radarMode: 'conflict', difficulty };
+      else if (mode === 'direct') view = { kind: 'atcRadarRound', radarMode: 'direct', difficulty };
+      else if (mode === 'vector') view = { kind: 'vectorRound', difficulty };
+      else if (mode === 'sequence') view = { kind: 'sequenceRound', difficulty };
+      else if (mode === 'resolve') view = { kind: 'resolveRound', difficulty };
+      else if (mode === 'depart') view = { kind: 'departRound', difficulty };
+      else if (mode === 'cleared') view = { kind: 'clearedRound', difficulty };
+      else if (mode === 'intercept') view = { kind: 'interceptRound', difficulty };
+      else view = { kind: 'atcRound', mode, difficulty };
+    });
+  }
+
+  function resumeFromEntry(entry: ProgressEntry) {
     clearShareParam();
     menuOpen = false;
-    if (mode === 'radar') view = { kind: 'atcRadarRound', difficulty };
-    else if (mode === 'cleared') view = { kind: 'clearedRound', difficulty };
-    else if (mode === 'intercept') view = { kind: 'interceptRound', difficulty };
-    else view = { kind: 'atcRound', mode, difficulty };
+    const d = entry.difficulty as Difficulty;
+    switch (entry.gameKind) {
+      case 'standard':
+        view = { kind: 'round', mode: entry.mode as Mode, difficulty: d, daily: false };
+        return;
+      case 'aircraftIdentify':
+        view = { kind: 'aircraftIdentify', difficulty: d };
+        return;
+      case 'militaryIdentify':
+        view = { kind: 'militaryIdentify', difficulty: d };
+        return;
+      case 'airportIdentify':
+        view = { kind: 'airportIdentify', difficulty: d };
+        return;
+      case 'atc':
+        view = { kind: 'atcRound', mode: entry.mode as AtcMode, difficulty: d };
+        return;
+      case 'radar':
+        view = { kind: 'atcRadarRound', radarMode: entry.mode as 'conflict' | 'direct', difficulty: d };
+        return;
+      case 'cleared':
+        view = { kind: 'clearedRound', difficulty: d };
+        return;
+      case 'intercept':
+        view = { kind: 'interceptRound', difficulty: d };
+        return;
+      case 'vector':
+        view = { kind: 'vectorRound', difficulty: d };
+        return;
+      case 'sequence':
+        view = { kind: 'sequenceRound', difficulty: d };
+        return;
+      case 'resolve':
+        view = { kind: 'resolveRound', difficulty: d };
+        return;
+      case 'depart':
+        view = { kind: 'departRound', difficulty: d };
+        return;
+    }
   }
 
   function finishStandard(mode: Mode, difficulty: Difficulty, daily: boolean, mixed: boolean, results: RoundResult[]) {
@@ -206,8 +340,8 @@
     view = { kind: 'atcResults', mode, difficulty, results };
   }
 
-  function finishRadar(difficulty: Difficulty, results: RadarRoundResult[]) {
-    view = { kind: 'atcResults', mode: 'radar', difficulty, results };
+  function finishRadar(mode: 'conflict' | 'direct', difficulty: Difficulty, results: RadarRoundResult[]) {
+    view = { kind: 'atcResults', mode, difficulty, results };
   }
 
   function finishCleared(difficulty: Difficulty, results: ClearedRoundResult[]) {
@@ -216,6 +350,22 @@
 
   function finishIntercept(difficulty: Difficulty, results: InterceptRoundResult[]) {
     view = { kind: 'atcResults', mode: 'intercept', difficulty, results };
+  }
+
+  function finishVector(difficulty: Difficulty, results: VectorRoundResult[]) {
+    view = { kind: 'atcResults', mode: 'vector', difficulty, results };
+  }
+
+  function finishSequence(difficulty: Difficulty, results: SequenceRoundResult[]) {
+    view = { kind: 'atcResults', mode: 'sequence', difficulty, results };
+  }
+
+  function finishResolve(difficulty: Difficulty, results: ResolveRoundResult[]) {
+    view = { kind: 'atcResults', mode: 'resolve', difficulty, results };
+  }
+
+  function finishDepart(difficulty: Difficulty, results: DepartRoundResult[]) {
+    view = { kind: 'atcResults', mode: 'depart', difficulty, results };
   }
 
   function finishSpeed(score: number, isNewBest: boolean) {
@@ -275,7 +425,7 @@
     'airportAirline','airlineDest','airportConn','code','whereAmI','hubOf',
   ];
   const DIFFS: Difficulty[] = ['easy','medium','hard'];
-  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix','radar','cleared','intercept'];
+  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix','cleared','intercept','conflict','direct','vector','sequence','resolve','depart'];
 
   function viewHash(v: View): string | null {
     switch (v.kind) {
@@ -295,9 +445,14 @@
       case 'airportWordle': return `#/airport-wordle?difficulty=${v.difficulty}`;
       case 'airportIdentify': return `#/airport-identify?difficulty=${v.difficulty}`;
       case 'atcRound': return `#/atc/${v.mode}?difficulty=${v.difficulty}`;
-      case 'atcRadarRound': return `#/atc/radar?difficulty=${v.difficulty}`;
+      case 'atcRadarRound': return `#/atc/${v.radarMode}?difficulty=${v.difficulty}`;
       case 'clearedRound': return `#/atc/cleared?difficulty=${v.difficulty}`;
       case 'interceptRound': return `#/atc/intercept?difficulty=${v.difficulty}`;
+      case 'vectorRound': return `#/atc/vector?difficulty=${v.difficulty}`;
+      case 'sequenceRound': return `#/atc/sequence?difficulty=${v.difficulty}`;
+      case 'resolveRound': return `#/atc/resolve?difficulty=${v.difficulty}`;
+      case 'departRound': return `#/atc/depart?difficulty=${v.difficulty}`;
+      case 'pfdLab': return '#/pfd-lab';
       default: return null; // results / shared / review screens don't deep-link
     }
   }
@@ -322,11 +477,21 @@
     if (a === 'stats') return { kind: 'stats' };
     if (a === 'settings') return { kind: 'settings' };
     if (a === 'liveries') return { kind: 'browse' };
+    if (a === 'pfd-lab') return { kind: 'pfdLab' };
     if (a === 'atc' && ATC_MODES.includes(b as AtcMode) && d) {
-      if (b === 'radar') return { kind: 'atcRadarRound', difficulty: d };
+      if (b === 'conflict') return { kind: 'atcRadarRound', radarMode: 'conflict', difficulty: d };
+      if (b === 'direct') return { kind: 'atcRadarRound', radarMode: 'direct', difficulty: d };
+      if (b === 'vector') return { kind: 'vectorRound', difficulty: d };
+      if (b === 'sequence') return { kind: 'sequenceRound', difficulty: d };
+      if (b === 'resolve') return { kind: 'resolveRound', difficulty: d };
+      if (b === 'depart') return { kind: 'departRound', difficulty: d };
       if (b === 'cleared') return { kind: 'clearedRound', difficulty: d };
       if (b === 'intercept') return { kind: 'interceptRound', difficulty: d };
       return { kind: 'atcRound', mode: b as AtcMode, difficulty: d };
+    }
+    // Legacy: redirect old #/atc/radar links to the conflict mode (split).
+    if (a === 'atc' && b === 'radar' && d) {
+      return { kind: 'atcRadarRound', radarMode: 'conflict', difficulty: d };
     }
     if (d) {
       if (a === 'aircraft-wordle') return { kind: 'aircraftWordle', difficulty: d };
@@ -357,6 +522,18 @@
 
   onMount(() => {
     document.documentElement.dataset.theme = loadSettings().darkMode ? 'dark' : 'light';
+    // Sweep stale registry entries from retired modes (e.g. 'wake') so they
+    // don't appear in the in-progress list after deploys that cut the mode.
+    if (typeof localStorage !== 'undefined') {
+      const valid = new Set(['standard','aircraftIdentify','militaryIdentify','airportIdentify','atc','radar','cleared','intercept','vector','sequence','resolve','depart']);
+      for (const e of listProgress()) {
+        if (!valid.has(e.gameKind)) clearProgress(e.key);
+      }
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith('session:wake:')) localStorage.removeItem(k);
+      }
+    }
     const shared = readSharedFromUrl();
     if (shared) view = { kind: 'shared', data: shared };
     if (typeof window !== 'undefined') {
@@ -386,7 +563,11 @@
 <main class="shell">
   <div class="brand">
     <div class="brand-left">
-      <a href="/">← miro.build</a>
+      {#if view.kind === 'home'}
+        <span class="crumb">games</span>
+      {:else}
+        <button class="crumb crumb-btn" type="button" onclick={home} aria-label="Game home" title="Game home">← games</button>
+      {/if}
     </div>
     <div class="brand-center">Flight Deck</div>
     <div class="brand-right">
@@ -402,11 +583,7 @@
           </div>
         {/if}
       {/if}
-      {#if view.kind === 'home'}
-        <span class="crumb">games</span>
-      {:else}
-        <button class="crumb crumb-btn" type="button" onclick={home} aria-label="Game home" title="Game home">← games</button>
-      {/if}
+      <a href="/">miro.build →</a>
     </div>
   </div>
 
@@ -425,6 +602,7 @@
       onStartAtc={startAtc}
       onOpenIntro={openIntro}
       onOpenHistory={(entry) => { menuOpen = false; view = { kind: 'historyDetail', entry }; }}
+      onResumeProgress={resumeFromEntry}
     />
   {:else if view.kind === 'round'}
     {@const v = view}
@@ -503,8 +681,9 @@
   {:else if view.kind === 'atcRadarRound'}
     {@const v = view}
     <AtcRadarRound
+      mode={v.radarMode}
       difficulty={v.difficulty}
-      onFinish={(r) => finishRadar(v.difficulty, r)}
+      onFinish={(r) => finishRadar(v.radarMode, v.difficulty, r)}
       onQuit={home}
     />
   {:else if view.kind === 'clearedRound'}
@@ -521,6 +700,34 @@
       onFinish={(r) => finishIntercept(v.difficulty, r)}
       onQuit={home}
     />
+  {:else if view.kind === 'vectorRound'}
+    {@const v = view}
+    <VectoringRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishVector(v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'sequenceRound'}
+    {@const v = view}
+    <SequencingRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishSequence(v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'resolveRound'}
+    {@const v = view}
+    <ResolveRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishResolve(v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'departRound'}
+    {@const v = view}
+    <DepartRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishDepart(v.difficulty, r)}
+      onQuit={home}
+    />
   {:else if view.kind === 'intro'}
     {@const v = view}
     <Intro
@@ -529,6 +736,8 @@
       onStart={() => startFromIntro(v.intro, v.difficulty)}
       onCancel={home}
     />
+  {:else if view.kind === 'pfdLab'}
+    <PfdLab onHome={home} />
   {:else if view.kind === 'atcResults'}
     {@const v = view}
     <AtcResults
@@ -540,6 +749,24 @@
     />
   {:else}
     <Browse onHome={home} />
+  {/if}
+
+  {#if pendingStart}
+    {@const p = pendingStart}
+    <div class="modal-backdrop" role="dialog" aria-modal="true" onclick={cancelPending}>
+      <div class="modal" onclick={(e) => e.stopPropagation()}>
+        <h3>Resume in progress?</h3>
+        <p class="modal-body">
+          You have an unfinished <strong>{p.entry.label}</strong> round
+          ({p.entry.currentIndex} of {p.entry.total}).
+        </p>
+        <div class="modal-actions">
+          <button class="btn ghost" type="button" onclick={cancelPending}>Cancel</button>
+          <button class="btn ghost" type="button" onclick={startOverPending}>Start over</button>
+          <button class="btn primary" type="button" onclick={resumePending}>Continue</button>
+        </div>
+      </div>
+    </div>
   {/if}
 </main>
 
@@ -622,4 +849,64 @@
     transition: background 0.12s;
   }
   .menu button:hover { background: var(--surface-2); color: var(--accent); }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+  }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.25rem 1rem;
+    max-width: 26rem;
+    width: 100%;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .modal h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .modal-body {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+  }
+  .modal-actions .btn {
+    padding: 0.5rem 0.875rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .btn.ghost {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .btn.ghost:hover { border-color: var(--panel-line); }
+  .btn.primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
 </style>

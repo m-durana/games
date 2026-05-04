@@ -17,9 +17,8 @@
   import AirportReveal from './AirportReveal.svelte';
   import * as Sound from './sound';
   import { loadPool, saveHistoryEntry } from './engine';
+  import { clearProgress, progressKey, recordProgress, sessionKey } from './progress';
   import type { AirportIdentifyResult } from './types';
-
-  const SESSION_KEY = 'identify:airport:session';
   interface SavedSession {
     v: 1;
     difficulty: AirportDifficulty;
@@ -54,6 +53,11 @@
   }
 
   let { difficulty, onHome }: Props = $props();
+
+  // svelte-ignore state_referenced_locally
+  const SESSION_KEY = sessionKey('airportIdentify', difficulty);
+  // svelte-ignore state_referenced_locally
+  const PKEY = progressKey('airportIdentify', difficulty);
 
   const pool = $derived(airportsForDifficulty(difficulty));
 
@@ -115,9 +119,10 @@
   $effect(() => {
     if (typeof localStorage === 'undefined') return;
     if (done) {
-      localStorage.removeItem(SESSION_KEY);
+      clearProgress(PKEY);
       return;
     }
+    if (index === 0 && recorded.length === 0 && stage === 0 && !revealed && wrongPicks.length === 0) return;
     const session: SavedSession = {
       v: 1,
       difficulty,
@@ -134,6 +139,17 @@
       recorded,
     };
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    recordProgress({
+      key: PKEY,
+      gameKind: 'airportIdentify',
+      label: `Airport Identify · ${difficulty}`,
+      category: 'Airports',
+      difficulty,
+      currentIndex: index,
+      total: answers.length,
+      savedAt: 0,
+      sessionStorageKey: SESSION_KEY,
+    });
   });
   let showGallery = $state(false);
 

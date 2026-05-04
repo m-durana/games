@@ -10,6 +10,7 @@
   } from './cleared-direct';
   import { RadarScope, AircraftBlip, Waypoint as WaypointMarker, WindTag } from 'radarscope/svelte';
   import { difficultyLabel } from './engine';
+  import { clearProgress, progressKey, recordProgress, sessionKey } from './progress';
   import * as Sound from './sound';
 
   interface Props {
@@ -21,11 +22,60 @@
   let { difficulty, onFinish, onQuit }: Props = $props();
 
   // svelte-ignore state_referenced_locally
-  let questions: ClearedQuestion[] = $state(buildClearedRound(difficulty));
-  let index = $state(0);
+  const SESSION_KEY = sessionKey('cleared', difficulty);
+  // svelte-ignore state_referenced_locally
+  const PKEY = progressKey('cleared', difficulty);
+
+  interface SavedSession {
+    v: 1;
+    difficulty: Difficulty;
+    questions: ClearedQuestion[];
+    index: number;
+    results: ClearedRoundResult[];
+  }
+  function loadSession(): SavedSession | null {
+    if (typeof localStorage === 'undefined') return null;
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return null;
+      const s = JSON.parse(raw) as SavedSession;
+      if (s.v !== 1 || s.difficulty !== difficulty) return null;
+      if (!Array.isArray(s.questions) || s.questions.length === 0) return null;
+      if (s.index >= s.questions.length) return null;
+      return s;
+    } catch { return null; }
+  }
+  // svelte-ignore state_referenced_locally
+  const initial = (() => {
+    const saved = loadSession();
+    if (saved) return { questions: saved.questions, index: saved.index, results: saved.results };
+    // svelte-ignore state_referenced_locally
+    return { questions: buildClearedRound(difficulty), index: 0, results: [] as ClearedRoundResult[] };
+  })();
+
+  let questions: ClearedQuestion[] = $state(initial.questions);
+  let index = $state(initial.index);
   let pickedIndex: number | null = $state(null);
   let committed = $state(false);
-  let results: ClearedRoundResult[] = $state([]);
+  let results: ClearedRoundResult[] = $state(initial.results);
+
+  $effect(() => {
+    if (typeof localStorage === 'undefined') return;
+    if (index === 0 && results.length === 0) return;
+    const session: SavedSession = { v: 1, difficulty, questions, index, results };
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    recordProgress({
+      key: PKEY,
+      gameKind: 'cleared',
+      label: `Cleared Direct · ${difficulty}`,
+      category: 'ATC',
+      difficulty,
+      currentIndex: index,
+      total: questions.length,
+      savedAt: 0,
+      sessionStorageKey: SESSION_KEY,
+    });
+  });
   let showInfo = $state(false);
   let advanceTimer: number | null = null;
 
@@ -47,9 +97,8 @@
     const pickedHuman = `Heading ${fmt(current.options[i])}`;
     const nextResults = [...results, { question: current, picked: pickedHuman, correct }];
     results = nextResults;
-    if (correct) {
-      advanceTimer = window.setTimeout(() => advance(nextResults), 1200);
-    }
+    // Thinking mode - wait for explicit Next so the player can study the
+    // bearing geometry, even when correct.
   }
 
   function next() {
@@ -58,7 +107,7 @@
   }
 
   function advance(finalResults = results) {
-    if (index + 1 >= questions.length) { onFinish(finalResults); return; }
+    if (index + 1 >= questions.length) { clearProgress(PKEY); onFinish(finalResults); return; }
     index += 1;
     pickedIndex = null;
     committed = false;
@@ -73,7 +122,7 @@
   onMount(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') { onQuit(); return; }
-      if (committed && !lastResult?.correct && (e.key === 'Enter' || e.key === ' ')) {
+      if (committed && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
         next();
         return;
@@ -191,16 +240,14 @@
             {/if}
             <div class="fb-row"><span class="fb-label">Correct</span><span class="fb-val">{current.answer}</span></div>
             <p class="explain">{current.explanation}</p>
-            {#if !lastResult?.correct}
-              <button class="next" onclick={next}>Next →</button>
-            {/if}
+            <button class="next" onclick={next}>Next →</button>
           </div>
         {/if}
       </div>
     </div>
   {/key}
   <div class="kb-legend" aria-hidden="true">
-    {#if committed && !lastResult?.correct}
+    {#if committed}
       <span><kbd>Enter</kbd> next</span>
     {:else}
       <span><kbd>1</kbd>-<kbd>{current?.options.length ?? 4}</kbd> pick heading</span>

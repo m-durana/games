@@ -14,6 +14,7 @@
     type AtcRoundResult,
   } from './atc';
   import { difficultyLabel, loadPool, loadSettings } from './engine';
+  import { clearProgress, progressKey, recordProgress, sessionKey } from './progress';
   import * as Sound from './sound';
 
   interface Props {
@@ -25,7 +26,10 @@
 
   let { mode, difficulty, onFinish, onQuit }: Props = $props();
 
-  const SESSION_KEY = 'atc:session';
+  // svelte-ignore state_referenced_locally
+  const SESSION_KEY = sessionKey('atc', difficulty, mode);
+  // svelte-ignore state_referenced_locally
+  const PKEY = progressKey('atc', difficulty, mode);
   interface SavedSession {
     v: 1;
     mode: AtcMode;
@@ -93,8 +97,12 @@
   // Compose-mode state: which token-bank indices have been placed (in order).
   let placedIdx: number[] = $state(initial.placedIdx);
 
+  // svelte-ignore state_referenced_locally
+  const category = mode === 'callsign' ? 'Airlines' : 'ATC';
+
   $effect(() => {
     if (typeof localStorage === 'undefined') return;
+    if (index === 0 && results.length === 0 && (picked === null) && placedIdx.length === 0) return;
     const session: SavedSession = {
       v: 1,
       mode,
@@ -107,6 +115,18 @@
       placedIdx,
     };
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    recordProgress({
+      key: PKEY,
+      gameKind: 'atc',
+      label: `${atcModeTitle(mode)} · ${difficulty}`,
+      category,
+      mode,
+      difficulty,
+      currentIndex: index,
+      total: questions.length,
+      savedAt: 0,
+      sessionStorageKey: SESSION_KEY,
+    });
   });
 
   const current = $derived(questions[index]);
@@ -127,7 +147,12 @@
     }
     const nextResults = [...results, { question: current, picked: option, correct }];
     results = nextResults;
-    advanceTimer = window.setTimeout(() => advance(nextResults), 1400);
+    // Callsign is pure recall - auto-advance keeps the pace snappy. Decode is
+    // a thinking mode where the player wants to read the explanation, so we
+    // wait for an explicit Next / Enter / Space.
+    if (current.mode === 'callsign') {
+      advanceTimer = window.setTimeout(() => advance(nextResults), 1400);
+    }
   }
 
   function placeToken(i: number) {
@@ -167,14 +192,11 @@
     }
     const nextResults = [...results, { question: current, picked: assembled, correct }];
     results = nextResults;
-    if (correct) {
-      advanceTimer = window.setTimeout(() => advance(nextResults), 1200);
-    }
   }
 
   function advance(finalResults = results) {
     if (index + 1 >= questions.length) {
-      if (typeof localStorage !== 'undefined') localStorage.removeItem(SESSION_KEY);
+      clearProgress(PKEY);
       onFinish(finalResults);
       return;
     }
@@ -202,7 +224,15 @@
         onQuit();
         return;
       }
-      if (picked !== null) return;
+      // After answering on a thinking mode (decode/compose), Enter/Space
+      // advances. Callsign auto-advances so this branch is harmless there too.
+      if (picked !== null) {
+        if ((e.key === 'Enter' || e.key === ' ') && current.mode !== 'callsign') {
+          e.preventDefault();
+          advance();
+        }
+        return;
+      }
       // Chip-builder modes are touch/click only - no number-key shortcuts.
       if (current.mode === 'compose') return;
       const n = parseInt(e.key, 10);
@@ -336,9 +366,7 @@
               </div>
             {/if}
             <p class="compose-explain">{current.explanation}</p>
-            {#if isWrong}
-              <button class="compose-next" onclick={() => advance()}>Next →</button>
-            {/if}
+            <button class="compose-next" onclick={() => advance()}>Next →</button>
           </div>
         {/if}
       {:else}
@@ -363,6 +391,9 @@
             </button>
           {/each}
         </div>
+        {#if picked !== null && current.mode !== 'callsign'}
+          <button class="compose-next" onclick={() => advance()}>Next →</button>
+        {/if}
       {/if}
     </div>
   {/key}

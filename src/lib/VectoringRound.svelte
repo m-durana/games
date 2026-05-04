@@ -3,40 +3,35 @@
   import { onDestroy, onMount } from 'svelte';
   import type { Difficulty } from './types';
   import {
-    RADAR_ROUND_LENGTH,
-    buildConflictRound,
-    buildDirectRound,
-    type RadarQuestion,
-    type RadarRoundResult,
-  } from './atc-radar';
-  import type { Aircraft } from 'radarscope';
-  import { RadarScope, AircraftBlip, WindTag } from 'radarscope/svelte';
+    VECTOR_ROUND_LENGTH,
+    buildVectorRound,
+    type VectorQuestion,
+    type VectorRoundResult,
+  } from './vectoring';
+  import { RadarScope, AircraftBlip } from 'radarscope/svelte';
   import { difficultyLabel } from './engine';
   import { clearProgress, progressKey, recordProgress, sessionKey } from './progress';
   import * as Sound from './sound';
 
   interface Props {
     difficulty: Difficulty;
-    /** Which radar mode this round runs. */
-    mode: 'conflict' | 'direct';
-    onFinish: (results: RadarRoundResult[]) => void;
+    onFinish: (results: VectorRoundResult[]) => void;
     onQuit: () => void;
   }
 
-  let { difficulty, mode, onFinish, onQuit }: Props = $props();
+  let { difficulty, onFinish, onQuit }: Props = $props();
 
   // svelte-ignore state_referenced_locally
-  const SESSION_KEY = sessionKey('radar', difficulty, mode);
+  const SESSION_KEY = sessionKey('vector', difficulty);
   // svelte-ignore state_referenced_locally
-  const PKEY = progressKey('radar', difficulty, mode);
+  const PKEY = progressKey('vector', difficulty);
 
   interface SavedSession {
     v: 1;
     difficulty: Difficulty;
-    mode: 'conflict' | 'direct';
-    questions: RadarQuestion[];
+    questions: VectorQuestion[];
     index: number;
-    results: RadarRoundResult[];
+    results: VectorRoundResult[];
   }
   function loadSession(): SavedSession | null {
     if (typeof localStorage === 'undefined') return null;
@@ -44,7 +39,7 @@
       const raw = localStorage.getItem(SESSION_KEY);
       if (!raw) return null;
       const s = JSON.parse(raw) as SavedSession;
-      if (s.v !== 1 || s.difficulty !== difficulty || s.mode !== mode) return null;
+      if (s.v !== 1 || s.difficulty !== difficulty) return null;
       if (!Array.isArray(s.questions) || s.questions.length === 0) return null;
       if (s.index >= s.questions.length) return null;
       return s;
@@ -55,33 +50,25 @@
     const saved = loadSession();
     if (saved) return { questions: saved.questions, index: saved.index, results: saved.results };
     // svelte-ignore state_referenced_locally
-    return {
-      // svelte-ignore state_referenced_locally
-      questions: mode === 'conflict' ? buildConflictRound(difficulty) : buildDirectRound(difficulty),
-      index: 0,
-      results: [] as RadarRoundResult[],
-    };
+    return { questions: buildVectorRound(difficulty), index: 0, results: [] as VectorRoundResult[] };
   })();
 
-  let questions: RadarQuestion[] = $state(initial.questions);
-  const modeTitle = $derived(mode === 'conflict' ? 'Conflict Spot' : 'Direct Request');
+  let questions: VectorQuestion[] = $state(initial.questions);
   let index = $state(initial.index);
-  let pickedIds: string[] = $state([]);
-  let pickedOption: string | null = $state(null);
+  let pickedIndex: number | null = $state(null);
   let committed = $state(false);
-  let results: RadarRoundResult[] = $state(initial.results);
+  let results: VectorRoundResult[] = $state(initial.results);
 
   $effect(() => {
     if (typeof localStorage === 'undefined') return;
     if (index === 0 && results.length === 0) return;
-    const session: SavedSession = { v: 1, difficulty, mode, questions, index, results };
+    const session: SavedSession = { v: 1, difficulty, questions, index, results };
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
     recordProgress({
       key: PKEY,
-      gameKind: 'radar',
-      label: `${mode === 'conflict' ? 'Conflict Spot' : 'Direct Request'} · ${difficulty}`,
+      gameKind: 'vector',
+      label: `Vectoring · ${difficulty}`,
       category: 'Radar',
-      mode,
       difficulty,
       currentIndex: index,
       total: questions.length,
@@ -94,52 +81,20 @@
 
   const current = $derived(questions[index]);
   const score = $derived(results.filter((r) => r.correct).length);
+  const lastResult = $derived(results[results.length - 1]);
 
-  const conflictHighlightIds = $derived.by(() => {
-    if (!committed || current.kind !== 'conflict') return new Set<string>();
-    return new Set(current.conflictPair);
-  });
-
-  function clickAircraft(a: Aircraft) {
+  function pickOption(i: number) {
     if (committed) return;
-    if (current.kind !== 'conflict') return; // direct uses buttons
-    // Toggle inclusion; cap at 2; auto-commit on second pick.
-    const i = pickedIds.indexOf(a.id);
-    if (i >= 0) {
-      pickedIds = pickedIds.filter((x) => x !== a.id);
-    } else if (pickedIds.length < 2) {
-      pickedIds = [...pickedIds, a.id];
-      if (pickedIds.length === 2) commitConflict();
-    }
-  }
-
-  function commitConflict() {
-    if (current.kind !== 'conflict' || committed) return;
-    const target = new Set(current.conflictPair);
-    const correct = pickedIds.length === 2 && pickedIds.every((id) => target.has(id));
-    finalize(correct, pickedToCallsignList());
-  }
-
-  function pickOption(opt: string, i: number) {
-    if (committed || current.kind !== 'direct') return;
-    pickedOption = opt;
+    pickedIndex = i;
     const correct = i === current.correctIndex;
-    finalize(correct, opt);
-  }
-
-  function pickedToCallsignList(): string {
-    const map = new Map(current.scenario.aircraft.map((a) => [a.id, a.callsign]));
-    return pickedIds.map((id) => map.get(id) ?? id).join(' → ');
-  }
-
-  function finalize(correct: boolean, pickedHuman: string) {
     committed = true;
     if (correct) { Sound.correct(); Sound.vibrate(15); }
     else { Sound.wrong(); Sound.vibrate(35); }
-    const nextResults = [...results, { question: current, picked: pickedHuman, correct }];
+    const picked = current.options[i].label;
+    const nextResults = [...results, { question: current, picked, correct }];
     results = nextResults;
-    // Thinking mode - wait for explicit Next so the player can study the scope
-    // and read the explanation, even when correct.
+    // Thinking mode - wait for explicit Next so the player can study the
+    // explanation, even when correct.
   }
 
   function next() {
@@ -154,22 +109,14 @@
       return;
     }
     index += 1;
-    pickedIds = [];
-    pickedOption = null;
+    pickedIndex = null;
     committed = false;
   }
-
-  const lastResult = $derived(results[results.length - 1]);
 
   function dotState(i: number): 'todo' | 'now' | 'correct' | 'wrong' {
     if (i < results.length) return results[i].correct ? 'correct' : 'wrong';
     if (i === index) return 'now';
     return 'todo';
-  }
-
-  function selectionLabel(): string {
-    if (current.kind === 'conflict') return `Pick the conflict pair · ${pickedIds.length}/2`;
-    return 'Pick the right call';
   }
 
   onMount(() => {
@@ -181,15 +128,8 @@
         return;
       }
       if (committed) return;
-      if (current.kind === 'direct') {
-        const n = parseInt(e.key, 10);
-        if (n >= 1 && n <= current.options.length) pickOption(current.options[n - 1], n - 1);
-      } else {
-        const n = parseInt(e.key, 10);
-        if (n >= 1 && n <= current.scenario.aircraft.length) {
-          clickAircraft(current.scenario.aircraft[n - 1]);
-        }
-      }
+      const n = parseInt(e.key, 10);
+      if (n >= 1 && n <= current.options.length) pickOption(n - 1);
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
@@ -208,14 +148,14 @@
       <span class="dot dot-{s}"></span>
     {/each}
   </div>
-  <span class="meta">{score}/{RADAR_ROUND_LENGTH}</span>
+  <span class="meta">{score}/{VECTOR_ROUND_LENGTH}</span>
 </header>
 
 <section class="round">
   {#key index}
     <div class="card" in:fly={{ y: 16, duration: 220 }}>
       <div class="card-head">
-        <span class="mode-pill">{modeTitle}</span>
+        <span class="mode-pill">Vectoring</span>
         <span class="diff-pill">{difficultyLabel(difficulty)}</span>
         <button
           class="info-btn"
@@ -227,52 +167,51 @@
 
       {#if showInfo}
         <div class="mode-info">
-          <p><strong>Read the scope.</strong> Tags show callsign / altitude (×100 ft, ↑↓ = climb/descend) / speed (kt) / heading. The line projecting from each blip is the speed vector — where the aircraft will be in N minutes (toggle V in the bottom-left of the scope).</p>
-          {#if mode === 'conflict'}
-            <p><strong>Tap the two blips on a collision course.</strong> Watch for converging headings (any angle, not just head-on) at similar altitudes within ~1000 ft. <strong>↑/↓ next to a blip</strong> means it's climbing or descending — a descender can cross another aircraft's level before they meet.</p>
-          {:else}
-            <p><strong>A pilot asked for a shortcut.</strong> Find the blip whose callsign matches the radio call, then approve only if the new track stays clear of other traffic and the active final.</p>
-          {/if}
-          <p class="tip">Wind tag in the corner sets the runway in use and biases ground speed on final.</p>
+          <p><strong>You're the approach controller.</strong> Two inbounds are on final to the same runway. The trailing aircraft is going faster than the leader, so the gap will close to less than the legal 3 nm at the threshold. Pick a heading change to open the spacing.</p>
+          <p>The trailer is highlighted in yellow on the scope. The other aircraft is the leader. Use the speed-vector toggle (V) at the bottom-left of the scope to project the tracks forward.</p>
+          <p class="tip">Tip: pick the <strong>smallest</strong> deflection that opens enough spacing. Real ATC keeps vectors minimal so pilots aren't out of their way longer than needed.</p>
         </div>
       {/if}
 
       <div class="right-col">
-        {#if current.kind === 'direct' && current.pilotCall}
-          <div class="atc-call pilot-call">
-            <img class="atc-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/plane.svg" alt="" aria-hidden="true" />
-            <div class="atc-bubble">
-              <span class="bubble-tag">Pilot</span>
-              {current.pilotCall}
-            </div>
+        <div class="atc-call">
+          <img class="atc-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/tower-control.svg" alt="" aria-hidden="true" />
+          <div class="atc-bubble">
+            <span class="bubble-tag">ATC</span>
+            {current.atcCall}
           </div>
-        {/if}
-        <div class="game-q">
-          <h2>{current.prompt}</h2>
-          {#if !committed}
-            <span class="sel">{selectionLabel()}</span>
-          {/if}
         </div>
 
-        {#if current.kind === 'direct'}
-          <div class="options" class:disabled={committed}>
-            {#each current.options as opt, i}
-              {@const isCorrect = i === current.correctIndex}
-              {@const wasPicked = pickedOption === opt}
-              <button
-                class="option"
-                class:correct={committed && isCorrect}
-                class:wrong={committed && wasPicked && !isCorrect}
-                class:reveal={committed && !wasPicked && !isCorrect}
-                disabled={committed}
-                onclick={() => pickOption(opt, i)}
-              >
-                <span class="key" aria-hidden="true">{i + 1}</span>
-                <span class="opt-text">{opt}</span>
-              </button>
-            {/each}
+        {#if current.instruments}
+          <div class="instruments">
+            <img class="inst-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/gauge.svg" alt="" aria-hidden="true" />
+            <span>{current.instruments}</span>
           </div>
         {/if}
+
+        <div class="game-q">
+          <h2>{current.prompt}</h2>
+        </div>
+
+        <div class="options" class:disabled={committed}>
+          {#each current.options as opt, i}
+            {@const isCorrect = i === current.correctIndex}
+            {@const wasPicked = pickedIndex === i}
+            {@const hint = current.showAnswerHint && !committed && isCorrect}
+            <button
+              class="option"
+              class:correct={committed && isCorrect}
+              class:wrong={committed && wasPicked && !isCorrect}
+              class:reveal={committed && !wasPicked && !isCorrect}
+              class:hint
+              disabled={committed}
+              onclick={() => pickOption(i)}
+            >
+              <span class="key" aria-hidden="true">{i + 1}</span>
+              <span class="opt-text">{opt.label}</span>
+            </button>
+          {/each}
+        </div>
 
         {#if committed}
           <div class="feedback" class:good={lastResult?.correct} class:bad={!lastResult?.correct}>
@@ -289,36 +228,11 @@
       <div class="scope-wrap">
         <RadarScope scenario={current.scenario} size={1200}>
           {#each current.scenario.aircraft as ac (ac.id)}
-            {@const sel = pickedIds.includes(ac.id)}
-            {@const conf = conflictHighlightIds.has(ac.id)}
             <AircraftBlip
               aircraft={ac}
-              selected={sel}
-              conflict={conf}
-              onclick={current.kind === 'direct' ? undefined : clickAircraft}
+              selected={ac.id === current.scenario.trailerId}
             />
-            {@const vr = current.kind === 'conflict' ? current.verticalRates?.[ac.id] : undefined}
-            {#if vr}
-              <text
-                x={ac.pos.x - 0.6}
-                y={ac.pos.y + 0.2}
-                font-size="0.95"
-                font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
-                fill={vr > 0 ? '#7ddc8a' : '#f5b461'}
-                text-anchor="end"
-                paint-order="stroke"
-                stroke="#0c1116"
-                stroke-width="0.18"
-                pointer-events="none"
-              >{vr > 0 ? '↑' : '↓'}</text>
-            {/if}
           {/each}
-          {#if current.scenario.wind}
-            <WindTag
-              wind={current.scenario.wind}
-              position={{ x: -(current.scenario.rangeNm ?? 30) + 2.5, y: -(current.scenario.rangeNm ?? 30) + 2.5 }}
-            />
-          {/if}
         </RadarScope>
       </div>
     </div>
@@ -326,10 +240,8 @@
   <div class="kb-legend" aria-hidden="true">
     {#if committed}
       <span><kbd>Enter</kbd> next</span>
-    {:else if current?.kind === 'direct'}
-      <span><kbd>1</kbd>-<kbd>3</kbd> pick</span>
     {:else}
-      <span><kbd>1</kbd>-<kbd>{current?.scenario.aircraft.length ?? 4}</kbd> tap aircraft</span>
+      <span><kbd>1</kbd>-<kbd>{current?.options.length ?? 4}</kbd> pick</span>
     {/if}
     <span><kbd>Esc</kbd> quit</span>
   </div>
@@ -432,8 +344,6 @@
   .mode-info p { margin: 0; }
   .mode-info strong { color: var(--text); font-weight: 600; }
   .mode-info .tip { font-size: 0.75rem; opacity: 0.85; }
-  .game-q h2 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; margin: 0; }
-  .sel { color: var(--muted); font-size: 0.8125rem; display: block; margin-top: 0.25rem; }
   .atc-call { display: flex; align-items: flex-start; gap: 0.6rem; }
   .atc-icon {
     width: 32px; height: 32px;
@@ -468,6 +378,37 @@
     border-width: 6px 9px 6px 0;
     border-color: transparent #18242f transparent transparent;
   }
+  .bubble-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    background: rgba(96, 150, 186, 0.15);
+    padding: 0.05rem 0.35rem;
+    border-radius: 3px;
+    margin-right: 0.4rem;
+    vertical-align: 1px;
+  }
+  .instruments {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.55rem 0.7rem;
+    background: var(--surface-2);
+    border-left: 3px solid var(--info);
+    border-radius: 4px;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .inst-icon {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
+  }
+  .game-q h2 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; margin: 0; }
   .scope-wrap {
     display: flex; justify-content: center;
     background: #0c1116;
@@ -481,7 +422,7 @@
     height: auto;
     max-width: 100%;
   }
-  .options { display: grid; grid-template-columns: 1fr; gap: 0.4rem; }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
   .options.disabled { pointer-events: none; }
   .option {
     background: var(--surface-2);
@@ -503,6 +444,10 @@
     display: inline-flex; align-items: center; justify-content: center;
     font-size: 0.75rem; color: var(--muted);
     flex-shrink: 0;
+  }
+  .option.hint {
+    border-color: var(--good);
+    box-shadow: 0 0 0 1px var(--good);
   }
   .option.correct { background: rgba(34, 197, 94, 0.18); border-color: var(--good); }
   .option.wrong { background: rgba(239, 68, 68, 0.18); border-color: var(--bad); }

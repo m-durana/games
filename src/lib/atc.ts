@@ -2,8 +2,20 @@ import atcData from '../data/atc.json';
 import type { Difficulty } from './types';
 import { airlineMeta, pooledAirlines } from './engine';
 
-export type AtcMode = 'callsign' | 'decode' | 'compose' | 'atcMix' | 'radar' | 'cleared' | 'intercept';
-type AtcQuestionMode = Exclude<AtcMode, 'atcMix' | 'radar' | 'cleared' | 'intercept'>;
+export type AtcMode =
+  | 'callsign'
+  | 'decode'
+  | 'compose'
+  | 'atcMix'
+  | 'cleared'
+  | 'intercept'
+  | 'conflict'
+  | 'direct'
+  | 'vector'
+  | 'sequence'
+  | 'resolve'
+  | 'depart';
+type AtcQuestionMode = Exclude<AtcMode, 'atcMix' | 'cleared' | 'intercept' | 'conflict' | 'direct' | 'vector' | 'sequence' | 'resolve' | 'depart'>;
 type AtcTier = Difficulty;
 
 export interface AtcQuestion {
@@ -258,7 +270,7 @@ export function buildAtcRound(mode: AtcMode, difficulty: Difficulty, rng: Rng = 
   // 'radar', 'cleared', and 'intercept' have their own builders in
   // atc-radar.ts / cleared-direct.ts / intercepts.ts and never reach this
   // function - App.svelte dispatches to their dedicated round components.
-  if (mode === 'radar' || mode === 'cleared' || mode === 'intercept') return [];
+  if (mode === 'conflict' || mode === 'direct' || mode === 'vector' || mode === 'sequence' || mode === 'resolve' || mode === 'depart' || mode === 'cleared' || mode === 'intercept') return [];
   const modes: AtcQuestionMode[] = mode === 'atcMix'
     ? ['callsign', 'decode', 'compose']
     : [mode];
@@ -283,9 +295,14 @@ export function atcModeTitle(mode: AtcMode | AtcQuestionMode): string {
     case 'decode': return 'Decode ATC';
     case 'compose': return 'Readback Builder';
     case 'atcMix': return 'ATC Mix';
-    case 'radar': return 'ATC Radar';
     case 'cleared': return 'Cleared Direct';
     case 'intercept': return 'Radar Intercepts';
+    case 'conflict': return 'Conflict Spot';
+    case 'direct': return 'Direct Request';
+    case 'vector': return 'Vectoring';
+    case 'sequence': return 'Sequencing';
+    case 'resolve': return 'Conflict Resolution';
+    case 'depart': return 'Departure Release';
   }
 }
 
@@ -295,9 +312,14 @@ export function atcModeDescription(mode: AtcMode | AtcQuestionMode): string {
     case 'decode': return 'Pick the correct interpretation of an ATC phrase or instruction.';
     case 'compose': return 'Tap chips in order to build the correct readback. Some are decoys.';
     case 'atcMix': return 'Mixed callsign, decode, and readback-builder questions.';
-    case 'radar': return 'Read the scope. Spot conflicts, sequence to final, approve direct requests.';
     case 'cleared': return 'ATC clears you direct to a fix on the map. Pick the heading.';
     case 'intercept': return 'Judgment calls on ILS approaches: high, fast, crosswind, tailwind.';
+    case 'conflict': return 'Read the scope. Tap the two aircraft on a collision course.';
+    case 'direct': return 'A pilot calls in. Find the right blip and approve or deny.';
+    case 'vector': return 'Pick a heading change to open spacing between two inbounds.';
+    case 'sequence': return 'Tap inbounds in landing order. Read the scope.';
+    case 'resolve': return 'STCA fires. Pick the resolution that opens spacing without creating a new conflict.';
+    case 'depart': return 'Holding-short queue and inbounds on final. Pick who departs - or hold all.';
   }
 }
 
@@ -314,6 +336,16 @@ export function atcBestKey(mode: AtcMode, difficulty: Difficulty): string {
 }
 
 export function loadAtcBest(mode: AtcMode, difficulty: Difficulty): number {
+  // One-time migration: the old combined 'radar' mode was split into
+  // 'conflict' and 'direct'. Mirror the old score onto both new keys so
+  // players don't lose their best when the split lands.
+  if ((mode === 'conflict' || mode === 'direct') && typeof localStorage !== 'undefined') {
+    const newKey = atcBestKey(mode, difficulty);
+    if (localStorage.getItem(newKey) === null) {
+      const legacy = localStorage.getItem(`best:atc:radar:${difficulty}`);
+      if (legacy !== null) localStorage.setItem(newKey, legacy);
+    }
+  }
   return Number(localStorage.getItem(atcBestKey(mode, difficulty)) ?? 0);
 }
 

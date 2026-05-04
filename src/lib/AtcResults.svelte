@@ -11,8 +11,12 @@
   import type { RadarRoundResult } from './atc-radar';
   import type { ClearedRoundResult } from './cleared-direct';
   import type { InterceptRoundResult } from './intercepts';
+  import type { VectorRoundResult } from './vectoring';
+  import type { SequenceRoundResult } from './sequencing';
+  import type { ResolveRoundResult } from './resolve';
+  import type { DepartRoundResult } from './depart';
 
-  type RecapResult = AtcRoundResult | RadarRoundResult | ClearedRoundResult | InterceptRoundResult;
+  type RecapResult = AtcRoundResult | RadarRoundResult | ClearedRoundResult | InterceptRoundResult | VectorRoundResult | SequenceRoundResult | ResolveRoundResult | DepartRoundResult;
   import { difficultyLabel } from './engine';
   import * as Sound from './sound';
 

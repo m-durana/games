@@ -10,7 +10,12 @@ export type IntroKey =
   | 'atcCompose'
   | 'atcCleared'
   | 'atcIntercept'
-  | 'atcRadar';
+  | 'radarConflict'
+  | 'radarDirect'
+  | 'radarVector'
+  | 'radarSequence'
+  | 'radarResolve'
+  | 'radarDepart';
 
 const A320 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Avi%C3%B3n_de_PeninsulyFly.jpg/1280px-Avi%C3%B3n_de_PeninsulyFly.jpg';
 const A330 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg/1280px-Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg';
@@ -259,10 +264,10 @@ const atcCleared: IntroSlide[] = [
     sceneCaption: 'North = 360 (up), east = 090 (right), south = 180 (down), west = 270 (left).',
   },
   {
-    title: 'Wind correction (harder rounds)',
-    body: 'On harder rounds, you also need to account for <strong>wind</strong>. A plane flying north into a wind blowing from the right gets pushed left, so the pilot has to point slightly RIGHT of north to actually track straight north. This is called <em>crabbing</em> into the wind.<br><br>If the map shows a wind arrow:<br>• Wind from the LEFT → heading is slightly LEFT of the bearing.<br>• Wind from the RIGHT → heading is slightly RIGHT of the bearing.<br><br>On easy rounds you can ignore this. On harder rounds, expect the correct answer to be a few degrees off the obvious bearing.',
+    title: 'Wind correction: crabbing',
+    body: 'On <strong>medium and hard rounds</strong> the air is moving, so flying the obvious heading no longer works - the wind pushes you off course. The fix is to point the nose slightly INTO the wind so your <em>track over the ground</em> still hits the fix. This is called <em>crabbing</em>.<br><br><strong>The rule:</strong> point the nose toward the side the wind is coming from.<br>• Wind from your LEFT → heading a few degrees LEFT of the bearing.<br>• Wind from your RIGHT → heading a few degrees RIGHT of the bearing.<br><br><strong>Worked example.</strong> The fix bears 030° from you. Wind is 298/31 (from the northwest, ~31 kt) - that\'s a left quartering headwind. To hold a 030° track you point ~10° left, giving heading <strong>020°</strong>. Pick the heading that\'s offset toward the wind, not the one that matches the bearing.<br><br>On easy rounds the wind is calm and you can ignore this entirely.',
     scene: 'cleared-wind',
-    sceneCaption: 'The little wind tag shows wind from 270° (west) at 30 kt. Crab a few degrees to the LEFT of due north.',
+    sceneCaption: 'The wind tag (top-left of the scope) shows where the wind is FROM. Crab a few degrees TOWARD it.',
   },
 ];
 
@@ -297,28 +302,129 @@ const atcIntercept: IntroSlide[] = [
   },
 ];
 
-const atcRadar: IntroSlide[] = [
+// Shared intro slide #1 used by every Radar mode - the "what is a scope" basics.
+const radarBasicsScope: IntroSlide = {
+  title: 'What is a radar scope?',
+  body: 'A <strong>radar scope</strong> is the round screen ATC controllers stare at all day. It shows every aircraft in their airspace as a small <em>blip</em> with a label (the callsign + altitude + speed). Distance is shown by concentric range rings, north is up, and the controller has to keep all those blips safely separated from each other.',
+  scene: 'cleared-clock',
+  sceneCaption: 'A typical scope. North = up. Range rings show distance from the centre (10, 20 nm).',
+};
+const radarBasicsBlip: IntroSlide = {
+  title: 'Reading a blip',
+  body: 'Each aircraft has a small label next to it (the "data block") that shows callsign, altitude in hundreds of feet, and speed in knots. The line projecting from each blip is the <strong>speed vector</strong> - it shows where the aircraft will be in N minutes at current speed. You can toggle the vector length (off / 1 / 2 / 3 min) with the <strong>V</strong> button at the bottom-left of the scope.',
+  scene: 'radar-traffic',
+  sceneCaption: 'Two aircraft. Each has a callsign tag and a speed vector showing predicted position.',
+};
+
+const radarConflict: IntroSlide[] = [
+  radarBasicsScope,
+  radarBasicsBlip,
   {
-    title: 'What is a radar scope?',
-    body: 'A <strong>radar scope</strong> is the round screen ATC controllers stare at all day. It shows every aircraft in their airspace as a small <em>blip</em> with a label (the callsign + altitude + speed). Distance is shown by concentric range rings, north is up, and the controller has to keep all those blips safely separated from each other.',
-    scene: 'cleared-clock',
-    sceneCaption: 'A typical scope. North = up. Range rings show distance from the centre (10, 20 nm).',
-  },
-  {
-    title: 'Reading a blip',
-    body: 'Each aircraft has a small label next to it (the "data block") that shows callsign, altitude in hundreds of feet, and speed in knots. The little line sticking out from the blip is the <strong>heading vector</strong> - it points the way the plane is going and shows roughly where it will be in a minute.',
+    title: 'Crossing tracks at the same level',
+    body: 'A <strong>conflict</strong> is when two aircraft will lose separation: less than <strong>5 nm horizontally</strong> AND less than <strong>1,000 ft vertically</strong> at the same instant. Look for blips at similar altitudes whose speed vectors cross.',
     scene: 'radar-traffic',
-    sceneCaption: 'Two aircraft. Each has a callsign tag and a heading line showing its direction.',
+    sceneCaption: 'AAL123 and DAL456 - both at FL110, vectors crossing in the centre. That\'s the pair.',
   },
   {
-    title: 'Spotting conflicts',
-    body: 'A <strong>conflict</strong> is when two aircraft are getting too close to each other. Standard separation: at least <strong>5 nm horizontally</strong> OR <strong>1,000 ft vertically</strong>. Look for two blips at the same altitude on converging heading vectors. If their lines will cross within the rings, you have a problem.',
-    scene: 'radar-traffic',
-    sceneCaption: 'Both aircraft at FL110, converging on the centre. As ATC you must turn one away or change altitude before they meet.',
+    title: 'Read altitudes before you commit',
+    body: 'Most blips on the scope are NOT in conflict, even when their tracks look threatening. The data tag\'s third number is the altitude in hundreds of feet. Two aircraft at FL230 and FL060 may have crossing vectors but they\'ll pass with 17,000 ft to spare.',
+    scene: 'radar-conflict-altitudes',
+    sceneCaption: 'AAL123 ↔ DAL456 are the conflict (both 110). The other three are safe - read the altitudes.',
   },
   {
-    title: 'What you do',
-    body: 'In ATC Radar rounds you make three kinds of calls:<br><br>• <strong>Sequence</strong>: order arrivals onto final approach by spacing them on the runway centerline.<br>• <strong>Direct</strong>: approve or deny "request direct" pleas from a pilot trying to skip waypoints.<br>• <strong>Conflict</strong>: spot the two aircraft that will get too close, and pick which one to turn or descend.<br><br>The game gives you the scope and a question. Take your time, north is up, the rings tell you distance.',
+    title: 'Your job',
+    body: 'Tap the <strong>two aircraft</strong> on a collision course. The wrong pair scores zero, so check every aircraft on the scope - the data tag tells you the altitude, the vector tells you the track. Use the <strong>V</strong> button at the bottom-left to extend the speed vectors and see where the tracks meet.',
+  },
+];
+
+const radarDirect: IntroSlide[] = [
+  radarBasicsScope,
+  radarBasicsBlip,
+  {
+    title: 'When the shortcut is clear',
+    body: 'Pilots ask ATC to skip a waypoint and fly straight to a later fix to save time and fuel. The radio call sounds like: <em>"BAW42, request direct KELOR."</em> If the proposed track is clear of conflicting traffic, ATC approves.',
+    scene: 'radar-direct-clear',
+    sceneCaption: 'BAW42 wants direct KELOR (highlighted). Only one other aircraft - DLH9 at FL350 - and it\'s 11,000 ft above. APPROVE.',
+  },
+  {
+    title: 'When the shortcut would conflict',
+    body: 'If the shortcut would put the requester on a converging track with another aircraft at the same level, ATC denies (or approves after the conflict clears). The whole point is to spot the blocker before saying yes.',
+    scene: 'radar-direct-blocked',
+    sceneCaption: 'Same request, but IBE7 is at the same FL on a head-on heading along the proposed track. DENY.',
+  },
+  {
+    title: 'Your job',
+    body: 'A pilot calls in - their callsign and the destination fix appear in the radio bubble. Find that callsign on the scope, mentally extend a line to the destination, then check whether any other blip would cross that line at the same altitude. <strong>Approve</strong>, <strong>Approve after [blocker]</strong>, or <strong>Deny</strong>.',
+  },
+];
+
+const radarVector: IntroSlide[] = [
+  radarBasicsScope,
+  radarBasicsBlip,
+  {
+    title: 'The problem: trailer is faster than leader',
+    body: 'Two aircraft inbound to the same runway must stay at least <strong>3 nm apart</strong> (radar separation, more for wake). When the trailer is going faster than the leader, the gap closes. Without action, they\'ll be too close at the threshold.',
+    scene: 'radar-vector-final',
+    sceneCaption: 'SWR321 leads at 5 nm and 160 kt. KLM77 trails at 7 nm but 190 kt - 30 kt closing rate. By the threshold the gap is < 3 nm.',
+  },
+  {
+    title: 'The fix: turn the trailer off centerline',
+    body: 'ATC turns the trailer 20-30° off the final approach course for a few minutes. The longer ground track buys spacing without changing speed. When the gap is right, turn it back onto final.',
+    scene: 'radar-vector-deflected',
+    sceneCaption: 'Same scenario after a 30° right turn. Extra path length = extra spacing.',
+  },
+  {
+    title: 'Your job',
+    body: 'You\'ll see the leader and trailer (trailer highlighted yellow). Pick the smallest deflection that opens enough spacing: <strong>No change</strong>, <strong>Left/Right 10°</strong>, <strong>20°</strong>, or <strong>30°</strong>. On Hard a third aircraft blocks one side - you have to use the other.',
+  },
+];
+
+const radarSequence: IntroSlide[] = [
+  radarBasicsScope,
+  radarBasicsBlip,
+  {
+    title: 'Multiple inbounds, one runway',
+    body: 'In an arrival push, several aircraft converge on the same runway from different directions. The approach controller decides the landing order. The rule is: <strong>whoever crosses the threshold first lands first</strong>. You read that off the scope - bearings, speeds, and the speed vectors that project where each blip will be in the next minute or two.',
+    scene: 'radar-sequence-fan',
+    sceneCaption: 'Three inbounds for runway 27. The blip closest to the threshold isn\'t always the one landing first - check the speeds and vectors.',
+  },
+  {
+    title: 'Your job',
+    body: 'You\'ll see 3 inbounds (Easy/Medium) or 4 (Hard) on the scope. <strong>Tap the blips on the scope in landing order</strong> - first tap = lands first, etc. There are no strip numbers; the scope is the only data source.<br><br>Use the <strong>V</strong> button at the bottom-left of the scope to extend the speed vectors when you need to project further ahead. Easy starts vectors at 2 min; Hard starts them off. If you mistap, hit <strong>Reset</strong>.',
+  },
+];
+
+const radarResolve: IntroSlide[] = [
+  radarBasicsScope,
+  radarBasicsBlip,
+  {
+    title: 'STCA: pair already flagged',
+    body: 'The Short-Term Conflict Alert system has fired on a converging pair: two aircraft predicted to lose 5 nm of lateral separation at the same altitude within ~4 minutes. Both blips are highlighted on the scope. The pair is given - your job is to pick the resolution.',
+  },
+  {
+    title: 'Four resolutions, two axes',
+    body: 'You always have the same four options:<br><br>• <strong>Climb leader 2,000 ft</strong> or <strong>Descend trailer 2,000 ft</strong> (vertical)<br>• <strong>Vector leader left 30°</strong> or <strong>Vector trailer right 30°</strong> (lateral)<br><br>Other traffic on the scope can make one or two of these illegal. A third aircraft 1,500 ft above the leader blocks the climb. An aircraft on the leader\'s left-30° projected track blocks the left vector.',
+  },
+  {
+    title: 'Your job',
+    body: 'Read the scope: at the conflict pair\'s altitude, who else is around? Tracks crossing? Co-altitude blockers? Pick the option that opens spacing AND stays clear of other traffic.<br><br>Easy outlines the correct option green. Medium has one blocker. Hard has two of the four blocked - you must choose between the two remaining.',
+  },
+];
+
+const radarDepart: IntroSlide[] = [
+  radarBasicsScope,
+  radarBasicsBlip,
+  {
+    title: 'Tower: who goes next?',
+    body: 'You\'re tower at a single-runway airport. Two or three aircraft are holding short, ready to depart on different SIDs (different initial headings off the runway). Inbound traffic is on final. You pick which to release first - or hold them all.',
+  },
+  {
+    title: 'The two checks',
+    body: '<strong>Check 1: is the next inbound too close?</strong> If the closest inbound is inside ~2 nm, no departure has time to roll, rotate, and clear before the inbound\'s threshold. Hold all.<br><br><strong>Check 2: which initial heading is safest?</strong> Each holding-short blip shows its initial departure heading as a small vector. A heading that diverges sharply from final is safest. A heading that points back at the inbound\'s track is risky when the inbound is close.',
+  },
+  {
+    title: 'Your job',
+    body: 'Pick one of the candidates - or "Hold all - inbound too close" when the geometry says wait.<br><br>Easy: 2 candidates, 1 inbound. Medium: 3 candidates, 1 inbound. Hard: 3 candidates, 2 inbounds, "hold all" sometimes correct because the closest inbound is genuinely inside the release minimum.',
   },
 ];
 
@@ -329,7 +435,12 @@ const SLIDES: Record<IntroKey, IntroSlide[]> = {
   atcCompose,
   atcCleared,
   atcIntercept,
-  atcRadar,
+  radarConflict,
+  radarDirect,
+  radarVector,
+  radarSequence,
+  radarResolve,
+  radarDepart,
 };
 
 export const INTRO_LABELS: Record<IntroKey, string> = {
@@ -339,7 +450,12 @@ export const INTRO_LABELS: Record<IntroKey, string> = {
   atcCompose: 'Readback Builder',
   atcCleared: 'Cleared Direct',
   atcIntercept: 'Radar Intercepts',
-  atcRadar: 'ATC Radar',
+  radarConflict: 'Conflict Spot',
+  radarDirect: 'Direct Request',
+  radarVector: 'Vectoring',
+  radarSequence: 'Sequencing',
+  radarResolve: 'Conflict Resolution',
+  radarDepart: 'Departure Release',
 };
 
 export const ALL_INTRO_KEYS: IntroKey[] = [
@@ -349,7 +465,12 @@ export const ALL_INTRO_KEYS: IntroKey[] = [
   'atcCompose',
   'atcCleared',
   'atcIntercept',
-  'atcRadar',
+  'radarConflict',
+  'radarDirect',
+  'radarVector',
+  'radarSequence',
+  'radarResolve',
+  'radarDepart',
 ];
 
 const OVERRIDE_KEY = 'intro-image-overrides';
@@ -437,4 +558,9 @@ export const atcDecodeIntro = atcDecode;
 export const atcComposeIntro = atcCompose;
 export const atcClearedIntro = atcCleared;
 export const atcInterceptIntro = atcIntercept;
-export const atcRadarIntro = atcRadar;
+export const radarConflictIntro = radarConflict;
+export const radarDirectIntro = radarDirect;
+export const radarVectorIntro = radarVector;
+export const radarSequenceIntro = radarSequence;
+export const radarResolveIntro = radarResolve;
+export const radarDepartIntro = radarDepart;

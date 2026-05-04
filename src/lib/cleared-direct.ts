@@ -175,9 +175,11 @@ function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion
   const target: Waypoint = { id: 'wp-target', label: targetName, pos: targetPos };
   const waypoints: Waypoint[] = [target];
 
-  // A few unlabeled decoy fixes so the chart doesn't feel empty. They have
-  // generic labels (·) so the player can't pattern-match a name.
+  // Decoy fixes scattered around the chart - real ATC scopes show every named
+  // fix in range, so we label them with proper 5-letter names too. The target
+  // is highlighted in the scope so it still stands out.
   const decoyCount = difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3;
+  const usedNames = new Set<string>([targetName]);
   for (let i = 0; i < decoyCount; i++) {
     let p: { x: number; y: number };
     let s = 0;
@@ -192,7 +194,11 @@ function buildClearedQuestion(difficulty: Difficulty, rng: Rng): ClearedQuestion
       (Math.hypot(p.x - targetPos.x, p.y - targetPos.y) < 5 ||
         Math.hypot(p.x - acPos.x, p.y - acPos.y) < 5)
     );
-    waypoints.push({ id: `wp-d${i}`, label: '·', pos: p });
+    let name = fixName(rng);
+    let guard = 0;
+    while (usedNames.has(name) && guard++ < 20) name = fixName(rng);
+    usedNames.add(name);
+    waypoints.push({ id: `wp-d${i}`, label: name, pos: p });
   }
 
   const callsign = genCallsign(rng);
