@@ -11,11 +11,7 @@ export type IntroKey =
   | 'atcCleared'
   | 'atcIntercept'
   | 'radarConflict'
-  | 'radarDirect'
-  | 'radarVector'
-  | 'radarSequence'
-  | 'radarResolve'
-  | 'radarDepart';
+  | 'radarSequence';
 
 const A320 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Avi%C3%B3n_de_PeninsulyFly.jpg/1280px-Avi%C3%B3n_de_PeninsulyFly.jpg';
 const A330 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg/1280px-Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg';
@@ -337,48 +333,6 @@ const radarConflict: IntroSlide[] = [
   },
 ];
 
-const radarDirect: IntroSlide[] = [
-  radarBasicsScope,
-  radarBasicsBlip,
-  {
-    title: 'When the shortcut is clear',
-    body: 'Pilots ask ATC to skip a waypoint and fly straight to a later fix to save time and fuel. The radio call sounds like: <em>"BAW42, request direct KELOR."</em> If the proposed track is clear of conflicting traffic, ATC approves.',
-    scene: 'radar-direct-clear',
-    sceneCaption: 'BAW42 wants direct KELOR (highlighted). Only one other aircraft - DLH9 at FL350 - and it\'s 11,000 ft above. APPROVE.',
-  },
-  {
-    title: 'When the shortcut would conflict',
-    body: 'If the shortcut would put the requester on a converging track with another aircraft at the same level, ATC denies (or approves after the conflict clears). The whole point is to spot the blocker before saying yes.',
-    scene: 'radar-direct-blocked',
-    sceneCaption: 'Same request, but IBE7 is at the same FL on a head-on heading along the proposed track. DENY.',
-  },
-  {
-    title: 'Your job',
-    body: 'A pilot calls in - their callsign and the destination fix appear in the radio bubble. Find that callsign on the scope, mentally extend a line to the destination, then check whether any other blip would cross that line at the same altitude. <strong>Approve</strong>, <strong>Approve after [blocker]</strong>, or <strong>Deny</strong>.',
-  },
-];
-
-const radarVector: IntroSlide[] = [
-  radarBasicsScope,
-  radarBasicsBlip,
-  {
-    title: 'The problem: trailer is faster than leader',
-    body: 'Two aircraft inbound to the same runway must stay at least <strong>3 nm apart</strong> (radar separation, more for wake). When the trailer is going faster than the leader, the gap closes. Without action, they\'ll be too close at the threshold.',
-    scene: 'radar-vector-final',
-    sceneCaption: 'SWR321 leads at 5 nm and 160 kt. KLM77 trails at 7 nm but 190 kt - 30 kt closing rate. By the threshold the gap is < 3 nm.',
-  },
-  {
-    title: 'The fix: turn the trailer off centerline',
-    body: 'ATC turns the trailer 20-30° off the final approach course for a few minutes. The longer ground track buys spacing without changing speed. When the gap is right, turn it back onto final.',
-    scene: 'radar-vector-deflected',
-    sceneCaption: 'Same scenario after a 30° right turn. Extra path length = extra spacing.',
-  },
-  {
-    title: 'Your job',
-    body: 'You\'ll see the leader and trailer (trailer highlighted yellow). Pick the smallest deflection that opens enough spacing: <strong>No change</strong>, <strong>Left/Right 10°</strong>, <strong>20°</strong>, or <strong>30°</strong>. On Hard a third aircraft blocks one side - you have to use the other.',
-  },
-];
-
 const radarSequence: IntroSlide[] = [
   radarBasicsScope,
   radarBasicsBlip,
@@ -394,40 +348,6 @@ const radarSequence: IntroSlide[] = [
   },
 ];
 
-const radarResolve: IntroSlide[] = [
-  radarBasicsScope,
-  radarBasicsBlip,
-  {
-    title: 'STCA: pair already flagged',
-    body: 'The Short-Term Conflict Alert system has fired on a converging pair: two aircraft predicted to lose 5 nm of lateral separation at the same altitude within ~4 minutes. Both blips are highlighted on the scope. The pair is given - your job is to pick the resolution.',
-  },
-  {
-    title: 'Four resolutions, two axes',
-    body: 'You always have the same four options:<br><br>• <strong>Climb leader 2,000 ft</strong> or <strong>Descend trailer 2,000 ft</strong> (vertical)<br>• <strong>Vector leader left 30°</strong> or <strong>Vector trailer right 30°</strong> (lateral)<br><br>Other traffic on the scope can make one or two of these illegal. A third aircraft 1,500 ft above the leader blocks the climb. An aircraft on the leader\'s left-30° projected track blocks the left vector.',
-  },
-  {
-    title: 'Your job',
-    body: 'Read the scope: at the conflict pair\'s altitude, who else is around? Tracks crossing? Co-altitude blockers? Pick the option that opens spacing AND stays clear of other traffic.<br><br>Easy outlines the correct option green. Medium has one blocker. Hard has two of the four blocked - you must choose between the two remaining.',
-  },
-];
-
-const radarDepart: IntroSlide[] = [
-  radarBasicsScope,
-  radarBasicsBlip,
-  {
-    title: 'Tower: who goes next?',
-    body: 'You\'re tower at a single-runway airport. Two or three aircraft are holding short, ready to depart on different SIDs (different initial headings off the runway). Inbound traffic is on final. You pick which to release first - or hold them all.',
-  },
-  {
-    title: 'The two checks',
-    body: '<strong>Check 1: is the next inbound too close?</strong> If the closest inbound is inside ~2 nm, no departure has time to roll, rotate, and clear before the inbound\'s threshold. Hold all.<br><br><strong>Check 2: which initial heading is safest?</strong> Each holding-short blip shows its initial departure heading as a small vector. A heading that diverges sharply from final is safest. A heading that points back at the inbound\'s track is risky when the inbound is close.',
-  },
-  {
-    title: 'Your job',
-    body: 'Pick one of the candidates - or "Hold all - inbound too close" when the geometry says wait.<br><br>Easy: 2 candidates, 1 inbound. Medium: 3 candidates, 1 inbound. Hard: 3 candidates, 2 inbounds, "hold all" sometimes correct because the closest inbound is genuinely inside the release minimum.',
-  },
-];
-
 const SLIDES: Record<IntroKey, IntroSlide[]> = {
   aircraftIdentify,
   militaryIdentify,
@@ -436,11 +356,7 @@ const SLIDES: Record<IntroKey, IntroSlide[]> = {
   atcCleared,
   atcIntercept,
   radarConflict,
-  radarDirect,
-  radarVector,
   radarSequence,
-  radarResolve,
-  radarDepart,
 };
 
 export const INTRO_LABELS: Record<IntroKey, string> = {
@@ -451,11 +367,7 @@ export const INTRO_LABELS: Record<IntroKey, string> = {
   atcCleared: 'Cleared Direct',
   atcIntercept: 'Radar Intercepts',
   radarConflict: 'Conflict Spot',
-  radarDirect: 'Direct Request',
-  radarVector: 'Vectoring',
   radarSequence: 'Sequencing',
-  radarResolve: 'Conflict Resolution',
-  radarDepart: 'Departure Release',
 };
 
 export const ALL_INTRO_KEYS: IntroKey[] = [
@@ -466,11 +378,7 @@ export const ALL_INTRO_KEYS: IntroKey[] = [
   'atcCleared',
   'atcIntercept',
   'radarConflict',
-  'radarDirect',
-  'radarVector',
   'radarSequence',
-  'radarResolve',
-  'radarDepart',
 ];
 
 const OVERRIDE_KEY = 'intro-image-overrides';
@@ -559,8 +467,4 @@ export const atcComposeIntro = atcCompose;
 export const atcClearedIntro = atcCleared;
 export const atcInterceptIntro = atcIntercept;
 export const radarConflictIntro = radarConflict;
-export const radarDirectIntro = radarDirect;
-export const radarVectorIntro = radarVector;
 export const radarSequenceIntro = radarSequence;
-export const radarResolveIntro = radarResolve;
-export const radarDepartIntro = radarDepart;

@@ -13,10 +13,7 @@ export type GameKind =
   | 'radar'
   | 'cleared'
   | 'intercept'
-  | 'vector'
-  | 'sequence'
-  | 'resolve'
-  | 'depart';
+  | 'sequence';
 
 export interface ProgressEntry {
   key: string;

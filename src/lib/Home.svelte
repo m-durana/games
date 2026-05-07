@@ -41,11 +41,7 @@
     | 'atcCleared'
     | 'atcIntercept'
     | 'radarConflict'
-    | 'radarDirect'
-    | 'radarVector'
-    | 'radarSequence'
-    | 'radarResolve'
-    | 'radarDepart';
+    | 'radarSequence';
 
   let {
     onStart,
@@ -96,7 +92,7 @@
   const atcModes: AtcMode[] = ['decode', 'compose', 'cleared'];
   const callsignBest = $derived(loadAtcBest('callsign', difficulty));
   // Radar modes - their own category. All run on the top-down scope.
-  const radarModes: AtcMode[] = ['conflict', 'direct', 'vector', 'sequence', 'resolve', 'depart'];
+  const radarModes: AtcMode[] = ['conflict', 'sequence'];
 
   type CategoryKey = 'airline' | 'airport' | 'aircraft' | 'atc' | 'radar';
   function categoryMix(cat: CategoryKey) {
@@ -141,11 +137,7 @@
     cleared: 'navigation',
     intercept: 'plane-landing',
     conflict: 'radar',
-    direct: 'send',
-    vector: 'split',
     sequence: 'list-ordered',
-    resolve: 'shield-alert',
-    depart: 'plane-takeoff',
   };
 
   function atcIcon(m: AtcMode): string {
@@ -439,7 +431,7 @@
   <div class="modes-grid">
     {#each radarModes as mode}
       {@const best = loadAtcBest(mode, difficulty)}
-      {@const introKey = mode === 'conflict' ? 'radarConflict' : mode === 'direct' ? 'radarDirect' : mode === 'vector' ? 'radarVector' : mode === 'sequence' ? 'radarSequence' : mode === 'resolve' ? 'radarResolve' : mode === 'depart' ? 'radarDepart' : null}
+      {@const introKey = mode === 'conflict' ? 'radarConflict' : mode === 'sequence' ? 'radarSequence' : null}
       <button class="mode-tile" onclick={() => onStartAtc(mode, difficulty)}>
         {#if introKey}
           <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>

@@ -62,7 +62,7 @@
   // a fresh round. Resolved synchronously so the initial `$state` values are
   // correct on first render.
   // svelte-ignore state_referenced_locally
-  const initial = (() => {
+  const savedAtMount = (() => {
     const saved = loadSession();
     // svelte-ignore state_referenced_locally
     const currentPool = loadPool();
@@ -72,23 +72,29 @@
       saved.difficulty === difficulty &&
       saved.pool === currentPool &&
       saved.answerIds.length > 0 &&
-      saved.answerIds.every((id) => aircraftById(id) !== null);
-    if (canResume) {
-      const restoredAnswers = saved!.answerIds.map((id) => aircraftById(id)!);
-      const cur = restoredAnswers[saved!.index];
-      const restoredGuesses = saved!.guessIds
+      saved.answerIds.every((id) => aircraftById(id) !== null) &&
+      !(saved.scores.length >= saved.answerIds.length);
+    return canResume ? saved! : null;
+  })();
+
+  // svelte-ignore state_referenced_locally
+  const initial = (() => {
+    if (savedAtMount) {
+      const restoredAnswers = savedAtMount.answerIds.map((id) => aircraftById(id)!);
+      const cur = restoredAnswers[savedAtMount.index];
+      const restoredGuesses = savedAtMount.guessIds
         .map((id) => aircraftById(id))
         .filter((a): a is Aircraft => a !== null)
         .map((a) => ({ aircraft: a, feedback: compareAttributes(a, cur) }));
       return {
         answers: restoredAnswers,
-        index: saved!.index,
+        index: savedAtMount.index,
         guesses: restoredGuesses,
-        solved: saved!.solved,
-        exhausted: saved!.exhausted,
-        score: saved!.score,
-        scores: saved!.scores,
-        recorded: saved!.recorded,
+        solved: savedAtMount.solved,
+        exhausted: savedAtMount.exhausted,
+        score: savedAtMount.score,
+        scores: savedAtMount.scores,
+        recorded: savedAtMount.recorded,
       };
     }
     // svelte-ignore state_referenced_locally
@@ -115,6 +121,28 @@
   let scores: number[] = $state(initial.scores);
   let recorded: AircraftWordleResult[] = $state(initial.recorded);
   let done = $state(false);
+  let resumePending = $state(savedAtMount !== null);
+
+  function continueSaved() {
+    resumePending = false;
+    setTimeout(() => inputEl?.focus(), 0);
+  }
+
+  function startFreshFromPrompt() {
+    answers = pickRoundAircraft(AIRCRAFT_ROUND_LENGTH, difficulty);
+    index = 0;
+    guesses = [];
+    solved = false;
+    exhausted = false;
+    revealPhoto = null;
+    score = 0;
+    scores = [];
+    recorded = [];
+    query = '';
+    highlight = 0;
+    resumePending = false;
+    setTimeout(() => inputEl?.focus(), 0);
+  }
 
   $effect(() => {
     if (typeof localStorage === 'undefined') return;
@@ -349,6 +377,23 @@
 </header>
 
 <section class="round">
+  {#if resumePending && savedAtMount}
+    <div class="resume-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-title">
+      <div class="resume-card" in:fly={{ y: 16, duration: 220 }}>
+        <h2 id="resume-title">Resume game?</h2>
+        <p class="resume-sub">
+          You have a {difficulty} round in progress
+          - aircraft {savedAtMount.index + 1} of {savedAtMount.answerIds.length},
+          {savedAtMount.guessIds.length} {savedAtMount.guessIds.length === 1 ? 'guess' : 'guesses'} so far,
+          {savedAtMount.score} pts.
+        </p>
+        <div class="resume-actions">
+          <button class="btn-primary" onclick={continueSaved}>Continue</button>
+          <button class="btn-ghost" onclick={startFreshFromPrompt}>Start fresh</button>
+        </div>
+      </div>
+    </div>
+  {/if}
   {#if done}
     <div class="card finale" in:fly={{ y: 16, duration: 220 }}>
       <h2>Round complete</h2>
@@ -880,4 +925,30 @@
     gap: 0.625rem;
     margin-top: 0.5rem;
   }
+  .resume-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 1rem;
+  }
+  .resume-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem 1.25rem;
+    max-width: 420px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+    align-items: center;
+  }
+  .resume-card h2 { font-size: 1.25rem; font-weight: 600; }
+  .resume-sub { color: var(--muted); font-size: 0.9375rem; line-height: 1.45; }
+  .resume-actions { display: flex; gap: 0.625rem; margin-top: 0.5rem; flex-wrap: wrap; justify-content: center; }
 </style>

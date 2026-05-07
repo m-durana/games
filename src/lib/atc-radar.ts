@@ -1,10 +1,8 @@
-// ATC Radar: top-down radar quiz mode powered by `radarscope`. Each round renders
-// a procedurally-generated traffic snapshot at a real airport (from
-// radarscope/data) and asks one of three question types: spot the conflict,
-// sequence to final, or approve a direct request.
+// ATC Radar: top-down conflict-spot quiz powered by `radarscope`. Each round
+// renders a procedurally-generated traffic snapshot at a real airport and asks
+// the player to tap the two aircraft on a collision course.
 
 import type { Aircraft, Scenario } from 'radarscope';
-import { findConflicts } from 'radarscope';
 import { airportsByType, geoToScope, type RealAirport, type RealRunway } from 'radarscope/data';
 import type { Difficulty } from './types';
 import { airlines, airlineMeta } from './engine';
@@ -12,25 +10,18 @@ import { airportRunwaysToScope } from './scope-runways';
 
 export const RADAR_ROUND_LENGTH = 10;
 
-export type RadarKind = 'conflict' | 'direct';
+export type RadarKind = 'conflict';
 
-interface RadarBaseQuestion {
-  kind: RadarKind;
+export interface ConflictQuestion {
+  kind: 'conflict';
+  /** For AtcResults recap pill. */
+  mode: 'conflict';
   /** Game question to the player (e.g. "Which two will lose separation?"). */
   prompt: string;
-  /** Pilot voice on the radio (only direct-request mode). The player is the
-   *  controller; this is a pilot calling in. Rendered as a speech bubble. */
-  pilotCall?: string;
   /** Human-readable correct-answer string (shown in the recap). */
   answer: string;
   explanation: string;
   scenario: RadarScenario;
-}
-
-export interface ConflictQuestion extends RadarBaseQuestion {
-  kind: 'conflict';
-  /** For AtcResults recap pill. */
-  mode: 'conflict';
   /** Aircraft IDs of the true conflict pair. */
   conflictPair: [string, string];
   /** Vertical rates in ft/min, keyed by aircraft id. Positive = climb, negative = descent.
@@ -39,17 +30,7 @@ export interface ConflictQuestion extends RadarBaseQuestion {
   verticalRates?: Record<string, number>;
 }
 
-export interface DirectQuestion extends RadarBaseQuestion {
-  kind: 'direct';
-  /** For AtcResults recap pill. */
-  mode: 'direct';
-  /** Three button labels. */
-  options: string[];
-  /** Index of the correct option in `options`. */
-  correctIndex: number;
-}
-
-export type RadarQuestion = ConflictQuestion | DirectQuestion;
+export type RadarQuestion = ConflictQuestion;
 
 export interface RadarScenario extends Scenario {
   airportName: string;
@@ -71,15 +52,6 @@ function defaultRng(): Rng {
 
 function pick<T>(arr: T[], rng: Rng): T {
   return arr[Math.floor(rng() * arr.length)];
-}
-
-function shuffle<T>(arr: T[], rng: Rng): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
 }
 
 // ---- Real-airport pool -------------------------------------------------------
@@ -410,106 +382,12 @@ function buildConflictQuestion(difficulty: Difficulty, rng: Rng): ConflictQuesti
   };
 }
 
-// ---- Question 2: approve direct ----------------------------------------------
-
-function buildDirectQuestion(difficulty: Difficulty, rng: Rng): DirectQuestion {
-  const base = buildScenarioBase(rng);
-  const otherCount = difficulty === 'easy' ? 2 : difficulty === 'medium' ? 3 : 4;
-
-  // The requester
-  const requesterCs = genCallsign(rng);
-  const requester: Aircraft = {
-    id: 'ac-req',
-    callsign: requesterCs.callsign,
-    pos: randomScopePos(rng, 12, 22),
-    heading: Math.floor(rng() * 360),
-    altitude: 18000 + Math.floor(rng() * 8) * 1000,
-    speed: 380 + Math.floor(rng() * 80),
-  };
-
-  // Random "destination" headings - we'll point requester at a heading.
-  const destHeading = Math.floor(rng() * 360);
-
-  // Other traffic
-  const others: Aircraft[] = [];
-  for (let i = 0; i < otherCount; i++) {
-    const cs = genCallsign(rng);
-    const altOffset = (Math.floor(rng() * 8) - 4) * 1000;
-    others.push({
-      id: `ac-${i}`,
-      callsign: cs.callsign,
-      pos: randomScopePos(rng, 8, base.rangeNm - 4),
-      heading: Math.floor(rng() * 360),
-      altitude: Math.max(5000, Math.min(40000, requester.altitude + altOffset)),
-      speed: 240 + Math.floor(rng() * 200),
-    });
-  }
-
-  // Project requester forward at destHeading; check conflicts against others.
-  const requesterDirect: Aircraft = { ...requester, heading: destHeading };
-  const all = [requesterDirect, ...others];
-  const conflicts = findConflicts({ aircraft: all }, 240, 5);
-
-  let correctIndex: number;
-  let correctAnswer: string;
-  let explanation: string;
-  let blockerCallsign: string | undefined;
-
-  if (conflicts.length === 0) {
-    correctIndex = 0;
-    correctAnswer = 'Approve direct';
-    explanation = 'No traffic on the requested track within 4 minutes - clean approval.';
-  } else {
-    // Find the blocker aircraft
-    const conflict = conflicts[0];
-    const blocker = conflict.a.id === 'ac-req' ? conflict.b : conflict.a;
-    blockerCallsign = blocker.callsign;
-    if (Math.abs(requesterDirect.altitude - blocker.altitude) > 800 || conflict.tSeconds > 180) {
-      // Borderline - "approve after" is the safer call
-      correctIndex = 1;
-      correctAnswer = `Approve after ${blocker.callsign}`;
-      explanation = `${blocker.callsign} is on a converging track - let it pass first, then approve.`;
-    } else {
-      correctIndex = 2;
-      correctAnswer = 'Deny';
-      explanation = `${blocker.callsign} is at the same level on a head-on track inside 3 min - deny outright.`;
-    }
-  }
-
-  // Build options: always 3, in fixed slot order so the UI is consistent.
-  const blockerName = blockerCallsign ?? others[0].callsign;
-  const options = ['Approve direct', `Approve after ${blockerName}`, 'Deny'];
-
-  const scenario = scenarioFromBase(base, all);
-  return {
-    kind: 'direct',
-    mode: 'direct',
-    pilotCall: `${requester.callsign}, request direct destination, heading ${destHeading.toString().padStart(3, '0')}.`,
-    prompt: 'Your call?',
-    answer: correctAnswer,
-    explanation,
-    scenario,
-    options,
-    correctIndex,
-  };
-}
-
 // ---- Round builder -----------------------------------------------------------
 
 export function buildRadarRound(difficulty: Difficulty, rng: Rng = defaultRng()): RadarQuestion[] {
-  const kinds: RadarKind[] = ['conflict', 'direct'];
-  const out: RadarQuestion[] = [];
-  for (let i = 0; i < RADAR_ROUND_LENGTH; i++) {
-    const kind = kinds[i % kinds.length];
-    out.push(kind === 'conflict' ? buildConflictQuestion(difficulty, rng) : buildDirectQuestion(difficulty, rng));
-  }
-  return shuffle(out, rng);
+  return Array.from({ length: RADAR_ROUND_LENGTH }, () => buildConflictQuestion(difficulty, rng));
 }
 
 export function buildConflictRound(difficulty: Difficulty, rng: Rng = defaultRng()): ConflictQuestion[] {
   return Array.from({ length: RADAR_ROUND_LENGTH }, () => buildConflictQuestion(difficulty, rng));
-}
-
-export function buildDirectRound(difficulty: Difficulty, rng: Rng = defaultRng()): DirectQuestion[] {
-  return Array.from({ length: RADAR_ROUND_LENGTH }, () => buildDirectQuestion(difficulty, rng));
 }

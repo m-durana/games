@@ -21,6 +21,53 @@
   import type { MilitaryWordleResult } from './types';
 
   const SESSION_KEY = 'wordle:military:session';
+
+  // Extra search terms users are likely to type that don't appear verbatim
+  // in name/manufacturer/origin. Keyed by aircraft id.
+  const SEARCH_ALIASES: Record<string, string[]> = {
+    fa18: ['F-18', 'F18'],
+    f16: ['Viper'],
+    a10: ['Warthog', 'Hog'],
+    b52: ['BUFF'],
+    f15c: ['F-15', 'F15'],
+    f15e: ['F-15', 'F15', 'Mudhen'],
+    f4: ['F4'],
+    f5: ['F5'],
+    f14: ['Turkey'],
+    f22: ['F22'],
+    f35: ['F35', 'JSF', 'Joint Strike Fighter'],
+    f117: ['F117'],
+    b2: ['B2'],
+    b1b: ['B-1', 'B1', 'Bone'],
+    c130: ['Herc'],
+    c17: ['C17'],
+    a400m: ['A400'],
+    kc135: ['KC135', 'Tanker'],
+    e3: ['E3'],
+    su27: ['Sukhoi 27', 'Sukhoi-27'],
+    su30: ['Su-30', 'Su30', 'Flanker'],
+    su35: ['Su-35', 'Su35', 'Flanker'],
+    su57: ['Su-57', 'Su57'],
+    mig21: ['MiG21'],
+    mig23: ['MiG23'],
+    mig29: ['MiG29'],
+    tu95: ['Tu95'],
+    tu160: ['Tu160', 'White Swan'],
+    j20: ['J20', 'Mighty Dragon'],
+    mi24: ['Mi24'],
+    ah64: ['AH64'],
+    uh60: ['UH60', 'Blackhawk'],
+    ch47: ['CH47'],
+    mq9: ['MQ9', 'Predator B', 'Drone'],
+    v22: ['V22', 'Tiltrotor'],
+    av8b: ['AV8B', 'Jump Jet'],
+    typhoon: ['EF2000', 'EFA'],
+    rafale: ['Rafael'],
+    gripen: ['JAS-39', 'JAS39'],
+    tornado: ['Tornado'],
+    mirage2000: ['Mirage'],
+    t38: ['T38'],
+  };
   interface SavedSession {
     v: 1;
     difficulty: MilitaryDifficulty;
@@ -59,7 +106,7 @@
   const guessableSet = $derived(pooledMilitary());
 
   // svelte-ignore state_referenced_locally
-  const initial = (() => {
+  const savedAtMount = (() => {
     const saved = loadSession();
     // svelte-ignore state_referenced_locally
     const currentPool = loadPool();
@@ -69,23 +116,30 @@
       saved.difficulty === difficulty &&
       saved.pool === currentPool &&
       saved.answerIds.length > 0 &&
-      saved.answerIds.every((id) => militaryById(id) !== null);
-    if (canResume) {
-      const restoredAnswers = saved!.answerIds.map((id) => militaryById(id)!);
-      const cur = restoredAnswers[saved!.index];
-      const restoredGuesses = saved!.guessIds
+      saved.answerIds.every((id) => militaryById(id) !== null) &&
+      // Don't prompt to resume a session that's already finished
+      !(saved.scores.length >= saved.answerIds.length);
+    return canResume ? saved! : null;
+  })();
+
+  // svelte-ignore state_referenced_locally
+  const initial = (() => {
+    if (savedAtMount) {
+      const restoredAnswers = savedAtMount.answerIds.map((id) => militaryById(id)!);
+      const cur = restoredAnswers[savedAtMount.index];
+      const restoredGuesses = savedAtMount.guessIds
         .map((id) => militaryById(id))
         .filter((a): a is MilitaryAircraft => a !== null)
         .map((a) => ({ aircraft: a, feedback: compareAttributes(a, cur) }));
       return {
         answers: restoredAnswers,
-        index: saved!.index,
+        index: savedAtMount.index,
         guesses: restoredGuesses,
-        solved: saved!.solved,
-        exhausted: saved!.exhausted,
-        score: saved!.score,
-        scores: saved!.scores,
-        recorded: saved!.recorded,
+        solved: savedAtMount.solved,
+        exhausted: savedAtMount.exhausted,
+        score: savedAtMount.score,
+        scores: savedAtMount.scores,
+        recorded: savedAtMount.recorded,
       };
     }
     // svelte-ignore state_referenced_locally
@@ -112,6 +166,28 @@
   let scores: number[] = $state(initial.scores);
   let recorded: MilitaryWordleResult[] = $state(initial.recorded);
   let done = $state(false);
+  let resumePending = $state(savedAtMount !== null);
+
+  function continueSaved() {
+    resumePending = false;
+    setTimeout(() => inputEl?.focus(), 0);
+  }
+
+  function startFreshFromPrompt() {
+    answers = pickRoundMilitary(MILITARY_ROUND_LENGTH, difficulty);
+    index = 0;
+    guesses = [];
+    solved = false;
+    exhausted = false;
+    revealPhoto = null;
+    score = 0;
+    scores = [];
+    recorded = [];
+    query = '';
+    highlight = 0;
+    resumePending = false;
+    setTimeout(() => inputEl?.focus(), 0);
+  }
 
   $effect(() => {
     if (typeof localStorage === 'undefined') return;
@@ -183,11 +259,13 @@
       const n = normalize(a.name);
       const m = normalize(a.manufacturer);
       const o = normalize(a.origin);
+      const aliases = (SEARCH_ALIASES[a.id] ?? []).map(normalize);
       const nameStarts = n.startsWith(q);
       const nameHas = n.includes(q);
       const otherHas = m.includes(q) || o.includes(q);
-      if (!nameHas && !otherHas) continue;
-      const rank = nameStarts ? 0 : nameHas ? 1 : 2;
+      const aliasHas = aliases.some((al) => al.includes(q));
+      if (!nameHas && !otherHas && !aliasHas) continue;
+      const rank = nameStarts ? 0 : nameHas ? 1 : aliasHas ? 1 : 2;
       scored.push({ plane: a, rank });
     }
     scored.sort((a, b) => a.rank - b.rank || a.plane.name.localeCompare(b.plane.name));
@@ -340,6 +418,23 @@
 </header>
 
 <section class="round">
+  {#if resumePending && savedAtMount}
+    <div class="resume-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-title">
+      <div class="resume-card" in:fly={{ y: 16, duration: 220 }}>
+        <h2 id="resume-title">Resume game?</h2>
+        <p class="resume-sub">
+          You have a {difficulty} round in progress
+          - aircraft {savedAtMount.index + 1} of {savedAtMount.answerIds.length},
+          {savedAtMount.guessIds.length} {savedAtMount.guessIds.length === 1 ? 'guess' : 'guesses'} so far,
+          {savedAtMount.score} pts.
+        </p>
+        <div class="resume-actions">
+          <button class="btn-primary" onclick={continueSaved}>Continue</button>
+          <button class="btn-ghost" onclick={startFreshFromPrompt}>Start fresh</button>
+        </div>
+      </div>
+    </div>
+  {/if}
   {#if done}
     <div class="card finale" in:fly={{ y: 16, duration: 220 }}>
       <h2>Round complete</h2>
@@ -781,4 +876,30 @@
   }
   .finale-sub { color: var(--muted); font-size: 0.9375rem; }
   .finale-actions { display: flex; gap: 0.625rem; margin-top: 0.5rem; }
+  .resume-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 1rem;
+  }
+  .resume-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem 1.25rem;
+    max-width: 420px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+    align-items: center;
+  }
+  .resume-card h2 { font-size: 1.25rem; font-weight: 600; }
+  .resume-sub { color: var(--muted); font-size: 0.9375rem; line-height: 1.45; }
+  .resume-actions { display: flex; gap: 0.625rem; margin-top: 0.5rem; flex-wrap: wrap; justify-content: center; }
 </style>

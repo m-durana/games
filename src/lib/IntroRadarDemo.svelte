@@ -237,7 +237,7 @@
             <AircraftBlip aircraft={ac} />
           {/each}
           {#if cfg.scenario.wind}
-            <WindTag wind={cfg.scenario.wind} pos={{ x: 0, y: 0 }} />
+            <WindTag wind={cfg.scenario.wind} position={{ x: 0, y: 0 }} />
           {/if}
         {/snippet}
       </RadarScope>

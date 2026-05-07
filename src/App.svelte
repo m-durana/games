@@ -31,20 +31,14 @@
   import AtcRadarRound from './lib/AtcRadarRound.svelte';
   import ClearedDirectRound from './lib/ClearedDirectRound.svelte';
   import InterceptRound from './lib/InterceptRound.svelte';
-  import VectoringRound from './lib/VectoringRound.svelte';
   import SequencingRound from './lib/SequencingRound.svelte';
-  import ResolveRound from './lib/ResolveRound.svelte';
-  import DepartRound from './lib/DepartRound.svelte';
   import PfdLab from './lib/PfdLab.svelte';
   import type { Difficulty, HistoryEntry, Mode, RoundResult } from './lib/types';
   import type { AtcMode, AtcRoundResult } from './lib/atc';
   import type { RadarRoundResult } from './lib/atc-radar';
   import type { ClearedRoundResult } from './lib/cleared-direct';
   import type { InterceptRoundResult } from './lib/intercepts';
-  import type { VectorRoundResult } from './lib/vectoring';
   import type { SequenceRoundResult } from './lib/sequencing';
-  import type { ResolveRoundResult } from './lib/resolve';
-  import type { DepartRoundResult } from './lib/depart';
   import { readSharedFromUrl, type SharedRound } from './lib/share';
   import type { Achievement } from './lib/achievements';
   import { evaluateAchievements } from './lib/achievements';
@@ -83,14 +77,11 @@
     | { kind: 'airportWordle'; difficulty: Difficulty }
     | { kind: 'airportIdentify'; difficulty: Difficulty }
     | { kind: 'atcRound'; mode: AtcMode; difficulty: Difficulty }
-    | { kind: 'atcRadarRound'; radarMode: 'conflict' | 'direct'; difficulty: Difficulty }
+    | { kind: 'atcRadarRound'; radarMode: 'conflict'; difficulty: Difficulty }
     | { kind: 'clearedRound'; difficulty: Difficulty }
     | { kind: 'interceptRound'; difficulty: Difficulty }
-    | { kind: 'vectorRound'; difficulty: Difficulty }
     | { kind: 'sequenceRound'; difficulty: Difficulty }
-    | { kind: 'resolveRound'; difficulty: Difficulty }
-    | { kind: 'departRound'; difficulty: Difficulty }
-    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] | ClearedRoundResult[] | InterceptRoundResult[] | VectorRoundResult[] | SequenceRoundResult[] | ResolveRoundResult[] | DepartRoundResult[] }
+    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] | ClearedRoundResult[] | InterceptRoundResult[] | SequenceRoundResult[] }
     | { kind: 'intro'; intro: IntroKey; difficulty: Difficulty }
     | { kind: 'pfdLab' };
 
@@ -102,11 +93,7 @@
     | 'atcCleared'
     | 'atcIntercept'
     | 'radarConflict'
-    | 'radarDirect'
-    | 'radarVector'
-    | 'radarSequence'
-    | 'radarResolve'
-    | 'radarDepart';
+    | 'radarSequence';
 
   const INTRO_TITLES: Record<IntroKey, string> = {
     aircraftIdentify: 'Aircraft Identify · Field guide',
@@ -116,11 +103,7 @@
     atcCleared: 'Cleared Direct · Bearings & headings',
     atcIntercept: 'Radar Intercepts · Stabilized approach gates',
     radarConflict: 'Conflict Spot · Reading the scope',
-    radarDirect: 'Direct Request · Find the blip',
-    radarVector: 'Vectoring · Open the spacing',
     radarSequence: 'Sequencing · Order them onto the runway',
-    radarResolve: 'Conflict Resolution · Pick the way out',
-    radarDepart: 'Departure Release · Hold or go',
   };
 
   function introSlides(key: IntroKey) {
@@ -136,11 +119,7 @@
       case 'atcCleared': startAtc('cleared', d); return;
       case 'atcIntercept': startAtc('intercept', d); return;
       case 'radarConflict': startAtc('conflict', d); return;
-      case 'radarDirect': startAtc('direct', d); return;
-      case 'radarVector': startAtc('vector', d); return;
       case 'radarSequence': startAtc('sequence', d); return;
-      case 'radarResolve': startAtc('resolve', d); return;
-      case 'radarDepart': startAtc('depart', d); return;
     }
   }
 
@@ -262,11 +241,8 @@
   }
 
   function atcProgressKey(mode: AtcMode, difficulty: Difficulty): string {
-    if (mode === 'conflict' || mode === 'direct') return progressKey('radar', difficulty, mode);
-    if (mode === 'vector') return progressKey('vector', difficulty);
+    if (mode === 'conflict') return progressKey('radar', difficulty, mode);
     if (mode === 'sequence') return progressKey('sequence', difficulty);
-    if (mode === 'resolve') return progressKey('resolve', difficulty);
-    if (mode === 'depart') return progressKey('depart', difficulty);
     if (mode === 'cleared') return progressKey('cleared', difficulty);
     if (mode === 'intercept') return progressKey('intercept', difficulty);
     return progressKey('atc', difficulty, mode);
@@ -277,11 +253,7 @@
       clearShareParam();
       menuOpen = false;
       if (mode === 'conflict') view = { kind: 'atcRadarRound', radarMode: 'conflict', difficulty };
-      else if (mode === 'direct') view = { kind: 'atcRadarRound', radarMode: 'direct', difficulty };
-      else if (mode === 'vector') view = { kind: 'vectorRound', difficulty };
       else if (mode === 'sequence') view = { kind: 'sequenceRound', difficulty };
-      else if (mode === 'resolve') view = { kind: 'resolveRound', difficulty };
-      else if (mode === 'depart') view = { kind: 'departRound', difficulty };
       else if (mode === 'cleared') view = { kind: 'clearedRound', difficulty };
       else if (mode === 'intercept') view = { kind: 'interceptRound', difficulty };
       else view = { kind: 'atcRound', mode, difficulty };
@@ -309,7 +281,7 @@
         view = { kind: 'atcRound', mode: entry.mode as AtcMode, difficulty: d };
         return;
       case 'radar':
-        view = { kind: 'atcRadarRound', radarMode: entry.mode as 'conflict' | 'direct', difficulty: d };
+        view = { kind: 'atcRadarRound', radarMode: 'conflict', difficulty: d };
         return;
       case 'cleared':
         view = { kind: 'clearedRound', difficulty: d };
@@ -317,17 +289,8 @@
       case 'intercept':
         view = { kind: 'interceptRound', difficulty: d };
         return;
-      case 'vector':
-        view = { kind: 'vectorRound', difficulty: d };
-        return;
       case 'sequence':
         view = { kind: 'sequenceRound', difficulty: d };
-        return;
-      case 'resolve':
-        view = { kind: 'resolveRound', difficulty: d };
-        return;
-      case 'depart':
-        view = { kind: 'departRound', difficulty: d };
         return;
     }
   }
@@ -340,8 +303,8 @@
     view = { kind: 'atcResults', mode, difficulty, results };
   }
 
-  function finishRadar(mode: 'conflict' | 'direct', difficulty: Difficulty, results: RadarRoundResult[]) {
-    view = { kind: 'atcResults', mode, difficulty, results };
+  function finishRadar(difficulty: Difficulty, results: RadarRoundResult[]) {
+    view = { kind: 'atcResults', mode: 'conflict', difficulty, results };
   }
 
   function finishCleared(difficulty: Difficulty, results: ClearedRoundResult[]) {
@@ -352,20 +315,8 @@
     view = { kind: 'atcResults', mode: 'intercept', difficulty, results };
   }
 
-  function finishVector(difficulty: Difficulty, results: VectorRoundResult[]) {
-    view = { kind: 'atcResults', mode: 'vector', difficulty, results };
-  }
-
   function finishSequence(difficulty: Difficulty, results: SequenceRoundResult[]) {
     view = { kind: 'atcResults', mode: 'sequence', difficulty, results };
-  }
-
-  function finishResolve(difficulty: Difficulty, results: ResolveRoundResult[]) {
-    view = { kind: 'atcResults', mode: 'resolve', difficulty, results };
-  }
-
-  function finishDepart(difficulty: Difficulty, results: DepartRoundResult[]) {
-    view = { kind: 'atcResults', mode: 'depart', difficulty, results };
   }
 
   function finishSpeed(score: number, isNewBest: boolean) {
@@ -425,7 +376,7 @@
     'airportAirline','airlineDest','airportConn','code','whereAmI','hubOf',
   ];
   const DIFFS: Difficulty[] = ['easy','medium','hard'];
-  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix','cleared','intercept','conflict','direct','vector','sequence','resolve','depart'];
+  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix','cleared','intercept','conflict','sequence'];
 
   function viewHash(v: View): string | null {
     switch (v.kind) {
@@ -448,10 +399,7 @@
       case 'atcRadarRound': return `#/atc/${v.radarMode}?difficulty=${v.difficulty}`;
       case 'clearedRound': return `#/atc/cleared?difficulty=${v.difficulty}`;
       case 'interceptRound': return `#/atc/intercept?difficulty=${v.difficulty}`;
-      case 'vectorRound': return `#/atc/vector?difficulty=${v.difficulty}`;
       case 'sequenceRound': return `#/atc/sequence?difficulty=${v.difficulty}`;
-      case 'resolveRound': return `#/atc/resolve?difficulty=${v.difficulty}`;
-      case 'departRound': return `#/atc/depart?difficulty=${v.difficulty}`;
       case 'pfdLab': return '#/pfd-lab';
       default: return null; // results / shared / review screens don't deep-link
     }
@@ -480,17 +428,13 @@
     if (a === 'pfd-lab') return { kind: 'pfdLab' };
     if (a === 'atc' && ATC_MODES.includes(b as AtcMode) && d) {
       if (b === 'conflict') return { kind: 'atcRadarRound', radarMode: 'conflict', difficulty: d };
-      if (b === 'direct') return { kind: 'atcRadarRound', radarMode: 'direct', difficulty: d };
-      if (b === 'vector') return { kind: 'vectorRound', difficulty: d };
       if (b === 'sequence') return { kind: 'sequenceRound', difficulty: d };
-      if (b === 'resolve') return { kind: 'resolveRound', difficulty: d };
-      if (b === 'depart') return { kind: 'departRound', difficulty: d };
       if (b === 'cleared') return { kind: 'clearedRound', difficulty: d };
       if (b === 'intercept') return { kind: 'interceptRound', difficulty: d };
       return { kind: 'atcRound', mode: b as AtcMode, difficulty: d };
     }
-    // Legacy: redirect old #/atc/radar links to the conflict mode (split).
-    if (a === 'atc' && b === 'radar' && d) {
+    // Legacy: redirect old #/atc/radar and #/atc/direct links to Conflict Spot.
+    if (a === 'atc' && (b === 'radar' || b === 'direct') && d) {
       return { kind: 'atcRadarRound', radarMode: 'conflict', difficulty: d };
     }
     if (d) {
@@ -525,13 +469,24 @@
     // Sweep stale registry entries from retired modes (e.g. 'wake') so they
     // don't appear in the in-progress list after deploys that cut the mode.
     if (typeof localStorage !== 'undefined') {
-      const valid = new Set(['standard','aircraftIdentify','militaryIdentify','airportIdentify','atc','radar','cleared','intercept','vector','sequence','resolve','depart']);
+      const valid = new Set(['standard','aircraftIdentify','militaryIdentify','airportIdentify','atc','radar','cleared','intercept','sequence']);
       for (const e of listProgress()) {
-        if (!valid.has(e.gameKind)) clearProgress(e.key);
+        // Drop registry entries from retired gameKinds (vector/resolve/depart),
+        // and the retired 'direct' radar mode whose sessionStorageKey contains
+        // ':direct:'. Surviving entries from kinds we still ship pass through.
+        const isRetiredDirect = e.gameKind === 'radar' && e.mode === 'direct';
+        if (!valid.has(e.gameKind) || isRetiredDirect) clearProgress(e.key);
       }
       for (let i = localStorage.length - 1; i >= 0; i--) {
         const k = localStorage.key(i);
-        if (k && k.startsWith('session:wake:')) localStorage.removeItem(k);
+        if (!k) continue;
+        if (k.startsWith('session:wake:') ||
+            k.startsWith('session:vector:') ||
+            k.startsWith('session:resolve:') ||
+            k.startsWith('session:depart:') ||
+            k.startsWith('session:radar:direct:')) {
+          localStorage.removeItem(k);
+        }
       }
     }
     const shared = readSharedFromUrl();
@@ -552,8 +507,15 @@
         const v = parseHash(window.location.hash);
         if (v) view = v;
       };
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' && pendingStart) cancelPending();
+      };
       window.addEventListener('popstate', onPop);
-      return () => window.removeEventListener('popstate', onPop);
+      window.addEventListener('keydown', onKey);
+      return () => {
+        window.removeEventListener('popstate', onPop);
+        window.removeEventListener('keydown', onKey);
+      };
     }
   });
 </script>
@@ -683,7 +645,7 @@
     <AtcRadarRound
       mode={v.radarMode}
       difficulty={v.difficulty}
-      onFinish={(r) => finishRadar(v.radarMode, v.difficulty, r)}
+      onFinish={(r) => finishRadar(v.difficulty, r)}
       onQuit={home}
     />
   {:else if view.kind === 'clearedRound'}
@@ -700,32 +662,11 @@
       onFinish={(r) => finishIntercept(v.difficulty, r)}
       onQuit={home}
     />
-  {:else if view.kind === 'vectorRound'}
-    {@const v = view}
-    <VectoringRound
-      difficulty={v.difficulty}
-      onFinish={(r) => finishVector(v.difficulty, r)}
-      onQuit={home}
-    />
   {:else if view.kind === 'sequenceRound'}
     {@const v = view}
     <SequencingRound
       difficulty={v.difficulty}
       onFinish={(r) => finishSequence(v.difficulty, r)}
-      onQuit={home}
-    />
-  {:else if view.kind === 'resolveRound'}
-    {@const v = view}
-    <ResolveRound
-      difficulty={v.difficulty}
-      onFinish={(r) => finishResolve(v.difficulty, r)}
-      onQuit={home}
-    />
-  {:else if view.kind === 'departRound'}
-    {@const v = view}
-    <DepartRound
-      difficulty={v.difficulty}
-      onFinish={(r) => finishDepart(v.difficulty, r)}
       onQuit={home}
     />
   {:else if view.kind === 'intro'}
@@ -753,9 +694,19 @@
 
   {#if pendingStart}
     {@const p = pendingStart}
-    <div class="modal-backdrop" role="dialog" aria-modal="true" onclick={cancelPending}>
-      <div class="modal" onclick={(e) => e.stopPropagation()}>
-        <h3>Resume in progress?</h3>
+    <div
+      class="modal-backdrop"
+      role="presentation"
+      onclick={(e) => { if (e.target === e.currentTarget) cancelPending(); }}
+    >
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="resume-modal-title"
+        tabindex="-1"
+      >
+        <h3 id="resume-modal-title">Resume in progress?</h3>
         <p class="modal-body">
           You have an unfinished <strong>{p.entry.label}</strong> round
           ({p.entry.currentIndex} of {p.entry.total}).

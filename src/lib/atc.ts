@@ -10,12 +10,8 @@ export type AtcMode =
   | 'cleared'
   | 'intercept'
   | 'conflict'
-  | 'direct'
-  | 'vector'
-  | 'sequence'
-  | 'resolve'
-  | 'depart';
-type AtcQuestionMode = Exclude<AtcMode, 'atcMix' | 'cleared' | 'intercept' | 'conflict' | 'direct' | 'vector' | 'sequence' | 'resolve' | 'depart'>;
+  | 'sequence';
+type AtcQuestionMode = Exclude<AtcMode, 'atcMix' | 'cleared' | 'intercept' | 'conflict' | 'sequence'>;
 type AtcTier = Difficulty;
 
 export interface AtcQuestion {
@@ -270,7 +266,7 @@ export function buildAtcRound(mode: AtcMode, difficulty: Difficulty, rng: Rng = 
   // 'radar', 'cleared', and 'intercept' have their own builders in
   // atc-radar.ts / cleared-direct.ts / intercepts.ts and never reach this
   // function - App.svelte dispatches to their dedicated round components.
-  if (mode === 'conflict' || mode === 'direct' || mode === 'vector' || mode === 'sequence' || mode === 'resolve' || mode === 'depart' || mode === 'cleared' || mode === 'intercept') return [];
+  if (mode === 'conflict' || mode === 'sequence' || mode === 'cleared' || mode === 'intercept') return [];
   const modes: AtcQuestionMode[] = mode === 'atcMix'
     ? ['callsign', 'decode', 'compose']
     : [mode];
@@ -298,11 +294,7 @@ export function atcModeTitle(mode: AtcMode | AtcQuestionMode): string {
     case 'cleared': return 'Cleared Direct';
     case 'intercept': return 'Radar Intercepts';
     case 'conflict': return 'Conflict Spot';
-    case 'direct': return 'Direct Request';
-    case 'vector': return 'Vectoring';
     case 'sequence': return 'Sequencing';
-    case 'resolve': return 'Conflict Resolution';
-    case 'depart': return 'Departure Release';
   }
 }
 
@@ -315,11 +307,7 @@ export function atcModeDescription(mode: AtcMode | AtcQuestionMode): string {
     case 'cleared': return 'ATC clears you direct to a fix on the map. Pick the heading.';
     case 'intercept': return 'Judgment calls on ILS approaches: high, fast, crosswind, tailwind.';
     case 'conflict': return 'Read the scope. Tap the two aircraft on a collision course.';
-    case 'direct': return 'A pilot calls in. Find the right blip and approve or deny.';
-    case 'vector': return 'Pick a heading change to open spacing between two inbounds.';
     case 'sequence': return 'Tap inbounds in landing order. Read the scope.';
-    case 'resolve': return 'STCA fires. Pick the resolution that opens spacing without creating a new conflict.';
-    case 'depart': return 'Holding-short queue and inbounds on final. Pick who departs - or hold all.';
   }
 }
 
@@ -336,10 +324,8 @@ export function atcBestKey(mode: AtcMode, difficulty: Difficulty): string {
 }
 
 export function loadAtcBest(mode: AtcMode, difficulty: Difficulty): number {
-  // One-time migration: the old combined 'radar' mode was split into
-  // 'conflict' and 'direct'. Mirror the old score onto both new keys so
-  // players don't lose their best when the split lands.
-  if ((mode === 'conflict' || mode === 'direct') && typeof localStorage !== 'undefined') {
+  // Legacy migration: pre-split combined 'radar' mode score → 'conflict'.
+  if (mode === 'conflict' && typeof localStorage !== 'undefined') {
     const newKey = atcBestKey(mode, difficulty);
     if (localStorage.getItem(newKey) === null) {
       const legacy = localStorage.getItem(`best:atc:radar:${difficulty}`);

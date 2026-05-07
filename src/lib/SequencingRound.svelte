@@ -203,9 +203,13 @@
           {#each current.scenario.aircraft as ac, i (ac.id)}
             {@const tapIdx = order.indexOf(ac.id)}
             {@const tapped = tapIdx >= 0}
+            {@const wake = current.wakes?.[ac.id]}
             <li class="tap-row" class:tapped>
               <span class="tap-slot">{tapped ? `${tapIdx + 1}.` : '·'}</span>
               <span class="tap-cs">{tapped ? ac.callsign : `(${i + 1})`}</span>
+              {#if wake}
+                <span class="wake-tag wake-{wake}">{wake}</span>
+              {/if}
             </li>
           {/each}
         </ol>
@@ -233,12 +237,27 @@
             {@const slot = correctSlotFor(ac.id)}
             {@const hinted = !committed && isCorrectAtCurrent(ac.id)}
             {@const wasCorrect = committed && order[slot] === ac.id}
+            {@const wake = current.wakes?.[ac.id]}
             <AircraftBlip
               aircraft={ac}
               selected={badge !== null || hinted}
               conflict={committed && !wasCorrect}
               onclick={() => tap(ac.id)}
             />
+            {#if wake}
+              <text
+                x={ac.pos.x - 0.6}
+                y={ac.pos.y + 0.2}
+                font-size="0.95"
+                font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+                fill={wake === 'J' ? '#f5b461' : wake === 'H' ? '#7ddc8a' : wake === 'L' ? '#ef6b6b' : '#a3cef1'}
+                text-anchor="end"
+                paint-order="stroke"
+                stroke="#0c1116"
+                stroke-width="0.18"
+                pointer-events="none"
+              >{wake}</text>
+            {/if}
           {/each}
         </RadarScope>
       </div>
@@ -290,7 +309,12 @@
   .scope-wrap :global(svg.radarscope) { width: 100%; height: auto; max-width: 100%; }
   /* Tap list shows order; the scope blip uses selected/conflict colors. */
   .tap-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
-  .tap-row { display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.5rem; padding: 0.4rem 0.6rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; font-size: 0.8125rem; align-items: baseline; }
+  .tap-row { display: grid; grid-template-columns: 2.2rem 1fr auto; gap: 0.5rem; padding: 0.4rem 0.6rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; font-size: 0.8125rem; align-items: baseline; }
+  .wake-tag { font-family: var(--font-main); font-size: 0.6875rem; font-weight: 700; padding: 0.05rem 0.4rem; border-radius: 3px; background: var(--surface); border: 1px solid var(--border); }
+  .wake-J { color: #f5b461; border-color: rgba(245, 180, 97, 0.5); }
+  .wake-H { color: #7ddc8a; border-color: rgba(125, 220, 138, 0.45); }
+  .wake-M { color: #a3cef1; border-color: rgba(163, 206, 241, 0.5); }
+  .wake-L { color: #ef6b6b; border-color: rgba(239, 107, 107, 0.45); }
   .tap-row.tapped { background: rgba(163, 206, 241, 0.18); border-color: var(--accent); }
   .tap-slot { font-family: var(--font-main); font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; text-align: right; }
   .tap-row:not(.tapped) .tap-slot { color: var(--muted); }

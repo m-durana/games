@@ -5,7 +5,6 @@
   import {
     RADAR_ROUND_LENGTH,
     buildConflictRound,
-    buildDirectRound,
     type RadarQuestion,
     type RadarRoundResult,
   } from './atc-radar';
@@ -17,8 +16,8 @@
 
   interface Props {
     difficulty: Difficulty;
-    /** Which radar mode this round runs. */
-    mode: 'conflict' | 'direct';
+    /** Retained for parent dispatch parity; only 'conflict' is supported. */
+    mode: 'conflict';
     onFinish: (results: RadarRoundResult[]) => void;
     onQuit: () => void;
   }
@@ -33,7 +32,7 @@
   interface SavedSession {
     v: 1;
     difficulty: Difficulty;
-    mode: 'conflict' | 'direct';
+    mode: 'conflict';
     questions: RadarQuestion[];
     index: number;
     results: RadarRoundResult[];
@@ -57,17 +56,15 @@
     // svelte-ignore state_referenced_locally
     return {
       // svelte-ignore state_referenced_locally
-      questions: mode === 'conflict' ? buildConflictRound(difficulty) : buildDirectRound(difficulty),
+      questions: buildConflictRound(difficulty),
       index: 0,
       results: [] as RadarRoundResult[],
     };
   })();
 
   let questions: RadarQuestion[] = $state(initial.questions);
-  const modeTitle = $derived(mode === 'conflict' ? 'Conflict Spot' : 'Direct Request');
   let index = $state(initial.index);
   let pickedIds: string[] = $state([]);
-  let pickedOption: string | null = $state(null);
   let committed = $state(false);
   let results: RadarRoundResult[] = $state(initial.results);
 
@@ -79,7 +76,7 @@
     recordProgress({
       key: PKEY,
       gameKind: 'radar',
-      label: `${mode === 'conflict' ? 'Conflict Spot' : 'Direct Request'} · ${difficulty}`,
+      label: `Conflict Spot · ${difficulty}`,
       category: 'Radar',
       mode,
       difficulty,
@@ -96,13 +93,12 @@
   const score = $derived(results.filter((r) => r.correct).length);
 
   const conflictHighlightIds = $derived.by(() => {
-    if (!committed || current.kind !== 'conflict') return new Set<string>();
+    if (!committed) return new Set<string>();
     return new Set(current.conflictPair);
   });
 
   function clickAircraft(a: Aircraft) {
     if (committed) return;
-    if (current.kind !== 'conflict') return; // direct uses buttons
     // Toggle inclusion; cap at 2; auto-commit on second pick.
     const i = pickedIds.indexOf(a.id);
     if (i >= 0) {
@@ -114,17 +110,10 @@
   }
 
   function commitConflict() {
-    if (current.kind !== 'conflict' || committed) return;
+    if (committed) return;
     const target = new Set(current.conflictPair);
     const correct = pickedIds.length === 2 && pickedIds.every((id) => target.has(id));
     finalize(correct, pickedToCallsignList());
-  }
-
-  function pickOption(opt: string, i: number) {
-    if (committed || current.kind !== 'direct') return;
-    pickedOption = opt;
-    const correct = i === current.correctIndex;
-    finalize(correct, opt);
   }
 
   function pickedToCallsignList(): string {
@@ -155,7 +144,6 @@
     }
     index += 1;
     pickedIds = [];
-    pickedOption = null;
     committed = false;
   }
 
@@ -168,8 +156,7 @@
   }
 
   function selectionLabel(): string {
-    if (current.kind === 'conflict') return `Pick the conflict pair · ${pickedIds.length}/2`;
-    return 'Pick the right call';
+    return `Pick the conflict pair · ${pickedIds.length}/2`;
   }
 
   onMount(() => {
@@ -181,14 +168,9 @@
         return;
       }
       if (committed) return;
-      if (current.kind === 'direct') {
-        const n = parseInt(e.key, 10);
-        if (n >= 1 && n <= current.options.length) pickOption(current.options[n - 1], n - 1);
-      } else {
-        const n = parseInt(e.key, 10);
-        if (n >= 1 && n <= current.scenario.aircraft.length) {
-          clickAircraft(current.scenario.aircraft[n - 1]);
-        }
+      const n = parseInt(e.key, 10);
+      if (n >= 1 && n <= current.scenario.aircraft.length) {
+        clickAircraft(current.scenario.aircraft[n - 1]);
       }
     };
     window.addEventListener('keydown', handler);
@@ -215,7 +197,7 @@
   {#key index}
     <div class="card" in:fly={{ y: 16, duration: 220 }}>
       <div class="card-head">
-        <span class="mode-pill">{modeTitle}</span>
+        <span class="mode-pill">Conflict Spot</span>
         <span class="diff-pill">{difficultyLabel(difficulty)}</span>
         <button
           class="info-btn"
@@ -228,51 +210,18 @@
       {#if showInfo}
         <div class="mode-info">
           <p><strong>Read the scope.</strong> Tags show callsign / altitude (×100 ft, ↑↓ = climb/descend) / speed (kt) / heading. The line projecting from each blip is the speed vector — where the aircraft will be in N minutes (toggle V in the bottom-left of the scope).</p>
-          {#if mode === 'conflict'}
-            <p><strong>Tap the two blips on a collision course.</strong> Watch for converging headings (any angle, not just head-on) at similar altitudes within ~1000 ft. <strong>↑/↓ next to a blip</strong> means it's climbing or descending — a descender can cross another aircraft's level before they meet.</p>
-          {:else}
-            <p><strong>A pilot asked for a shortcut.</strong> Find the blip whose callsign matches the radio call, then approve only if the new track stays clear of other traffic and the active final.</p>
-          {/if}
+          <p><strong>Tap the two blips on a collision course.</strong> Watch for converging headings (any angle, not just head-on) at similar altitudes within ~1000 ft. <strong>↑/↓ next to a blip</strong> means it's climbing or descending — a descender can cross another aircraft's level before they meet.</p>
           <p class="tip">Wind tag in the corner sets the runway in use and biases ground speed on final.</p>
         </div>
       {/if}
 
       <div class="right-col">
-        {#if current.kind === 'direct' && current.pilotCall}
-          <div class="atc-call pilot-call">
-            <img class="atc-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/plane.svg" alt="" aria-hidden="true" />
-            <div class="atc-bubble">
-              <span class="bubble-tag">Pilot</span>
-              {current.pilotCall}
-            </div>
-          </div>
-        {/if}
         <div class="game-q">
           <h2>{current.prompt}</h2>
           {#if !committed}
             <span class="sel">{selectionLabel()}</span>
           {/if}
         </div>
-
-        {#if current.kind === 'direct'}
-          <div class="options" class:disabled={committed}>
-            {#each current.options as opt, i}
-              {@const isCorrect = i === current.correctIndex}
-              {@const wasPicked = pickedOption === opt}
-              <button
-                class="option"
-                class:correct={committed && isCorrect}
-                class:wrong={committed && wasPicked && !isCorrect}
-                class:reveal={committed && !wasPicked && !isCorrect}
-                disabled={committed}
-                onclick={() => pickOption(opt, i)}
-              >
-                <span class="key" aria-hidden="true">{i + 1}</span>
-                <span class="opt-text">{opt}</span>
-              </button>
-            {/each}
-          </div>
-        {/if}
 
         {#if committed}
           <div class="feedback" class:good={lastResult?.correct} class:bad={!lastResult?.correct}>
@@ -295,9 +244,9 @@
               aircraft={ac}
               selected={sel}
               conflict={conf}
-              onclick={current.kind === 'direct' ? undefined : clickAircraft}
+              onclick={clickAircraft}
             />
-            {@const vr = current.kind === 'conflict' ? current.verticalRates?.[ac.id] : undefined}
+            {@const vr = current.verticalRates?.[ac.id]}
             {#if vr}
               <text
                 x={ac.pos.x - 0.6}
@@ -326,8 +275,6 @@
   <div class="kb-legend" aria-hidden="true">
     {#if committed}
       <span><kbd>Enter</kbd> next</span>
-    {:else if current?.kind === 'direct'}
-      <span><kbd>1</kbd>-<kbd>3</kbd> pick</span>
     {:else}
       <span><kbd>1</kbd>-<kbd>{current?.scenario.aircraft.length ?? 4}</kbd> tap aircraft</span>
     {/if}
@@ -434,40 +381,6 @@
   .mode-info .tip { font-size: 0.75rem; opacity: 0.85; }
   .game-q h2 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; margin: 0; }
   .sel { color: var(--muted); font-size: 0.8125rem; display: block; margin-top: 0.25rem; }
-  .atc-call { display: flex; align-items: flex-start; gap: 0.6rem; }
-  .atc-icon {
-    width: 32px; height: 32px;
-    flex-shrink: 0;
-    margin-top: 4px;
-    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
-  }
-  .atc-bubble {
-    position: relative;
-    flex: 1;
-    background: #18242f;
-    border: 1px solid rgba(96, 150, 186, 0.45);
-    border-radius: 12px;
-    padding: 0.7rem 0.85rem;
-    min-width: 0;
-  }
-  .atc-bubble::before, .atc-bubble::after {
-    content: '';
-    position: absolute;
-    left: -10px;
-    top: 12px;
-    width: 0; height: 0;
-    border-style: solid;
-  }
-  .atc-bubble::before {
-    border-width: 7px 10px 7px 0;
-    border-color: transparent rgba(96, 150, 186, 0.45) transparent transparent;
-  }
-  .atc-bubble::after {
-    left: -8px;
-    top: 13px;
-    border-width: 6px 9px 6px 0;
-    border-color: transparent #18242f transparent transparent;
-  }
   .scope-wrap {
     display: flex; justify-content: center;
     background: #0c1116;
@@ -481,32 +394,6 @@
     height: auto;
     max-width: 100%;
   }
-  .options { display: grid; grid-template-columns: 1fr; gap: 0.4rem; }
-  .options.disabled { pointer-events: none; }
-  .option {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: 6px;
-    padding: 0.7rem 0.875rem;
-    font-size: 0.9375rem;
-    text-align: left;
-    display: flex; align-items: center; gap: 0.625rem;
-    transition: background 0.12s, border-color 0.12s;
-  }
-  .option:hover { border-color: var(--panel-line); }
-  .option .key {
-    width: 22px; height: 22px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; color: var(--muted);
-    flex-shrink: 0;
-  }
-  .option.correct { background: rgba(34, 197, 94, 0.18); border-color: var(--good); }
-  .option.wrong { background: rgba(239, 68, 68, 0.18); border-color: var(--bad); }
-  .option.reveal { opacity: 0.55; }
   .feedback {
     background: var(--surface-2);
     border-left: 3px solid var(--muted);
