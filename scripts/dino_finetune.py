@@ -359,14 +359,25 @@ def cmd_classify(args) -> None:
     model.load_state_dict(ckpt["model_state"])
     model.eval()
     fam_to_idx = {f: i for i, f in enumerate(families)}
-    # Cold-start families: those with verified-count below MIN_VERIFIED.
-    # The model has no centroid for these, so any refile away from them is
-    # systematically wrong (the model just doesn't know they exist). Force unsure.
     _, val_tf = make_transforms(img_size)
 
     baseline = load_baseline()
-    cold_start = {f for f, e in baseline.items() if len(e.get("verified", [])) < MIN_VERIFIED}
-    print(f"cold-start families (refile suppressed): {sorted(cold_start)}")
+    # Load canonical aircraft IDs (so we can distinguish legacy buckets from
+    # canonical-but-undertrained variants).
+    canon_ids: set = set()
+    canon_path = ROOT / "src" / "data" / "aircraft.json"
+    if canon_path.exists():
+        canon_data = json.loads(canon_path.read_text(encoding="utf-8"))
+        canon_ids = {a["id"] for a in canon_data if isinstance(a, dict) and "id" in a}
+    # Refile suppression rules:
+    # - cold_start: canonical family the model never saw enough of. Don't refile
+    #   AWAY from these — the photo might genuinely belong there.
+    # - legacy buckets (in baseline but NOT canonical): we WANT to refile away
+    #   (cleanup). Allow even though model has no centroid for them.
+    cold_start = {f for f in baseline if f in canon_ids and f not in fam_to_idx}
+    legacy = {f for f in baseline if canon_ids and f not in canon_ids}
+    print(f"cold-start canonical (refile away suppressed): {sorted(cold_start)}")
+    print(f"legacy buckets (refile away ALLOWED for cleanup): {sorted(legacy)}")
     PATCHES_DIR.mkdir(parents=True, exist_ok=True)
     out: dict[str, dict] = {}
 
