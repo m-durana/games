@@ -12,8 +12,10 @@ export type GameKind =
   | 'atc'
   | 'radar'
   | 'cleared'
-  | 'intercept'
-  | 'sequence';
+  | 'sequence'
+  | 'interceptStable'
+  | 'interceptMinimums'
+  | 'interceptFma';
 
 export interface ProgressEntry {
   key: string;

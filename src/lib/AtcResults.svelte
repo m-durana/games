@@ -10,10 +10,19 @@
   } from './atc';
   import type { RadarRoundResult } from './atc-radar';
   import type { ClearedRoundResult } from './cleared-direct';
-  import type { InterceptRoundResult } from './intercepts';
   import type { SequenceRoundResult } from './sequencing';
+  import type { InterceptStableResult } from './intercept-stable';
+  import type { InterceptMinimumsResult } from './intercept-minimums';
+  import type { InterceptFmaResult } from './intercept-fma';
 
-  type RecapResult = AtcRoundResult | RadarRoundResult | ClearedRoundResult | InterceptRoundResult | SequenceRoundResult;
+  type RecapResult =
+    | AtcRoundResult
+    | RadarRoundResult
+    | ClearedRoundResult
+    | SequenceRoundResult
+    | InterceptStableResult
+    | InterceptMinimumsResult
+    | InterceptFmaResult;
   import { difficultyLabel } from './engine';
   import * as Sound from './sound';
 

@@ -48,6 +48,21 @@ export function pooledAirlines(): Airline[] {
 const airports = airportsData as Record<string, string>;
 const airportCountry = airportMetaData as Record<string, string>;
 
+// IATAs allowed by the current pool — used to keep distractors on-pool so
+// US-only doesn't surface Canadian/Mexican airports as decoys, etc.
+function pooledAirportSet(): Set<string> {
+  const p = loadPool();
+  const out = new Set<string>();
+  for (const code in airports) {
+    const c = airportCountry[code];
+    if (!c) continue;
+    if (p === 'all') out.add(code);
+    else if (p === 'us' && c === 'United States') out.add(code);
+    else if (p === 'us_eu' && (c === 'United States' || EU_COUNTRIES.has(c))) out.add(code);
+  }
+  return out;
+}
+
 function airportsByCountry(country: string): string[] {
   const out: string[] = [];
   for (const code in airportCountry) {
@@ -323,8 +338,10 @@ function smartDistractors(
   }
   if (mode === 'hub') {
     // Distractors: other airports in the same country, then same region, then anywhere.
-    const sameCountryAps = shuffle(airportsByCountry(airline.country).filter((c) => c !== answer), rng);
-    const sameRegionAps = shuffle(airportsBySameRegion(airline.country).filter((c) => c !== answer), rng);
+    // Keep distractors inside the active pool so US-only doesn't surface CA/MX/etc.
+    const ok = pooledAirportSet();
+    const sameCountryAps = shuffle(airportsByCountry(airline.country).filter((c) => c !== answer && ok.has(c)), rng);
+    const sameRegionAps = shuffle(airportsBySameRegion(airline.country).filter((c) => c !== answer && ok.has(c)), rng);
     const out: string[] = [];
     for (const code of sameCountryAps) {
       if (!out.includes(code)) out.push(code);
@@ -334,7 +351,7 @@ function smartDistractors(
       if (!out.includes(code)) out.push(code);
       if (out.length === n) return out;
     }
-    const extra = shuffle(fallbackPool.filter((x) => x !== answer && !out.includes(x)), rng).slice(0, n - out.length);
+    const extra = shuffle(fallbackPool.filter((x) => x !== answer && !out.includes(x) && ok.has(x)), rng).slice(0, n - out.length);
     return [...out, ...extra];
   }
   if (mode === 'country') {
@@ -414,6 +431,7 @@ function buildQuestion(
     const correct = top[0];
     const exclude = new Set(r.topDestinations ?? []);
     exclude.add(airportIata); // never offer the airport itself as a destination
+    const ok = pooledAirportSet();
     const apCountry = airportCountry[airportIata];
     const region = apCountry ? REGIONS[apCountry] : undefined;
     const sameRegion = region
@@ -422,7 +440,8 @@ function buildQuestion(
             !exclude.has(c) &&
             c !== correct &&
             airportCountry[c] &&
-            REGIONS[airportCountry[c]] === region,
+            REGIONS[airportCountry[c]] === region &&
+            ok.has(c),
         )
       : [];
     const ranked = shuffle(sameRegion, rng);
@@ -433,7 +452,7 @@ function buildQuestion(
     }
     if (distractors.length < 3) {
       const extra = shuffle(
-        fallbackPool.filter((x) => !exclude.has(x) && x !== correct && !distractors.includes(x)),
+        fallbackPool.filter((x) => !exclude.has(x) && x !== correct && !distractors.includes(x) && ok.has(x)),
         rng,
       ).slice(0, 3 - distractors.length);
       distractors.push(...extra);
@@ -452,6 +471,7 @@ function buildQuestion(
     const correct = top[0];
     const exclude = new Set(r.topDestinations ?? []);
     exclude.add(airline.hub); // hub isn't a meaningful "destination"
+    const ok = pooledAirportSet();
     const region = REGIONS[airline.country];
     const sameRegion = region
       ? Object.keys(airports).filter(
@@ -459,11 +479,12 @@ function buildQuestion(
             !exclude.has(c) &&
             c !== correct &&
             airportCountry[c] &&
-            REGIONS[airportCountry[c]] === region,
+            REGIONS[airportCountry[c]] === region &&
+            ok.has(c),
         )
       : [];
     const sameCountry = Object.keys(airports).filter(
-      (c) => !exclude.has(c) && c !== correct && airportCountry[c] === airline.country,
+      (c) => !exclude.has(c) && c !== correct && airportCountry[c] === airline.country && ok.has(c),
     );
     const ranked = [...shuffle(sameCountry, rng), ...shuffle(sameRegion, rng)];
     const distractors: string[] = [];
@@ -473,7 +494,7 @@ function buildQuestion(
     }
     if (distractors.length < 3) {
       const extra = shuffle(
-        fallbackPool.filter((x) => !exclude.has(x) && x !== correct && !distractors.includes(x)),
+        fallbackPool.filter((x) => !exclude.has(x) && x !== correct && !distractors.includes(x) && ok.has(x)),
         rng,
       ).slice(0, 3 - distractors.length);
       distractors.push(...extra);
@@ -491,16 +512,17 @@ function buildQuestion(
     const showCount = difficulty === 'hard' ? 3 : difficulty === 'easy' ? 5 : 4;
     const destinations = (r.topDestinations ?? []).slice(0, showCount);
     const correct = airportIata;
+    const ok = pooledAirportSet();
     const apCountry = airportCountry[airportIata];
     const region = apCountry ? REGIONS[apCountry] : undefined;
     const sameRegion = region
       ? Object.keys(airports).filter(
-          (c) => c !== correct && airportCountry[c] && REGIONS[airportCountry[c]] === region,
+          (c) => c !== correct && airportCountry[c] && REGIONS[airportCountry[c]] === region && ok.has(c),
         )
       : [];
     const sameAlliance = airline.alliance
       ? sourcePool
-          .filter((x) => x.iata !== airline.iata && x.alliance === airline.alliance && x.hub !== correct && airports[x.hub])
+          .filter((x) => x.iata !== airline.iata && x.alliance === airline.alliance && x.hub !== correct && airports[x.hub] && ok.has(x.hub))
           .map((x) => x.hub)
       : [];
     const ranked = difficulty === 'hard'
@@ -513,7 +535,7 @@ function buildQuestion(
     }
     if (distractors.length < 3) {
       const extra = shuffle(
-        Object.keys(airports).filter((x) => x !== correct && !distractors.includes(x)),
+        Object.keys(airports).filter((x) => x !== correct && !distractors.includes(x) && ok.has(x)),
         rng,
       ).slice(0, 3 - distractors.length);
       distractors.push(...extra);
@@ -871,18 +893,27 @@ function eligibleFor(mode: Mode, sourcePool: Airline[], difficulty?: Difficulty)
   return sourcePool;
 }
 
+// Modes whose question is "about" an airport (the airline's hub). For these we
+// also dedupe by hub IATA so US-only doesn't ask about DFW twice in one round
+// just because two different US airlines share the hub.
+const AIRPORT_MODES: Mode[] = ['airportAirline', 'airportConn', 'whereAmI', 'hubOf'];
+
 export function buildRound(mode: Mode, difficulty: Difficulty, seed?: number): Question[] {
   const rng = seed === undefined ? defaultRng() : mulberry32(seed);
   const sourcePool = pool(difficulty);
   const eligible = eligibleFor(mode, sourcePool, difficulty);
   const used = new Set<string>();
+  const usedHubs = new Set<string>();
+  const dedupHubs = AIRPORT_MODES.includes(mode);
   const out: Question[] = [];
   let safety = 0;
   while (out.length < ROUND_LENGTH && safety < 1000) {
     safety++;
     const a = pick(eligible, rng);
     if (used.has(a.iata)) continue;
+    if (dedupHubs && usedHubs.has(a.hub)) continue;
     used.add(a.iata);
+    if (dedupHubs) usedHubs.add(a.hub);
     const fallbackPool = optionPool(mode, sourcePool);
     out.push(buildQuestion(a, mode, sourcePool, fallbackPool, difficulty, rng));
   }

@@ -211,7 +211,61 @@
     // Each new airport: collapse the gallery so the player starts on the aerial.
     void current;
     showGallery = false;
+    // also reset zoom/pan
+    zoom = 1;
+    panX = 0;
+    panY = 0;
   });
+
+  // ---- Aerial zoom/pan ------------------------------------------------------
+  let zoom = $state(1);
+  let panX = $state(0);
+  let panY = $state(0);
+  const MIN_ZOOM = 1;
+  const MAX_ZOOM = 6;
+
+  function onWheel(e: WheelEvent) {
+    e.preventDefault();
+    const stage = e.currentTarget as HTMLElement;
+    const rect = stage.getBoundingClientRect();
+    // cursor relative to stage center
+    const cx = e.clientX - rect.left - rect.width / 2;
+    const cy = e.clientY - rect.top - rect.height / 2;
+    const factor = e.deltaY < 0 ? 1.15 : 1 / 1.15;
+    const next = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, zoom * factor));
+    if (next === zoom) return;
+    // Zoom toward cursor: world point under cursor stays put.
+    const ratio = next / zoom;
+    panX = cx - (cx - panX) * ratio;
+    panY = cy - (cy - panY) * ratio;
+    zoom = next;
+    if (zoom === 1) { panX = 0; panY = 0; }
+  }
+
+  let dragging = $state(false);
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let panStartX = 0;
+  let panStartY = 0;
+  function onPointerDown(e: PointerEvent) {
+    if (zoom <= 1) return;
+    dragging = true;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    panStartX = panX;
+    panStartY = panY;
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  }
+  function onPointerMove(e: PointerEvent) {
+    if (!dragging) return;
+    panX = panStartX + (e.clientX - dragStartX);
+    panY = panStartY + (e.clientY - dragStartY);
+  }
+  function onPointerUp(e: PointerEvent) {
+    if (!dragging) return;
+    dragging = false;
+    (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+  }
 
   function nextHint() { if (stage < maxStage) stage += 1; }
 
@@ -352,9 +406,26 @@
           </span>
         </div>
 
-        <div class="photo-stage">
+        <div
+          class="photo-stage"
+          class:zoomed={zoom > 1}
+          onwheel={onWheel}
+          onpointerdown={onPointerDown}
+          onpointermove={onPointerMove}
+          onpointerup={onPointerUp}
+          onpointercancel={onPointerUp}
+        >
           {#if aerialUrl}
-            <img src={aerialUrl} alt="Airport aerial to identify" class="photo" />
+            <img
+              src={aerialUrl}
+              alt="Airport aerial to identify"
+              class="photo"
+              draggable="false"
+              style="transform: translate({panX}px, {panY}px) scale({zoom}); transition: {dragging ? 'none' : 'transform 80ms ease-out'};"
+            />
+            {#if zoom > 1}
+              <button class="zoom-reset" type="button" onclick={() => { zoom = 1; panX = 0; panY = 0; }} aria-label="Reset zoom" title="Reset zoom">×</button>
+            {/if}
             {#if groundPhotos.length > 0 && !revealed}
               <button class="photo-cycle" onclick={() => (showGallery = !showGallery)} aria-expanded={showGallery}>
                 {showGallery ? 'Hide images' : `Show me images (${groundPhotos.length})`}
@@ -507,7 +578,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: zoom-in;
+    touch-action: none;
   }
+  .photo-stage.zoomed { cursor: grab; }
+  .photo-stage.zoomed:active { cursor: grabbing; }
+  .zoom-reset {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background: rgba(3, 7, 10, 0.72);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+  }
+  .zoom-reset:hover { border-color: var(--accent); color: var(--accent); }
   .photo-cycle {
     position: absolute;
     bottom: 0.5rem;
@@ -522,7 +613,13 @@
     backdrop-filter: blur(4px);
   }
   .photo-cycle:hover { border-color: var(--accent); color: var(--accent); }
-  .photo { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .photo {
+    width: 100%; height: 100%; object-fit: contain; display: block;
+    transform-origin: center center;
+    user-select: none;
+    -webkit-user-drag: none;
+    will-change: transform;
+  }
   .photo-loading { color: var(--muted); font-size: 0.875rem; padding: 1rem; text-align: center; }
   .gallery {
     display: grid;

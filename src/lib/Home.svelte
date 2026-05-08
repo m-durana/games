@@ -39,9 +39,11 @@
     | 'atcDecode'
     | 'atcCompose'
     | 'atcCleared'
-    | 'atcIntercept'
     | 'radarConflict'
-    | 'radarSequence';
+    | 'radarSequence'
+    | 'interceptStable'
+    | 'interceptMinimums'
+    | 'interceptFma';
 
   let {
     onStart,
@@ -84,15 +86,21 @@
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
   // atcMix is now reachable only via the category Mix button; it's no longer
   // listed as its own chip per user request (see categoryMix below).
-  // 'intercept' is temporarily disabled - it's a pilot-side decision and the
-  // top-down radar view is the wrong viewpoint. Keep code intact for a future
-  // cockpit / instruments-only game mode (see docs/potential-intercept-mode.md).
   // 'callsign' lives under the Airlines category - it's an airline-name quiz
   // at heart. The Radio category covers what's actually said on the radio.
   const atcModes: AtcMode[] = ['decode', 'compose', 'cleared'];
   const callsignBest = $derived(loadAtcBest('callsign', difficulty));
-  // Radar modes - their own category. All run on the top-down scope.
-  const radarModes: AtcMode[] = ['conflict', 'sequence'];
+  // Radar category. Top-down scope modes (Conflict, Sequencing) plus the
+  // instrument-driven Intercept revival. The Intercept modes use the PFD
+  // widget set — they're a bridge to the planned Pilot IFR section; for now
+  // they live alongside the scope modes.
+  const radarModes: AtcMode[] = [
+    'conflict',
+    'sequence',
+    'interceptStable',
+    'interceptMinimums',
+    'interceptFma',
+  ];
 
   type CategoryKey = 'airline' | 'airport' | 'aircraft' | 'atc' | 'radar';
   function categoryMix(cat: CategoryKey) {
@@ -135,9 +143,11 @@
     compose: 'spell-check',
     atcMix: 'shuffle',
     cleared: 'navigation',
-    intercept: 'plane-landing',
     conflict: 'radar',
     sequence: 'list-ordered',
+    interceptStable: 'gauge',
+    interceptMinimums: 'cloud-fog',
+    interceptFma: 'monitor-cog',
   };
 
   function atcIcon(m: AtcMode): string {
@@ -404,7 +414,7 @@
   <div class="modes-grid">
     {#each atcModes as mode}
       {@const best = loadAtcBest(mode, difficulty)}
-      {@const introKey = mode === 'decode' ? 'atcDecode' : mode === 'compose' ? 'atcCompose' : mode === 'cleared' ? 'atcCleared' : mode === 'intercept' ? 'atcIntercept' : null}
+      {@const introKey = mode === 'decode' ? 'atcDecode' : mode === 'compose' ? 'atcCompose' : mode === 'cleared' ? 'atcCleared' : null}
       <button class="mode-tile" onclick={() => onStartAtc(mode, difficulty)}>
         {#if introKey}
           <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>
@@ -431,7 +441,7 @@
   <div class="modes-grid">
     {#each radarModes as mode}
       {@const best = loadAtcBest(mode, difficulty)}
-      {@const introKey = mode === 'conflict' ? 'radarConflict' : mode === 'sequence' ? 'radarSequence' : null}
+      {@const introKey = mode === 'conflict' ? 'radarConflict' : mode === 'sequence' ? 'radarSequence' : mode === 'interceptStable' ? 'interceptStable' : mode === 'interceptMinimums' ? 'interceptMinimums' : mode === 'interceptFma' ? 'interceptFma' : null}
       <button class="mode-tile" onclick={() => onStartAtc(mode, difficulty)}>
         {#if introKey}
           <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>
@@ -517,14 +527,15 @@
 
   .mix-card {
     text-align: center;
-    border-radius: 8px;
-    padding: 0.7rem 0.75rem;
+    border-radius: 4px;
+    padding: 0.55rem 0.7rem;
+    color: var(--text);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.2rem;
     transition: transform 0.15s, border-color 0.15s, background 0.15s;
-    min-height: 104px;
+    min-height: 84px;
     background: var(--surface);
     border: 1px solid rgba(96, 150, 186, 0.36);
     border-left: 5px solid var(--accent-2);
@@ -566,14 +577,15 @@
   .daily-card,
   .speed-card {
     text-align: center;
-    border-radius: 8px;
-    padding: 0.7rem 0.75rem;
+    border-radius: 4px;
+    padding: 0.55rem 0.7rem;
+    color: var(--text);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.2rem;
     transition: transform 0.15s, border-color 0.15s, background 0.15s;
-    min-height: 104px;
+    min-height: 84px;
   }
   .daily-card {
     background: var(--surface);
@@ -595,8 +607,8 @@
   .daily-card:active, .speed-card:active { transform: scale(0.98); }
 
   .feature-icon {
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
     filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
   }
   .daily-head, .speed-head {
@@ -718,14 +730,18 @@
   .modes-sections {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1rem;
     align-items: start;
   }
   @media (min-width: 720px) {
+    /* 6-col base; first two sections (Airlines, Airports) span 3 each → 2-up.
+       Remaining three sections (Aircraft, Radio, Radar) span 2 each → 3-up. */
     .modes-sections {
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.25rem;
     }
+    .modes-wrap:nth-child(-n+2) { grid-column: span 3; }
+    .modes-wrap:nth-child(n+3)  { grid-column: span 2; }
   }
   .modes-wrap {
     display: flex;
@@ -771,26 +787,26 @@
   }
   .modes-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
+    /* auto-fill keeps tile width consistent across sections regardless of how
+       wide the section's grid-column span is. Tiles stay ~140-180px wide. */
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.4rem;
   }
   @media (min-width: 720px) {
-    .modes-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
-  }
-  @media (min-width: 1024px) {
-    .modes-grid { grid-template-columns: repeat(4, 1fr); }
+    .modes-grid { gap: 0.5rem; }
   }
   .mode-tile {
-    min-height: 148px;
+    min-height: 104px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.75rem;
+    border-radius: 4px;
+    padding: 0.55rem 0.6rem;
+    color: var(--text);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.35rem;
+    gap: 0.2rem;
     position: relative;
     text-align: center;
     transition: transform 0.15s, border-color 0.15s, background 0.15s;
@@ -798,9 +814,9 @@
   .mode-tile:active { transform: scale(0.98); background: var(--surface-2); }
   .mode-tile:hover { border-color: var(--panel-line); }
   .tile-icon {
-    width: 28px;
-    height: 28px;
-    margin-bottom: 0.2rem;
+    width: 22px;
+    height: 22px;
+    margin-bottom: 0.15rem;
     filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
   }
   .tile-title {
@@ -814,7 +830,6 @@
     color: var(--muted);
     font-size: 0.6875rem;
     line-height: 1.3;
-    min-height: 1.8em;
     max-width: 100%;
   }
   .guide-btn {

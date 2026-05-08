@@ -21,9 +21,10 @@ function loadJson(p) { return JSON.parse(readFileSync(p, 'utf8')); }
 function saveJson(p, obj) { writeFileSync(p, JSON.stringify(obj, null, 2) + '\n'); }
 
 function ensureFam(baseline, fam) {
-  if (!baseline[fam]) baseline[fam] = { approved: [], rejected: [], verified: [], unsure: [] };
+  if (!baseline[fam]) baseline[fam] = { approved: [], rejected: [], verified: [], unsure: [], unchecked: [] };
   const e = baseline[fam];
   if (!e.unsure) e.unsure = [];
+  if (!e.unchecked) e.unchecked = [];
   return e;
 }
 
@@ -31,27 +32,36 @@ function applyPatch(baseline, patch) {
   const fam = patch.family;
   if (!baseline[fam]) {
     console.warn(`  skip: family ${fam} not in baseline`);
-    return { verified: 0, rejected: 0, refiled: 0, unsure: 0 };
+    return { verified: 0, approved: 0, rejected: 0, refiled: 0, unsure: 0 };
   }
-  const src = baseline[fam];
+  const src = ensureFam(baseline, fam);
   const sApp = new Set(src.approved || []);
   const sRej = new Set(src.rejected || []);
   const sVer = new Set(src.verified || []);
   const sUns = new Set(src.unsure || []);
-  let nVer = 0, nRej = 0, nRef = 0, nUns = 0;
+  const sUnc = new Set(src.unchecked || []);
+  let nVer = 0, nApp = 0, nRej = 0, nRef = 0, nUns = 0;
   for (const v of patch.verdicts || []) {
     if (v.verdict === 'verified') {
       // Verifier may now act on non-approved URLs too — ensure it lands in approved.
       if (!sApp.has(v.url)) sApp.add(v.url);
       if (!sVer.has(v.url)) { sVer.add(v.url); nVer++; }
+      sUnc.delete(v.url);
+    } else if (v.verdict === 'approved') {
+      // Photo-filter passed (good photo) but type NOT verified.
+      if (!sApp.has(v.url)) { sApp.add(v.url); nApp++; }
+      sUnc.delete(v.url);
     } else if (v.verdict === 'rejected') {
-      if (sApp.has(v.url)) { sApp.delete(v.url); }
+      sApp.delete(v.url);
       sVer.delete(v.url);
+      sUns.delete(v.url);
+      sUnc.delete(v.url);
       sRej.add(v.url);
       nRej++;
     } else if (v.verdict === 'unsure') {
-      if (sApp.has(v.url)) { sApp.delete(v.url); }
+      sApp.delete(v.url);
       sVer.delete(v.url);
+      sUnc.delete(v.url);
       sUns.add(v.url);
       nUns++;
     } else if (v.verdict === 'refile') {
@@ -60,13 +70,17 @@ function applyPatch(baseline, patch) {
       const dst = ensureFam(baseline, target);
       const dApp = new Set(dst.approved || []);
       const dVer = new Set(dst.verified || []);
+      const dUnc = new Set(dst.unchecked || []);
       sApp.delete(v.url);
       sVer.delete(v.url);
+      sUnc.delete(v.url);
       // Don't put into rejected — it's a good photo, just for a different family.
       dApp.add(v.url);
       dVer.add(v.url);
+      dUnc.delete(v.url);
       dst.approved = [...dApp];
       dst.verified = [...dVer];
+      dst.unchecked = [...dUnc];
       nRef++;
     } else {
       console.warn(`  unknown verdict ${v.verdict} for ${v.url}`);
@@ -76,7 +90,8 @@ function applyPatch(baseline, patch) {
   src.rejected = [...sRej];
   src.verified = [...sVer];
   src.unsure = [...sUns];
-  return { verified: nVer, rejected: nRej, refiled: nRef, unsure: nUns };
+  src.unchecked = [...sUnc];
+  return { verified: nVer, approved: nApp, rejected: nRej, refiled: nRef, unsure: nUns };
 }
 
 function refreshLog(baseline, processedPatches) {
@@ -197,7 +212,7 @@ function main() {
       continue;
     }
     const r = applyPatch(baseline, patch);
-    console.log(`  merged ${file}: +${r.verified} verified, ${r.rejected} rejected, ${r.refiled} refiled, ${r.unsure} unsure`);
+    console.log(`  merged ${file}: +${r.verified} verified, +${r.approved || 0} approved, ${r.rejected} rejected, ${r.refiled} refiled, ${r.unsure} unsure`);
     processed.push(patch);
     const dest = join(PROCESSED_DIR, file.split(/[\\/]/).pop());
     renameSync(file, dest);

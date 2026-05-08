@@ -30,15 +30,19 @@
   import AtcResults from './lib/AtcResults.svelte';
   import AtcRadarRound from './lib/AtcRadarRound.svelte';
   import ClearedDirectRound from './lib/ClearedDirectRound.svelte';
-  import InterceptRound from './lib/InterceptRound.svelte';
   import SequencingRound from './lib/SequencingRound.svelte';
+  import InterceptStableRound from './lib/InterceptStableRound.svelte';
+  import InterceptMinimumsRound from './lib/InterceptMinimumsRound.svelte';
+  import InterceptFmaRound from './lib/InterceptFmaRound.svelte';
   import PfdLab from './lib/PfdLab.svelte';
   import type { Difficulty, HistoryEntry, Mode, RoundResult } from './lib/types';
   import type { AtcMode, AtcRoundResult } from './lib/atc';
   import type { RadarRoundResult } from './lib/atc-radar';
   import type { ClearedRoundResult } from './lib/cleared-direct';
-  import type { InterceptRoundResult } from './lib/intercepts';
   import type { SequenceRoundResult } from './lib/sequencing';
+  import type { InterceptStableResult } from './lib/intercept-stable';
+  import type { InterceptMinimumsResult } from './lib/intercept-minimums';
+  import type { InterceptFmaResult } from './lib/intercept-fma';
   import { readSharedFromUrl, type SharedRound } from './lib/share';
   import type { Achievement } from './lib/achievements';
   import { evaluateAchievements } from './lib/achievements';
@@ -79,9 +83,11 @@
     | { kind: 'atcRound'; mode: AtcMode; difficulty: Difficulty }
     | { kind: 'atcRadarRound'; radarMode: 'conflict'; difficulty: Difficulty }
     | { kind: 'clearedRound'; difficulty: Difficulty }
-    | { kind: 'interceptRound'; difficulty: Difficulty }
     | { kind: 'sequenceRound'; difficulty: Difficulty }
-    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] | ClearedRoundResult[] | InterceptRoundResult[] | SequenceRoundResult[] }
+    | { kind: 'interceptStableRound'; difficulty: Difficulty }
+    | { kind: 'interceptMinimumsRound'; difficulty: Difficulty }
+    | { kind: 'interceptFmaRound'; difficulty: Difficulty }
+    | { kind: 'atcResults'; mode: AtcMode; difficulty: Difficulty; results: AtcRoundResult[] | RadarRoundResult[] | ClearedRoundResult[] | SequenceRoundResult[] | InterceptStableResult[] | InterceptMinimumsResult[] | InterceptFmaResult[] }
     | { kind: 'intro'; intro: IntroKey; difficulty: Difficulty }
     | { kind: 'pfdLab' };
 
@@ -91,9 +97,11 @@
     | 'atcDecode'
     | 'atcCompose'
     | 'atcCleared'
-    | 'atcIntercept'
     | 'radarConflict'
-    | 'radarSequence';
+    | 'radarSequence'
+    | 'interceptStable'
+    | 'interceptMinimums'
+    | 'interceptFma';
 
   const INTRO_TITLES: Record<IntroKey, string> = {
     aircraftIdentify: 'Aircraft Identify · Field guide',
@@ -101,9 +109,11 @@
     atcDecode: 'Decode ATC · Phraseology primer',
     atcCompose: 'Readback Builder · How readbacks work',
     atcCleared: 'Cleared Direct · Bearings & headings',
-    atcIntercept: 'Radar Intercepts · Stabilized approach gates',
     radarConflict: 'Conflict Spot · Reading the scope',
     radarSequence: 'Sequencing · Order them onto the runway',
+    interceptStable: 'Stable or Go-around · The 1000 ft gate',
+    interceptMinimums: 'At Minimums · The DA call',
+    interceptFma: 'FMA Watch · CAT IIIb autoland',
   };
 
   function introSlides(key: IntroKey) {
@@ -117,9 +127,11 @@
       case 'atcDecode': startAtc('decode', d); return;
       case 'atcCompose': startAtc('compose', d); return;
       case 'atcCleared': startAtc('cleared', d); return;
-      case 'atcIntercept': startAtc('intercept', d); return;
       case 'radarConflict': startAtc('conflict', d); return;
       case 'radarSequence': startAtc('sequence', d); return;
+      case 'interceptStable': startAtc('interceptStable', d); return;
+      case 'interceptMinimums': startAtc('interceptMinimums', d); return;
+      case 'interceptFma': startAtc('interceptFma', d); return;
     }
   }
 
@@ -244,7 +256,9 @@
     if (mode === 'conflict') return progressKey('radar', difficulty, mode);
     if (mode === 'sequence') return progressKey('sequence', difficulty);
     if (mode === 'cleared') return progressKey('cleared', difficulty);
-    if (mode === 'intercept') return progressKey('intercept', difficulty);
+    if (mode === 'interceptStable') return progressKey('interceptStable', difficulty);
+    if (mode === 'interceptMinimums') return progressKey('interceptMinimums', difficulty);
+    if (mode === 'interceptFma') return progressKey('interceptFma', difficulty);
     return progressKey('atc', difficulty, mode);
   }
 
@@ -255,7 +269,9 @@
       if (mode === 'conflict') view = { kind: 'atcRadarRound', radarMode: 'conflict', difficulty };
       else if (mode === 'sequence') view = { kind: 'sequenceRound', difficulty };
       else if (mode === 'cleared') view = { kind: 'clearedRound', difficulty };
-      else if (mode === 'intercept') view = { kind: 'interceptRound', difficulty };
+      else if (mode === 'interceptStable') view = { kind: 'interceptStableRound', difficulty };
+      else if (mode === 'interceptMinimums') view = { kind: 'interceptMinimumsRound', difficulty };
+      else if (mode === 'interceptFma') view = { kind: 'interceptFmaRound', difficulty };
       else view = { kind: 'atcRound', mode, difficulty };
     });
   }
@@ -286,11 +302,17 @@
       case 'cleared':
         view = { kind: 'clearedRound', difficulty: d };
         return;
-      case 'intercept':
-        view = { kind: 'interceptRound', difficulty: d };
-        return;
       case 'sequence':
         view = { kind: 'sequenceRound', difficulty: d };
+        return;
+      case 'interceptStable':
+        view = { kind: 'interceptStableRound', difficulty: d };
+        return;
+      case 'interceptMinimums':
+        view = { kind: 'interceptMinimumsRound', difficulty: d };
+        return;
+      case 'interceptFma':
+        view = { kind: 'interceptFmaRound', difficulty: d };
         return;
     }
   }
@@ -311,12 +333,18 @@
     view = { kind: 'atcResults', mode: 'cleared', difficulty, results };
   }
 
-  function finishIntercept(difficulty: Difficulty, results: InterceptRoundResult[]) {
-    view = { kind: 'atcResults', mode: 'intercept', difficulty, results };
-  }
-
   function finishSequence(difficulty: Difficulty, results: SequenceRoundResult[]) {
     view = { kind: 'atcResults', mode: 'sequence', difficulty, results };
+  }
+
+  function finishInterceptStable(difficulty: Difficulty, results: InterceptStableResult[]) {
+    view = { kind: 'atcResults', mode: 'interceptStable', difficulty, results };
+  }
+  function finishInterceptMinimums(difficulty: Difficulty, results: InterceptMinimumsResult[]) {
+    view = { kind: 'atcResults', mode: 'interceptMinimums', difficulty, results };
+  }
+  function finishInterceptFma(difficulty: Difficulty, results: InterceptFmaResult[]) {
+    view = { kind: 'atcResults', mode: 'interceptFma', difficulty, results };
   }
 
   function finishSpeed(score: number, isNewBest: boolean) {
@@ -376,7 +404,7 @@
     'airportAirline','airlineDest','airportConn','code','whereAmI','hubOf',
   ];
   const DIFFS: Difficulty[] = ['easy','medium','hard'];
-  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix','cleared','intercept','conflict','sequence'];
+  const ATC_MODES: AtcMode[] = ['callsign','decode','compose','atcMix','cleared','conflict','sequence','interceptStable','interceptMinimums','interceptFma'];
 
   function viewHash(v: View): string | null {
     switch (v.kind) {
@@ -398,8 +426,10 @@
       case 'atcRound': return `#/atc/${v.mode}?difficulty=${v.difficulty}`;
       case 'atcRadarRound': return `#/atc/${v.radarMode}?difficulty=${v.difficulty}`;
       case 'clearedRound': return `#/atc/cleared?difficulty=${v.difficulty}`;
-      case 'interceptRound': return `#/atc/intercept?difficulty=${v.difficulty}`;
       case 'sequenceRound': return `#/atc/sequence?difficulty=${v.difficulty}`;
+      case 'interceptStableRound': return `#/atc/interceptStable?difficulty=${v.difficulty}`;
+      case 'interceptMinimumsRound': return `#/atc/interceptMinimums?difficulty=${v.difficulty}`;
+      case 'interceptFmaRound': return `#/atc/interceptFma?difficulty=${v.difficulty}`;
       case 'pfdLab': return '#/pfd-lab';
       default: return null; // results / shared / review screens don't deep-link
     }
@@ -430,12 +460,22 @@
       if (b === 'conflict') return { kind: 'atcRadarRound', radarMode: 'conflict', difficulty: d };
       if (b === 'sequence') return { kind: 'sequenceRound', difficulty: d };
       if (b === 'cleared') return { kind: 'clearedRound', difficulty: d };
-      if (b === 'intercept') return { kind: 'interceptRound', difficulty: d };
+      if (b === 'interceptStable') return { kind: 'interceptStableRound', difficulty: d };
+      if (b === 'interceptMinimums') return { kind: 'interceptMinimumsRound', difficulty: d };
+      if (b === 'interceptFma') return { kind: 'interceptFmaRound', difficulty: d };
       return { kind: 'atcRound', mode: b as AtcMode, difficulty: d };
     }
-    // Legacy: redirect old #/atc/radar and #/atc/direct links to Conflict Spot.
+    // Retired modes redirect to FMA Watch (closest surviving relative).
+    if (a === 'atc' && (b === 'interceptDiamonds' || b === 'shift') && d) {
+      return { kind: 'interceptFmaRound', difficulty: d };
+    }
+    // Legacy: redirect old #/atc/radar, #/atc/direct, #/atc/intercept links.
     if (a === 'atc' && (b === 'radar' || b === 'direct') && d) {
       return { kind: 'atcRadarRound', radarMode: 'conflict', difficulty: d };
+    }
+    if (a === 'atc' && b === 'intercept' && d) {
+      // The old top-down Intercept mode is retired; route to its instrument-driven successor.
+      return { kind: 'interceptStableRound', difficulty: d };
     }
     if (d) {
       if (a === 'aircraft-wordle') return { kind: 'aircraftWordle', difficulty: d };
@@ -469,9 +509,13 @@
     // Sweep stale registry entries from retired modes (e.g. 'wake') so they
     // don't appear in the in-progress list after deploys that cut the mode.
     if (typeof localStorage !== 'undefined') {
-      const valid = new Set(['standard','aircraftIdentify','militaryIdentify','airportIdentify','atc','radar','cleared','intercept','sequence']);
+      const valid = new Set([
+        'standard','aircraftIdentify','militaryIdentify','airportIdentify',
+        'atc','radar','cleared','sequence',
+        'interceptStable','interceptMinimums','interceptFma',
+      ]);
       for (const e of listProgress()) {
-        // Drop registry entries from retired gameKinds (vector/resolve/depart),
+        // Drop registry entries from retired gameKinds (vector/resolve/depart/intercept),
         // and the retired 'direct' radar mode whose sessionStorageKey contains
         // ':direct:'. Surviving entries from kinds we still ship pass through.
         const isRetiredDirect = e.gameKind === 'radar' && e.mode === 'direct';
@@ -484,7 +528,10 @@
             k.startsWith('session:vector:') ||
             k.startsWith('session:resolve:') ||
             k.startsWith('session:depart:') ||
-            k.startsWith('session:radar:direct:')) {
+            k.startsWith('session:radar:direct:') ||
+            k.startsWith('session:intercept:') ||
+            k.startsWith('session:interceptDiamonds:') ||
+            k.startsWith('session:shift:')) {
           localStorage.removeItem(k);
         }
       }
@@ -526,16 +573,15 @@
   <div class="brand">
     <div class="brand-left">
       {#if view.kind === 'home'}
-        <span class="crumb">games</span>
+        <span class="crumb">Flight Deck</span>
       {:else}
-        <button class="crumb crumb-btn" type="button" onclick={home} aria-label="Game home" title="Game home">← games</button>
+        <button class="crumb crumb-btn" type="button" onclick={home} aria-label="Flight Deck home" title="Flight Deck home"><span class="back-arrow" aria-hidden="true">←</span> Flight Deck</button>
       {/if}
     </div>
-    <div class="brand-center">Flight Deck</div>
     <div class="brand-right">
       {#if view.kind === 'home'}
-        <button class="menu-btn" onclick={() => (menuOpen = !menuOpen)} aria-label="Menu" aria-expanded={menuOpen}>
-          ⋯
+        <button class="icon-btn" onclick={() => (menuOpen = !menuOpen)} aria-label="Menu" aria-expanded={menuOpen}>
+          <img src="https://unpkg.com/lucide-static@0.469.0/icons/settings.svg" alt="" aria-hidden="true" />
         </button>
         {#if menuOpen}
           <div class="menu" role="menu">
@@ -545,7 +591,7 @@
           </div>
         {/if}
       {/if}
-      <a href="/">miro.build →</a>
+      <a class="up-link" href="/"><span aria-hidden="true">←</span> miro.build</a>
     </div>
   </div>
 
@@ -655,18 +701,32 @@
       onFinish={(r) => finishCleared(v.difficulty, r)}
       onQuit={home}
     />
-  {:else if view.kind === 'interceptRound'}
-    {@const v = view}
-    <InterceptRound
-      difficulty={v.difficulty}
-      onFinish={(r) => finishIntercept(v.difficulty, r)}
-      onQuit={home}
-    />
   {:else if view.kind === 'sequenceRound'}
     {@const v = view}
     <SequencingRound
       difficulty={v.difficulty}
       onFinish={(r) => finishSequence(v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'interceptStableRound'}
+    {@const v = view}
+    <InterceptStableRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishInterceptStable(v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'interceptMinimumsRound'}
+    {@const v = view}
+    <InterceptMinimumsRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishInterceptMinimums(v.difficulty, r)}
+      onQuit={home}
+    />
+  {:else if view.kind === 'interceptFmaRound'}
+    {@const v = view}
+    <InterceptFmaRound
+      difficulty={v.difficulty}
+      onFinish={(r) => finishInterceptFma(v.difficulty, r)}
       onQuit={home}
     />
   {:else if view.kind === 'intro'}
@@ -725,57 +785,66 @@
   .brand-left {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    flex: 1;
-  }
-  .brand-center {
-    flex: 0 0 auto;
-    font-family: var(--font-main);
-    font-size: 1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    color: var(--accent);
-    text-align: center;
   }
   .crumb-btn {
     background: none;
-    border: 1px solid rgba(39, 76, 119, 0.28);
-    border-radius: 4px;
-    padding: 0.2rem 0.5rem;
+    border: 0;
+    padding: 0;
     cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
+    color: var(--text);
+    transition: color 0.15s;
   }
-  .crumb-btn:hover {
-    border-color: var(--accent);
-    background: var(--surface-2);
-  }
+  .crumb-btn:hover { color: var(--accent); }
   .crumb-btn:focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    outline-offset: 3px;
     border-radius: 2px;
   }
+  .back-arrow {
+    color: var(--muted);
+    transition: color 0.15s, transform 0.15s;
+    display: inline-block;
+  }
+  .crumb-btn:hover .back-arrow { color: var(--accent); transform: translateX(-2px); }
   .brand-right {
     display: flex;
     align-items: center;
-    gap: 0.875rem;
+    gap: 0.75rem;
     position: relative;
-    flex: 1;
-    justify-content: flex-end;
   }
-  .menu-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 3px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+  .icon-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background: none;
+    border: 1px solid transparent;
     color: var(--muted);
-    font-family: var(--font-main);
-    font-size: 1.125rem;
-    line-height: 1;
-    transition: color 0.15s, border-color 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
   }
-  .menu-btn:hover { color: var(--accent); border-color: var(--panel-line); }
+  .icon-btn img {
+    width: 16px;
+    height: 16px;
+    filter: invert(78%) sepia(10%) saturate(180%) hue-rotate(170deg) brightness(95%);
+  }
+  .icon-btn:hover {
+    color: var(--accent);
+    border-color: var(--border);
+    background: var(--surface);
+  }
+  .up-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .up-link span {
+    color: var(--muted);
+    transition: color 0.15s, transform 0.15s;
+    display: inline-block;
+  }
+  .up-link:hover span { color: var(--text); transform: translateX(-2px); }
   .menu {
     position: absolute;
     top: calc(100% + 0.4rem);

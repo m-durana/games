@@ -8,10 +8,12 @@ export type AtcMode =
   | 'compose'
   | 'atcMix'
   | 'cleared'
-  | 'intercept'
   | 'conflict'
-  | 'sequence';
-type AtcQuestionMode = Exclude<AtcMode, 'atcMix' | 'cleared' | 'intercept' | 'conflict' | 'sequence'>;
+  | 'sequence'
+  | 'interceptStable'
+  | 'interceptMinimums'
+  | 'interceptFma';
+type AtcQuestionMode = Exclude<AtcMode, 'atcMix' | 'cleared' | 'conflict' | 'sequence' | 'interceptStable' | 'interceptMinimums' | 'interceptFma'>;
 type AtcTier = Difficulty;
 
 export interface AtcQuestion {
@@ -266,7 +268,10 @@ export function buildAtcRound(mode: AtcMode, difficulty: Difficulty, rng: Rng = 
   // 'radar', 'cleared', and 'intercept' have their own builders in
   // atc-radar.ts / cleared-direct.ts / intercepts.ts and never reach this
   // function - App.svelte dispatches to their dedicated round components.
-  if (mode === 'conflict' || mode === 'sequence' || mode === 'cleared' || mode === 'intercept') return [];
+  if (
+    mode === 'conflict' || mode === 'sequence' || mode === 'cleared' ||
+    mode === 'interceptStable' || mode === 'interceptMinimums' || mode === 'interceptFma'
+  ) return [];
   const modes: AtcQuestionMode[] = mode === 'atcMix'
     ? ['callsign', 'decode', 'compose']
     : [mode];
@@ -292,9 +297,11 @@ export function atcModeTitle(mode: AtcMode | AtcQuestionMode): string {
     case 'compose': return 'Readback Builder';
     case 'atcMix': return 'ATC Mix';
     case 'cleared': return 'Cleared Direct';
-    case 'intercept': return 'Radar Intercepts';
     case 'conflict': return 'Conflict Spot';
     case 'sequence': return 'Sequencing';
+    case 'interceptStable': return 'Stable or Go-around';
+    case 'interceptMinimums': return 'At Minimums';
+    case 'interceptFma': return 'FMA Watch';
   }
 }
 
@@ -305,9 +312,11 @@ export function atcModeDescription(mode: AtcMode | AtcQuestionMode): string {
     case 'compose': return 'Tap chips in order to build the correct readback. Some are decoys.';
     case 'atcMix': return 'Mixed callsign, decode, and readback-builder questions.';
     case 'cleared': return 'ATC clears you direct to a fix on the map. Pick the heading.';
-    case 'intercept': return 'Judgment calls on ILS approaches: high, fast, crosswind, tailwind.';
     case 'conflict': return 'Read the scope. Tap the two aircraft on a collision course.';
     case 'sequence': return 'Tap inbounds in landing order. Read the scope.';
+    case 'interceptStable': return 'PFD snapshot at 1000 ft AGL — call continue or go around.';
+    case 'interceptMinimums': return 'At the DA call — what visual reference do you have?';
+    case 'interceptFma': return 'CAT IIIb autoland. Watch the FMA strip for degrades.';
   }
 }
 

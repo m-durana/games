@@ -9,9 +9,11 @@ export type IntroKey =
   | 'atcDecode'
   | 'atcCompose'
   | 'atcCleared'
-  | 'atcIntercept'
   | 'radarConflict'
-  | 'radarSequence';
+  | 'radarSequence'
+  | 'interceptStable'
+  | 'interceptMinimums'
+  | 'interceptFma';
 
 const A320 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Avi%C3%B3n_de_PeninsulyFly.jpg/1280px-Avi%C3%B3n_de_PeninsulyFly.jpg';
 const A330 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg/1280px-Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg';
@@ -200,18 +202,26 @@ const atcDecode: IntroSlide[] = [
   {
     title: 'Altitudes',
     body: 'Altitude in aviation is measured in feet, not meters. There are two ways to say it:<br><br>• Below 18,000 feet (in the US), altitudes are spoken in thousands. <em>"Climb and maintain six thousand"</em> means 6,000 feet.<br>• At or above 18,000 feet, altitudes are called <strong>flight levels</strong>. <em>"FL350"</em> (spoken "flight level three five zero") means 35,000 feet. Just chop off the last two zeroes from the altitude in feet.<br><br>"Maintain" means: stop climbing or descending when you reach that altitude and hold it.',
+    scene: 'atc-climb-fl',
+    sceneCaption: '"Climb and maintain FL350" — leave the current level, climb to 35,000 ft, then hold.',
   },
   {
     title: 'Headings (which direction to fly)',
     body: 'Pilots fly using a <strong>heading</strong> - a number from 000 to 360 that tells them which compass direction to point. Think of a clock face flattened into a circle:<br><br>• 360 (or 000) = north<br>• 090 = east<br>• 180 = south<br>• 270 = west<br><br><em>"Turn right heading 270"</em> means: turn to face west. The numbers are always spoken digit by digit: "two seven zero".',
+    scene: 'atc-turn-heading',
+    sceneCaption: 'Pointed north, told "turn right heading 270" — rotate 90° clockwise to point west.',
   },
   {
     title: 'Speed and direct routing',
     body: '<strong>Speed</strong> is given in knots (nautical miles per hour). <em>"Reduce speed to 250"</em> means slow down to 250 knots. Below 10,000 feet there is a legal limit of 250 knots.<br><br><strong>Direct</strong> means "fly straight to this point on the map". Air routes have named points (called <em>fixes</em>) with five-letter codes like ABCDE or BOSOX. <em>"United 28, direct BOSOX"</em> means: skip the rest of the route, fly straight to BOSOX.',
+    scene: 'atc-direct-fix',
+    sceneCaption: '"Direct BOSOX" — abandon the current track and fly straight to the named fix.',
   },
   {
     title: 'Approach and landing words',
     body: 'When a plane is near the airport, special phrases come into play:<br><br>• <strong>"Cleared ILS RWY 27L"</strong> - you are allowed to fly the published instrument approach to runway 27L (the runway pointing roughly 270°, the left one of a parallel pair).<br>• <strong>"Cleared to land"</strong> - actually allowed to touch down. This is different from "cleared approach"!<br>• <strong>"Go around"</strong> - abort the landing, climb back up, try again.<br>• <strong>"Cleared visual approach"</strong> - you have the airport in sight, fly to it visually instead of by instruments.',
+    scene: 'atc-cleared-ils',
+    sceneCaption: '"Cleared ILS RWY 27L" — fly the published approach down the dashed centerline to runway 27L.',
   },
   {
     title: 'How the question works',
@@ -227,14 +237,20 @@ const atcCompose: IntroSlide[] = [
   {
     title: 'How to structure a readback',
     body: 'A readback echoes the controller\'s <strong>parameters</strong> (the values), then ends with the plane\'s <strong>callsign</strong>. The order is:<br><br><em>action, value, (more action, more value...), callsign at the end</em><br><br>Example: ATC says <em>"United 28, descend and maintain flight level 240, slow to 280 knots."</em><br>Correct readback: <em>"Descend and maintain FL240, slow to 280, United 28."</em><br><br>Notice how the callsign moves to the end in the readback - that\'s the convention.',
+    scene: 'atc-readback-card',
+    sceneCaption: 'Top row = controller; bottom row = readback. Same parameters, callsign moves to the end.',
   },
   {
     title: 'What you must read back',
     body: 'You always read back any of these the controller gave you:<br><br>• <strong>Altitude</strong> assignments (e.g. "maintain 6,000")<br>• <strong>Heading</strong> assignments (e.g. "heading 270")<br>• <strong>Speed</strong> restrictions (e.g. "slow to 250")<br>• <strong>Route</strong> changes (e.g. "direct BOSOX")<br>• <strong>Frequency</strong> changes (e.g. "contact tower 118.5")<br>• <strong>Runway</strong> assignments (e.g. "cleared to land 27L")<br><br>The callsign always closes the transmission.',
+    scene: 'atc-climb-fl',
+    sceneCaption: 'For an altitude assignment like "climb and maintain FL350", the value FL350 must be read back.',
   },
   {
     title: 'Watch for trap chips',
     body: 'Some chips on the screen are <strong>decoys</strong> - they don\'t belong in the correct readback. Common decoys:<br><br>• A wrong altitude (e.g. FL240 vs FL340)<br>• A wrong heading direction (left vs right)<br>• A different callsign or wrong flight number<br>• Extra phrases the controller never said<br><br>Tap chips in order: instruction → value → (next instruction → next value) → callsign. If a chip doesn\'t match what you heard, leave it.',
+    scene: 'atc-decoy-card',
+    sceneCaption: 'Red struck-through chips are the decoys: wrong direction, wrong digits, wrong callsign.',
   },
 ];
 
@@ -316,20 +332,20 @@ const radarConflict: IntroSlide[] = [
   radarBasicsScope,
   radarBasicsBlip,
   {
-    title: 'Crossing tracks at the same level',
-    body: 'A <strong>conflict</strong> is when two aircraft will lose separation: less than <strong>5 nm horizontally</strong> AND less than <strong>1,000 ft vertically</strong> at the same instant. Look for blips at similar altitudes whose speed vectors cross.',
+    title: 'Reading altitudes on the scope',
+    body: 'The third number in each data tag is the altitude, written in <strong>hundreds of feet</strong>. So a tag showing <strong>110</strong> means 11,000 feet, <strong>230</strong> means 23,000 feet, <strong>060</strong> means 6,000 feet. Above 18,000 feet pilots and controllers say "flight level" instead of "feet" - so 23,000 ft is spoken as <em>"flight level two three zero"</em>, written <strong>FL230</strong>. The number on the scope is the same either way.',
     scene: 'radar-traffic',
-    sceneCaption: 'AAL123 and DAL456 - both at FL110, vectors crossing in the centre. That\'s the pair.',
+    sceneCaption: 'Each tag shows callsign / altitude in hundreds of feet / speed.',
   },
   {
-    title: 'Read altitudes before you commit',
-    body: 'Most blips on the scope are NOT in conflict, even when their tracks look threatening. The data tag\'s third number is the altitude in hundreds of feet. Two aircraft at FL230 and FL060 may have crossing vectors but they\'ll pass with 17,000 ft to spare.',
+    title: 'What "in conflict" means',
+    body: 'Two aircraft are in <strong>conflict</strong> when they will be less than <strong>5 nautical miles apart horizontally</strong> AND less than <strong>1,000 feet apart vertically</strong> at the same instant. That is the legal separation minimum in most controlled airspace.<br><br>So the pair you are looking for has both: tracks (speed vectors) that cross, AND altitudes within ~1000 feet of each other. Pure crossing tracks alone is not enough - if one is at 11,000 ft and the other is at 23,000 ft, they pass with 12,000 ft of altitude between them and never come close.',
     scene: 'radar-conflict-altitudes',
-    sceneCaption: 'AAL123 ↔ DAL456 are the conflict (both 110). The other three are safe - read the altitudes.',
+    sceneCaption: 'AAL123 and DAL456 both show 110 (11,000 ft) - the conflict. The others have very different altitudes.',
   },
   {
     title: 'Your job',
-    body: 'Tap the <strong>two aircraft</strong> on a collision course. The wrong pair scores zero, so check every aircraft on the scope - the data tag tells you the altitude, the vector tells you the track. Use the <strong>V</strong> button at the bottom-left to extend the speed vectors and see where the tracks meet.',
+    body: 'Tap the <strong>two aircraft</strong> on a collision course. The wrong pair scores zero, so it pays to check every aircraft on the scope: the altitude in the data tag, then the speed vector to see where the tracks meet. Use the <strong>V</strong> button at the bottom-left of the scope to lengthen the vectors when the situation isn\'t yet obvious.',
   },
 ];
 
@@ -348,15 +364,124 @@ const radarSequence: IntroSlide[] = [
   },
 ];
 
+const interceptStable: IntroSlide[] = [
+  {
+    title: 'What this game is asking',
+    body: 'When the weather is bad, pilots cannot see the runway from far away. They follow a radio beam down toward it and only spot the runway in the last few seconds. Just before they get there, they have one job: <strong>decide whether the landing is safe to keep going, or whether to abort and try again</strong>. Aborting is called a <strong>go-around</strong>: full power, climb back up, fly a circuit, try the approach a second time. This game shows you the cockpit screen the pilot is staring at and asks: <strong>Continue, or Go around?</strong>',
+  },
+  {
+    title: 'The screen you are looking at',
+    body: 'The big round picture is the <strong>Primary Flight Display</strong>, or <strong>PFD</strong>. It shows everything the pilot needs in one screen:<br><br>• <strong>The blue/brown ball in the middle</strong> shows whether the plane is level, banked, climbing or descending. Blue = sky, brown = ground.<br>• <strong>Strip on the LEFT</strong> = speed (knots).<br>• <strong>Strip on the RIGHT</strong> = altitude (feet).<br>• <strong>Thin scale on the FAR right</strong> = how fast the plane is going down or up (the <em>vertical speed</em>).<br>• <strong>Horizontal bar at the bottom</strong> = compass heading (which way the nose is pointing).<br>• <strong>Green text at the top</strong> = which autopilot modes are running.',
+    scene: 'pfd-stable',
+    sceneCaption: 'Every PFD has these same parts in roughly the same places.',
+  },
+  {
+    title: 'The "stable approach" rule',
+    body: 'For a landing to be safe, six things must <em>all</em> be true at the moment the plane is <strong>1000 feet above the runway</strong>. Pilots call these the <strong>stabilization gates</strong>. If even one is wrong, the safe answer is go around. In plain language:<br><br>1. <strong>Speed</strong> is roughly right - not too fast, not too slow for landing.<br>2. <strong>Sink rate</strong> (how fast it is going down) is at most 1000 feet per minute. Steeper than that is dangerous.<br>3. <strong>Lined up</strong> left/right with the runway centerline.<br>4. <strong>On the right descent angle</strong> (a 3° slope down to the runway).<br>5. <strong>Set up for landing</strong>: wheels down, wing flaps fully out.<br>6. <strong>Engine power</strong> is set, not still spooling up or down.<br><br>You are checking these six gates on the picture every round.',
+  },
+  {
+    title: 'All six gates green - Continue',
+    body: 'Here is a clean snapshot. The numbered tags around the PFD walk you through the six gates in order: speed in band, sink under 1000 fpm, lined up, on glideslope, autopilot tracking the runway. Pick <strong>Continue</strong> on a picture like this.',
+    scene: 'pfd-stable',
+    sceneCaption: 'Speed OK, sink OK, both diamonds centered, autopilot tracking. Continue.',
+  },
+  {
+    title: 'A clear failure: descending too fast',
+    body: 'Look at the <strong>thin scale on the far right</strong> - that\'s the vertical speed. The needle is past 1000 ft per minute downward. Gate #2 (sink rate) is broken. One broken gate is enough: <strong>go around</strong>.',
+    scene: 'pfd-unstable-sink',
+    sceneCaption: 'Sink rate over the limit. Go around.',
+  },
+  {
+    title: 'A clear failure: off to the side of the runway',
+    body: 'The <strong>small horizontal scale below the attitude ball</strong> shows whether the plane is left or right of the runway centerline. The diamond drifts left as the plane drifts left. Past the first dot = significantly off-center. Gate #3 broken: <strong>go around</strong>.',
+    scene: 'pfd-unstable-loc',
+    sceneCaption: 'Diamond past one dot to the left. Go around.',
+  },
+  {
+    title: 'Hard mode: tight margins, decoys',
+    body: 'On <strong>Hard</strong> the pictures are deliberately tricky. One value is just barely outside its limit (the real failure), while another value is borderline-but-still-legal (a decoy designed to grab your eye). You have to scan <em>all six</em> gates every time. Easy mode highlights the failure for you with a label; Medium and Hard make you find it yourself.',
+    scene: 'pfd-tight-borderline',
+    sceneCaption: 'Speed just over the band. Scan all six.',
+  },
+];
+
+const interceptMinimums: IntroSlide[] = [
+  {
+    title: 'What "minimums" means',
+    body: 'When clouds or fog block the view, the rule is: <em>"You may follow the radio beam down toward the runway, but only to a fixed altitude. At that altitude you must look up and decide. If you can clearly see enough of the runway, keep going down to land. If you cannot, abort - go around."</em><br><br>That altitude is called <strong>minimums</strong> (or <em>decision altitude</em> / DA). This game shows you the view out the window at minimums and asks: <strong>Land?</strong> <strong>Go around?</strong> Or the special <strong>"continue to 100 ft only"</strong> answer (explained two slides on).',
+  },
+  {
+    title: 'What counts as "seeing the runway"',
+    body: 'You don\'t need to see the whole runway - you need to clearly see <em>at least one</em> piece of the runway environment. The list comes from a U.S. regulation called <strong>FAR 91.175(c)</strong>:<br><br>• <strong>The approach lights</strong> - the line of bright lights leading TO the runway, before the runway itself begins.<br>• <strong>The threshold</strong> - the painted start of the runway, or its lights/markings.<br>• <strong>The touchdown zone (TDZ)</strong> - the wide white blocks at the start of the runway, or its lights.<br>• <strong>The runway</strong> itself or its edge lights.<br><br>If you don\'t clearly see any of these, you go around. The picture below shows the touchdown zone markings - clear, identifiable, you can land.',
+    scene: 'outside-tdz',
+    sceneCaption: 'Touchdown zone markings (white blocks) - one of the required references.',
+  },
+  {
+    title: 'The approach-lights-only special case',
+    body: 'There is one tricky in-between case: you see the <strong>approach lights</strong> (the line leading TO the runway) but nothing else - no runway, no threshold, no touchdown zone yet.<br><br>The rule lets you keep descending, but only to <strong>100 feet above the runway</strong>. Below 100 ft you must <em>also</em> see at least the red "side row" bars at the very end of the approach lights, or the runway itself. If by 100 ft you still see only the approach lights, you go around.<br><br>That is the <strong>"100 ft only"</strong> button in the round.',
+    scene: 'outside-approachlights',
+    sceneCaption: 'Approach lights only, no red bars, no runway. "100 ft only".',
+  },
+  {
+    title: 'When in doubt, go around',
+    body: 'In thick fog the view is often a grey murk with maybe a hint of light. You\'re not sure if those are runway lights or just bright spots in the fog.<br><br>The rule is binary: <strong>uncertainty counts as "didn\'t see"</strong>. If you can\'t identify a specific reference from the list, the call is go around. Better to abort and try again than to land on something you can\'t actually see.',
+    scene: 'outside-fog-uncertain',
+    sceneCaption: 'Lights through fog, but nothing identifiable. Go around.',
+  },
+  {
+    title: 'Categories of approach',
+    body: 'Different approaches let pilots descend lower than others. The round will tell you which one applies:<br><br>• <strong>CAT I</strong>: minimums around 200 feet above the ground. The most common. Needs reasonable visibility.<br>• <strong>CAT II</strong>: minimums around 100 feet. Special crew training and equipment needed.<br>• <strong>CAT III</strong>: minimums down to 50 feet, or even fully automatic landings (CAT IIIb / IIIc) in dense fog. That last one is what the FMA round is about.<br><br>Lower category = lower minimums = thicker fog allowed = the decision is faster and tighter.',
+  },
+];
+
+const interceptFma: IntroSlide[] = [
+  {
+    title: 'What autoland is',
+    body: 'In very thick fog the pilot may not be able to see the runway even at 50 feet above it. Modern jets can <strong>land themselves</strong> in this case: the autopilot flies the plane all the way to the runway, lowers the nose at the right moment, and rolls out down the centerline. This is called <strong>autoland</strong>. The pilot watches and is ready to take over if anything goes wrong.<br><br>This game shows you the autopilot doing an autoland in fog and asks: based on what the autopilot is reporting, <strong>let it continue, or take it away and go around?</strong>',
+  },
+  {
+    title: 'How the autopilot tells you what it is doing',
+    body: 'At the very top of the PFD is a <strong>green text strip</strong> with about four columns. It is called the <strong>FMA</strong> (Flight Mode Annunciator). It is how the autopilot reports what it is doing right now - which speed mode, which heading mode, which altitude mode, and the autoland status.<br><br>During a fog landing, the <strong>rightmost column</strong> is the one to watch. It shows the autoland word: LAND 3, LAND 2, or NO AUTOLAND. That word is the entire decision.',
+    scene: 'fma-land3',
+    sceneCaption: 'The green strip at the top is the FMA. Right column = autoland status.',
+  },
+  {
+    title: 'LAND 3 - all healthy, continue',
+    body: '<strong>LAND 3</strong> means the autopilot has <em>three independent systems</em> all agreeing. If one fails, two more carry on. This is the safest state. The autoland is cleared to keep going all the way to the runway, no matter how thick the fog.<br><br>If the FMA reads LAND 3, the answer is <strong>Continue</strong>.',
+    scene: 'fma-land3',
+    sceneCaption: 'LAND 3: three healthy systems. Safe to continue.',
+  },
+  {
+    title: 'LAND 2 - down to one backup',
+    body: '<strong>LAND 2</strong> means one of the three systems has already failed; only one is still running. There is no backup left if it fails too.<br><br>The rule depends on how high above the runway you are. There is a special height called the <strong>alert height</strong>, usually about <strong>200 feet</strong> above the ground. Above 200 ft, LAND 2 is acceptable - you have time to react if it gets worse. Below 200 ft, any further failure means a mandatory go-around.<br><br>So a switch from LAND 3 to LAND 2 <em>above</em> 200 ft = continue (but watch closely). Same switch <em>below</em> 200 ft = no margin left, go around.',
+    scene: 'fma-land2',
+    sceneCaption: 'LAND 2: only one system left.',
+  },
+  {
+    title: 'NO AUTOLAND - mandatory go-around',
+    body: 'If the FMA word drops all the way to <strong>NO AUTOLAND</strong>, the autopilot is telling you it cannot land the plane safely. The pilot cannot take over manually either - in dense fog they can\'t see well enough.<br><br>This call is non-negotiable: <strong>go around immediately</strong>.',
+    scene: 'fma-noautoland',
+    sceneCaption: 'NO AUTOLAND. Go around now.',
+  },
+  {
+    title: 'How the round plays',
+    body: 'You watch a short live timeline (about 14 seconds) as the plane descends toward the runway. A <strong>radio altimeter</strong> at the bottom of the PFD shows the height above the ground in feet, counting down. The FMA word at the top may change once - or twice in quick succession on Hard. When it does, you have a few seconds to call <strong>Continue</strong> or <strong>Go around</strong>. If you wait too long the answer locks in as missed.',
+    scene: 'fma-land3',
+    sceneCaption: 'Watch the FMA word as the radio altitude counts down.',
+  },
+];
+
 const SLIDES: Record<IntroKey, IntroSlide[]> = {
   aircraftIdentify,
   militaryIdentify,
   atcDecode,
   atcCompose,
   atcCleared,
-  atcIntercept,
   radarConflict,
   radarSequence,
+  interceptStable,
+  interceptMinimums,
+  interceptFma,
 };
 
 export const INTRO_LABELS: Record<IntroKey, string> = {
@@ -365,9 +490,11 @@ export const INTRO_LABELS: Record<IntroKey, string> = {
   atcDecode: 'Decode ATC',
   atcCompose: 'Readback Builder',
   atcCleared: 'Cleared Direct',
-  atcIntercept: 'Radar Intercepts',
   radarConflict: 'Conflict Spot',
   radarSequence: 'Sequencing',
+  interceptStable: 'Stable or Go-around',
+  interceptMinimums: 'At Minimums',
+  interceptFma: 'FMA Watch',
 };
 
 export const ALL_INTRO_KEYS: IntroKey[] = [
@@ -376,9 +503,11 @@ export const ALL_INTRO_KEYS: IntroKey[] = [
   'atcDecode',
   'atcCompose',
   'atcCleared',
-  'atcIntercept',
   'radarConflict',
   'radarSequence',
+  'interceptStable',
+  'interceptMinimums',
+  'interceptFma',
 ];
 
 const OVERRIDE_KEY = 'intro-image-overrides';
@@ -465,6 +594,8 @@ export const militaryIdentifyIntro = militaryIdentify;
 export const atcDecodeIntro = atcDecode;
 export const atcComposeIntro = atcCompose;
 export const atcClearedIntro = atcCleared;
-export const atcInterceptIntro = atcIntercept;
 export const radarConflictIntro = radarConflict;
 export const radarSequenceIntro = radarSequence;
+export const interceptStableIntro = interceptStable;
+export const interceptMinimumsIntro = interceptMinimums;
+export const interceptFmaIntro = interceptFma;
