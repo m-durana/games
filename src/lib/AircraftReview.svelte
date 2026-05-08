@@ -70,8 +70,12 @@
         : e.approvedUrl ? [e.approvedUrl] : [];
       const rejected = Array.isArray(e.rejected) ? e.rejected : [];
       const verified = Array.isArray(e.verified) ? e.verified.filter((u) => approved.includes(u)) : [];
-      const unchecked = Array.isArray(e.unchecked) ? e.unchecked : [];
-      const unsure = Array.isArray(e.unsure) ? e.unsure : [];
+      // Drop URLs the user has already decided on. AI-flagged unsure/unchecked
+      // entries that overlap with approved/rejected are stale - the human's
+      // call wins, no re-prompt.
+      const decided = new Set([...approved, ...rejected].map(canonUrl));
+      const unchecked = Array.isArray(e.unchecked) ? e.unchecked.filter((u) => !decided.has(canonUrl(u))) : [];
+      const unsure = Array.isArray(e.unsure) ? e.unsure.filter((u) => !decided.has(canonUrl(u))) : [];
       const fetchedCount = typeof (e as { fetchedCount?: number }).fetchedCount === 'number'
         ? (e as { fetchedCount?: number }).fetchedCount
         : undefined;
@@ -541,19 +545,8 @@
   }
   function applyImport() {
     try {
-      // Tolerate the older single-approvedUrl shape too.
-      type AnyEntry = { approved?: string[]; approvedUrl?: string; rejected?: string[]; verified?: string[]; unchecked?: string[]; fetchedCount?: number };
-      const data = JSON.parse(importText) as Record<string, AnyEntry>;
-      const merged = { ...state };
-      for (const [id, e] of Object.entries(data)) {
-        const approved = e.approved ?? (e.approvedUrl ? [e.approvedUrl] : []);
-        const verified = (e.verified ?? []).filter((u) => approved.includes(u));
-        const unchecked = e.unchecked ?? [];
-        const next: ReviewEntry = { approved, rejected: e.rejected ?? [], verified, unchecked };
-        if (typeof e.fetchedCount === 'number') next.fetchedCount = e.fetchedCount;
-        merged[id] = next;
-      }
-      state = merged;
+      const data = JSON.parse(importText) as Record<string, any>;
+      state = { ...state, ...sanitizeState(data) };
       persist();
       importText = '';
       showImport = false;
