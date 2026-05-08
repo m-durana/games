@@ -94,9 +94,15 @@ def cmd_download(args) -> None:
     baseline = load_baseline()
     targets: list[tuple[str, str]] = []  # (family, url)
     for fam, e in baseline.items():
-        for url in e.get("verified", []):
+        urls = list(e.get("verified", []))
+        if args.include_approved:
+            verified_set = set(e.get("verified", []))
+            for u in e.get("approved", []):
+                if u not in verified_set:
+                    urls.append(u)
+        for url in urls:
             targets.append((fam, url))
-    print(f"verified URLs: {len(targets)}")
+    print(f"URLs to fetch: {len(targets)}  (include_approved={args.include_approved})")
     session = requests.Session()
     counts = Counter()
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
@@ -353,9 +359,14 @@ def cmd_classify(args) -> None:
     model.load_state_dict(ckpt["model_state"])
     model.eval()
     fam_to_idx = {f: i for i, f in enumerate(families)}
+    # Cold-start families: those with verified-count below MIN_VERIFIED.
+    # The model has no centroid for these, so any refile away from them is
+    # systematically wrong (the model just doesn't know they exist). Force unsure.
     _, val_tf = make_transforms(img_size)
 
     baseline = load_baseline()
+    cold_start = {f for f, e in baseline.items() if len(e.get("verified", [])) < MIN_VERIFIED}
+    print(f"cold-start families (refile suppressed): {sorted(cold_start)}")
     PATCHES_DIR.mkdir(parents=True, exist_ok=True)
     out: dict[str, dict] = {}
 
@@ -416,7 +427,7 @@ def cmd_classify(args) -> None:
                        "reason": f"finetuned: top1={top1}@{top1_p:.2f} margin={margin:.2f}"}
             n_verified += 1
         elif (top1 != fam and top1_p >= args.tau_refile and margin >= args.tau_margin
-              and top1 in fam_to_idx):
+              and top1 in fam_to_idx and fam not in cold_start):
             verdict = {"verdict": "refile", "confidence": top1_p, "refile_to": top1,
                        "reason": f"finetuned: top1={top1}@{top1_p:.2f} filed={fam}@{filed_p:.2f}"}
             n_refile += 1
@@ -449,6 +460,8 @@ def main():
 
     d = sub.add_parser("download", help="cache verified images to tmp/img-cache")
     d.add_argument("--workers", type=int, default=2)
+    d.add_argument("--include-approved", action="store_true",
+                   help="also cache approved-but-unverified URLs (for classify)")
     d.set_defaults(func=cmd_download)
 
     t = sub.add_parser("train", help="fine-tune DINOv2 on cached images")

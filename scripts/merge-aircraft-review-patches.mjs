@@ -59,11 +59,9 @@ function applyPatch(baseline, patch) {
       sRej.add(v.url);
       nRej++;
     } else if (v.verdict === 'unsure') {
-      // For type-ID patches: keep in approved (it's a good photo, type just uncertain).
-      // Only remove from verified (type-verified status is now revoked) and unchecked.
-      sVer.delete(v.url);
-      sUnc.delete(v.url);
-      sUns.add(v.url);
+      // Type-ID unsure is a no-op on the baseline: the photo stays in approved,
+      // which IS the unverified pool (the queue awaiting type confirmation).
+      // We just count it for the log so the operator can see how many were uncertain.
       nUns++;
     } else if (v.verdict === 'refile') {
       const target = v.refile_to;

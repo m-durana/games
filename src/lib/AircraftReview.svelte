@@ -23,6 +23,10 @@
     // Photos the AI campaign never reviewed at all - need a visual quality
     // pass in Curate mode. When user marks Good they move to approved.
     unchecked?: string[];
+    // Photos flagged by the AI campaign as ambiguous (criterion 8: multiple
+    // aircraft of comparable prominence in frame). Surfaced in Curate so the
+    // human can re-judge: keep approved, reject, or leave flagged.
+    unsure?: string[];
     // Total photos returned by the last successful Wikimedia fetch. Used
     // to tell "all photos marked" from "still some in the queue" in the
     // jump-to dropdown without having to refetch.
@@ -67,10 +71,11 @@
       const rejected = Array.isArray(e.rejected) ? e.rejected : [];
       const verified = Array.isArray(e.verified) ? e.verified.filter((u) => approved.includes(u)) : [];
       const unchecked = Array.isArray(e.unchecked) ? e.unchecked : [];
+      const unsure = Array.isArray(e.unsure) ? e.unsure : [];
       const fetchedCount = typeof (e as { fetchedCount?: number }).fetchedCount === 'number'
         ? (e as { fetchedCount?: number }).fetchedCount
         : undefined;
-      out[id] = { approved, rejected, verified, unchecked, fetchedCount };
+      out[id] = { approved, rejected, verified, unchecked, unsure, fetchedCount };
     }
     return out;
   }
@@ -136,6 +141,9 @@
   const totalUncheckedPhotos = $derived(
     Object.values(state).reduce((n, e) => n + (e.unchecked?.length ?? 0), 0),
   );
+  const totalUnsurePhotos = $derived(
+    Object.values(state).reduce((n, e) => n + (e.unsure?.length ?? 0), 0),
+  );
 
   $effect(() => {
     if (!current) return;
@@ -153,24 +161,37 @@
   });
 
   // Keyboard shortcuts mirror AirportReview so muscle memory carries over.
-  //   G / Y / Space → Good        R / N        → Not good
-  //   ← / A         → prev plane  → / D        → next plane
-  //   ↑ / K         → prev photo  ↓ / J        → next photo
-  // Disabled while typing in inputs/textareas or in Verify mode.
+  // Curate:  G / Y / Space → Good        R / N        → Not good
+  //          ← / A         → prev plane  → / D        → next plane
+  //          ↑ / K         → prev photo  ↓ / J        → next photo
+  // Verify:  G / Y / Space → Confirm     R / N        → Wrong/remove
+  //          ← / A         → prev        → / D        → next
+  //          Z             → undo
+  // Disabled while typing in inputs/textareas/selects.
   $effect(() => {
     function onKey(e: KeyboardEvent) {
-      if (mode !== 'curate') return;
       const t = e.target as HTMLElement | null;
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const k = e.key.toLowerCase();
-      switch (k) {
-        case 'g': case 'y': case ' ': if (currentPhoto) { approve(); e.preventDefault(); } break;
-        case 'r': case 'n': if (currentPhoto) { rejectShowsType(); e.preventDefault(); } break;
-        case 'arrowright': case 'd': next(); e.preventDefault(); break;
-        case 'arrowleft': case 'a': prev(); e.preventDefault(); break;
-        case 'arrowdown': case 'j': nextPhoto(); e.preventDefault(); break;
-        case 'arrowup': case 'k': prevPhoto(); e.preventDefault(); break;
+      if (mode === 'curate') {
+        switch (k) {
+          case 'g': case 'y': case ' ': if (currentPhoto) { approve(); e.preventDefault(); } break;
+          case 'r': case 'n': if (currentPhoto) { rejectShowsType(); e.preventDefault(); } break;
+          case 'arrowright': case 'd': next(); e.preventDefault(); break;
+          case 'arrowleft': case 'a': prev(); e.preventDefault(); break;
+          case 'arrowdown': case 'j': nextPhoto(); e.preventDefault(); break;
+          case 'arrowup': case 'k': prevPhoto(); e.preventDefault(); break;
+        }
+      } else if (mode === 'verify') {
+        if (!verifyCurrent) return;
+        switch (k) {
+          case 'g': case 'y': case ' ': verifyConfirm(); e.preventDefault(); break;
+          case 'r': case 'n': verifyRemove(); e.preventDefault(); break;
+          case 'arrowright': case 'd': verifyNext(); e.preventDefault(); break;
+          case 'arrowleft': case 'a': verifyPrev(); e.preventDefault(); break;
+          case 'z': verifyUndo(); e.preventDefault(); break;
+        }
       }
     }
     window.addEventListener('keydown', onKey);
@@ -184,20 +205,27 @@
     try {
       const urls = await fetchAircraftImages(a);
       if (a.id !== current?.id) return;
-      // Merge in unchecked URLs (AI-campaign skipped these — visual quality unknown).
-      // These take priority in the queue so the user clears them first.
+      // Merge in unchecked + unsure URLs (AI campaign either never reviewed
+      // them or flagged them as multi-subject ambiguous). Unchecked is dedup'd
+      // against the wikimedia fetch; unsure is *kept even if also in approved*
+      // because the whole point is to re-surface flagged-but-approved photos.
       const e0 = state[a.id];
       const uncheckedUrls = e0?.unchecked ?? [];
+      const unsureUrls = e0?.unsure ?? [];
       const fetchedSet = new Set(urls.map(canonUrl));
       const uncheckedNew = uncheckedUrls.filter((u) => !fetchedSet.has(canonUrl(u)));
-      const allUrls = [...uncheckedNew, ...urls];
-      // Put unreviewed photos first so the user lands on actual work to do
-      // instead of re-scrolling past stuff they've already marked. Order is
-      // frozen at load time so marking a photo doesn't reshuffle mid-session.
+      const unsureSet = new Set(unsureUrls.map(canonUrl));
+      const unsureNew = unsureUrls.filter((u) => !fetchedSet.has(canonUrl(u))
+        && !uncheckedNew.some((x) => canonUrl(x) === canonUrl(u)));
+      const allUrls = [...uncheckedNew, ...unsureNew, ...urls];
+      // Put unreviewed (or flagged-unsure) photos first so the user lands on
+      // actual work. Unsure URLs always count as "unreviewed" for ordering,
+      // even if they're already in approved — flagged means re-review needed.
       const seen = new Set<string>();
       for (const u of [...(e0?.approved ?? []), ...(e0?.rejected ?? [])]) seen.add(canonUrl(u));
-      const unreviewed = allUrls.filter((u) => !seen.has(canonUrl(u)));
-      const reviewed = allUrls.filter((u) => seen.has(canonUrl(u)));
+      const isWork = (u: string) => unsureSet.has(canonUrl(u)) || !seen.has(canonUrl(u));
+      const unreviewed = allUrls.filter(isWork);
+      const reviewed = allUrls.filter((u) => !isWork(u));
       images = [...unreviewed, ...reviewed];
       if (urls.length > 0) {
         const e = ensureEntry(a.id);
@@ -222,9 +250,9 @@
 
   function ensureEntry(id: string): ReviewEntry {
     if (!state[id]) {
-      state = { ...state, [id]: { approved: [], rejected: [], verified: [], unchecked: [] } };
-    } else if (!Array.isArray(state[id].verified)) {
-      state = { ...state, [id]: { ...state[id], verified: [], unchecked: state[id].unchecked ?? [] } };
+      state = { ...state, [id]: { approved: [], rejected: [], verified: [], unchecked: [], unsure: [] } };
+    } else if (!Array.isArray(state[id].verified) || !Array.isArray(state[id].unsure)) {
+      state = { ...state, [id]: { ...state[id], verified: state[id].verified ?? [], unchecked: state[id].unchecked ?? [], unsure: state[id].unsure ?? [] } };
     }
     return state[id];
   }
@@ -238,9 +266,10 @@
     const ac = e?.approved?.length ?? 0;
     const rc = e?.rejected?.length ?? 0;
     const uc = e?.unchecked?.length ?? 0;
+    const us = e?.unsure?.length ?? 0;
     const fc = e?.fetchedCount;
-    if (ac === 0 && rc === 0 && uc === 0) return 'unreviewed';
-    if (uc > 0) return 'partial';
+    if (ac === 0 && rc === 0 && uc === 0 && us === 0) return 'unreviewed';
+    if (uc > 0 || us > 0) return 'partial';
     if (typeof fc === 'number' && ac + rc < fc) return 'partial';
     return 'reviewed';
   }
@@ -258,9 +287,10 @@
     const nextApproved = alreadyApproved ? e.approved : [...e.approved, url];
     // Approving overrides any prior rejection (matched canonically).
     const nextRejected = e.rejected.filter((u) => !sameUrl(u, url));
-    // Mark as visually checked - drop from the unchecked queue.
+    // Mark as visually checked - drop from the unchecked + unsure queues.
     const nextUnchecked = (e.unchecked ?? []).filter((u) => !sameUrl(u, url));
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: e.verified ?? [], unchecked: nextUnchecked, fetchedCount: e.fetchedCount } };
+    const nextUnsure = (e.unsure ?? []).filter((u) => !sameUrl(u, url));
+    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: e.verified ?? [], unchecked: nextUnchecked, unsure: nextUnsure, fetchedCount: e.fetchedCount } };
     persist();
     advanceCursor();
   }
@@ -276,7 +306,8 @@
     const nextApproved = e.approved.filter((u) => !sameUrl(u, url));
     const nextVerified = (e.verified ?? []).filter((u) => !sameUrl(u, url));
     const nextUnchecked = (e.unchecked ?? []).filter((u) => !sameUrl(u, url));
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: nextVerified, unchecked: nextUnchecked, fetchedCount: e.fetchedCount } };
+    const nextUnsure = (e.unsure ?? []).filter((u) => !sameUrl(u, url));
+    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: nextVerified, unchecked: nextUnchecked, unsure: nextUnsure, fetchedCount: e.fetchedCount } };
     persist();
     advanceCursor();
   }
@@ -351,6 +382,7 @@
         rejected: [...e.rejected],
         verified: [...(e.verified ?? [])],
         unchecked: [...(e.unchecked ?? [])],
+        unsure: [...(e.unsure ?? [])],
         ...(e.fetchedCount !== undefined ? { fetchedCount: e.fetchedCount } : {}),
       };
     }
@@ -399,6 +431,7 @@
         rejected: fromEntry.rejected,
         verified: (fromEntry.verified ?? []).filter((u) => u !== url),
         unchecked: (fromEntry.unchecked ?? []).filter((u) => u !== url),
+        unsure: (fromEntry.unsure ?? []).filter((u) => u !== url),
         fetchedCount: fromEntry.fetchedCount,
       },
       [reassignTarget]: {
@@ -408,6 +441,7 @@
           ? (toEntry.verified ?? [])
           : [...(toEntry.verified ?? []), url],
         unchecked: toEntry.unchecked ?? [],
+        unsure: toEntry.unsure ?? [],
         fetchedCount: toEntry.fetchedCount,
       },
     };
@@ -430,6 +464,7 @@
         rejected: e.rejected.includes(url) ? e.rejected : [...e.rejected, url],
         verified: (e.verified ?? []).filter((u) => u !== url),
         unchecked: (e.unchecked ?? []).filter((u) => u !== url),
+        unsure: (e.unsure ?? []).filter((u) => u !== url),
         fetchedCount: e.fetchedCount,
       },
     };
@@ -533,6 +568,7 @@
   <p>
     {aircraftWithAnyApproval}/{aircraft.length} aircraft with ≥1 approved · {totalApprovedPhotos} photos approved · {verifyTotalVerified}/{verifyTotalApproved} type-verified
     {#if totalUncheckedPhotos > 0} · <span class="unreviewed-badge">⊘ {totalUncheckedPhotos} unchecked (need visual review)</span>{/if}
+    {#if totalUnsurePhotos > 0} · <span class="unreviewed-badge">? {totalUnsurePhotos} flagged (multi-subject)</span>{/if}
     {#if unreviewedAircraft > 0} · <span class="unreviewed-badge">● {unreviewedAircraft} unreviewed</span>{/if}
     {#if partialAircraft > 0} · <span class="partial-badge">◐ {partialAircraft} partial</span>{/if}
   </p>
@@ -645,9 +681,10 @@
         {@const ac = e?.approved?.length ?? 0}
         {@const rc = e?.rejected?.length ?? 0}
         {@const uc = e?.unchecked?.length ?? 0}
+        {@const us = e?.unsure?.length ?? 0}
         {@const fc = e?.fetchedCount}
         {@const status = reviewStatus(a.id)}
-        {@const remaining = uc > 0 ? uc : (typeof fc === 'number' ? Math.max(0, fc - ac - rc) : 0)}
+        {@const remaining = (uc + us) > 0 ? (uc + us) : (typeof fc === 'number' ? Math.max(0, fc - ac - rc) : 0)}
         <option value={a.id}>
           {status === 'unreviewed' ? '● ' : status === 'partial' ? '◐ ' : '   '}{i + 1}. {a.name}{ac > 0 ? ` · ${ac} good` : ''}{rc > 0 ? ` · ${rc} not good` : ''}{status === 'unreviewed' ? ' · unreviewed' : ''}{status === 'partial' ? ` · ${remaining} left` : ''}
         </option>
