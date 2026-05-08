@@ -59,7 +59,8 @@ function applyPatch(baseline, patch) {
       sRej.add(v.url);
       nRej++;
     } else if (v.verdict === 'unsure') {
-      sApp.delete(v.url);
+      // For type-ID patches: keep in approved (it's a good photo, type just uncertain).
+      // Only remove from verified (type-verified status is now revoked) and unchecked.
       sVer.delete(v.url);
       sUnc.delete(v.url);
       sUns.add(v.url);
