@@ -397,8 +397,8 @@
 
   .round { display: flex; flex-direction: column; gap: 0.85rem; align-items: stretch; width: 100%; }
 
-  .atc-call { display: grid; grid-template-columns: 56px 1fr; gap: 0.85rem; align-items: stretch; margin-top: 0.4rem; }
-  .atc-call .atc-icon { display: block; width: auto !important; height: 100% !important; max-height: 100%; padding: 0.2rem 0; filter: invert(70%) sepia(60%) saturate(390%) hue-rotate(75deg) brightness(95%); }
+  .atc-call { display: grid; grid-template-columns: 56px 1fr; gap: 1.3rem; align-items: stretch; margin-top: 0.4rem; }
+  .atc-call .atc-icon { display: block; width: auto !important; height: 100% !important; max-height: 100%; padding: 0.2rem 0.3rem 0.2rem 0; filter: invert(70%) sepia(60%) saturate(390%) hue-rotate(75deg) brightness(95%); }
   .atc-bubble { position: relative; background: var(--mfd-bg); border: 1px solid var(--bezel-lo); border-radius: 2px; padding: 0.85rem 1rem 0.95rem; }
   .atc-bubble::before { content: ""; position: absolute; left: -7px; top: 18px; width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-right: 7px solid var(--bezel-lo); }
   .atc-bubble::after { content: ""; position: absolute; left: -6px; top: 19px; width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 6px solid var(--mfd-bg); }
@@ -456,7 +456,8 @@
   .option[disabled] { cursor: default; }
   .key { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; font-family: var(--mono); font-size: 0.7rem; color: var(--label-dim); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); background: var(--bg); border-radius: 1px; font-weight: 700; }
   .opt-text { font-family: var(--sans); font-weight: 400; font-size: 0.92rem; color: var(--label); line-height: 1.4; }
-  .opt-explain { font-family: var(--sans); font-size: 0.78rem; color: var(--led-green); margin-top: 0.4rem; line-height: 1.4; display: block; }
+  .opt-explain { font-family: var(--sans); font-size: 0.78rem; color: var(--led-green); margin-top: 0.4rem; line-height: 1.45; display: block; white-space: pre-line; }
+  .compose-explain, .explain { white-space: pre-line; }
   .option.correct { border-color: var(--led-green); background: rgba(74, 222, 128, 0.08); }
   .option.correct .opt-text { color: var(--led-green); }
   .option.correct .key { color: var(--led-green); border-color: var(--led-green); }

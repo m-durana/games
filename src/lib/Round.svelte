@@ -769,7 +769,8 @@
     font-size: 0.72rem;
     color: var(--label-dim);
     letter-spacing: 0.005em;
-    white-space: normal;
+    white-space: pre-line;
+    line-height: 1.45;
     margin-top: 0.1rem;
   }
   .opt-explain.missed-note { color: var(--led-amber); }

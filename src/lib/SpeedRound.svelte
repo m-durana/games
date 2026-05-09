@@ -192,175 +192,248 @@
 
 <style>
   .bar {
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: 0.625rem;
-    padding: 0 0.25rem;
+    gap: 0.85rem;
+    padding: 0.5rem 0.65rem;
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-lo);
+    border-radius: 2px;
   }
   .quit {
-    width: 32px; height: 32px;
-    border-radius: 4px;
-    color: var(--muted);
-    background: var(--surface);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.875rem;
-    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--led-red);
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    background: var(--panel);
+    border-radius: 1px;
+    cursor: pointer;
     flex-shrink: 0;
   }
+  .quit:hover { color: #ff9b9b; }
+  .quit:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+
   .timer {
     flex: 1;
-    height: 28px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
     position: relative;
+    height: 22px;
+    background: var(--bg);
+    border: 1px solid var(--bezel-lo);
+    border-radius: 1px;
+    overflow: hidden;
   }
   .timer-fill {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 65%, var(--bad) 100%);
-    transition: width 0.1s linear;
+    inset: 0 auto 0 0;
+    background: var(--led-cyan);
+    opacity: 0.22;
+    transition: width 0.08s linear;
   }
   .timer-text {
-    position: relative;
-    z-index: 1;
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    font-size: 0.8125rem;
-    font-variant-numeric: tabular-nums;
-    color: #fff;
-    font-family: var(--font-main);
+    font-family: var(--mono);
     font-weight: 700;
-  }
-  .meta {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-shrink: 0;
-  }
-  .streak { color: var(--accent); font-size: 0.875rem; }
-  .score {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.875rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--led-cyan);
     font-variant-numeric: tabular-nums;
-    color: var(--text);
-    font-family: var(--font-main);
-    font-weight: 700;
   }
 
-  .round { flex: 1; display: flex; align-items: stretch; }
+  .meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--label);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .streak { color: var(--led-amber); font-weight: 700; }
+  .score { color: var(--led-green); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.04em; }
+
+  .round {
+    width: 100%;
+    margin-top: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    align-items: stretch;
+  }
 
   .card {
     width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.5rem 1.25rem;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 2px;
+    padding: 1.4rem 1.2rem 1.2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .card-head { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-  .speed-pill {
-    font-size: 0.6875rem;
-    font-family: var(--font-main);
-    letter-spacing: 0;
+  .card-head { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+  .speed-pill, .mode-pill {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
-    background: rgba(163, 206, 241, 0.42);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
+    color: var(--label-dim);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    background: var(--panel-2);
+    padding: 0.22rem 0.5rem;
+    border-radius: 1px;
+    font-weight: 700;
   }
-  .mode-pill {
-    font-size: 0.6875rem;
-    font-family: var(--font-main);
-    letter-spacing: 0;
+  .speed-pill { color: var(--led-cyan); letter-spacing: 0.22em; }
+  .mode-pill { color: var(--label); }
+
+  .logo-stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem 0;
+  }
+  .logo-stage :global(.logo) { width: 100px; height: 100px; }
+
+  .prompt-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    text-align: center;
+    padding: 0.6rem 0;
+  }
+  .prompt-block .prompt-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--muted);
-    background: var(--surface-2);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
+    color: var(--label-dim);
+    font-weight: 700;
+  }
+  .prompt-block h2 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--label);
+    letter-spacing: -0.005em;
+    line-height: 1.2;
   }
 
   .airline {
     display: flex;
     align-items: center;
-    gap: 0.875rem;
-    padding: 0.25rem 0;
+    gap: 0.85rem;
+    padding: 0.4rem 0;
   }
-  .airline-text { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
-  .airline h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0;
-    line-height: 1.15;
-    word-break: break-word;
+  .airline :global(.logo) { width: 60px; height: 60px; flex-shrink: 0; }
+  .airline-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    align-items: flex-start;
   }
-  .country { color: var(--muted); font-size: 0.8125rem; }
-
-  .prompt-block { padding: 0.5rem 0; text-align: center; }
-  .prompt-label {
-    color: var(--muted);
-    font-size: 0.875rem;
-    display: block;
-    margin-bottom: 0.4rem;
+  .airline-text h2 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--label);
+    letter-spacing: -0.005em;
   }
-  .prompt-block h2 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    letter-spacing: 0;
+  .airline-text .country {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--label-dim);
   }
 
-  .logo-stage { display: flex; justify-content: center; padding: 0.5rem 0; }
-  .ask { color: var(--muted); font-size: 0.9375rem; }
+  .ask, .ask.center {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--led-cyan);
+    font-weight: 700;
+    text-align: left;
+  }
   .ask.center { text-align: center; }
 
-  .options { display: flex; flex-direction: column; gap: 0.5rem; }
-  .option {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-align: left;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    min-height: 48px;
-    font-size: 1rem;
-    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s, opacity 0.15s;
+  .options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.55rem;
   }
-  .option:not(:disabled):active { transform: scale(0.98); }
-  .option:not(:disabled):hover { border-color: var(--panel-line); background: var(--surface-3); }
-  .opt-text { flex: 1; }
+  @media (max-width: 600px) { .options { grid-template-columns: 1fr; } }
+
+  .option {
+    position: relative;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    align-items: center;
+    column-gap: 0.7rem;
+    padding: 0.85rem 0.95rem 0.85rem 0.55rem;
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
+    cursor: pointer;
+    text-align: left;
+    min-height: 60px;
+  }
+  .option:hover .opt-text { color: #fff; }
+  .option:hover .key { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .option:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+  .option[disabled] { cursor: default; }
+
   .key {
-    width: 22px; height: 22px;
-    border-radius: 6px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    font-size: 0.75rem;
-    color: var(--muted);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    width: 24px; height: 24px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--label-dim);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    background: var(--bg);
+    border-radius: 1px;
+    font-weight: 700;
   }
-  .option.correct {
-    background: rgba(34, 197, 94, 0.14);
-    border-color: rgba(34, 197, 94, 0.55);
-    color: var(--good);
+  .opt-text {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--label);
+    letter-spacing: -0.005em;
   }
-  .option.wrong {
-    background: rgba(239, 68, 68, 0.14);
-    border-color: rgba(239, 68, 68, 0.55);
-    color: var(--bad);
-  }
-  .option.reveal { opacity: 0.45; }
-  .option:disabled { cursor: default; }
+
+  .option.correct { border-color: var(--led-green); background: rgba(74, 222, 128, 0.08); }
+  .option.correct .opt-text { color: var(--led-green); }
+  .option.correct .key { color: var(--led-green); border-color: var(--led-green); }
+  .option.wrong { border-color: var(--led-red); background: rgba(248, 113, 113, 0.06); }
+  .option.wrong .opt-text { color: var(--led-red); }
+  .option.wrong .key { color: var(--led-red); border-color: var(--led-red); }
+
+  .option :global(.alliance-logo) { width: 22px; height: 22px; flex-shrink: 0; }
+  .option :global(.logo) { width: 26px; height: 26px; flex-shrink: 0; }
 </style>

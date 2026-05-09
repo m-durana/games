@@ -285,7 +285,7 @@
   }
   .feedback.good { border-color: rgba(74, 222, 128, 0.4); background: rgba(74, 222, 128, 0.06); }
   .feedback.bad { border-color: rgba(248, 113, 113, 0.4); background: rgba(248, 113, 113, 0.06); }
-  .explain { font-family: var(--sans); font-size: 0.85rem; color: var(--label-2); line-height: 1.45; }
+  .explain { font-family: var(--sans); font-size: 0.85rem; color: var(--label-2); line-height: 1.45; white-space: pre-line; }
 
   .next {
     align-self: flex-end;
