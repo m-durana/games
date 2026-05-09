@@ -346,7 +346,7 @@
         <span class="pbtn-engrave">WORDLE</span>
         <span class="pbtn-desc">{modeHint('airportWordle')}</span>
       </button>
-      <button class="pbtn has-info" onclick={() => onStartAirportIdentify(difficulty)}>
+      <button class="pbtn" onclick={() => onStartAirportIdentify(difficulty)}>
         <span class="pbtn-led"></span>
         <span class="pbtn-icon" style="--icon: url('{modeIconUrl('airportIdentify')}')"></span>
         <span class="pbtn-engrave">IDENTIFY</span>
@@ -368,9 +368,11 @@
       <button class="pbtn has-info" onclick={() => onStartAircraftIdentify(difficulty)}>
         <span class="pbtn-led"></span>
         <span class="pbtn-icon" style="--icon: url('{modeIconUrl('aircraftIdentify')}')"></span>
-        <span class="pbtn-engrave">IDENTIFY</span>
+        <span class="title-row">
+          <span class="pbtn-engrave">IDENTIFY</span>
+          <span class="info-badge" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'aircraftIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'aircraftIdentify'); }}>?</span>
+        </span>
         <span class="pbtn-desc">{modeHint('aircraftIdentify')}</span>
-        <span class="info-hit" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'aircraftIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'aircraftIdentify'); }}></span>
       </button>
       <button class="pbtn" onclick={() => onStartAircraftWordle(difficulty)}>
         <span class="pbtn-led"></span>
@@ -381,9 +383,11 @@
       <button class="pbtn has-info" onclick={() => onStartMilitaryIdentify(difficulty)}>
         <span class="pbtn-led"></span>
         <span class="pbtn-icon" style="--icon: url('{modeIconUrl('militaryIdentify')}')"></span>
-        <span class="pbtn-engrave">MILITARY</span>
+        <span class="title-row">
+          <span class="pbtn-engrave">MILITARY</span>
+          <span class="info-badge" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'militaryIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'militaryIdentify'); }}>?</span>
+        </span>
         <span class="pbtn-desc">{modeHint('militaryIdentify')}</span>
-        <span class="info-hit" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'militaryIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'militaryIdentify'); }}></span>
       </button>
       <button class="pbtn" onclick={() => onStartMilitaryWordle(difficulty)}>
         <span class="pbtn-led"></span>
@@ -404,15 +408,19 @@
       {#each atcModes as mode}
         {@const best = loadAtcBest(mode, difficulty)}
         {@const introKey = mode === 'decode' ? 'atcDecode' : mode === 'compose' ? 'atcCompose' : mode === 'cleared' ? 'atcCleared' : null}
-        <button class="pbtn has-info" onclick={() => onStartAtc(mode, difficulty)}>
+        <button class="pbtn" class:has-info={!!introKey} onclick={() => onStartAtc(mode, difficulty)}>
           <span class="pbtn-led"></span>
           <span class="pbtn-icon" style="--icon: url('{atcIconUrl(mode)}')"></span>
-          <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+          {#if introKey}
+            <span class="title-row">
+              <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+              <span class="info-badge" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>
+            </span>
+          {:else}
+            <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+          {/if}
           <span class="pbtn-desc">{atcModeDescription(mode)}</span>
           {#if best > 0}<span class="pbtn-last">{best}/10</span>{/if}
-          {#if introKey}
-            <span class="info-hit" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}></span>
-          {/if}
         </button>
       {/each}
     </div>
@@ -428,15 +436,19 @@
       {#each radarModes as mode}
         {@const best = loadAtcBest(mode, difficulty)}
         {@const introKey = mode === 'conflict' ? 'radarConflict' : mode === 'sequence' ? 'radarSequence' : mode === 'interceptStable' ? 'interceptStable' : mode === 'interceptMinimums' ? 'interceptMinimums' : mode === 'interceptFma' ? 'interceptFma' : null}
-        <button class="pbtn has-info" onclick={() => onStartAtc(mode, difficulty)}>
+        <button class="pbtn" class:has-info={!!introKey} onclick={() => onStartAtc(mode, difficulty)}>
           <span class="pbtn-led"></span>
           <span class="pbtn-icon" style="--icon: url('{atcIconUrl(mode)}')"></span>
-          <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+          {#if introKey}
+            <span class="title-row">
+              <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+              <span class="info-badge" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>
+            </span>
+          {:else}
+            <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+          {/if}
           <span class="pbtn-desc">{atcModeDescription(mode)}</span>
           {#if best > 0}<span class="pbtn-last">{best}/10</span>{/if}
-          {#if introKey}
-            <span class="info-hit" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}></span>
-          {/if}
         </button>
       {/each}
     </div>
@@ -727,38 +739,44 @@
     padding-right: 2.6rem;
   }
 
-  /* info ? badge — only on .has-info */
-  .pbtn.has-info .pbtn-engrave::after {
-    content: "?";
+  /* title row groups engrave + info badge so they share the title grid cell */
+  .title-row {
+    grid-area: title;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    align-self: center;
+    min-width: 0;
+    padding-right: 3rem; /* keep clear of LED + score */
+  }
+  .title-row .pbtn-engrave {
+    grid-area: auto;
+    align-self: auto;
+    padding-right: 0;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .info-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 13px; height: 13px;
-    margin-left: 0.45rem;
-    vertical-align: 1px;
+    width: 16px; height: 16px;
+    flex-shrink: 0;
     font-family: var(--mono);
-    font-size: 0.58rem;
-    color: var(--label-faint);
+    font-size: 0.62rem;
+    color: var(--label-dim);
     border: 1px solid var(--bezel-hi);
     background: var(--panel);
     border-radius: 50%;
     font-weight: 700;
     letter-spacing: 0;
-  }
-  .pbtn.has-info:hover .pbtn-engrave::after { color: var(--led-cyan); border-color: var(--led-cyan); }
-
-  /* invisible click hit-area over the ? badge for the field-guide opener */
-  .info-hit {
-    position: absolute;
-    top: 0.18rem;
-    width: 22px; height: 22px;
     cursor: help;
+    padding: 0;
+    line-height: 1;
     z-index: 3;
+    position: relative;
   }
-  /* the ? badge sits at title row's end; estimate its center: title starts at col 2 (~32px in), engrave text width varies. Better to put hit-area at right of title row, just left of LED. */
-  .pbtn.has-info .info-hit {
-    right: 1.7rem;
-  }
+  .info-badge:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
 
   .pbtn-desc {
     grid-area: desc;
@@ -777,7 +795,7 @@
   .pbtn-last {
     position: absolute;
     top: 0.28rem;
-    right: 0.95rem;
+    right: 1.4rem;
     font-family: var(--mono);
     font-size: 0.6rem;
     letter-spacing: 0.04em;
@@ -797,7 +815,7 @@
   .pbtn.lg .pbtn-icon { width: 28px; height: 28px; }
   .pbtn.lg .pbtn-engrave { font-size: 0.82rem; }
   .pbtn.lg .pbtn-desc { font-size: 0.72rem; }
-  .pbtn.lg .pbtn-last { font-size: 0.66rem; top: 0.4rem; right: 1.1rem; }
+  .pbtn.lg .pbtn-last { font-size: 0.66rem; top: 0.4rem; right: 1.5rem; }
 
   /* ─── grids ─────────────────────────────────── */
   .btn-grid {

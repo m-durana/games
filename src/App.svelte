@@ -578,7 +578,7 @@
       {#if view.kind === 'home'}
         <span class="crumb">Flight Deck</span>
       {:else}
-        <button class="crumb crumb-btn" type="button" onclick={home} aria-label="Flight Deck home" title="Flight Deck home"><span class="back-arrow" aria-hidden="true">←</span> Flight Deck</button>
+        <button class="crumb crumb-btn" type="button" onclick={home} aria-label="Flight Deck home" title="Flight Deck home">Flight Deck</button>
       {/if}
     </div>
     <div class="brand-right">
@@ -594,10 +594,6 @@
           </div>
         {/if}
       {/if}
-      {#if view.kind === 'home'}
-        <a class="up-link mockup-link" href="/games/flight-deck/mockup/" title="Preview design mockup">mockup →</a>
-      {/if}
-      <a class="up-link" href="/"><span aria-hidden="true">←</span> miro.build</a>
     </div>
   </div>
 
