@@ -119,7 +119,8 @@
       saved.answerIds.length > 0 &&
       saved.answerIds.every((id) => militaryById(id) !== null) &&
       // Don't prompt to resume a session that's already finished
-      !(saved.scores.length >= saved.answerIds.length);
+      !(saved.scores.length >= saved.answerIds.length) &&
+      (saved.index > 0 || saved.guessIds.length > 0 || saved.scores.length > 0);
     return canResume ? saved! : null;
   })();
 
@@ -413,18 +414,18 @@
 
 <section class="round">
   {#if resumePending && savedAtMount}
-    <div class="resume-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-title">
-      <div class="resume-card" in:fly={{ y: 16, duration: 220 }}>
+    <div class="resume-overlay" role="presentation">
+      <div class="bezel resume-card" data-label="Resume" role="dialog" aria-modal="true" aria-labelledby="resume-title" in:fly={{ y: 16, duration: 220 }}>
         <h2 id="resume-title">Resume game?</h2>
         <p class="resume-sub">
-          You have a {difficulty} round in progress
-          - aircraft {savedAtMount.index + 1} of {savedAtMount.answerIds.length},
+          You have a {difficulty} round in progress —
+          aircraft {savedAtMount.index + 1} of {savedAtMount.answerIds.length},
           {savedAtMount.guessIds.length} {savedAtMount.guessIds.length === 1 ? 'guess' : 'guesses'} so far,
           {savedAtMount.score} pts.
         </p>
         <div class="resume-actions">
-          <button class="btn-primary" onclick={continueSaved}>Continue</button>
           <button class="btn-ghost" onclick={startFreshFromPrompt}>Start fresh</button>
+          <button class="btn-primary" onclick={continueSaved}>Continue</button>
         </div>
       </div>
     </div>
@@ -842,6 +843,7 @@
   .resume-card, .modal {
     width: 100%;
     max-width: 380px;
+    position: relative;
     background: var(--panel);
     border: 1px solid var(--bezel-hi);
     border-bottom-color: var(--bezel-lo);
@@ -852,7 +854,24 @@
     flex-direction: column;
     gap: 0.85rem;
   }
-  .resume-card h2, .finale h2 { font-family: var(--mono); font-size: 0.92rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--label); font-weight: 700; }
+  .resume-card.bezel::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -0.42rem;
+    left: 0.85rem;
+    background: var(--bg);
+    padding: 0 0.45rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--led-cyan);
+    font-weight: 700;
+    height: 14px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .resume-card h2, .finale h2 { font-family: var(--sans); font-size: 1.1rem; letter-spacing: -0.005em; color: var(--label); font-weight: 700; }
   .resume-sub { font-family: var(--sans); font-size: 0.82rem; color: var(--label-dim); line-height: 1.45; }
   .resume-actions, .finale-actions { display: flex; justify-content: flex-end; gap: 0.45rem; margin-top: 0.4rem; }
 

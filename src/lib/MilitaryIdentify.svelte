@@ -601,17 +601,17 @@
   .guess-select optgroup { color: var(--mfd-dim); font-style: normal; font-weight: 700; }
 
   .options {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.55rem;
   }
+  @media (max-width: 600px) { .options { grid-template-columns: 1fr; } }
   .options.disabled { pointer-events: none; }
   .option {
-    display: grid;
-    grid-template-columns: 30px 1fr;
+    display: flex;
     align-items: center;
     gap: 0.7rem;
-    padding: 0.8rem 0.85rem 0.8rem 0.55rem;
+    padding: 0.8rem 0.85rem;
     background: var(--panel-2);
     border: 1px solid var(--bezel-hi);
     border-bottom-color: var(--bezel-lo);

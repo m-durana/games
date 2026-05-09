@@ -284,12 +284,20 @@
     padding: 1.4rem 1.2rem 1.2rem;
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr);
+    grid-template-areas:
+      "head  head"
+      "info  info"
+      "scope right";
     gap: 1rem;
     align-items: start;
   }
-  .card > .scope-wrap { grid-column: 1; grid-row: 2; }
-  .card > .right-col { grid-column: 2; grid-row: 2; }
-  @media (max-width: 880px) { .card { grid-template-columns: 1fr; } .card > .scope-wrap, .card > .right-col { grid-column: 1; grid-row: auto; } }
+  .card > .card-head { grid-area: head; }
+  .card > .mode-info { grid-area: info; }
+  .card > .scope-wrap { grid-area: scope; }
+  .card > .right-col { grid-area: right; }
+  @media (max-width: 880px) {
+    .card { grid-template-columns: 1fr; grid-template-areas: "head" "info" "scope" "right"; }
+  }
 
   .card-head { grid-column: 1 / -1; display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
   .mode-pill, .diff-pill {

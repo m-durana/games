@@ -33,14 +33,21 @@
 </script>
 
 {#if active}
-  <div class="toast" transition:fly={{ y: 20, duration: 220 }}>
+  <div
+    class="toast"
+    role="button"
+    tabindex="0"
+    onclick={dismiss}
+    onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') { e.preventDefault(); dismiss(); } }}
+    transition:fly={{ y: 20, duration: 220 }}
+  >
     <span class="icon">{active.icon}</span>
     <div class="text">
       <span class="label">Achievement unlocked</span>
       <span class="name">{active.name}</span>
       <span class="desc">{active.desc}</span>
     </div>
-    <button type="button" onclick={(event) => { event.stopPropagation(); dismiss(); }} aria-label="Dismiss">✕</button>
+    <span class="dismiss" aria-hidden="true">✕</span>
   </div>
 {/if}
 
@@ -50,7 +57,7 @@
     bottom: max(1rem, env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
-    z-index: 100;
+    z-index: 1000;
     width: calc(100% - 2rem);
     max-width: 420px;
     background: var(--panel);
@@ -60,7 +67,10 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px var(--bezel-lo);
   }
+  .toast:hover { background: var(--panel-2); }
   .icon {
     font-size: 1.6rem;
     flex-shrink: 0;
@@ -82,19 +92,20 @@
   }
   .name { font-family: var(--sans); font-size: 0.9rem; font-weight: 700; color: var(--label); letter-spacing: -0.005em; }
   .desc { font-family: var(--sans); font-size: 0.74rem; color: var(--label-dim); }
-  button {
-    width: 36px; height: 36px;
+  .dismiss {
+    width: 24px; height: 24px;
     border-radius: 1px;
     color: var(--label-dim);
     flex-shrink: 0;
     font-family: var(--mono); font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     background: var(--panel-2);
     border: 1px solid var(--bezel-hi);
     border-bottom-color: var(--bezel-lo);
     border-right-color: var(--bezel-lo);
-    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
-  button:hover { color: var(--led-red); border-color: var(--led-red); }
-  button:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+  .toast:hover .dismiss { color: var(--led-red); border-color: var(--led-red); }
 </style>
