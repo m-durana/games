@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0c0e11" />
+<title>Flight Deck · Identify round</title>
+<link rel="icon" href="/games/flight-deck/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=B612:wght@400;700&family=B612+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/games/flight-deck/mockup/round/_round.css" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+.frame { max-width: 920px; }
+
+.id-stage { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.8rem; align-items: stretch; }
+@media (max-width: 760px) { .id-stage { grid-template-columns: 1fr; } }
+
+.id-photo {
+  position: relative;
+  background: #1a1d22;
+  border: 1px solid var(--bezel-lo);
+  border-radius: 1px;
+  min-height: 280px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* placeholder photo: simulated cockpit-camera silhouette */
+.id-photo::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 7px, rgba(255,255,255,0.012) 7px 8px),
+    radial-gradient(circle at 50% 70%, #2a2e33 0%, #1a1d22 60%, #131418 100%);
+}
+.id-photo svg.silhouette { position: relative; width: 80%; max-height: 75%; color: rgba(232, 236, 242, 0.4); z-index: 1; }
+.id-photo .corner { position: absolute; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.18em; color: var(--label-faint); text-transform: uppercase; padding: 0.5rem 0.7rem; z-index: 2; }
+.id-photo .corner.tl { top: 0; left: 0; }
+.id-photo .corner.tr { top: 0; right: 0; color: var(--led-cyan); }
+.id-photo .corner.bl { bottom: 0; left: 0; font-variant-numeric: tabular-nums; }
+.id-photo .corner.br { bottom: 0; right: 0; }
+
+.id-side { display: flex; flex-direction: column; gap: 0.55rem; }
+
+.hint-bezel { padding: 1rem 0.85rem 0.85rem; }
+.hints { display: flex; flex-direction: column; gap: 0.35rem; }
+.hint {
+  display: grid;
+  grid-template-columns: 16px 1fr auto;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.55rem;
+  background: var(--panel-2);
+  border: 1px solid var(--bezel-hi);
+  border-bottom-color: var(--bezel-lo);
+  border-right-color: var(--bezel-lo);
+  border-radius: 1px;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+.hint .h-led { width: 7px; height: 7px; border-radius: 50%; background: var(--led-off); border: 1px solid var(--bezel-lo); justify-self: center; }
+.hint .h-text { color: var(--label-dim); text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.62rem; font-weight: 700; }
+.hint .h-cost { color: var(--led-amber); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; }
+.hint:hover { color: var(--label); }
+.hint:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+
+.hint.revealed { background: rgba(74, 222, 128, 0.06); border-color: rgba(74, 222, 128, 0.4); cursor: default; }
+.hint.revealed .h-led { background: var(--led-green); }
+.hint.revealed .h-text { color: var(--led-green); }
+.hint.revealed .h-cost { color: var(--mfd-dim); }
+.hint.revealed .h-val { font-family: var(--sans); font-weight: 700; font-size: 0.85rem; color: var(--label); text-transform: none; letter-spacing: 0; grid-column: 1 / -1; padding-top: 0.25rem; padding-left: 0.05rem; }
+
+.hint-row { display: contents; }
+
+.opts-bezel { padding: 1rem 0.85rem 0.85rem; }
+.picker-row { display: flex; gap: 0.4rem; }
+.picker-wrap { position: relative; flex: 1; }
+.picker {
+  width: 100%;
+  background: var(--mfd-bg);
+  border: 1px solid var(--bezel-lo);
+  border-radius: 1px;
+  padding: 0.65rem 2rem 0.65rem 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--mfd-text);
+  letter-spacing: 0.04em;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  text-transform: uppercase;
+}
+.picker:focus { border-color: var(--mfd-text); }
+.picker option { background: var(--mfd-bg); color: var(--mfd-text); }
+.picker optgroup { color: var(--mfd-dim); font-style: normal; font-weight: 700; }
+.picker-chev { position: absolute; right: 0.65rem; top: 50%; transform: translateY(-50%); color: var(--mfd-dim); pointer-events: none; display: inline-flex; }
+.picker-chev svg { width: 14px; height: 14px; stroke-width: 1.8; }
+.picker-btn {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--led-cyan);
+  padding: 0.55rem 1.2rem;
+  border: 1px solid var(--bezel-hi);
+  border-bottom-color: var(--bezel-lo);
+  border-right-color: var(--bezel-lo);
+  background: var(--panel);
+  border-radius: 1px;
+}
+.picker-btn:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+.picker-note { font-family: var(--sans); font-size: 0.72rem; color: var(--label-faint); margin-top: 0.55rem; line-height: 1.4; }
+.picker-note b { color: var(--led-cyan); font-weight: 400; font-family: var(--mono); letter-spacing: 0.06em; }
+.opts-stack { display: flex; flex-direction: column; gap: 0.4rem; }
+.opt {
+  display: grid;
+  grid-template-columns: 24px 1fr 18px;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.7rem;
+  background: var(--panel-2);
+  border: 1px solid var(--bezel-hi);
+  border-bottom-color: var(--bezel-lo);
+  border-right-color: var(--bezel-lo);
+  border-radius: 1px;
+  cursor: pointer;
+}
+.opt-key { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; font-family: var(--mono); font-size: 0.66rem; color: var(--label-dim); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); background: var(--bg); border-radius: 1px; font-weight: 700; }
+.opt-text { font-family: var(--sans); font-weight: 700; font-size: 0.9rem; color: var(--label); }
+.opt-led { width: 7px; height: 7px; border-radius: 50%; background: var(--led-off); border: 1px solid var(--bezel-lo); justify-self: center; }
+.opt:hover .opt-text { color: #fff; }
+.opt:hover .opt-key { color: var(--led-cyan); border-color: var(--led-cyan); }
+.opt:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+</style>
+</head>
+<body>
+<main id="app">
+  <div class="frame">
+
+    <header class="bar">
+      <span class="brand"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path d="M3 17 L12 4 L21 17" stroke="#60d8f0"/><path d="M7 17 L12 10 L17 17" stroke="#7a818c"/></svg></span>FLIGHT DECK</span>
+      <span class="spacer"></span>
+      <span class="diff-tag"><span class="led"></span>NORMAL</span>
+      <span class="score-tag">SCORE <b>5</b>/10</span>
+      <button class="quit-btn"><i data-lucide="x"></i>Quit</button>
+    </header>
+
+    <section class="progress">
+      <span class="progress-label">Progress</span>
+      <span class="progress-leds">
+        <span class="p-led correct"></span><span class="p-led correct"></span><span class="p-led correct"></span><span class="p-led wrong"></span><span class="p-led correct"></span>
+        <span class="p-led correct"></span><span class="p-led current"></span><span class="p-led"></span><span class="p-led"></span><span class="p-led"></span>
+      </span>
+      <span class="progress-streak"><i data-lucide="flame"></i><span>×3</span></span>
+    </section>
+
+    <section class="bezel" data-label="Aircraft Identify">
+      <span class="bezel-aux">Q7 / 10</span>
+      <span class="bezel-info"><button><i data-lucide="circle-help"></i>Field guide</button></span>
+
+      <div class="id-stage">
+        <div class="id-photo">
+          <span class="corner tl">CAM · NOSE-LEFT</span>
+          <span class="corner tr">● LIVE</span>
+          <span class="corner bl">2025-05-09 · 14:32Z</span>
+          <span class="corner br">F/X 35MM</span>
+          <!-- placeholder silhouette -->
+          <svg class="silhouette" viewBox="0 0 200 100" fill="currentColor">
+            <path d="M10 52 L70 48 L100 32 L130 48 L188 52 L188 56 L130 60 L120 80 L114 80 L118 60 L82 60 L86 80 L80 80 L70 60 L10 56 Z"/>
+          </svg>
+        </div>
+
+        <div class="id-side">
+          <div class="bezel hint-bezel" data-label="Hints">
+            <span class="bezel-aux">−2 PT EACH</span>
+            <div class="hints">
+              <button class="hint revealed">
+                <span class="h-led"></span>
+                <span class="h-text">Maker</span>
+                <span class="h-cost">−2 pt</span>
+                <span class="h-val">Boeing</span>
+              </button>
+              <button class="hint">
+                <span class="h-led"></span>
+                <span class="h-text">Family</span>
+                <span class="h-cost">−2 pt</span>
+              </button>
+              <button class="hint">
+                <span class="h-led"></span>
+                <span class="h-text">Era · decade</span>
+                <span class="h-cost">−2 pt</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bezel opts-bezel" data-label="Pick Aircraft">
+      <span class="bezel-aux">DROPDOWN · UNTIL FINAL HINT</span>
+      <div class="picker-row">
+        <div class="picker-wrap">
+          <select class="picker">
+            <option value="">Pick an aircraft…</option>
+            <optgroup label="Boeing">
+              <option>Boeing 737-700</option>
+              <option>Boeing 737-800</option>
+              <option>Boeing 757-200</option>
+              <option>Boeing 767-300</option>
+              <option>Boeing 777-300ER</option>
+              <option>Boeing 787-9</option>
+            </optgroup>
+            <optgroup label="Airbus">
+              <option>Airbus A320neo</option>
+              <option>Airbus A321XLR</option>
+              <option>Airbus A330-300</option>
+              <option>Airbus A350-900</option>
+              <option>Airbus A380-800</option>
+            </optgroup>
+            <optgroup label="Embraer">
+              <option>Embraer E190</option>
+              <option>Embraer E195-E2</option>
+            </optgroup>
+            <optgroup label="ATR">
+              <option>ATR 72-600</option>
+            </optgroup>
+          </select>
+          <span class="picker-chev"><i data-lucide="chevrons-up-down"></i></span>
+        </div>
+        <button class="picker-btn">Guess</button>
+      </div>
+      <p class="picker-note">After the third hint narrows the answer to <b>4 choices</b>, this becomes a multiple-choice pushbutton row.</p>
+    </section>
+
+    <div class="round-nav-wrap">
+      <nav class="round-nav">
+        <a href="/games/flight-deck/mockup/round/">Multi-choice</a>
+        <a href="/games/flight-deck/mockup/round/wordle/">Wordle</a>
+        <a class="on" href="/games/flight-deck/mockup/round/identify/">Identify</a>
+        <a href="/games/flight-deck/mockup/round/atc/">ATC</a>
+        <a href="/games/flight-deck/mockup/round/compose/">Compose</a>
+        <a href="/games/flight-deck/mockup/round/intercept/">Split (PFD+choice)</a>
+        <a href="/games/flight-deck/mockup/">← Home</a>
+      </nav>
+    </div>
+
+  </div>
+</main>
+<script>if (window.lucide) lucide.createIcons();</script>
+</body>
+</html>
