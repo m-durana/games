@@ -7,7 +7,6 @@
     loadHistory,
     loadPool,
     modeTitle,
-    modeDescription,
     savePool,
     tailCount,
     todayKey,
@@ -84,16 +83,9 @@
     onOpenIntro(key, difficulty);
   }
   const mixBest = Number(localStorage.getItem('best:mix') ?? 0);
-  // atcMix is now reachable only via the category Mix button; it's no longer
-  // listed as its own chip per user request (see categoryMix below).
-  // 'callsign' lives under the Airlines category - it's an airline-name quiz
-  // at heart. The Radio category covers what's actually said on the radio.
+
   const atcModes: AtcMode[] = ['decode', 'compose', 'cleared'];
   const callsignBest = $derived(loadAtcBest('callsign', difficulty));
-  // Radar category. Top-down scope modes (Conflict, Sequencing) plus the
-  // instrument-driven Intercept revival. The Intercept modes use the PFD
-  // widget set — they're a bridge to the planned Pilot IFR section; for now
-  // they live alongside the scope modes.
   const radarModes: AtcMode[] = [
     'conflict',
     'sequence',
@@ -130,13 +122,13 @@
       }
       return;
     }
-    // aircraft: random of the 4 plane/military modes
     const r = Math.random();
     if (r < 0.25) onStartAircraftIdentify(difficulty);
     else if (r < 0.5) onStartAircraftWordle(difficulty);
     else if (r < 0.75) onStartMilitaryIdentify(difficulty);
     else onStartMilitaryWordle(difficulty);
   }
+
   const ATC_ICONS: Record<AtcMode, string> = {
     callsign: 'radio',
     decode: 'message-square-text',
@@ -149,8 +141,7 @@
     interceptMinimums: 'cloud-fog',
     interceptFma: 'monitor-cog',
   };
-
-  function atcIcon(m: AtcMode): string {
+  function atcIconUrl(m: AtcMode): string {
     return `https://unpkg.com/lucide-static@0.469.0/icons/${ATC_ICONS[m]}.svg`;
   }
 
@@ -183,8 +174,28 @@
     airportWordle: 'tower-control',
     airportIdentify: 'camera',
   };
-  function modeIcon(m: Mode): string {
+  function modeIconUrl(m: Mode): string {
     return `https://unpkg.com/lucide-static@0.469.0/icons/${ICONS[m]}.svg`;
+  }
+  const SHUFFLE_ICON = `https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg`;
+  const CALENDAR_ICON = `https://unpkg.com/lucide-static@0.469.0/icons/calendar-days.svg`;
+  const TIMER_ICON = `https://unpkg.com/lucide-static@0.469.0/icons/timer.svg`;
+  const FLAME_ICON = `https://unpkg.com/lucide-static@0.469.0/icons/flame.svg`;
+
+  function modeEngrave(m: Mode | AtcMode | 'tail'): string {
+    const map: Record<string, string> = {
+      group: 'GROUP', alliance: 'ALLIANCE', hub: 'HUB', logo: 'LOGO',
+      country: 'COUNTRY', reverseGroup: 'REVERSE', tail: 'TAIL', code: 'CODE',
+      airportAirline: 'CARRIERS', airlineDest: 'A. ROUTES', airportConn: 'A. CONN',
+      whereAmI: 'WHERE AM I', hubOf: 'HUB OF',
+      airportWordle: 'WORDLE', airportIdentify: 'IDENTIFY',
+      aircraftWordle: 'WORDLE', aircraftIdentify: 'IDENTIFY',
+      militaryWordle: 'MIL WORDLE', militaryIdentify: 'MILITARY',
+      callsign: 'CALLSIGN', decode: 'DECODE', compose: 'COMPOSE', cleared: 'CLEARED',
+      conflict: 'CONFLICT', sequence: 'SEQUENCE',
+      interceptStable: 'STABLE', interceptMinimums: 'MINIMUMS', interceptFma: 'FMA',
+    };
+    return map[m] ?? modeTitle(m as Mode);
   }
 
   function modeHint(m: Mode): string {
@@ -210,12 +221,12 @@
       case 'airportIdentify': return 'Spot an airport from a photo.';
     }
   }
+
   const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
 
   let difficulty: Difficulty = $state(
     (localStorage.getItem('difficulty') as Difficulty) || 'medium',
   );
-
   function setDifficulty(d: Difficulty) {
     difficulty = d;
     localStorage.setItem('difficulty', d);
@@ -232,803 +243,676 @@
   const speedBest = $derived(loadSpeedBest());
 </script>
 
-<div class="features">
-  <button class="daily-card" class:done={daily !== null} onclick={onStartDaily}>
-    <img class="feature-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/calendar-days.svg" alt="" aria-hidden="true" />
-    <div class="daily-head">
-      <span class="daily-tag">Daily</span>
-      <span class="daily-date">{todayKey()}</span>
-    </div>
-    <h2>Today's 10</h2>
-    <p>
-      {#if daily}
-        Done · {daily.score}/10
-      {:else}
-        Mixed modes. Same for everyone, every day.
-      {/if}
-    </p>
-  </button>
-
-  <button class="speed-card" onclick={onStartSpeed}>
-    <img class="feature-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/timer.svg" alt="" aria-hidden="true" />
-    <div class="speed-head">
-      <span class="speed-tag">Speed</span>
-      {#if speedBest > 0}
-        <span class="speed-best">Best {speedBest}</span>
-      {/if}
-    </div>
-    <h2>60 seconds</h2>
-    <p>Mixed modes. Combo bonus every 3 in a row.</p>
-  </button>
-
-  <button class="mix-card" onclick={onStartMix}>
-    <img class="feature-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
-    <div class="mix-head">
-      <span class="mix-tag">Mix</span>
-      {#if mixBest > 0}
-        <span class="mix-best">Best {mixBest}/10</span>
-      {/if}
-    </div>
-    <h2>Random 10</h2>
-    <p>Daily-style mix. Replay as much as you like.</p>
-  </button>
-</div>
-
-<section class="diff">
-  <div class="diff-head">
-    <span class="diff-label">Difficulty</span>
-    <label class="pool-select" class:on={pool !== 'all'}>
-      <span class="pool-select-label">Region</span>
-      <select
-        class="pool-select-input"
-        value={pool}
-        onchange={(e) => setPool((e.currentTarget as HTMLSelectElement).value as 'all' | 'us' | 'us_eu')}
-      >
-        <option value="all">All</option>
-        <option value="us">US only</option>
-        <option value="us_eu">US + Europe</option>
-      </select>
-    </label>
-  </div>
-  <div class="diff-toggle" role="tablist">
+<!-- DIFF + REGION ROW (cockpit-style segmented selector) -->
+<div class="diff-row">
+  <div class="diff" role="tablist" aria-label="Difficulty">
     {#each difficulties as d}
-      <button
-        role="tab"
-        aria-selected={difficulty === d}
-        class:active={difficulty === d}
-        onclick={() => setDifficulty(d)}
-      >
-        {difficultyLabel(d)}
+      <button class:on={difficulty === d} aria-selected={difficulty === d} onclick={() => setDifficulty(d)}>
+        <span class="led"></span>{difficultyLabel(d)}
       </button>
     {/each}
   </div>
-</section>
-
-<div class="modes-sections">
-<section class="modes-wrap">
-  <div class="modes-head">
-    <span class="modes-label">Airlines</span>
-    <button class="mix-btn" type="button" onclick={() => categoryMix('airline')} aria-label="Random airline mode">
-      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
-      <span>Mix</span>
-    </button>
-  </div>
-  <div class="modes-grid">
-    {#each visibleAirlineModes as mode}
-      {@const best = loadBest(mode, difficulty)}
-      <button class="mode-tile" onclick={() => onStart(mode, difficulty)}>
-        <img class="tile-icon" src={modeIcon(mode)} alt="" aria-hidden="true" />
-        <span class="tile-title">{modeTitle(mode)}</span>
-        <span class="tile-desc">{modeHint(mode)}</span>
-        {#if best > 0}
-          <span class="tile-best">{best}/10</span>
-        {/if}
-      </button>
-    {/each}
-    <button class="mode-tile" onclick={() => onStartAtc('callsign', difficulty)}>
-      <img class="tile-icon" src={atcIcon('callsign')} alt="" aria-hidden="true" />
-      <span class="tile-title">{atcModeTitle('callsign')}</span>
-      <span class="tile-desc">{atcModeDescription('callsign')}</span>
-      {#if callsignBest > 0}
-        <span class="tile-best">{callsignBest}/10</span>
-      {/if}
-    </button>
-  </div>
-</section>
-
-<section class="modes-wrap">
-  <div class="modes-head">
-    <span class="modes-label">Airports</span>
-    <button class="mix-btn" type="button" onclick={() => categoryMix('airport')} aria-label="Random airport mode">
-      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
-      <span>Mix</span>
-    </button>
-  </div>
-  <div class="modes-grid">
-    {#each airportRoundModes as mode}
-      {@const best = loadBest(mode, difficulty)}
-      <button class="mode-tile" onclick={() => onStart(mode, difficulty)}>
-        <img class="tile-icon" src={modeIcon(mode)} alt="" aria-hidden="true" />
-        <span class="tile-title">{modeTitle(mode)}</span>
-        <span class="tile-desc">{modeHint(mode)}</span>
-        {#if best > 0}
-          <span class="tile-best">{best}/10</span>
-        {/if}
-      </button>
-    {/each}
-    <button class="mode-tile" onclick={() => onStartAirportWordle(difficulty)}>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/tower-control.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Airport Wordle</span>
-      <span class="tile-desc">Deduce a mystery airport from country, traffic tier, runways, alliance.</span>
-    </button>
-    <button class="mode-tile" onclick={() => onStartAirportIdentify(difficulty)}>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/camera.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Airport Identify</span>
-      <span class="tile-desc">Photo of an airport - guess with progressive hints.</span>
-    </button>
-  </div>
-</section>
-
-<section class="modes-wrap">
-  <div class="modes-head">
-    <span class="modes-label">Aircraft</span>
-    <button class="mix-btn" type="button" onclick={() => categoryMix('aircraft')} aria-label="Random aircraft mode">
-      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
-      <span>Mix</span>
-    </button>
-  </div>
-  <div class="modes-grid">
-    <button class="mode-tile" onclick={() => onStartAircraftIdentify(difficulty)}>
-      <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'aircraftIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'aircraftIdentify'); }}>?</span>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/plane.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Aircraft Identify</span>
-      <span class="tile-desc">Photo of a plane - guess with hints.</span>
-    </button>
-    <button class="mode-tile" onclick={() => onStartAircraftWordle(difficulty)}>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/grid-3x3.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Aircraft Wordle</span>
-      <span class="tile-desc">{difficulty === 'hard' ? '5 guesses' : '6 guesses'}, attribute clues each round.</span>
-    </button>
-    <button class="mode-tile" onclick={() => onStartMilitaryIdentify(difficulty)}>
-      <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'militaryIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'militaryIdentify'); }}>?</span>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/crosshair.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Military Identify</span>
-      <span class="tile-desc">Photo of a military aircraft - guess with progressive hints.</span>
-    </button>
-    <button class="mode-tile" onclick={() => onStartMilitaryWordle(difficulty)}>
-      <img class="tile-icon" src="https://unpkg.com/lucide-static@0.469.0/icons/swords.svg" alt="" aria-hidden="true" />
-      <span class="tile-title">Military Wordle</span>
-      <span class="tile-desc">Fighters, bombers, helos. {difficulty === 'hard' ? '5 guesses' : '6 guesses'}, seven attributes.</span>
-    </button>
-  </div>
-</section>
-
-<section class="modes-wrap">
-  <div class="modes-head">
-    <span class="modes-label">Radio</span>
-    <button class="mix-btn" type="button" onclick={() => categoryMix('atc')} aria-label="Radio Mix - random question type each round">
-      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
-      <span>Mix</span>
-    </button>
-  </div>
-  <div class="modes-grid">
-    {#each atcModes as mode}
-      {@const best = loadAtcBest(mode, difficulty)}
-      {@const introKey = mode === 'decode' ? 'atcDecode' : mode === 'compose' ? 'atcCompose' : mode === 'cleared' ? 'atcCleared' : null}
-      <button class="mode-tile" onclick={() => onStartAtc(mode, difficulty)}>
-        {#if introKey}
-          <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>
-        {/if}
-        <img class="tile-icon" src={atcIcon(mode)} alt="" aria-hidden="true" />
-        <span class="tile-title">{atcModeTitle(mode)}</span>
-        <span class="tile-desc">{atcModeDescription(mode)}</span>
-        {#if best > 0}
-          <span class="tile-best">{best}/10</span>
-        {/if}
-      </button>
-    {/each}
-  </div>
-</section>
-
-<section class="modes-wrap">
-  <div class="modes-head">
-    <span class="modes-label">Radar</span>
-    <button class="mix-btn" type="button" onclick={() => categoryMix('radar')} aria-label="Random radar mode">
-      <img src="https://unpkg.com/lucide-static@0.469.0/icons/shuffle.svg" alt="" aria-hidden="true" />
-      <span>Mix</span>
-    </button>
-  </div>
-  <div class="modes-grid">
-    {#each radarModes as mode}
-      {@const best = loadAtcBest(mode, difficulty)}
-      {@const introKey = mode === 'conflict' ? 'radarConflict' : mode === 'sequence' ? 'radarSequence' : mode === 'interceptStable' ? 'interceptStable' : mode === 'interceptMinimums' ? 'interceptMinimums' : mode === 'interceptFma' ? 'interceptFma' : null}
-      <button class="mode-tile" onclick={() => onStartAtc(mode, difficulty)}>
-        {#if introKey}
-          <span class="guide-btn" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}>?</span>
-        {/if}
-        <img class="tile-icon" src={atcIcon(mode)} alt="" aria-hidden="true" />
-        <span class="tile-title">{atcModeTitle(mode)}</span>
-        <span class="tile-desc">{atcModeDescription(mode)}</span>
-        {#if best > 0}
-          <span class="tile-best">{best}/10</span>
-        {/if}
-      </button>
-    {/each}
-  </div>
-</section>
+  <span class="diff-spacer"></span>
+  <label class="pool" class:on={pool !== 'all'}>
+    <span class="pool-label">Region</span>
+    <select bind:value={pool} onchange={(e) => setPool((e.currentTarget as HTMLSelectElement).value as 'all' | 'us' | 'us_eu')}>
+      <option value="all">All</option>
+      <option value="us">US only</option>
+      <option value="us_eu">US + Europe</option>
+    </select>
+  </label>
 </div>
 
-{#if inProgress.length > 0}
-  {@const visibleEntries = inProgressExpanded ? inProgress : inProgress.slice(0, 3)}
-  <section class="in-progress">
-    <div class="in-progress-head">
-      <span class="in-progress-label">In progress</span>
-      <button class="ip-clear-all" type="button" onclick={clearAllInProgress}>Clear all</button>
-    </div>
-    <ul class="ip-list">
-      {#each visibleEntries as entry (entry.key)}
-        <li class="ip-row">
-          <button class="ip-resume" type="button" onclick={() => resumeEntry(entry)}>
-            <span class="ip-cat">{entry.category}</span>
-            <span class="ip-label">{entry.label}</span>
-            <span class="ip-progress">{entry.currentIndex}/{entry.total}</span>
-          </button>
-          <button
-            class="ip-del"
-            type="button"
-            aria-label="Delete {entry.label}"
-            title="Delete"
-            onclick={() => deleteEntry(entry.key)}
-          >✕</button>
-        </li>
-      {/each}
-    </ul>
-    {#if inProgress.length > 3}
-      <button class="ip-toggle" type="button" onclick={() => (inProgressExpanded = !inProgressExpanded)}>
-        {inProgressExpanded ? 'Show less' : `View more (${inProgress.length - 3})`}
-      </button>
-    {/if}
-  </section>
-{/if}
+<!-- PRIMARY -->
+<section class="bezel" data-label="Primary Runs">
+  <div class="btn-grid cols-3">
+    <button class="pbtn lg" class:lit-green={daily !== null} onclick={onStartDaily}>
+      <span class="pbtn-led"></span>
+      <span class="pbtn-icon" style="--icon: url('{CALENDAR_ICON}')"></span>
+      <span class="pbtn-engrave">DAILY</span>
+      <span class="pbtn-desc">Today's curated 10. Same set for everyone every day.</span>
+      {#if daily !== null}
+        <span class="pbtn-last">{daily.score}/10</span>
+      {:else}
+        <span class="pbtn-last subtle">{todayKey()}</span>
+      {/if}
+    </button>
+    <button class="pbtn lg" onclick={onStartSpeed}>
+      <span class="pbtn-led"></span>
+      <span class="pbtn-icon" style="--icon: url('{TIMER_ICON}')"></span>
+      <span class="pbtn-engrave">SPEED · 60s</span>
+      <span class="pbtn-desc">Sixty-second sprint. Combo bonus every 3 in a row.</span>
+      {#if speedBest > 0}<span class="pbtn-last">best {speedBest}</span>{/if}
+    </button>
+    <button class="pbtn lg" onclick={onStartMix}>
+      <span class="pbtn-led"></span>
+      <span class="pbtn-icon" style="--icon: url('{SHUFFLE_ICON}')"></span>
+      <span class="pbtn-engrave">RANDOM 10</span>
+      <span class="pbtn-desc">Daily-style mix. Replay as much as you like.</span>
+      {#if mixBest > 0}<span class="pbtn-last">best {mixBest}/10</span>{/if}
+    </button>
+  </div>
+</section>
 
-{#if history.length > 0}
-  <section class="recent">
-    <h3>Recent rounds</h3>
-    <ul>
-      {#each history.slice(0, 5) as h}
-        {@const hasDetail = (h.results && h.results.length > 0) || (h.aircraftResults && h.aircraftResults.length > 0)}
-        <li>
-          <button class="row-btn" disabled={!hasDetail} onclick={() => onOpenHistory(h)}>
-            <span class="dot" class:strong={h.score >= 7}></span>
-            <span class="name">{modeTitle(h.mode)}</span>
-            <span class="diff-pill">{difficultyLabel(h.difficulty)}</span>
-            <span class="score">{h.score}/{h.total}</span>
-            {#if h.results && h.results.length > 0}
-              <span class="chev" aria-hidden="true">›</span>
-            {/if}
-          </button>
-        </li>
+<!-- AIRLINES + AIRPORTS -->
+<section class="row-2">
+  <div class="bezel" data-label="Airlines">
+    <span class="bezel-mix">
+      <button class="mix-btn" type="button" onclick={() => categoryMix('airline')} aria-label="Random airline mode">
+        <span class="m-icon" style="--icon: url('{SHUFFLE_ICON}')"></span>Mix
+      </button>
+    </span>
+    <div class="btn-grid">
+      {#each visibleAirlineModes as mode}
+        {@const best = loadBest(mode, difficulty)}
+        <button class="pbtn" onclick={() => onStart(mode, difficulty)}>
+          <span class="pbtn-led"></span>
+          <span class="pbtn-icon" style="--icon: url('{modeIconUrl(mode)}')"></span>
+          <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+          <span class="pbtn-desc">{modeHint(mode)}</span>
+          {#if best > 0}<span class="pbtn-last">{best}/10</span>{/if}
+        </button>
       {/each}
-    </ul>
-  </section>
-{/if}
+      <button class="pbtn" onclick={() => onStartAtc('callsign', difficulty)}>
+        <span class="pbtn-led"></span>
+        <span class="pbtn-icon" style="--icon: url('{atcIconUrl('callsign')}')"></span>
+        <span class="pbtn-engrave">CALLSIGN</span>
+        <span class="pbtn-desc">{atcModeDescription('callsign')}</span>
+        {#if callsignBest > 0}<span class="pbtn-last">{callsignBest}/10</span>{/if}
+      </button>
+    </div>
+  </div>
+
+  <div class="bezel" data-label="Airports">
+    <span class="bezel-mix">
+      <button class="mix-btn" type="button" onclick={() => categoryMix('airport')} aria-label="Random airport mode">
+        <span class="m-icon" style="--icon: url('{SHUFFLE_ICON}')"></span>Mix
+      </button>
+    </span>
+    <div class="btn-grid">
+      {#each airportRoundModes as mode}
+        {@const best = loadBest(mode, difficulty)}
+        <button class="pbtn" onclick={() => onStart(mode, difficulty)}>
+          <span class="pbtn-led"></span>
+          <span class="pbtn-icon" style="--icon: url('{modeIconUrl(mode)}')"></span>
+          <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+          <span class="pbtn-desc">{modeHint(mode)}</span>
+          {#if best > 0}<span class="pbtn-last">{best}/10</span>{/if}
+        </button>
+      {/each}
+      <button class="pbtn" onclick={() => onStartAirportWordle(difficulty)}>
+        <span class="pbtn-led"></span>
+        <span class="pbtn-icon" style="--icon: url('{modeIconUrl('airportWordle')}')"></span>
+        <span class="pbtn-engrave">WORDLE</span>
+        <span class="pbtn-desc">{modeHint('airportWordle')}</span>
+      </button>
+      <button class="pbtn has-info" onclick={() => onStartAirportIdentify(difficulty)}>
+        <span class="pbtn-led"></span>
+        <span class="pbtn-icon" style="--icon: url('{modeIconUrl('airportIdentify')}')"></span>
+        <span class="pbtn-engrave">IDENTIFY</span>
+        <span class="pbtn-desc">{modeHint('airportIdentify')}</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- AIRCRAFT + RADIO + RADAR -->
+<section class="row-3">
+  <div class="bezel" data-label="Aircraft">
+    <span class="bezel-mix">
+      <button class="mix-btn" type="button" onclick={() => categoryMix('aircraft')} aria-label="Random aircraft mode">
+        <span class="m-icon" style="--icon: url('{SHUFFLE_ICON}')"></span>Mix
+      </button>
+    </span>
+    <div class="btn-grid">
+      <button class="pbtn has-info" onclick={() => onStartAircraftIdentify(difficulty)}>
+        <span class="pbtn-led"></span>
+        <span class="pbtn-icon" style="--icon: url('{modeIconUrl('aircraftIdentify')}')"></span>
+        <span class="pbtn-engrave">IDENTIFY</span>
+        <span class="pbtn-desc">{modeHint('aircraftIdentify')}</span>
+        <span class="info-hit" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'aircraftIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'aircraftIdentify'); }}></span>
+      </button>
+      <button class="pbtn" onclick={() => onStartAircraftWordle(difficulty)}>
+        <span class="pbtn-led"></span>
+        <span class="pbtn-icon" style="--icon: url('{modeIconUrl('aircraftWordle')}')"></span>
+        <span class="pbtn-engrave">WORDLE</span>
+        <span class="pbtn-desc">{modeHint('aircraftWordle')}</span>
+      </button>
+      <button class="pbtn has-info" onclick={() => onStartMilitaryIdentify(difficulty)}>
+        <span class="pbtn-led"></span>
+        <span class="pbtn-icon" style="--icon: url('{modeIconUrl('militaryIdentify')}')"></span>
+        <span class="pbtn-engrave">MILITARY</span>
+        <span class="pbtn-desc">{modeHint('militaryIdentify')}</span>
+        <span class="info-hit" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'militaryIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'militaryIdentify'); }}></span>
+      </button>
+      <button class="pbtn" onclick={() => onStartMilitaryWordle(difficulty)}>
+        <span class="pbtn-led"></span>
+        <span class="pbtn-icon" style="--icon: url('{modeIconUrl('militaryWordle')}')"></span>
+        <span class="pbtn-engrave">MIL WORDLE</span>
+        <span class="pbtn-desc">{modeHint('militaryWordle')}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="bezel" data-label="Radio">
+    <span class="bezel-mix">
+      <button class="mix-btn" type="button" onclick={() => categoryMix('atc')} aria-label="Radio Mix">
+        <span class="m-icon" style="--icon: url('{SHUFFLE_ICON}')"></span>Mix
+      </button>
+    </span>
+    <div class="btn-grid">
+      {#each atcModes as mode}
+        {@const best = loadAtcBest(mode, difficulty)}
+        {@const introKey = mode === 'decode' ? 'atcDecode' : mode === 'compose' ? 'atcCompose' : mode === 'cleared' ? 'atcCleared' : null}
+        <button class="pbtn has-info" onclick={() => onStartAtc(mode, difficulty)}>
+          <span class="pbtn-led"></span>
+          <span class="pbtn-icon" style="--icon: url('{atcIconUrl(mode)}')"></span>
+          <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+          <span class="pbtn-desc">{atcModeDescription(mode)}</span>
+          {#if best > 0}<span class="pbtn-last">{best}/10</span>{/if}
+          {#if introKey}
+            <span class="info-hit" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}></span>
+          {/if}
+        </button>
+      {/each}
+    </div>
+  </div>
+
+  <div class="bezel" data-label="Radar">
+    <span class="bezel-mix">
+      <button class="mix-btn" type="button" onclick={() => categoryMix('radar')} aria-label="Random radar mode">
+        <span class="m-icon" style="--icon: url('{SHUFFLE_ICON}')"></span>Mix
+      </button>
+    </span>
+    <div class="btn-grid">
+      {#each radarModes as mode}
+        {@const best = loadAtcBest(mode, difficulty)}
+        {@const introKey = mode === 'conflict' ? 'radarConflict' : mode === 'sequence' ? 'radarSequence' : mode === 'interceptStable' ? 'interceptStable' : mode === 'interceptMinimums' ? 'interceptMinimums' : mode === 'interceptFma' ? 'interceptFma' : null}
+        <button class="pbtn has-info" onclick={() => onStartAtc(mode, difficulty)}>
+          <span class="pbtn-led"></span>
+          <span class="pbtn-icon" style="--icon: url('{atcIconUrl(mode)}')"></span>
+          <span class="pbtn-engrave">{modeEngrave(mode)}</span>
+          <span class="pbtn-desc">{atcModeDescription(mode)}</span>
+          {#if best > 0}<span class="pbtn-last">{best}/10</span>{/if}
+          {#if introKey}
+            <span class="info-hit" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, introKey as IntroKey)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, introKey as IntroKey); }}></span>
+          {/if}
+        </button>
+      {/each}
+    </div>
+  </div>
+</section>
+
+<!-- MFD: RESUME + RECENT -->
+<section class="row-2 mfd-row">
+  {#if inProgress.length > 0}
+    {@const visibleEntries = inProgressExpanded ? inProgress : inProgress.slice(0, 3)}
+    <div class="bezel" data-label="MFD · Resume">
+      <button class="bezel-aux-btn" type="button" onclick={clearAllInProgress}>Clear all</button>
+      <div class="mfd-screen">
+        {#each visibleEntries as entry (entry.key)}
+          <div class="mfd-row" tabindex="0">
+            <span class="pre">▸</span>
+            <span class="name"><span class="cat">{entry.category}</span>{entry.label}</span>
+            <span class="diff" aria-hidden="true"></span>
+            <button class="resume-btn" type="button" onclick={() => resumeEntry(entry)}>
+              <span class="score">{entry.currentIndex}/{entry.total}</span>
+              <span class="chev">›</span>
+            </button>
+            <button class="del-btn" type="button" aria-label="Delete {entry.label}" title="Delete" onclick={() => deleteEntry(entry.key)}>×</button>
+          </div>
+        {/each}
+        {#if inProgress.length > 3}
+          <button class="mfd-more" type="button" onclick={() => (inProgressExpanded = !inProgressExpanded)}>
+            {inProgressExpanded ? 'Show less' : `View more (${inProgress.length - 3})`}
+          </button>
+        {/if}
+      </div>
+    </div>
+  {:else}
+    <div></div>
+  {/if}
+
+  {#if history.length > 0}
+    <div class="bezel" data-label="MFD · Recent Rounds">
+      <div class="mfd-screen">
+        {#each history.slice(0, 5) as h}
+          {@const hasDetail = (h.results && h.results.length > 0) || (h.aircraftResults && h.aircraftResults.length > 0)}
+          {@const tone = h.score >= 7 ? 'good' : h.score <= 3 ? 'bad-2' : ''}
+          <button class="mfd-row {tone}" disabled={!hasDetail} onclick={() => onOpenHistory(h)}>
+            <span class="pre">›</span>
+            <span class="ts" aria-hidden="true"></span>
+            <span class="name">{modeTitle(h.mode)}</span>
+            <span class="diff">{difficultyLabel(h.difficulty)}</span>
+            <span class="score">{h.score}/{h.total}</span>
+            <span class="chev">{hasDetail ? '›' : ''}</span>
+          </button>
+        {/each}
+      </div>
+    </div>
+  {:else}
+    <div></div>
+  {/if}
+</section>
 
 <style>
-  .features {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.625rem;
-  }
-  .features > .mix-card { grid-column: 1 / -1; }
-  @media (min-width: 720px) {
-    .features { grid-template-columns: 1fr 1fr 1fr; gap: 0.875rem; }
-    .features > .mix-card { grid-column: auto; }
-  }
-
-  .mix-card {
-    text-align: center;
-    border-radius: 4px;
-    padding: 0.55rem 0.7rem;
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-    transition: transform 0.15s, border-color 0.15s, background 0.15s;
-    min-height: 84px;
-    background: var(--surface);
-    border: 1px solid rgba(96, 150, 186, 0.36);
-    border-left: 5px solid var(--accent-2);
-    box-shadow: var(--shadow);
-  }
-  .mix-card:hover { border-color: rgba(96, 150, 186, 0.72); }
-  .mix-card:active { transform: scale(0.98); }
-  .mix-head {
+  /* ─── diff + region row ─────────────────────── */
+  .diff-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    width: 100%;
+    gap: 0.7rem;
+    padding: 0 0.05rem;
+    flex-wrap: wrap;
   }
-  .mix-tag {
-    font-size: 0.625rem;
-    font-family: var(--font-main);
-    letter-spacing: 0;
-    text-transform: uppercase;
-    color: var(--info);
-    font-weight: 600;
-  }
-  .mix-best {
-    font-size: 0.6875rem;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-  .mix-card h2 {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0;
-  }
-  .mix-card p {
-    color: var(--muted);
-    font-size: 0.75rem;
-    line-height: 1.25;
-  }
-
-  .daily-card,
-  .speed-card {
-    text-align: center;
-    border-radius: 4px;
-    padding: 0.55rem 0.7rem;
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-    transition: transform 0.15s, border-color 0.15s, background 0.15s;
-    min-height: 84px;
-  }
-  .daily-card {
-    background: var(--surface);
-    border: 1px solid rgba(39, 76, 119, 0.28);
-    border-left: 5px solid var(--accent);
-    box-shadow: var(--shadow);
-  }
-  .daily-card:hover { border-color: rgba(39, 76, 119, 0.6); }
-  .daily-card.done { opacity: 0.85; }
-
-  .speed-card {
-    background: var(--surface);
-    border: 1px solid rgba(163, 206, 241, 0.7);
-    border-left: 5px solid var(--info);
-    box-shadow: var(--shadow);
-  }
-  .speed-card:hover { border-color: rgba(96, 150, 186, 0.72); }
-
-  .daily-card:active, .speed-card:active { transform: scale(0.98); }
-
-  .feature-icon {
-    width: 22px;
-    height: 22px;
-    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
-  }
-  .daily-head, .speed-head {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    width: 100%;
-  }
-  .daily-tag {
-    font-size: 0.625rem;
-    font-family: var(--font-main);
-    letter-spacing: 0;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-  }
-  .speed-tag {
-    font-size: 0.625rem;
-    font-family: var(--font-main);
-    letter-spacing: 0;
-    text-transform: uppercase;
-    color: var(--accent-2);
-    font-weight: 600;
-  }
-  .daily-date, .speed-best {
-    font-size: 0.6875rem;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-  .daily-card h2, .speed-card h2 {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0;
-  }
-  .daily-card p, .speed-card p {
-    color: var(--muted);
-    font-size: 0.75rem;
-    line-height: 1.25;
-  }
-
   .diff {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: inline-flex;
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    background: var(--panel);
+    border-radius: 1px;
   }
-  .diff-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
-  .diff-label {
-    font-size: 0.6875rem;
-    font-family: var(--font-main);
-    letter-spacing: 0;
+  .diff button {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--muted);
-    padding-left: 0.25rem;
-  }
-  .diff-toggle {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 4px;
-  }
-  .diff-toggle button {
-    padding: 0.625rem 0.5rem;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    color: var(--muted);
-    transition: background 0.15s, color 0.15s;
-  }
-  .diff-toggle button.active {
-    background: var(--accent);
-    color: var(--bg);
-  }
-
-  .pool-select {
-    align-self: center;
+    color: var(--label-dim);
+    padding: 0.42rem 0.95rem 0.4rem;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.25rem 0.4rem 0.25rem 0.55rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    font-size: 0.75rem;
-    color: var(--muted);
-    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    transition: color 0.15s, background 0.15s;
   }
-  .pool-select.on {
-    color: var(--text);
-    border-color: rgba(96, 150, 186, 0.62);
-    background: rgba(163, 206, 241, 0.42);
+  .diff button + button { border-left: 1px solid var(--bezel-lo); }
+  .diff button .led {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--led-off);
+    border: 1px solid var(--bezel-lo);
   }
-  .pool-select-label {
-    font-family: var(--font-main);
+  .diff button:hover { color: var(--label); }
+  .diff button.on { color: var(--label); background: var(--panel-2); }
+  .diff button.on .led { background: var(--led-amber); }
+
+  .diff-spacer { flex: 1; }
+
+  .pool {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    background: var(--panel);
+    border-radius: 1px;
+    padding: 0.32rem 0.55rem;
+  }
+  .pool-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    color: var(--label-dim);
+    font-weight: 700;
   }
-  .pool-select-input {
+  .pool select {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--label);
     background: transparent;
-    color: inherit;
     border: none;
-    font: inherit;
-    padding: 0.15rem 0.2rem;
+    outline: none;
     cursor: pointer;
   }
-  .pool-select-input:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
-    border-radius: 3px;
+  .pool.on { border-top-color: var(--led-cyan); border-left-color: var(--led-cyan); }
+
+  /* ─── bezel ─────────────────────────────────── */
+  .bezel {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 2px;
+    padding: 1.1rem 0.7rem 0.65rem;
+  }
+  .bezel::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -0.42rem;
+    left: 0.85rem;
+    background: var(--bg);
+    padding: 0 0.45rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--label-dim);
+    font-weight: 700;
+    height: 14px;
+    display: inline-flex;
+    align-items: center;
   }
 
-  .modes-sections {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    align-items: start;
-  }
-  @media (min-width: 720px) {
-    /* 6-col base; first two sections (Airlines, Airports) span 3 each → 2-up.
-       Remaining three sections (Aircraft, Radio, Radar) span 2 each → 3-up. */
-    .modes-sections {
-      grid-template-columns: repeat(6, 1fr);
-      gap: 1.25rem;
-    }
-    .modes-wrap:nth-child(-n+2) { grid-column: span 3; }
-    .modes-wrap:nth-child(n+3)  { grid-column: span 2; }
-  }
-  .modes-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .modes-head {
-    display: flex;
+  .bezel-mix {
+    position: absolute;
+    top: -0.5rem;
+    right: 0.65rem;
+    background: var(--bg);
+    padding: 0 0.05rem;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    padding-right: 0.25rem;
-  }
-  .modes-label {
-    font-size: 0.6875rem;
-    font-family: var(--font-main);
-    letter-spacing: 0;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding-left: 0.25rem;
+    height: 18px;
+    z-index: 2;
   }
   .mix-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.18rem 0.55rem 0.18rem 0.4rem;
-    border-radius: 999px;
-    background: var(--surface);
-    border: 1px solid rgba(96, 150, 186, 0.45);
-    color: var(--accent);
-    font-family: var(--font-main);
-    font-size: 0.6875rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: background 0.12s, border-color 0.12s, transform 0.12s;
-  }
-  .mix-btn:hover { background: rgba(163, 206, 241, 0.18); border-color: rgba(96, 150, 186, 0.75); }
-  .mix-btn:active { transform: scale(0.96); }
-  .mix-btn img {
-    width: 13px; height: 13px;
-    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
-  }
-  .modes-grid {
-    display: grid;
-    /* auto-fill keeps tile width consistent across sections regardless of how
-       wide the section's grid-column span is. Tiles stay ~140-180px wide. */
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 0.4rem;
-  }
-  @media (min-width: 720px) {
-    .modes-grid { gap: 0.5rem; }
-  }
-  .mode-tile {
-    min-height: 104px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.55rem 0.6rem;
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.2rem;
-    position: relative;
-    text-align: center;
-    transition: transform 0.15s, border-color 0.15s, background 0.15s;
-  }
-  .mode-tile:active { transform: scale(0.98); background: var(--surface-2); }
-  .mode-tile:hover { border-color: var(--panel-line); }
-  .tile-icon {
-    width: 22px;
-    height: 22px;
-    margin-bottom: 0.15rem;
-    filter: invert(78%) sepia(29%) saturate(787%) hue-rotate(174deg) brightness(100%) contrast(90%);
-  }
-  .tile-title {
-    font-size: 0.8125rem;
-    font-family: var(--font-main);
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.2;
-  }
-  .tile-desc {
-    color: var(--muted);
-    font-size: 0.6875rem;
-    line-height: 1.3;
-    max-width: 100%;
-  }
-  .guide-btn {
-    position: absolute;
-    top: 0.3rem;
-    left: 0.35rem;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--surface-2);
-    border: 1px solid rgba(96, 150, 186, 0.45);
-    color: var(--accent);
-    font-family: var(--font-main);
-    font-size: 0.6875rem;
-    font-weight: 700;
-    line-height: 1;
+    color: var(--led-cyan);
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.12s;
+    gap: 0.4rem;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    background: var(--panel);
+    border-radius: 1px;
+    font-weight: 700;
   }
-  .guide-btn:hover {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-    transform: scale(1.08);
+  .mix-btn:hover { color: #b0ecf6; }
+  .mix-btn:active {
+    border-color: var(--bezel-lo);
+    border-bottom-color: var(--bezel-hi);
+    border-right-color: var(--bezel-hi);
   }
-  .guide-btn:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-  .tile-best {
-    position: absolute;
-    top: 0.35rem;
-    right: 0.4rem;
-    font-size: 0.625rem;
-    color: var(--muted);
-    background: rgba(163, 206, 241, 0.45);
-    border: 1px solid rgba(96, 150, 186, 0.32);
-    font-family: var(--font-main);
-    padding: 0.1rem 0.4rem;
-    border-radius: 4px;
-    font-variant-numeric: tabular-nums;
+  .m-icon {
+    width: 11px; height: 11px;
+    background: currentColor;
+    -webkit-mask: var(--icon) center/contain no-repeat;
+    mask: var(--icon) center/contain no-repeat;
   }
 
-  .recent h3 {
-    font-size: 0.6875rem;
-    font-family: var(--font-main);
-    letter-spacing: 0;
+  .bezel-aux-btn {
+    position: absolute;
+    top: -0.5rem;
+    right: 0.65rem;
+    background: var(--bg);
+    padding: 0 0.45rem;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--muted);
-    padding-left: 0.25rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+    color: var(--label-faint);
+    height: 18px;
+    line-height: 18px;
+    z-index: 2;
   }
-  .recent ul {
-    list-style: none;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
+  .bezel-aux-btn:hover { color: var(--led-red); }
+
+  /* ─── pushbutton ────────────────────────────── */
+  .pbtn {
+    position: relative;
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "icon title"
+      "desc  desc";
+    column-gap: 0.55rem;
+    row-gap: 0.2rem;
+    padding: 0.55rem 0.7rem 0.7rem 0.6rem;
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
+    cursor: pointer;
+    min-height: 78px;
+    width: 100%;
+    text-align: left;
+  }
+  .pbtn:hover .pbtn-engrave { color: #fff; }
+  .pbtn:hover .pbtn-icon { animation: icon-pulse 1.4s ease-in-out infinite; }
+  .pbtn:active {
+    border-color: var(--bezel-lo);
+    border-bottom-color: var(--bezel-hi);
+    border-right-color: var(--bezel-hi);
+  }
+  @keyframes icon-pulse {
+    0%, 100% { background: var(--label-dim); }
+    50%      { background: var(--label); }
+  }
+
+  .pbtn-led {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--led-off);
+    border: 1px solid var(--bezel-lo);
+    position: absolute;
+    top: 0.32rem;
+    right: 0.4rem;
+  }
+  .pbtn.lit-amber .pbtn-led { background: var(--led-amber); }
+  .pbtn.lit-green .pbtn-led { background: var(--led-green); }
+
+  .pbtn-icon {
+    grid-area: icon;
+    width: 22px; height: 22px;
+    background: var(--label-dim);
+    -webkit-mask: var(--icon) center/contain no-repeat;
+    mask: var(--icon) center/contain no-repeat;
+    align-self: start;
+    margin-top: 1px;
+    transition: background 0.13s;
+  }
+
+  .pbtn-engrave {
+    grid-area: title;
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--label);
+    text-transform: uppercase;
+    align-self: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 2.6rem;
+  }
+
+  /* info ? badge — only on .has-info */
+  .pbtn.has-info .pbtn-engrave::after {
+    content: "?";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px; height: 13px;
+    margin-left: 0.45rem;
+    vertical-align: 1px;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--label-faint);
+    border: 1px solid var(--bezel-hi);
+    background: var(--panel);
+    border-radius: 50%;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .pbtn.has-info:hover .pbtn-engrave::after { color: var(--led-cyan); border-color: var(--led-cyan); }
+
+  /* invisible click hit-area over the ? badge for the field-guide opener */
+  .info-hit {
+    position: absolute;
+    top: 0.18rem;
+    width: 22px; height: 22px;
+    cursor: help;
+    z-index: 3;
+  }
+  /* the ? badge sits at title row's end; estimate its center: title starts at col 2 (~32px in), engrave text width varies. Better to put hit-area at right of title row, just left of LED. */
+  .pbtn.has-info .info-hit {
+    right: 1.7rem;
+  }
+
+  .pbtn-desc {
+    grid-area: desc;
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 0.68rem;
+    letter-spacing: 0;
+    color: var(--label-dim);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .recent li {
-    border-bottom: 1px solid var(--border);
-  }
-  .recent li:last-child { border-bottom: none; }
-  .row-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0.5rem 0.875rem;
-    font-size: 0.875rem;
-    background: none;
-    color: var(--text);
-    text-align: left;
-    transition: background 0.12s;
-  }
-  .row-btn:not(:disabled):hover { background: var(--surface-2); }
-  .row-btn:disabled { cursor: default; opacity: 0.7; }
-  .chev { color: var(--muted); font-size: 1rem; line-height: 1; }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 4px;
-    background: var(--muted);
-  }
-  .dot.strong { background: var(--good); }
-  .name { flex: 1; }
-  .diff-pill {
-    font-size: 0.6875rem;
-    color: var(--muted);
-    background: var(--surface-2);
-    padding: 0.15rem 0.5rem;
-    border-radius: 4px;
-  }
-  .score {
+
+  .pbtn-last {
+    position: absolute;
+    top: 0.28rem;
+    right: 0.95rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    color: var(--label-faint);
     font-variant-numeric: tabular-nums;
-    color: var(--text);
-    font-size: 0.875rem;
-    min-width: 4ch;
-    text-align: right;
+    pointer-events: none;
+  }
+  .pbtn-last.subtle { color: var(--label-faint); }
+
+  /* primary lg variant */
+  .pbtn.lg {
+    min-height: 96px;
+    padding: 0.7rem 0.9rem 0.85rem 0.7rem;
+    grid-template-columns: 28px 1fr;
+    column-gap: 0.7rem;
+  }
+  .pbtn.lg .pbtn-icon { width: 28px; height: 28px; }
+  .pbtn.lg .pbtn-engrave { font-size: 0.82rem; }
+  .pbtn.lg .pbtn-desc { font-size: 0.72rem; }
+  .pbtn.lg .pbtn-last { font-size: 0.66rem; top: 0.4rem; right: 1.1rem; }
+
+  /* ─── grids ─────────────────────────────────── */
+  .btn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.5rem;
+  }
+  .btn-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 880px) { .btn-grid.cols-3 { grid-template-columns: 1fr; } }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 9fr 7fr;
+    gap: 1.05rem;
+  }
+  .row-3 {
+    display: grid;
+    grid-template-columns: 4fr 3fr 5fr;
+    gap: 1.05rem;
+  }
+  @media (max-width: 980px) {
+    .row-2, .row-3 { grid-template-columns: 1fr; }
   }
 
-  .in-progress {
-    margin: 0.75rem 0 1rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.75rem 0.875rem;
-  }
-  .in-progress-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-  .in-progress-label {
-    font-size: 0.6875rem;
-    text-transform: uppercase;
+  /* ─── MFD ──────────────────────────────────── */
+  .mfd-row { /* this is the section wrapper variant — disambiguated below */ }
+  .mfd-screen {
+    background: var(--mfd-bg);
+    border: 1px solid var(--bezel-lo);
+    border-radius: 2px;
+    padding: 0.4rem 0.55rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--mfd-text);
     letter-spacing: 0.04em;
-    color: var(--muted);
-    font-weight: 600;
-  }
-  .ip-clear-all {
-    background: none;
-    border: 0;
-    color: var(--muted);
-    font-size: 0.75rem;
-    cursor: pointer;
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-  }
-  .ip-clear-all:hover { color: var(--bad); background: var(--surface-2); }
-  .ip-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
   }
-  .ip-row {
-    display: flex;
-    align-items: stretch;
-    gap: 0.4rem;
-  }
-  .ip-resume {
-    flex: 1;
-    display: flex;
+  .mfd-screen .mfd-row {
+    display: grid;
+    grid-template-columns: 14px 1fr 70px 60px 14px 18px;
     align-items: center;
-    gap: 0.6rem;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem;
-    cursor: pointer;
-    text-align: left;
-    color: var(--text);
-    font-size: 0.875rem;
-  }
-  .ip-resume:hover { border-color: var(--accent); }
-  .ip-cat {
-    font-size: 0.6875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-    flex-shrink: 0;
-  }
-  .ip-label { font-weight: 500; flex: 1; min-width: 0; }
-  .ip-progress {
-    color: var(--muted);
-    font-size: 0.8125rem;
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
-  }
-  .ip-toggle {
-    margin-top: 0.4rem;
+    gap: 0.65rem;
+    padding: 0.32rem 0.25rem;
     background: none;
-    border: 0;
-    color: var(--accent);
-    font-size: 0.8125rem;
-    cursor: pointer;
-    padding: 0.25rem 0.4rem;
-    border-radius: 4px;
+    border: none;
+    text-align: left;
+    border-radius: 1px;
   }
-  .ip-toggle:hover { background: var(--surface-2); }
-  .ip-del {
-    width: 32px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 0.875rem;
+  .mfd-screen > .mfd-row + .mfd-row { border-top: 1px solid rgba(108, 212, 126, 0.10); }
+  .mfd-screen .mfd-row:hover { background: rgba(108, 212, 126, 0.08); }
+  .mfd-screen .mfd-row[disabled] { opacity: 0.5; cursor: default; }
+  .mfd-screen .pre { color: var(--mfd-dim); }
+  .mfd-screen .mfd-row:hover .pre { color: var(--mfd-text); }
+  .mfd-screen .name {
+    color: var(--mfd-text);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  .ip-del:hover { color: var(--bad); border-color: rgba(239, 68, 68, 0.55); }
+  .mfd-screen .name .cat { color: var(--mfd-dim); margin-right: 0.45rem; }
+  .mfd-screen .diff {
+    color: var(--mfd-dim);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    display: inline;
+  }
+  .mfd-screen .score {
+    color: var(--mfd-text);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    font-weight: 700;
+  }
+  .mfd-screen .mfd-row.good .score { color: var(--led-green); }
+  .mfd-screen .mfd-row.bad-2 .score { color: var(--led-red); }
+  .mfd-screen .chev { color: var(--mfd-dim); text-align: center; font-family: var(--mono); }
+  .mfd-screen .mfd-row:hover .chev { color: var(--mfd-text); }
+
+  .mfd-screen .resume-btn {
+    display: contents;
+    cursor: pointer;
+  }
+  .mfd-screen .del-btn {
+    color: var(--mfd-dim);
+    font-family: var(--mono);
+    cursor: pointer;
+    text-align: center;
+    transition: color 0.13s;
+  }
+  .mfd-screen .del-btn:hover { color: var(--led-red); }
+
+  .mfd-more {
+    color: var(--mfd-dim);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.4rem;
+    text-align: center;
+    border-top: 1px solid rgba(108, 212, 126, 0.10);
+    background: none;
+    margin-top: 0.2rem;
+  }
+  .mfd-more:hover { color: var(--mfd-text); }
+
+  @media (max-width: 600px) {
+    .mfd-screen .mfd-row { grid-template-columns: 14px 1fr 50px 14px 18px; }
+    .mfd-screen .diff { display: none; }
+  }
 </style>
