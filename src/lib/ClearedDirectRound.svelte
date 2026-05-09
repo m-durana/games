@@ -149,12 +149,6 @@
       <div class="card-head">
         <span class="mode-pill">Cleared Direct</span>
         <span class="diff-pill">{difficultyLabel(difficulty)}</span>
-        <button
-          class="info-btn"
-          aria-label="How this mode works"
-          aria-expanded={showInfo}
-          onclick={() => (showInfo = !showInfo)}
-        >ⓘ</button>
       </div>
 
       <div class="scope-wrap">

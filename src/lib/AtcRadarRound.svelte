@@ -191,12 +191,6 @@
       <div class="card-head">
         <span class="mode-pill">Conflict Spot</span>
         <span class="diff-pill">{difficultyLabel(difficulty)}</span>
-        <button
-          class="info-btn"
-          aria-label="How this mode works"
-          aria-expanded={showInfo}
-          onclick={() => (showInfo = !showInfo)}
-        >ⓘ</button>
       </div>
 
       <div class="right-col">
