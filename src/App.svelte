@@ -2,39 +2,42 @@
   import { onMount, untrack } from 'svelte';
   import Home from './lib/Home.svelte';
   import Round from './lib/Round.svelte';
-  import Results from './lib/Results.svelte';
-  import Shared from './lib/Shared.svelte';
-  import Stats from './lib/Stats.svelte';
-  import Settings from './lib/Settings.svelte';
-  import Browse from './lib/Browse.svelte';
-  import SpeedRound from './lib/SpeedRound.svelte';
-  import SpeedResults from './lib/SpeedResults.svelte';
   import AchievementToast from './lib/AchievementToast.svelte';
-  import TailReview from './lib/TailReview.svelte';
-  import LogoReview from './lib/LogoReview.svelte';
-  import AircraftReview from './lib/AircraftReview.svelte';
-  import MilitaryReview from './lib/MilitaryReview.svelte';
-  import AirportReview from './lib/AirportReview.svelte';
-  import MilitaryWordle from './lib/MilitaryWordle.svelte';
-  import MilitaryIdentify from './lib/MilitaryIdentify.svelte';
-  import AirportWordle from './lib/AirportWordle.svelte';
-  import AirportIdentify from './lib/AirportIdentify.svelte';
-  import ReviewLock from './lib/ReviewLock.svelte';
-  import HistoryDetail from './lib/HistoryDetail.svelte';
-  import AircraftWordle from './lib/AircraftWordle.svelte';
-  import AircraftIdentify from './lib/AircraftIdentify.svelte';
-  import Intro from './lib/Intro.svelte';
-  import IntroImageReview from './lib/IntroImageReview.svelte';
   import { getIntro } from './lib/intros';
-  import AtcRound from './lib/AtcRound.svelte';
-  import AtcResults from './lib/AtcResults.svelte';
-  import AtcRadarRound from './lib/AtcRadarRound.svelte';
-  import ClearedDirectRound from './lib/ClearedDirectRound.svelte';
-  import SequencingRound from './lib/SequencingRound.svelte';
-  import InterceptStableRound from './lib/InterceptStableRound.svelte';
-  import InterceptMinimumsRound from './lib/InterceptMinimumsRound.svelte';
-  import InterceptFmaRound from './lib/InterceptFmaRound.svelte';
-  import PfdLab from './lib/PfdLab.svelte';
+  // Non-Home routes are lazy: only Home + Round are eager so first paint stays small.
+  const ResultsLazy = () => import('./lib/Results.svelte');
+  const SharedLazy = () => import('./lib/Shared.svelte');
+  const StatsLazy = () => import('./lib/Stats.svelte');
+  const SettingsLazy = () => import('./lib/Settings.svelte');
+  const BrowseLazy = () => import('./lib/Browse.svelte');
+  const SpeedRoundLazy = () => import('./lib/SpeedRound.svelte');
+  const SpeedResultsLazy = () => import('./lib/SpeedResults.svelte');
+  const TailReviewLazy = () => import('./lib/TailReview.svelte');
+  const LogoReviewLazy = () => import('./lib/LogoReview.svelte');
+  const AircraftReviewLazy = () => import('./lib/AircraftReview.svelte');
+  const MilitaryReviewLazy = () => import('./lib/MilitaryReview.svelte');
+  const AirportReviewLazy = () => import('./lib/AirportReview.svelte');
+  const MilitaryWordleLazy = () => import('./lib/MilitaryWordle.svelte');
+  const MilitaryIdentifyLazy = () => import('./lib/MilitaryIdentify.svelte');
+  const AirportWordleLazy = () => import('./lib/AirportWordle.svelte');
+  const AirportIdentifyLazy = () => import('./lib/AirportIdentify.svelte');
+  const ReviewLockLazy = () => import('./lib/ReviewLock.svelte');
+  const HistoryDetailLazy = () => import('./lib/HistoryDetail.svelte');
+  const AircraftWordleLazy = () => import('./lib/AircraftWordle.svelte');
+  const AircraftIdentifyLazy = () => import('./lib/AircraftIdentify.svelte');
+  const IntroLazy = () => import('./lib/Intro.svelte');
+  const IntroImageReviewLazy = () => import('./lib/IntroImageReview.svelte');
+  const AtcRoundLazy = () => import('./lib/AtcRound.svelte');
+  const AtcResultsLazy = () => import('./lib/AtcResults.svelte');
+  // Radarscope/instrument-heavy routes are loaded lazily so the Home bundle
+  // doesn't pull in the full PFD widget set on first paint.
+  const AtcRadarRoundLazy = () => import('./lib/AtcRadarRound.svelte');
+  const ClearedDirectRoundLazy = () => import('./lib/ClearedDirectRound.svelte');
+  const SequencingRoundLazy = () => import('./lib/SequencingRound.svelte');
+  const InterceptStableRoundLazy = () => import('./lib/InterceptStableRound.svelte');
+  const InterceptMinimumsRoundLazy = () => import('./lib/InterceptMinimumsRound.svelte');
+  const InterceptFmaRoundLazy = () => import('./lib/InterceptFmaRound.svelte');
+  const PfdLabLazy = () => import('./lib/PfdLab.svelte');
   import type { Difficulty, HistoryEntry, Mode, RoundResult } from './lib/types';
   import type { AtcMode, AtcRoundResult } from './lib/atc';
   import type { RadarRoundResult } from './lib/atc-radar';
@@ -591,6 +594,9 @@
           </div>
         {/if}
       {/if}
+      {#if view.kind === 'home'}
+        <a class="up-link mockup-link" href="/games/flight-deck/mockup/" title="Preview design mockup">mockup →</a>
+      {/if}
       <a class="up-link" href="/"><span aria-hidden="true">←</span> miro.build</a>
     </div>
   </div>
@@ -624,132 +630,225 @@
     />
   {:else if view.kind === 'results'}
     {@const v = view}
-    <Results
-      mode={v.mode}
-      difficulty={v.difficulty}
-      daily={v.daily}
-      mixed={v.mixed ?? false}
-      results={v.results}
-      onAgain={() => (v.mixed ? startMix() : start(v.mode, v.difficulty))}
-      onHome={home}
-      {onAchievements}
-    />
+    {#await ResultsLazy() then m}
+      {@const C = m.default}
+      <C
+        mode={v.mode}
+        difficulty={v.difficulty}
+        daily={v.daily}
+        mixed={v.mixed ?? false}
+        results={v.results}
+        onAgain={() => (v.mixed ? startMix() : start(v.mode, v.difficulty))}
+        onHome={home}
+        {onAchievements}
+      />
+    {/await}
   {:else if view.kind === 'speed'}
-    <SpeedRound onFinish={finishSpeed} onQuit={home} />
+    {#await SpeedRoundLazy() then m}
+      {@const C = m.default}
+      <C onFinish={finishSpeed} onQuit={home} />
+    {/await}
   {:else if view.kind === 'speedResults'}
     {@const v = view}
-    <SpeedResults score={v.score} isNewBest={v.isNewBest} onAgain={startSpeed} onHome={home} />
+    {#await SpeedResultsLazy() then m}
+      {@const C = m.default}
+      <C score={v.score} isNewBest={v.isNewBest} onAgain={startSpeed} onHome={home} />
+    {/await}
   {:else if view.kind === 'shared'}
-    <Shared data={view.data} onHome={home} />
+    {#await SharedLazy() then m}
+      {@const C = m.default}
+      <C data={view.data} onHome={home} />
+    {/await}
   {:else if view.kind === 'stats'}
-    <Stats onHome={home} />
+    {#await StatsLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {:else if view.kind === 'settings'}
-    <Settings onHome={home} />
+    {#await SettingsLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {:else if view.kind === 'tailReview'}
-    <TailReview onHome={home} />
+    {#await TailReviewLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {:else if view.kind === 'logoReview'}
-    <LogoReview onHome={home} />
+    {#await LogoReviewLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {:else if view.kind === 'aircraftReview'}
-    <AircraftReview onHome={home} />
+    {#await AircraftReviewLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {:else if view.kind === 'militaryReview'}
-    <MilitaryReview onHome={home} />
+    {#await MilitaryReviewLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {:else if view.kind === 'airportReview'}
-    <AirportReview onHome={home} />
+    {#await AirportReviewLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {:else if view.kind === 'introImageReview'}
-    <IntroImageReview onHome={home} />
+    {#await IntroImageReviewLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {:else if view.kind === 'reviewLock'}
     {@const v = view}
-    <ReviewLock
-      label={v.target === 'logos' ? 'Logo review' : v.target === 'aircraft' ? 'Aircraft photo review' : v.target === 'military' ? 'Military photo review' : v.target === 'airports' ? 'Airport photo review' : v.target === 'introImages' ? 'Intro image review' : 'Tail review'}
-      onUnlock={(pin) => unlockReview(v.target, pin)}
-      onHome={home}
-    />
+    {#await ReviewLockLazy() then m}
+      {@const C = m.default}
+      <C
+        label={v.target === 'logos' ? 'Logo review' : v.target === 'aircraft' ? 'Aircraft photo review' : v.target === 'military' ? 'Military photo review' : v.target === 'airports' ? 'Airport photo review' : v.target === 'introImages' ? 'Intro image review' : 'Tail review'}
+        onUnlock={(pin) => unlockReview(v.target, pin)}
+        onHome={home}
+      />
+    {/await}
   {:else if view.kind === 'historyDetail'}
-    <HistoryDetail entry={view.entry} onHome={home} />
+    {#await HistoryDetailLazy() then m}
+      {@const C = m.default}
+      <C entry={view.entry} onHome={home} />
+    {/await}
   {:else if view.kind === 'aircraftWordle'}
-    <AircraftWordle difficulty={view.difficulty} onHome={home} />
+    {#await AircraftWordleLazy() then m}
+      {@const C = m.default}
+      <C difficulty={view.difficulty} onHome={home} />
+    {/await}
   {:else if view.kind === 'aircraftIdentify'}
-    <AircraftIdentify difficulty={view.difficulty} onHome={home} />
+    {#await AircraftIdentifyLazy() then m}
+      {@const C = m.default}
+      <C difficulty={view.difficulty} onHome={home} />
+    {/await}
   {:else if view.kind === 'militaryWordle'}
-    <MilitaryWordle difficulty={view.difficulty} onHome={home} />
+    {#await MilitaryWordleLazy() then m}
+      {@const C = m.default}
+      <C difficulty={view.difficulty} onHome={home} />
+    {/await}
   {:else if view.kind === 'militaryIdentify'}
-    <MilitaryIdentify difficulty={view.difficulty} onHome={home} />
+    {#await MilitaryIdentifyLazy() then m}
+      {@const C = m.default}
+      <C difficulty={view.difficulty} onHome={home} />
+    {/await}
   {:else if view.kind === 'airportWordle'}
-    <AirportWordle difficulty={view.difficulty} onHome={home} />
+    {#await AirportWordleLazy() then m}
+      {@const C = m.default}
+      <C difficulty={view.difficulty} onHome={home} />
+    {/await}
   {:else if view.kind === 'airportIdentify'}
-    <AirportIdentify difficulty={view.difficulty} onHome={home} />
+    {#await AirportIdentifyLazy() then m}
+      {@const C = m.default}
+      <C difficulty={view.difficulty} onHome={home} />
+    {/await}
   {:else if view.kind === 'atcRound'}
     {@const v = view}
-    <AtcRound
-      mode={v.mode}
-      difficulty={v.difficulty}
-      onFinish={(r) => finishAtc(v.mode, v.difficulty, r)}
-      onQuit={home}
-    />
+    {#await AtcRoundLazy() then m}
+      {@const C = m.default}
+      <C
+        mode={v.mode}
+        difficulty={v.difficulty}
+        onFinish={(r) => finishAtc(v.mode, v.difficulty, r)}
+        onQuit={home}
+      />
+    {/await}
   {:else if view.kind === 'atcRadarRound'}
     {@const v = view}
-    <AtcRadarRound
-      mode={v.radarMode}
-      difficulty={v.difficulty}
-      onFinish={(r) => finishRadar(v.difficulty, r)}
-      onQuit={home}
-    />
+    {#await AtcRadarRoundLazy() then m}
+      {@const C = m.default}
+      <C
+        mode={v.radarMode}
+        difficulty={v.difficulty}
+        onFinish={(r) => finishRadar(v.difficulty, r)}
+        onQuit={home}
+      />
+    {/await}
   {:else if view.kind === 'clearedRound'}
     {@const v = view}
-    <ClearedDirectRound
-      difficulty={v.difficulty}
-      onFinish={(r) => finishCleared(v.difficulty, r)}
-      onQuit={home}
-    />
+    {#await ClearedDirectRoundLazy() then m}
+      {@const C = m.default}
+      <C
+        difficulty={v.difficulty}
+        onFinish={(r) => finishCleared(v.difficulty, r)}
+        onQuit={home}
+      />
+    {/await}
   {:else if view.kind === 'sequenceRound'}
     {@const v = view}
-    <SequencingRound
-      difficulty={v.difficulty}
-      onFinish={(r) => finishSequence(v.difficulty, r)}
-      onQuit={home}
-    />
+    {#await SequencingRoundLazy() then m}
+      {@const C = m.default}
+      <C
+        difficulty={v.difficulty}
+        onFinish={(r) => finishSequence(v.difficulty, r)}
+        onQuit={home}
+      />
+    {/await}
   {:else if view.kind === 'interceptStableRound'}
     {@const v = view}
-    <InterceptStableRound
-      difficulty={v.difficulty}
-      onFinish={(r) => finishInterceptStable(v.difficulty, r)}
-      onQuit={home}
-    />
+    {#await InterceptStableRoundLazy() then m}
+      {@const C = m.default}
+      <C
+        difficulty={v.difficulty}
+        onFinish={(r) => finishInterceptStable(v.difficulty, r)}
+        onQuit={home}
+      />
+    {/await}
   {:else if view.kind === 'interceptMinimumsRound'}
     {@const v = view}
-    <InterceptMinimumsRound
-      difficulty={v.difficulty}
-      onFinish={(r) => finishInterceptMinimums(v.difficulty, r)}
-      onQuit={home}
-    />
+    {#await InterceptMinimumsRoundLazy() then m}
+      {@const C = m.default}
+      <C
+        difficulty={v.difficulty}
+        onFinish={(r) => finishInterceptMinimums(v.difficulty, r)}
+        onQuit={home}
+      />
+    {/await}
   {:else if view.kind === 'interceptFmaRound'}
     {@const v = view}
-    <InterceptFmaRound
-      difficulty={v.difficulty}
-      onFinish={(r) => finishInterceptFma(v.difficulty, r)}
-      onQuit={home}
-    />
+    {#await InterceptFmaRoundLazy() then m}
+      {@const C = m.default}
+      <C
+        difficulty={v.difficulty}
+        onFinish={(r) => finishInterceptFma(v.difficulty, r)}
+        onQuit={home}
+      />
+    {/await}
   {:else if view.kind === 'intro'}
     {@const v = view}
-    <Intro
-      title={INTRO_TITLES[v.intro]}
-      slides={introSlides(v.intro)}
-      onStart={() => startFromIntro(v.intro, v.difficulty)}
-      onCancel={home}
-    />
+    {#await IntroLazy() then m}
+      {@const C = m.default}
+      <C
+        title={INTRO_TITLES[v.intro]}
+        slides={introSlides(v.intro)}
+        onStart={() => startFromIntro(v.intro, v.difficulty)}
+        onCancel={home}
+      />
+    {/await}
   {:else if view.kind === 'pfdLab'}
-    <PfdLab onHome={home} />
+    {#await PfdLabLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {:else if view.kind === 'atcResults'}
     {@const v = view}
-    <AtcResults
-      mode={v.mode}
-      difficulty={v.difficulty}
-      results={v.results}
-      onAgain={() => startAtc(v.mode, v.difficulty)}
-      onHome={home}
-    />
+    {#await AtcResultsLazy() then m}
+      {@const C = m.default}
+      <C
+        mode={v.mode}
+        difficulty={v.difficulty}
+        results={v.results}
+        onAgain={() => startAtc(v.mode, v.difficulty)}
+        onHome={home}
+      />
+    {/await}
   {:else}
-    <Browse onHome={home} />
+    {#await BrowseLazy() then m}
+      {@const C = m.default}
+      <C onHome={home} />
+    {/await}
   {/if}
 
   {#if pendingStart}
