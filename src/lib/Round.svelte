@@ -11,6 +11,7 @@
     explainAnswer,
     loadPool,
     loadSettings,
+    modeDescription,
     modeLabel,
     modeTitle,
     ROUND_LENGTH,
@@ -120,6 +121,7 @@
   let picked: string | null = $state(initial.picked);
   let selected: string[] = $state(initial.selected);
   let submitted = $state(initial.submitted);
+  let showInfo = $state(false);
   let results: RoundResult[] = $state(initial.results);
   let streak = $state(initial.streak);
   let advanceTimer: number | null = null;
@@ -315,6 +317,15 @@
         {#if daily}· DAILY{/if}
         {#if mixed}· MIX{/if}
       </span>
+      <button
+        class="info-btn"
+        aria-label="About this mode"
+        aria-expanded={showInfo}
+        onclick={() => (showInfo = !showInfo)}
+      >i</button>
+      {#if showInfo}
+        <p class="mode-info">{modeDescription(current.mode)}</p>
+      {/if}
 
       <div class="q-stage">
         {#if current.mode === 'logo'}
@@ -457,7 +468,6 @@
                 <span class="opt-explain">{explainAnswer(current)}</span>
               {/if}
             </span>
-            <span class="opt-led"></span>
           </button>
         {/each}
       </div>
@@ -564,7 +574,75 @@
   }
 
   .q-bezel {
+    position: relative;
     padding: 1.4rem 1.2rem 1.2rem;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 2px;
+  }
+  .q-bezel::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -0.42rem;
+    left: 0.85rem;
+    background: var(--bg);
+    padding: 0 0.45rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--label-dim);
+    font-weight: 700;
+    height: 14px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .bezel-aux {
+    position: absolute;
+    top: -0.42rem;
+    right: 2.4rem;
+    background: var(--bg);
+    padding: 0 0.45rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--label-faint);
+    font-weight: 700;
+  }
+
+  .info-btn {
+    position: absolute;
+    top: -0.6rem;
+    right: 0.85rem;
+    width: 22px; height: 22px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-weight: 700; font-style: italic;
+    font-size: 0.72rem;
+    color: var(--label-dim);
+    background: var(--bg);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
+    cursor: pointer;
+  }
+  .info-btn:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .info-btn:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+  .info-btn[aria-expanded="true"] { color: var(--led-cyan); border-color: var(--led-cyan); }
+
+  .mode-info {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--label-2);
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-lo);
+    border-radius: 1px;
+    padding: 0.7rem 0.85rem;
+    margin: 0 0 0.6rem;
   }
 
   .q-stage {
@@ -709,10 +787,10 @@
   .opt {
     position: relative;
     display: grid;
-    grid-template-columns: 30px 1fr 18px;
+    grid-template-columns: 30px 1fr;
     align-items: center;
     column-gap: 0.7rem;
-    padding: 0.85rem 0.95rem 0.85rem 0.6rem;
+    padding: 0.8rem 0.85rem 0.8rem 0.55rem;
     background: var(--panel-2);
     border: 1px solid var(--bezel-hi);
     border-bottom-color: var(--bezel-lo);
@@ -720,7 +798,6 @@
     border-radius: 1px;
     cursor: pointer;
     text-align: left;
-    min-height: 64px;
     transition: background 0.13s, border-color 0.13s;
   }
   .opt:hover .opt-text { color: #fff; }
@@ -752,9 +829,10 @@
   .opt-body { display: flex; flex-direction: column; gap: 0.18rem; min-width: 0; }
   .opt-text {
     font-family: var(--sans);
-    font-weight: 700;
-    font-size: 0.95rem;
+    font-weight: 400;
+    font-size: 0.92rem;
     color: var(--label);
+    line-height: 1.4;
     letter-spacing: -0.005em;
     white-space: nowrap;
     overflow: hidden;
@@ -775,21 +853,12 @@
   }
   .opt-explain.missed-note { color: var(--led-amber); }
 
-  .opt-led {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--led-off);
-    border: 1px solid var(--bezel-lo);
-    justify-self: center;
-  }
-
   /* reveal / verdict states */
   .opt.correct {
     border-color: var(--led-green);
     background: rgba(74, 222, 128, 0.08);
   }
   .opt.correct .opt-text { color: var(--led-green); }
-  .opt.correct .opt-led  { background: var(--led-green); }
   .opt.correct .opt-key  { color: var(--led-green); border-color: var(--led-green); }
 
   .opt.wrong {
@@ -797,14 +866,12 @@
     background: rgba(248, 113, 113, 0.06);
   }
   .opt.wrong .opt-text { color: var(--led-red); }
-  .opt.wrong .opt-led  { background: var(--led-red); }
   .opt.wrong .opt-key  { color: var(--led-red); border-color: var(--led-red); }
 
   .opt.selected {
     border-color: var(--led-cyan);
     background: rgba(96, 216, 240, 0.08);
   }
-  .opt.selected .opt-led { background: var(--led-cyan); }
   .opt.selected .opt-key { color: var(--led-cyan); border-color: var(--led-cyan); }
 
   .opt.missed {
@@ -812,7 +879,6 @@
     background: rgba(251, 191, 36, 0.08);
   }
   .opt.missed .opt-text { color: var(--led-amber); }
-  .opt.missed .opt-led  { background: var(--led-amber); }
   .opt.missed .opt-key  { color: var(--led-amber); border-color: var(--led-amber); }
 
   .confirm-btn {

@@ -91,6 +91,7 @@
   let questions: AtcQuestion[] = $state(initial.questions);
   let index = $state(initial.index);
   let picked: string | null = $state(initial.picked);
+  let showInfo = $state(false);
   let results: AtcRoundResult[] = $state(initial.results);
   let advanceTimer: number | null = null;
 
@@ -257,6 +258,15 @@
         Q{index + 1} / {questions.length}
         {#if mode === 'atcMix'}· MIX{/if}
       </span>
+      <button
+        class="info-btn"
+        aria-label="About this mode"
+        aria-expanded={showInfo}
+        onclick={() => (showInfo = !showInfo)}
+      >i</button>
+      {#if showInfo}
+        <p class="mode-info">{atcModeDescription(mode === 'atcMix' ? current.mode : mode)}</p>
+      {/if}
 
       {#if current.mode === 'decode' || current.mode === 'compose'}
         <div class="atc-call">
@@ -393,7 +403,13 @@
   }
   .bezel { position: relative; background: var(--panel); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 2px; }
   .bezel::before { content: attr(data-label); position: absolute; top: -0.42rem; left: 0.85rem; background: var(--bg); padding: 0 0.45rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.34em; text-transform: uppercase; color: var(--label-dim); font-weight: 700; height: 14px; display: inline-flex; align-items: center; }
-  .bezel-aux { position: absolute; top: -0.42rem; right: 0.85rem; background: var(--bg); padding: 0 0.45rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--label-faint); font-weight: 700; }
+  .bezel-aux { position: absolute; top: -0.42rem; right: 2.4rem; background: var(--bg); padding: 0 0.45rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--label-faint); font-weight: 700; }
+
+  .info-btn { position: absolute; top: -0.6rem; right: 0.85rem; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 700; font-style: italic; font-size: 0.72rem; color: var(--label-dim); background: var(--bg); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 1px; cursor: pointer; }
+  .info-btn:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .info-btn:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+  .info-btn[aria-expanded="true"] { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .mode-info { font-family: var(--sans); font-size: 0.82rem; line-height: 1.5; color: var(--label-2); background: var(--panel-2); border: 1px solid var(--bezel-lo); border-radius: 1px; padding: 0.7rem 0.85rem; margin: 0 0 0.6rem; }
 
   .round { display: flex; flex-direction: column; gap: 0.85rem; align-items: stretch; width: 100%; }
 
@@ -447,7 +463,8 @@
   .compose-next:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
 
   /* multi-choice options for decode/cleared/callsign */
-  .options { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 1rem; }
+  .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.55rem; margin-top: 1rem; }
+  @media (max-width: 600px) { .options { grid-template-columns: 1fr; } }
   .options.disabled { pointer-events: none; }
   .option { position: relative; display: grid; grid-template-columns: 30px 1fr; align-items: center; column-gap: 0.7rem; padding: 0.8rem 0.85rem 0.8rem 0.55rem; background: var(--panel-2); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 1px; cursor: pointer; text-align: left; }
   .option:hover .opt-text { color: #fff; }
@@ -455,8 +472,8 @@
   .option:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
   .option[disabled] { cursor: default; }
   .key { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; font-family: var(--mono); font-size: 0.7rem; color: var(--label-dim); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); background: var(--bg); border-radius: 1px; font-weight: 700; }
-  .opt-text { font-family: var(--sans); font-weight: 400; font-size: 0.92rem; color: var(--label); line-height: 1.4; }
-  .opt-explain { font-family: var(--sans); font-size: 0.78rem; color: var(--led-green); margin-top: 0.4rem; line-height: 1.45; display: block; white-space: pre-line; }
+  .opt-text { font-family: var(--sans); font-weight: 400; font-size: 0.92rem; color: var(--label); line-height: 1.4; min-width: 0; }
+  .opt-explain { grid-column: 2; font-family: var(--sans); font-size: 0.78rem; color: var(--led-green); margin-top: 0.4rem; line-height: 1.45; display: block; white-space: pre-line; min-width: 0; word-break: break-word; }
   .compose-explain, .explain { white-space: pre-line; }
   .option.correct { border-color: var(--led-green); background: rgba(74, 222, 128, 0.08); }
   .option.correct .opt-text { color: var(--led-green); }

@@ -52,6 +52,7 @@
   })();
 
   let questions: InterceptFmaQuestion[] = $state(initial.questions);
+  let showInfo = $state(false);
   let index = $state(initial.index);
   let pickedOption: string | null = $state(null);
   let committed = $state(false);
@@ -211,7 +212,17 @@
         <span class="diff-pill">{difficultyLabel(difficulty)}</span>
         <span class="cat-pill">CAT IIIb</span>
         <span class="timer" class:warn={elapsed > current.windowSec - 4}>{(current.windowSec - elapsed).toFixed(1)}s</span>
+        <button
+          class="info-btn"
+          aria-label="About this mode"
+          aria-expanded={showInfo}
+          onclick={() => (showInfo = !showInfo)}
+        >i</button>
+      
       </div>
+      {#if showInfo}
+        <p class="mode-info">Read the Flight Mode Annunciator. Pick what is actually engaged across pitch, roll, autothrottle, and the active autoflight mode.</p>
+      {/if}
 
       <div class="pfd-wrap">
         {#if liveScenario}<InstrumentPanel scenario={liveScenario} />{/if}
@@ -376,4 +387,10 @@
 
   .kb-legend { display: flex; justify-content: center; gap: 1.1rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--label-faint); padding: 0.4rem 0; }
   .kb-legend kbd { font-family: var(--mono); background: var(--panel-2); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 1px; padding: 0.05rem 0.32rem; color: var(--label-dim); font-weight: 700; margin: 0 0.1rem; }
+
+  .info-btn { margin-left: auto; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 700; font-style: italic; font-size: 0.72rem; color: var(--label-dim); background: var(--panel-2); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 1px; cursor: pointer; }
+  .info-btn:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .info-btn:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+  .info-btn[aria-expanded="true"] { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .mode-info { grid-column: 1 / -1; font-family: var(--sans); font-size: 0.82rem; line-height: 1.5; color: var(--label-2); background: var(--panel-2); border: 1px solid var(--bezel-lo); border-radius: 1px; padding: 0.7rem 0.85rem; margin: 0; }
 </style>

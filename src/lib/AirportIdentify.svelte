@@ -104,6 +104,7 @@
   })();
 
   let answers: AirportEntry[] = $state(initial.answers);
+  let showInfo = $state(false);
   let index = $state(initial.index);
   // stage: 0 = photo only, 1 = + maker, 2 = + role+origin, 3 = multiple choice
   let stage = $state(initial.stage);
@@ -397,7 +398,17 @@
           <span class="points-pill">
             {revealed ? `+${picked === current.name ? stagePoints[stage] : 0}` : `+${stagePoints[stage]} pts`}
           </span>
+        <button
+          class="info-btn"
+          aria-label="About this mode"
+          aria-expanded={showInfo}
+          onclick={() => (showInfo = !showInfo)}
+        >i</button>
+      
         </div>
+      {#if showInfo}
+        <p class="mode-info">Identify an airport from a photo (terminal, tower, or aerial view) with progressive hints.</p>
+      {/if}
 
         <div
           class="photo-stage"
@@ -760,4 +771,10 @@
     cursor: pointer;
   }
   .btn-ghost:hover { color: var(--label); }
+
+  .info-btn { margin-left: auto; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 700; font-style: italic; font-size: 0.72rem; color: var(--label-dim); background: var(--panel-2); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 1px; cursor: pointer; }
+  .info-btn:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .info-btn:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+  .info-btn[aria-expanded="true"] { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .mode-info { font-family: var(--sans); font-size: 0.82rem; line-height: 1.5; color: var(--label-2); background: var(--panel-2); border: 1px solid var(--bezel-lo); border-radius: 1px; padding: 0.7rem 0.85rem; margin: 0; }
 </style>

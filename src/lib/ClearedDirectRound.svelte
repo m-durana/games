@@ -55,6 +55,7 @@
   })();
 
   let questions: ClearedQuestion[] = $state(initial.questions);
+  let showInfo = $state(false);
   let index = $state(initial.index);
   let pickedIndex: number | null = $state(null);
   let committed = $state(false);
@@ -149,7 +150,17 @@
       <div class="card-head">
         <span class="mode-pill">Cleared Direct</span>
         <span class="diff-pill">{difficultyLabel(difficulty)}</span>
+        <button
+          class="info-btn"
+          aria-label="About this mode"
+          aria-expanded={showInfo}
+          onclick={() => (showInfo = !showInfo)}
+        >i</button>
+      
       </div>
+      {#if showInfo}
+        <p class="mode-info">ATC has cleared you direct to a fix. Pick the heading that intercepts the assigned course or proceeds direct from your current position.</p>
+      {/if}
 
       <div class="scope-wrap">
         <RadarScope scenario={current.scenario} size={1200} rangeRings={[10, 20]}>
@@ -256,13 +267,15 @@
   .mode-pill { color: var(--label); letter-spacing: 0.22em; }
   .diff-pill { color: var(--led-amber); }
 
-  .pfd-wrap {
-    background: var(--panel-2);
+  .pfd-wrap, .scope-wrap {
+    background: var(--mfd-bg);
     border: 1px solid var(--bezel-lo);
     border-radius: 1px;
     padding: 0.5rem;
     overflow: hidden;
+    min-width: 0;
   }
+  .scope-wrap :global(svg) { max-width: 100%; height: auto; display: block; }
 
   .right-col { display: flex; flex-direction: column; gap: 0.85rem; }
 
@@ -349,4 +362,10 @@
 
   .kb-legend { display: flex; justify-content: center; gap: 1.1rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--label-faint); padding: 0.4rem 0; }
   .kb-legend kbd { font-family: var(--mono); background: var(--panel-2); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 1px; padding: 0.05rem 0.32rem; color: var(--label-dim); font-weight: 700; margin: 0 0.1rem; }
+
+  .info-btn { margin-left: auto; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 700; font-style: italic; font-size: 0.72rem; color: var(--label-dim); background: var(--panel-2); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 1px; cursor: pointer; }
+  .info-btn:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .info-btn:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+  .info-btn[aria-expanded="true"] { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .mode-info { grid-column: 1 / -1; font-family: var(--sans); font-size: 0.82rem; line-height: 1.5; color: var(--label-2); background: var(--panel-2); border: 1px solid var(--bezel-lo); border-radius: 1px; padding: 0.7rem 0.85rem; margin: 0; }
 </style>

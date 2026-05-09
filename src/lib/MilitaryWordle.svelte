@@ -157,6 +157,7 @@
   })();
 
   let answers: MilitaryAircraft[] = $state(initial.answers);
+  let showInfo = $state(false);
   let index = $state(initial.index);
   let query = $state('');
   let highlight = $state(0);
@@ -445,7 +446,17 @@
           <span class="mode-pill">Military Wordle</span>
           <span class="round-pill">{index + 1} / {answers.length}</span>
           <span class="diff-pill diff-{difficulty}">{difficulty}</span>
+        <button
+          class="info-btn"
+          aria-label="About this mode"
+          aria-expanded={showInfo}
+          onclick={() => (showInfo = !showInfo)}
+        >i</button>
+      
         </div>
+      {#if showInfo}
+        <p class="mode-info">Deduce a mystery military aircraft from attribute feedback across maker, origin, role, era, engines, wings, and speed.</p>
+      {/if}
 
         <p class="prompt">
           Guess the mystery military aircraft. Each guess reveals how close you are on seven attributes.
@@ -910,4 +921,10 @@
     .cell { min-height: 56px; padding: 0.45rem 0.4rem; }
     .cell-val { font-size: 0.8125rem; }
   }
+
+  .info-btn { margin-left: auto; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 700; font-style: italic; font-size: 0.72rem; color: var(--label-dim); background: var(--panel-2); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 1px; cursor: pointer; }
+  .info-btn:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .info-btn:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+  .info-btn[aria-expanded="true"] { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .mode-info { font-family: var(--sans); font-size: 0.82rem; line-height: 1.5; color: var(--label-2); background: var(--panel-2); border: 1px solid var(--bezel-lo); border-radius: 1px; padding: 0.7rem 0.85rem; margin: 0; }
 </style>

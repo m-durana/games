@@ -18,6 +18,7 @@
   const DURATION = 60;
 
   let current: Question = $state(buildSpeedQuestion());
+  let showInfo = $state(false);
   let picked: string | null = $state(null);
   let score = $state(0);
   let combo = $state(0);
@@ -107,7 +108,7 @@
 
 <header class="bar">
   <button class="quit" onclick={onQuit} aria-label="Quit">✕</button>
-  <div class="timer">
+  <div class="timer" class:warn={timeLeft <= 15} class:crit={timeLeft <= 7}>
     <div class="timer-fill" style="width: {(timeLeft / DURATION) * 100}%"></div>
     <span class="timer-text">{timeLeft.toFixed(1)}s</span>
   </div>
@@ -125,7 +126,17 @@
       <div class="card-head">
         <span class="speed-pill">Speed Round</span>
         <span class="mode-pill">{modeTitle(current.mode)}</span>
+        <button
+          class="info-btn"
+          aria-label="About this mode"
+          aria-expanded={showInfo}
+          onclick={() => (showInfo = !showInfo)}
+        >i</button>
+      
       </div>
+      {#if showInfo}
+        <p class="mode-info">Sixty-second sprint. Mixed questions across all categories. Combo bonus every 3 in a row - keep the streak alive.</p>
+      {/if}
 
       {#if current.mode === 'logo'}
         <div class="logo-stage">
@@ -236,7 +247,13 @@
     inset: 0 auto 0 0;
     background: var(--led-cyan);
     opacity: 0.22;
-    transition: width 0.08s linear;
+    transition: width 0.08s linear, background 0.2s linear, opacity 0.2s linear;
+  }
+  .timer.warn .timer-fill { background: var(--led-amber); opacity: 0.30; }
+  .timer.crit .timer-fill { background: var(--led-red); opacity: 0.40; animation: timer-pulse 0.7s ease-in-out infinite; }
+  @keyframes timer-pulse {
+    0%, 100% { opacity: 0.40; }
+    50%      { opacity: 0.65; }
   }
   .timer-text {
     position: absolute;
@@ -250,7 +267,10 @@
     letter-spacing: 0.06em;
     color: var(--led-cyan);
     font-variant-numeric: tabular-nums;
+    transition: color 0.2s linear;
   }
+  .timer.warn .timer-text { color: var(--led-amber); }
+  .timer.crit .timer-text { color: var(--led-red); }
 
   .meta {
     display: inline-flex;
@@ -436,4 +456,10 @@
 
   .option :global(.alliance-logo) { width: 22px; height: 22px; flex-shrink: 0; }
   .option :global(.logo) { width: 26px; height: 26px; flex-shrink: 0; }
+
+  .info-btn { margin-left: auto; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 700; font-style: italic; font-size: 0.72rem; color: var(--label-dim); background: var(--panel-2); border: 1px solid var(--bezel-hi); border-bottom-color: var(--bezel-lo); border-right-color: var(--bezel-lo); border-radius: 1px; cursor: pointer; }
+  .info-btn:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .info-btn:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
+  .info-btn[aria-expanded="true"] { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .mode-info { font-family: var(--sans); font-size: 0.82rem; line-height: 1.5; color: var(--label-2); background: var(--panel-2); border: 1px solid var(--bezel-lo); border-radius: 1px; padding: 0.7rem 0.85rem; margin: 0; }
 </style>
