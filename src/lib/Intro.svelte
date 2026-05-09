@@ -115,68 +115,85 @@
   .intro-head {
     display: flex;
     align-items: center;
-    gap: 0.625rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
+    gap: 0.7rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--bezel-lo);
   }
   .intro-tag {
-    font-size: 0.625rem;
-    font-family: var(--font-main);
+    font-family: var(--mono);
+    font-size: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--accent);
-    background: var(--surface-2);
-    border: 1px solid rgba(39, 76, 119, 0.28);
-    border-radius: 4px;
-    padding: 0.15rem 0.5rem;
-    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--led-cyan);
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
+    padding: 0.18rem 0.55rem;
+    font-weight: 700;
   }
   .intro-head h2 {
     flex: 1;
+    font-family: var(--sans);
     font-size: 1.05rem;
     font-weight: 700;
-    color: var(--text);
-    letter-spacing: 0.01em;
+    color: var(--label);
+    letter-spacing: -0.005em;
   }
   .skip {
-    font-size: 0.75rem;
-    color: var(--muted);
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.3rem 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--label-dim);
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
     transition: color 0.12s, border-color 0.12s;
   }
-  .skip:hover { color: var(--accent); border-color: var(--panel-line); }
+  .skip:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .skip:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
 
   .slide {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem;
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 2px;
+    padding: 1.1rem 1rem 1rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.8rem;
     min-height: 240px;
   }
   .slide h3 {
+    font-family: var(--sans);
     font-size: 0.95rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--label);
+    letter-spacing: -0.005em;
   }
   .body {
-    color: var(--text);
-    font-size: 0.875rem;
-    line-height: 1.5;
+    color: var(--label-2);
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    line-height: 1.55;
   }
-  .body :global(strong) { color: var(--accent); font-weight: 600; }
-  .body :global(em) { color: var(--accent-2); font-style: normal; font-weight: 600; }
+  .body :global(strong) { color: var(--led-cyan); font-weight: 700; }
+  .body :global(em) { color: var(--led-amber); font-style: normal; font-weight: 700; }
 
   .single-img {
     width: 100%;
     aspect-ratio: 16 / 9;
-    background: #0a0a0c;
-    border-radius: 6px;
+    background: var(--mfd-bg);
+    border: 1px solid var(--bezel-lo);
+    border-radius: 1px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -192,7 +209,7 @@
 
   .grid {
     display: grid;
-    gap: 0.5rem;
+    gap: 0.55rem;
     grid-template-columns: 1fr;
   }
   .grid.two { grid-template-columns: 1fr 1fr; }
@@ -205,65 +222,76 @@
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    background: var(--surface-2);
-    border-radius: 6px;
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-lo);
+    border-radius: 1px;
     overflow: hidden;
-    border: 1px solid var(--border);
   }
   figure img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: contain;
-    background: #0a0a0c;
+    background: var(--mfd-bg);
     display: block;
   }
   figcaption {
-    font-size: 0.6875rem;
-    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    color: var(--label-dim);
     text-align: center;
     padding: 0.3rem 0.4rem 0.45rem;
-    line-height: 1.25;
+    line-height: 1.3;
   }
 
   .dots {
     display: flex;
     justify-content: center;
-    gap: 0.4rem;
+    gap: 0.45rem;
   }
   .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 4px;
-    background: var(--border);
-    border: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--led-off);
+    border: 1px solid var(--bezel-lo);
     padding: 0;
-    transition: background 0.15s, transform 0.15s;
+    cursor: pointer;
+    transition: background 0.15s;
   }
-  .dot.active { background: var(--accent); transform: scale(1.25); }
+  .dot:hover { background: var(--bezel-hi); }
+  .dot.active { background: var(--led-cyan); border-color: var(--led-cyan); }
 
   .controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.55rem;
   }
   .spacer { flex: 1; }
   .controls button {
-    border-radius: 4px;
-    padding: 0.55rem 0.85rem;
-    font-size: 0.85rem;
-    font-family: var(--font-main);
-    font-weight: 600;
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-radius: 1px;
+    padding: 0.55rem 0.95rem;
+    cursor: pointer;
   }
   .ghost {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--muted);
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    color: var(--label-dim);
   }
-  .ghost:hover { color: var(--accent); border-color: var(--panel-line); }
+  .ghost:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .ghost:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
   .primary {
-    background: var(--accent);
-    color: var(--bg);
-    border: 1px solid var(--accent);
+    background: var(--panel);
+    border: 1px solid var(--led-cyan);
+    color: var(--led-cyan);
   }
-  .primary:hover { filter: brightness(1.05); }
+  .primary:hover { color: #b0ecf6; border-color: #b0ecf6; background: rgba(96, 216, 240, 0.08); }
+  .primary:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
 </style>

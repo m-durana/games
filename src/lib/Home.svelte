@@ -256,14 +256,17 @@
     {/each}
   </div>
   <span class="diff-spacer"></span>
-  <label class="pool" class:on={pool !== 'all'}>
+  <div class="pool" role="tablist" aria-label="Region">
     <span class="pool-label">Region</span>
-    <select bind:value={pool} onchange={(e) => setPool((e.currentTarget as HTMLSelectElement).value as 'all' | 'us' | 'us_eu')}>
-      <option value="all">All</option>
-      <option value="us">US only</option>
-      <option value="us_eu">US + Europe</option>
-    </select>
-  </label>
+    {#each [['all','All'],['us','US'],['us_eu','US + EU']] as [value, label]}
+      <button
+        type="button"
+        class:on={pool === value}
+        aria-selected={pool === value}
+        onclick={() => setPool(value as 'all' | 'us' | 'us_eu')}
+      >{label}</button>
+    {/each}
+  </div>
 </div>
 
 <!-- PRIMARY -->
@@ -459,7 +462,8 @@
 </section>
 
 <!-- MFD: RESUME + RECENT -->
-<section class="row-2 mfd-row">
+{#if inProgress.length > 0 || history.length > 0}
+<section class="row-2 mfd-row" class:solo={inProgress.length === 0 || history.length === 0}>
   {#if inProgress.length > 0}
     {@const visibleEntries = inProgressExpanded ? inProgress : inProgress.slice(0, 3)}
     <div class="bezel" data-label="MFD · Resume">
@@ -484,8 +488,6 @@
         {/if}
       </div>
     </div>
-  {:else}
-    <div></div>
   {/if}
 
   {#if history.length > 0}
@@ -505,10 +507,9 @@
         {/each}
       </div>
     </div>
-  {:else}
-    <div></div>
   {/if}
 </section>
+{/if}
 
 <!-- Confirm Clear All modal -->
 {#if confirmClearOpen}
@@ -570,14 +571,12 @@
 
   .pool {
     display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: stretch;
     border: 1px solid var(--bezel-hi);
     border-bottom-color: var(--bezel-lo);
     border-right-color: var(--bezel-lo);
     background: var(--panel);
     border-radius: 1px;
-    padding: 0.32rem 0.55rem;
   }
   .pool-label {
     font-family: var(--mono);
@@ -586,19 +585,26 @@
     text-transform: uppercase;
     color: var(--label-dim);
     font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 0.7rem;
+    border-right: 1px solid var(--bezel-lo);
   }
-  .pool select {
+  .pool button {
     font-family: var(--mono);
     font-size: 0.7rem;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--label);
+    color: var(--label-dim);
     background: transparent;
     border: none;
-    outline: none;
+    padding: 0.42rem 0.85rem 0.4rem;
     cursor: pointer;
+    transition: color 0.15s, background 0.15s;
   }
-  .pool.on { border-top-color: var(--led-cyan); border-left-color: var(--led-cyan); }
+  .pool button + button { border-left: 1px solid var(--bezel-lo); }
+  .pool button:hover { color: var(--label); }
+  .pool button.on { color: var(--label); background: var(--panel-2); }
 
   /* ─── bezel ─────────────────────────────────── */
   .bezel {
@@ -748,26 +754,29 @@
     font-family: var(--mono);
     font-weight: 700;
     font-size: 0.7rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     color: var(--label);
     text-transform: uppercase;
     align-self: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-right: 2.6rem;
+    padding-right: 1.4rem;
+    min-width: 0;
   }
+  .pbtn:has(.pbtn-last) .pbtn-engrave { padding-right: 2.6rem; }
 
   /* title row groups engrave + info badge so they share the title grid cell */
   .title-row {
     grid-area: title;
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.4rem;
     align-self: center;
     min-width: 0;
-    padding-right: 3rem; /* keep clear of LED + score */
+    padding-right: 1.6rem;
   }
+  .pbtn:has(.pbtn-last) .title-row { padding-right: 3rem; }
   .title-row .pbtn-engrave {
     grid-area: auto;
     align-self: auto;
@@ -789,7 +798,7 @@
     border-radius: 50%;
     font-weight: 700;
     letter-spacing: 0;
-    cursor: help;
+    cursor: pointer;
     padding: 0;
     line-height: 1;
     z-index: 3;
@@ -850,6 +859,7 @@
     grid-template-columns: 9fr 7fr;
     gap: 1.05rem;
   }
+  .row-2.solo { grid-template-columns: 1fr; }
   .row-3 {
     display: grid;
     grid-template-columns: 4fr 3fr 5fr;

@@ -372,7 +372,7 @@
                 <li>{airportLabelWithCountry(code)}</li>
               {/each}
             </ul>
-            <span class="prompt-inline-ask">→ Which airport is this?</span>
+            <span class="prompt-inline-ask">Which airport is this?</span>
           </div>
         {:else if current.mode === 'hubOf'}
           <div class="prompt-block">
@@ -392,7 +392,7 @@
               {:else}IATA code{/if}
             </span>
             <div class="code-stage">{current.prompt}</div>
-            <span class="prompt-inline-ask">→ Which airline?</span>
+            <span class="prompt-inline-ask">Which airline?</span>
           </div>
         {:else if current.mode === 'airlineDest'}
           <div class="airline">
@@ -420,7 +420,7 @@
       </div>
 
       {#if showQAsk}
-        <p class="q-ask">→ {modeLabel(current.mode)}?</p>
+        <p class="q-ask">{modeLabel(current.mode)}</p>
       {/if}
 
       <div class="opts" class:disabled={isMulti ? submitted : picked !== null}>
@@ -765,14 +765,14 @@
 
   .q-ask {
     font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     text-align: center;
-    color: var(--led-cyan);
+    color: var(--label-dim);
     font-weight: 700;
-    margin-top: 1.1rem;
-    margin-bottom: 0.85rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
   }
 
   /* ─── options grid ────────────────────────── */

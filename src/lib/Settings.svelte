@@ -98,31 +98,41 @@
 </footer>
 
 <style>
-  .head { padding: 1rem 0.25rem 0.25rem; }
+  .head { padding: 0.4rem 0.1rem 0.6rem; }
   .head h1 {
-    font-size: 2.25rem;
-    font-weight: 600;
-    letter-spacing: 0;
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--label);
   }
 
   .group {
     display: flex;
     flex-direction: column;
-    gap: 0.625rem;
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
+    position: relative;
   }
   .group h2 {
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--label-dim);
     padding-left: 0.25rem;
-    font-weight: 500;
+    font-weight: 700;
   }
   .group ul {
     list-style: none;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    margin: 0;
+    padding: 0;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 2px;
     overflow: hidden;
   }
   .group li {
@@ -130,22 +140,36 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 0.875rem 1rem;
-    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+    background: var(--panel);
+    border-bottom: 1px solid var(--bezel-lo);
   }
   .group li:last-child { border-bottom: none; }
 
-  .row-text { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
-  .label { font-size: 0.9375rem; }
-  .hint { font-size: 0.75rem; color: var(--muted); }
-  .hint.center { text-align: center; padding: 0 0.5rem; }
+  .row-text { display: flex; flex-direction: column; gap: 0.18rem; min-width: 0; }
+  .label {
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--label);
+    letter-spacing: -0.005em;
+  }
+  .hint {
+    font-family: var(--sans);
+    font-size: 0.76rem;
+    line-height: 1.4;
+    color: var(--label-dim);
+  }
+  .hint.center { text-align: center; padding: 0.35rem 0.5rem 0; }
 
   .switch {
-    width: 44px;
-    height: 26px;
-    border-radius: 4px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
+    width: 46px;
+    height: 24px;
+    border-radius: 1px;
+    background: var(--bg);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
     position: relative;
     flex-shrink: 0;
     transition: background 0.18s, border-color 0.18s;
@@ -154,46 +178,57 @@
   .switch .thumb {
     position: absolute;
     top: 2px; left: 2px;
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    background: var(--muted);
+    width: 18px;
+    height: 18px;
+    border-radius: 1px;
+    background: var(--label-dim);
     transition: transform 0.18s, background 0.18s;
   }
   .switch.on {
-    background: rgba(163, 206, 241, 0.55);
-    border-color: rgba(96, 150, 186, 0.52);
+    background: rgba(96, 216, 240, 0.12);
+    border-color: var(--led-cyan);
   }
   .switch.on .thumb {
-    transform: translateX(18px);
-    background: var(--good);
+    transform: translateX(20px);
+    background: var(--led-cyan);
   }
 
   .danger {
     width: 100%;
-    padding: 0.875rem 1rem;
-    border-radius: 6px;
-    background: rgba(139, 140, 137, 0.16);
-    border: 1px solid rgba(139, 140, 137, 0.4);
-    color: var(--bad);
-    font-size: 0.9375rem;
-    transition: background 0.15s, transform 0.1s;
+    padding: 0.8rem 1rem;
+    border-radius: 1px;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    color: var(--led-red);
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
   }
-  .danger:active { transform: scale(0.98); }
-  .danger:hover { background: rgba(139, 140, 137, 0.22); }
+  .danger:hover { color: #ff9b9b; border-color: var(--led-red); background: rgba(248, 113, 113, 0.06); }
+  .danger:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
 
   .actions { padding-top: 0.75rem; margin-top: auto; }
-  .actions button {
+  .actions .primary {
     width: 100%;
-    min-height: 52px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
-    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    min-height: 48px;
+    border-radius: 1px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--panel);
+    color: var(--led-cyan);
+    border: 1px solid var(--led-cyan);
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
   }
-  .actions button:active { transform: scale(0.98); }
-  .actions button:hover { border-color: var(--panel-line); background: var(--surface-2); }
+  .actions .primary:hover { color: #b0ecf6; border-color: #b0ecf6; background: rgba(96, 216, 240, 0.08); }
+  .actions .primary:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
 </style>
