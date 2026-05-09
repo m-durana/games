@@ -155,7 +155,8 @@
     });
   });
   let showGallery = $state(false);
-  let lightboxSrc: string | null = $state(null);
+  let lightboxOpen = $state(false);
+  let lightboxIndex = $state(0);
 
   const current = $derived(answers[index]);
   const aerialUrl = $derived(current ? airportAerialUrl(current.iata) : null);
@@ -449,7 +450,7 @@
                 type="button"
                 class="gallery-cell"
                 aria-label={`Enlarge ${current.name} photo ${i + 1}`}
-                onclick={() => (lightboxSrc = url)}
+                onclick={() => { lightboxIndex = i; lightboxOpen = true; }}
               >
                 <img src={url} alt={`${current.name} photo ${i + 1}`} loading="lazy" />
               </button>
@@ -524,8 +525,13 @@
   {/if}
 </section>
 
-{#if lightboxSrc}
-  <Lightbox src={lightboxSrc} alt={current?.name ?? ''} onClose={() => (lightboxSrc = null)} />
+{#if lightboxOpen}
+  <Lightbox
+    images={groundPhotos}
+    initialIndex={lightboxIndex}
+    alt={current?.name ?? ''}
+    onClose={() => (lightboxOpen = false)}
+  />
 {/if}
 
 <style>

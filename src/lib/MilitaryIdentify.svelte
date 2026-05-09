@@ -104,7 +104,7 @@
 
   let answers: MilitaryAircraft[] = $state(initial.answers);
   let showInfo = $state(false);
-  let lightboxSrc: string | null = $state(null);
+  let lightboxOpen = $state(false);
   let index = $state(initial.index);
   // stage: 0 = photo only, 1 = + maker, 2 = + role+origin, 3 = multiple choice
   let stage = $state(initial.stage);
@@ -369,7 +369,7 @@
 
         <div class="photo-stage">
           {#if photoUrl}
-            <img src={photoUrl} alt="Aircraft to identify" class="photo zoomable" onclick={() => (lightboxSrc = photoUrl)} />
+            <img src={photoUrl} alt="Aircraft to identify" class="photo zoomable" onclick={() => (lightboxOpen = true)} />
             {#if hasMultiplePhotos && !revealed}
               <button class="photo-cycle" onclick={cyclePhoto} aria-label="Show a different photo">
                 Different photo ({(photoIndex % photoUrls.length) + 1}/{photoUrls.length})
@@ -449,8 +449,13 @@
   {/if}
 </section>
 
-{#if lightboxSrc}
-  <Lightbox src={lightboxSrc} alt={current?.name ?? ''} onClose={() => (lightboxSrc = null)} />
+{#if lightboxOpen}
+  <Lightbox
+    images={photoUrls}
+    initialIndex={photoIndex % Math.max(photoUrls.length, 1)}
+    alt={current?.name ?? ''}
+    onClose={() => (lightboxOpen = false)}
+  />
 {/if}
 
 <style>
