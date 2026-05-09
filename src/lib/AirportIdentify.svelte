@@ -593,6 +593,25 @@
   }
   .photo-cycle:hover { color: var(--led-cyan); }
 
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.45rem;
+    padding: 0.55rem;
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-lo);
+    border-radius: 1px;
+  }
+  .gallery img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: var(--mfd-bg);
+    border: 1px solid var(--bezel-lo);
+    border-radius: 1px;
+    display: block;
+  }
+
   /* hints */
   .hints {
     display: flex;

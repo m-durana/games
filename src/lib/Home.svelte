@@ -390,7 +390,7 @@
         <span class="pbtn-led"></span>
         <span class="pbtn-icon" style="--icon: url('{modeIconUrl('militaryIdentify')}')"></span>
         <span class="title-row">
-          <span class="pbtn-engrave">MILITARY</span>
+          <span class="pbtn-engrave">MIL ID</span>
           <span class="info-badge" role="button" tabindex="0" aria-label="Open field guide" title="Open field guide" onclick={(e) => openGuide(e, 'militaryIdentify')} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') openGuide(e, 'militaryIdentify'); }}>?</span>
         </span>
         <span class="pbtn-desc">{modeHint('militaryIdentify')}</span>
@@ -761,7 +761,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-right: 1.4rem;
+    padding-right: 1rem;
     min-width: 0;
   }
   .pbtn:has(.pbtn-last) .pbtn-engrave { padding-right: 2.6rem; }
@@ -771,10 +771,10 @@
     grid-area: title;
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.35rem;
     align-self: center;
     min-width: 0;
-    padding-right: 1.6rem;
+    padding-right: 1rem;
   }
   .pbtn:has(.pbtn-last) .title-row { padding-right: 3rem; }
   .title-row .pbtn-engrave {

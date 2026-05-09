@@ -508,6 +508,15 @@
   });
 
   onMount(() => {
+    const onDocClick = (e: MouseEvent) => {
+      if (!menuOpen) return;
+      const t = e.target as Element | null;
+      if (t && (t.closest('.menu') || t.closest('.icon-btn'))) return;
+      menuOpen = false;
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape' && menuOpen) menuOpen = false; };
+    document.addEventListener('click', onDocClick);
+    document.addEventListener('keydown', onKey);
     document.documentElement.dataset.theme = loadSettings().darkMode ? 'dark' : 'light';
     // Sweep stale registry entries from retired modes (e.g. 'wake') so they
     // don't appear in the in-progress list after deploys that cut the mode.
@@ -583,11 +592,11 @@
     </div>
     <div class="brand-right">
       {#if view.kind === 'home'}
-        <button class="icon-btn" onclick={() => (menuOpen = !menuOpen)} aria-label="Menu" aria-expanded={menuOpen}>
-          <img src="https://unpkg.com/lucide-static@0.469.0/icons/settings.svg" alt="" aria-hidden="true" />
+        <button class="icon-btn" class:on={menuOpen} onclick={(e) => { e.stopPropagation(); menuOpen = !menuOpen; }} aria-label="Menu" aria-expanded={menuOpen}>
+          <span class="gear-icon" aria-hidden="true"></span>
         </button>
         {#if menuOpen}
-          <div class="menu" role="menu">
+          <div class="menu" role="menu" onclick={(e) => e.stopPropagation()}>
             <button onclick={showBrowse}>Liveries</button>
             <button onclick={showStats}>Stats</button>
             <button onclick={showSettings}>Settings</button>
@@ -908,26 +917,33 @@
     position: relative;
   }
   .icon-btn {
-    width: 28px;
+    width: 32px;
     height: 28px;
-    border-radius: 4px;
-    background: none;
-    border: 1px solid transparent;
-    color: var(--muted);
+    border-radius: 1px;
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    color: var(--label-dim);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
   }
-  .icon-btn img {
-    width: 16px;
-    height: 16px;
-    filter: invert(78%) sepia(10%) saturate(180%) hue-rotate(170deg) brightness(95%);
+  .gear-icon {
+    width: 16px; height: 16px;
+    background: currentColor;
+    -webkit-mask: url("https://unpkg.com/lucide-static@0.469.0/icons/sliders-horizontal.svg") center/contain no-repeat;
+    mask: url("https://unpkg.com/lucide-static@0.469.0/icons/sliders-horizontal.svg") center/contain no-repeat;
   }
-  .icon-btn:hover {
-    color: var(--accent);
-    border-color: var(--border);
-    background: var(--surface);
+  .icon-btn:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .icon-btn:active, .icon-btn.on {
+    color: var(--led-cyan);
+    border-color: var(--bezel-lo);
+    border-bottom-color: var(--bezel-hi);
+    border-right-color: var(--bezel-hi);
+    background: var(--panel);
   }
   .up-link {
     display: inline-flex;
@@ -942,28 +958,34 @@
   .up-link:hover span { color: var(--text); transform: translateX(-2px); }
   .menu {
     position: absolute;
-    top: calc(100% + 0.4rem);
+    top: calc(100% + 0.5rem);
     right: 0;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.25rem;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 2px;
+    padding: 0.32rem;
     display: flex;
     flex-direction: column;
-    min-width: 140px;
+    min-width: 160px;
     z-index: 50;
-    box-shadow: var(--shadow);
   }
   .menu button {
     text-align: left;
-    padding: 0.625rem 0.875rem;
-    border-radius: 3px;
-    font-size: 0.875rem;
-    color: var(--text);
+    padding: 0.55rem 0.85rem;
+    border-radius: 1px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--label-dim);
     background: none;
-    transition: background 0.12s;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: color 0.12s, background 0.12s;
   }
-  .menu button:hover { background: var(--surface-2); color: var(--accent); }
+  .menu button:hover { background: var(--panel-2); color: var(--led-cyan); }
 
   .modal-backdrop {
     position: fixed;
