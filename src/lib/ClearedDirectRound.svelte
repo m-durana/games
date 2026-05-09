@@ -77,7 +77,6 @@
       sessionStorageKey: SESSION_KEY,
     });
   });
-  let showInfo = $state(false);
   let advanceTimer: number | null = null;
 
   const current = $derived(questions[index]);
@@ -157,18 +156,6 @@
           onclick={() => (showInfo = !showInfo)}
         >ⓘ</button>
       </div>
-
-      {#if showInfo}
-        <div class="mode-info">
-          <p><strong>ATC clears you direct to a fix.</strong> The named fix is highlighted on the scope. Estimate the bearing from your aircraft to the fix, then pick the closest heading.</p>
-          <ul>
-            <li>0° points up (north). 090° = right (east), 180° = down (south), 270° = left (west).</li>
-            <li>Your aircraft is the blue triangle. The target fix is the highlighted diamond.</li>
-            <li>Smaller dots are nearby fixes - ignore them, they're just chart clutter.</li>
-          </ul>
-          <p class="tip">Harder difficulty = decoy headings closer together. Hard mode adds wind: the wind tag in the corner shows it as <strong>FROM/kt</strong> — you must crab into the wind so your <em>track</em> over the ground points at the fix, not your nose.</p>
-        </div>
-      {/if}
 
       <div class="scope-wrap">
         <RadarScope scenario={current.scenario} size={1200} rangeRings={[10, 20]}>

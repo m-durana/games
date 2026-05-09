@@ -87,7 +87,6 @@
       sessionStorageKey: SESSION_KEY,
     });
   });
-  let showInfo = $state(false);
   let advanceTimer: number | null = null;
 
   const current = $derived(questions[index]);
@@ -199,14 +198,6 @@
           onclick={() => (showInfo = !showInfo)}
         >ⓘ</button>
       </div>
-
-      {#if showInfo}
-        <div class="mode-info">
-          <p><strong>Read the scope.</strong> Tags show callsign / altitude (×100 ft, ↑↓ = climb/descend) / speed (kt) / heading. The line projecting from each blip is the speed vector — where the aircraft will be in N minutes (toggle V in the bottom-left of the scope).</p>
-          <p><strong>Tap the two blips on a collision course.</strong> Watch for converging headings (any angle, not just head-on) at similar altitudes within ~1000 ft. <strong>↑/↓ next to a blip</strong> means it's climbing or descending — a descender can cross another aircraft's level before they meet.</p>
-          <p class="tip">Wind tag in the corner sets the runway in use and biases ground speed on final.</p>
-        </div>
-      {/if}
 
       <div class="right-col">
         <div class="game-q">
