@@ -67,11 +67,14 @@
     clearProgress(key);
     refreshInProgress();
   }
-  function clearAllInProgress() {
-    if (!confirm('Delete all saved progress?')) return;
+  let confirmClearOpen = $state(false);
+  function askClearAll() { confirmClearOpen = true; }
+  function doClearAll() {
     clearAllProgress();
     refreshInProgress();
+    confirmClearOpen = false;
   }
+  function cancelClearAll() { confirmClearOpen = false; }
   function resumeEntry(entry: ProgressEntry) {
     onResumeProgress(entry);
   }
@@ -185,13 +188,13 @@
   function modeEngrave(m: Mode | AtcMode | 'tail'): string {
     const map: Record<string, string> = {
       group: 'GROUP', alliance: 'ALLIANCE', hub: 'HUB', logo: 'LOGO',
-      country: 'COUNTRY', reverseGroup: 'REVERSE', tail: 'TAIL', code: 'CODE',
-      airportAirline: 'CARRIERS', airlineDest: 'A. ROUTES', airportConn: 'A. CONN',
-      whereAmI: 'WHERE AM I', hubOf: 'HUB OF',
+      country: 'COUNTRY', reverseGroup: 'REVERSE GROUP', tail: 'TAIL', code: 'CODE',
+      airportAirline: 'CARRIERS', airlineDest: 'AIRLINE ROUTES', airportConn: 'AIRPORT ROUTES',
+      whereAmI: 'WHERE AM I?', hubOf: 'HUB OF',
       airportWordle: 'WORDLE', airportIdentify: 'IDENTIFY',
       aircraftWordle: 'WORDLE', aircraftIdentify: 'IDENTIFY',
       militaryWordle: 'MIL WORDLE', militaryIdentify: 'MILITARY',
-      callsign: 'CALLSIGN', decode: 'DECODE', compose: 'COMPOSE', cleared: 'CLEARED',
+      callsign: 'CALLSIGN', decode: 'DECODE', compose: 'READBACK', cleared: 'CLEARED',
       conflict: 'CONFLICT', sequence: 'SEQUENCE',
       interceptStable: 'STABLE', interceptMinimums: 'MINIMUMS', interceptFma: 'FMA',
     };
@@ -460,7 +463,7 @@
   {#if inProgress.length > 0}
     {@const visibleEntries = inProgressExpanded ? inProgress : inProgress.slice(0, 3)}
     <div class="bezel" data-label="MFD · Resume">
-      <button class="bezel-aux-btn" type="button" onclick={clearAllInProgress}>Clear all</button>
+      <button class="bezel-aux-btn" type="button" onclick={askClearAll}>Clear all</button>
       <div class="mfd-screen">
         {#each visibleEntries as entry (entry.key)}
           <div class="mfd-row" tabindex="0">
@@ -506,6 +509,22 @@
     <div></div>
   {/if}
 </section>
+
+<!-- Confirm Clear All modal -->
+{#if confirmClearOpen}
+  <div class="cockpit-modal-backdrop" role="presentation" onclick={cancelClearAll}>
+    <div class="bezel cockpit-modal" data-label="Confirm" role="dialog" aria-modal="true" aria-labelledby="ccm-title" onclick={(e) => e.stopPropagation()}>
+      <h3 id="ccm-title" class="ccm-title">Delete all saved progress?</h3>
+      <p class="ccm-body">All in-progress rounds will be cleared. This can't be undone.</p>
+      <div class="ccm-actions">
+        <button class="ccm-btn cancel" type="button" onclick={cancelClearAll}>Cancel</button>
+        <button class="ccm-btn danger" type="button" onclick={doClearAll}>Clear all</button>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<svelte:window onkeydown={(e) => { if (e.key === 'Escape' && confirmClearOpen) cancelClearAll(); }} />
 
 <style>
   /* ─── diff + region row ─────────────────────── */
@@ -933,4 +952,65 @@
     .mfd-screen .mfd-row { grid-template-columns: 14px 1fr 50px 14px 18px; }
     .mfd-screen .diff { display: none; }
   }
+
+  /* ─── confirm modal ───────────────────────── */
+  .cockpit-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+  }
+  .cockpit-modal {
+    width: 100%;
+    max-width: 380px;
+    padding: 1.4rem 1.2rem 1.1rem;
+    background: var(--panel);
+  }
+  .ccm-title {
+    font-family: var(--mono);
+    font-size: 0.92rem;
+    letter-spacing: 0.06em;
+    color: var(--label);
+    font-weight: 700;
+    margin-bottom: 0.55rem;
+  }
+  .ccm-body {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    color: var(--label-dim);
+    line-height: 1.45;
+    margin-bottom: 1.05rem;
+  }
+  .ccm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.45rem;
+  }
+  .ccm-btn {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    background: var(--panel-2);
+    border-radius: 1px;
+    cursor: pointer;
+  }
+  .ccm-btn:active {
+    border-color: var(--bezel-lo);
+    border-bottom-color: var(--bezel-hi);
+    border-right-color: var(--bezel-hi);
+  }
+  .ccm-btn.cancel { color: var(--label-dim); }
+  .ccm-btn.cancel:hover { color: var(--label); }
+  .ccm-btn.danger { color: var(--led-red); }
+  .ccm-btn.danger:hover { color: #ff9b9b; }
 </style>
