@@ -13,6 +13,7 @@
     type AircraftDifficulty,
   } from './aircraft';
   import AircraftReveal from './AircraftReveal.svelte';
+  import RoundBar from './RoundBar.svelte';
   import * as Sound from './sound';
   import { loadPool, saveHistoryEntry } from './engine';
   import { clearProgress, progressKey, recordProgress, sessionKey } from './progress';
@@ -325,15 +326,16 @@
     done = false;
   }
 
-  function dotState(i: number): 'todo' | 'now' | 'correct' | 'wrong' | 'partial' {
+  function dotState(i: number): 'todo' | 'current' | 'correct' | 'wrong' | 'partial' {
     if (i < scores.length) {
       if (scores[i] === 0) return 'wrong';
       if (scores[i] === stagePoints[0]) return 'correct';
       return 'partial';
     }
-    if (i === index) return 'now';
+    if (i === index) return 'current';
     return 'todo';
   }
+  const progressLeds = $derived(answers.map((_, i) => dotState(i)));
 
   const correct = $derived(picked === current?.name);
   const maxScore = $derived(AIRCRAFT_ROUND_LENGTH * stagePoints[0]);
@@ -358,16 +360,7 @@
   });
 </script>
 
-<header class="bar">
-  <button class="quit" onclick={onHome} aria-label="Quit">✕</button>
-  <div class="dots" aria-label="Progress">
-    {#each answers as _, i}
-      {@const s = dotState(i)}
-      <span class="dot dot-{s}"></span>
-    {/each}
-  </div>
-  <span class="meta">{totalScore} pts</span>
-</header>
+<RoundBar progress={progressLeds} score={totalScore} total={0} scoreLabel="PTS" onQuit={onHome} />
 
 <section class="round">
   {#if done}

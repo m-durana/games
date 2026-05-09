@@ -12,6 +12,7 @@
   import { difficultyLabel } from './engine';
   import { clearProgress, progressKey, recordProgress, sessionKey } from './progress';
   import * as Sound from './sound';
+  import RoundBar from './RoundBar.svelte';
 
   interface Props {
     difficulty: Difficulty;
@@ -113,11 +114,12 @@
     committed = false;
   }
 
-  function dotState(i: number): 'todo' | 'now' | 'correct' | 'wrong' {
+  function dotState(i: number): 'todo' | 'current' | 'correct' | 'wrong' {
     if (i < results.length) return results[i].correct ? 'correct' : 'wrong';
-    if (i === index) return 'now';
+    if (i === index) return 'current';
     return 'todo';
   }
+  const progressLeds = $derived(questions.map((_, i) => dotState(i)));
 
   onMount(() => {
     const handler = (e: KeyboardEvent) => {
@@ -140,16 +142,7 @@
   });
 </script>
 
-<header class="bar">
-  <button class="quit" onclick={onQuit} aria-label="Quit">✕</button>
-  <div class="dots" aria-label="Progress">
-    {#each questions as _, i}
-      {@const s = dotState(i)}
-      <span class="dot dot-{s}"></span>
-    {/each}
-  </div>
-  <span class="meta">{score}/{CLEARED_ROUND_LENGTH}</span>
-</header>
+<RoundBar progress={progressLeds} {score} total={CLEARED_ROUND_LENGTH} {onQuit} />
 
 <section class="round">
   {#key index}

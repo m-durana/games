@@ -170,6 +170,12 @@
 
   const score = $derived(results.filter((r) => r.correct).length);
   const explainModes = new Set<Mode>(['country', 'reverseGroup', 'tail']);
+  const inlineAskModes = new Set<Mode>(['reverseGroup', 'airportAirline', 'airportConn', 'whereAmI', 'hubOf', 'code']);
+  const showQAsk = $derived(
+    !!current
+    && !inlineAskModes.has(current.mode)
+    && !(current.mode === 'country' && current.promptKind === 'airport')
+  );
 
   // svelte-ignore state_referenced_locally
   if (!daily) recordModePlayed(mode);
@@ -285,8 +291,9 @@
   });
 </script>
 
-<!-- HEADER bar: progress LEDs + score + quit -->
+<!-- HEADER bar: quit (left), progress LEDs, score+streak -->
 <header class="r-bar">
+  <button class="quit-btn" type="button" onclick={onQuit} aria-label="Quit">✕ Quit</button>
   <span class="progress-leds" aria-label="Progress">
     {#each questions as _, i}
       <span class="p-led {ledClass(i)}"></span>
@@ -298,7 +305,6 @@
     {/if}
     <span class="r-score">SCORE <b>{score}</b>/{ROUND_LENGTH}</span>
   </span>
-  <button class="quit-btn" type="button" onclick={onQuit} aria-label="Quit">✕ Quit</button>
 </header>
 
 <section class="r-section">
@@ -355,6 +361,7 @@
                 <li>{airportLabelWithCountry(code)}</li>
               {/each}
             </ul>
+            <span class="prompt-inline-ask">→ Which airport is this?</span>
           </div>
         {:else if current.mode === 'hubOf'}
           <div class="prompt-block">
@@ -374,6 +381,7 @@
               {:else}IATA code{/if}
             </span>
             <div class="code-stage">{current.prompt}</div>
+            <span class="prompt-inline-ask">→ Which airline?</span>
           </div>
         {:else if current.mode === 'airlineDest'}
           <div class="airline">
@@ -400,7 +408,9 @@
         {/if}
       </div>
 
-      <p class="q-ask">→ {current.mode === 'whereAmI' ? 'Which airport is this?' : current.mode === 'code' ? 'Which airline?' : `${modeLabel(current.mode)}?`}</p>
+      {#if showQAsk}
+        <p class="q-ask">→ {modeLabel(current.mode)}?</p>
+      {/if}
 
       <div class="opts" class:disabled={isMulti ? submitted : picked !== null}>
         {#each current.options as option, i}
@@ -623,6 +633,17 @@
     text-align: center;
   }
   .dest-list li { padding: 0.1rem 0; }
+
+  .prompt-inline-ask {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--led-cyan);
+    font-weight: 700;
+    margin-top: 0.85rem;
+    display: inline-block;
+  }
 
   .code-stage {
     font-family: var(--mono);

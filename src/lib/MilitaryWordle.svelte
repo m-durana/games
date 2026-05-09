@@ -16,6 +16,7 @@
     type AttributeFeedback,
   } from './military-aircraft';
   import MilitaryReveal from './MilitaryReveal.svelte';
+  import RoundBar from './RoundBar.svelte';
   import * as Sound from './sound';
   import { loadPool, saveHistoryEntry } from './engine';
   import type { MilitaryWordleResult } from './types';
@@ -380,11 +381,12 @@
     highlight = 0;
   }
 
-  function dotState(i: number): 'todo' | 'now' | 'correct' | 'wrong' {
+  function dotState(i: number): 'todo' | 'current' | 'correct' | 'wrong' {
     if (i < scores.length) return scores[i] > 0 ? 'correct' : 'wrong';
-    if (i === index) return 'now';
+    if (i === index) return 'current';
     return 'todo';
   }
+  const progressLeds = $derived(answers.map((_, i) => dotState(i)));
 
   function isTypingTarget(target: EventTarget | null): boolean {
     if (!(target instanceof HTMLElement)) return false;
@@ -406,16 +408,7 @@
   });
 </script>
 
-<header class="bar">
-  <button class="quit" onclick={onHome} aria-label="Quit">✕</button>
-  <div class="dots" aria-label="Progress">
-    {#each answers as _, i}
-      {@const s = dotState(i)}
-      <span class="dot dot-{s}"></span>
-    {/each}
-  </div>
-  <span class="meta">{score} pts</span>
-</header>
+<RoundBar progress={progressLeds} {score} total={0} scoreLabel="PTS" onQuit={onHome} />
 
 <section class="round">
   {#if resumePending && savedAtMount}
