@@ -15,6 +15,7 @@
     type AirportDifficulty,
   } from './airports-game';
   import AirportReveal from './AirportReveal.svelte';
+  import Lightbox from './Lightbox.svelte';
   import RoundBar from './RoundBar.svelte';
   import * as Sound from './sound';
   import { loadPool, saveHistoryEntry } from './engine';
@@ -154,6 +155,7 @@
     });
   });
   let showGallery = $state(false);
+  let lightboxSrc: string | null = $state(null);
 
   const current = $derived(answers[index]);
   const aerialUrl = $derived(current ? airportAerialUrl(current.iata) : null);
@@ -443,7 +445,14 @@
         {#if showGallery && groundPhotos.length > 0 && !revealed}
           <div class="gallery">
             {#each groundPhotos as url, i}
-              <img src={url} alt={`${current.name} photo ${i + 1}`} loading="lazy" />
+              <button
+                type="button"
+                class="gallery-cell"
+                aria-label={`Enlarge ${current.name} photo ${i + 1}`}
+                onclick={() => (lightboxSrc = url)}
+              >
+                <img src={url} alt={`${current.name} photo ${i + 1}`} loading="lazy" />
+              </button>
             {/each}
           </div>
         {/if}
@@ -515,6 +524,10 @@
   {/if}
 </section>
 
+{#if lightboxSrc}
+  <Lightbox src={lightboxSrc} alt={current?.name ?? ''} onClose={() => (lightboxSrc = null)} />
+{/if}
+
 <style>
   .round { display: flex; flex-direction: column; gap: 0.85rem; align-items: stretch; width: 100%; }
 
@@ -560,12 +573,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
   }
   .photo {
     width: 100%;
     height: 100%;
     object-fit: contain;
     background: #0c0e11;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: auto;
   }
   .photo-loading {
     font-family: var(--mono);
@@ -602,13 +624,22 @@
     border: 1px solid var(--bezel-lo);
     border-radius: 1px;
   }
+  .gallery-cell {
+    padding: 0;
+    border: 1px solid var(--bezel-lo);
+    border-radius: 1px;
+    background: var(--mfd-bg);
+    cursor: zoom-in;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .gallery-cell:hover { border-color: var(--led-cyan); }
+  .gallery-cell:active { border-color: var(--bezel-lo); }
   .gallery img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     background: var(--mfd-bg);
-    border: 1px solid var(--bezel-lo);
-    border-radius: 1px;
     display: block;
   }
 

@@ -14,6 +14,7 @@
   } from './aircraft';
   import AircraftReveal from './AircraftReveal.svelte';
   import RoundBar from './RoundBar.svelte';
+  import Lightbox from './Lightbox.svelte';
   import * as Sound from './sound';
   import { loadPool, saveHistoryEntry } from './engine';
   import { clearProgress, progressKey, recordProgress, sessionKey } from './progress';
@@ -103,6 +104,7 @@
 
   let answers: Aircraft[] = $state(initial.answers);
   let showInfo = $state(false);
+  let lightboxSrc: string | null = $state(null);
   let index = $state(initial.index);
   // stage: 0 = photo only, 1 = + manufacturer, 2 = + family, 3 = multiple choice
   let stage = $state(initial.stage);
@@ -397,7 +399,7 @@
 
         <div class="photo-stage">
           {#if photoUrl}
-            <img src={photoUrl} alt="Aircraft to identify" class="photo" />
+            <img src={photoUrl} alt="Aircraft to identify" class="photo zoomable" onclick={() => (lightboxSrc = photoUrl)} />
             {#if hasMultiplePhotos && !revealed}
               <button class="photo-cycle" onclick={cyclePhoto} aria-label="Show a different photo of this aircraft">
                 Different photo ({(photoIndex % photoUrls.length) + 1}/{photoUrls.length})
@@ -477,6 +479,10 @@
   {/if}
 </section>
 
+{#if lightboxSrc}
+  <Lightbox src={lightboxSrc} alt={current?.name ?? ''} onClose={() => (lightboxSrc = null)} />
+{/if}
+
 <style>
   .round { display: flex; flex-direction: column; gap: 0.85rem; align-items: stretch; width: 100%; }
 
@@ -529,6 +535,7 @@
     object-fit: contain;
     background: #0c0e11;
   }
+  .photo.zoomable { cursor: zoom-in; }
   .photo-loading {
     font-family: var(--mono);
     font-size: 0.7rem;

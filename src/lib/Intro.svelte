@@ -81,27 +81,27 @@
     <p class="body">{@html slide.body}</p>
   </div>
 
-  <div class="dots" role="tablist" aria-label="Guide progress">
-    {#each slides as _, idx}
-      <button
-        type="button"
-        class="dot"
-        class:active={idx === i}
-        aria-label={`Slide ${idx + 1}`}
-        onclick={() => (i = idx)}
-      ></button>
-    {/each}
-  </div>
-
-  <div class="controls">
+  <div class="footer">
     <button class="ghost" type="button" onclick={onCancel}>Back</button>
-    <div class="spacer"></div>
-    {#if i > 0}
-      <button class="ghost" type="button" onclick={prev}>Previous</button>
-    {/if}
-    <button class="primary" type="button" onclick={next}>
-      {last ? 'Start round' : 'Next'}
-    </button>
+    <div class="dots" role="tablist" aria-label="Guide progress">
+      {#each slides as _, idx}
+        <button
+          type="button"
+          class="dot"
+          class:active={idx === i}
+          aria-label={`Slide ${idx + 1}`}
+          onclick={() => (i = idx)}
+        ></button>
+      {/each}
+    </div>
+    <div class="right-actions">
+      {#if i > 0}
+        <button class="ghost" type="button" onclick={prev}>Previous</button>
+      {/if}
+      <button class="primary" type="button" onclick={next}>
+        {last ? 'Start round' : 'Next'}
+      </button>
+    </div>
   </div>
 </div>
 
@@ -244,9 +244,19 @@
     line-height: 1.3;
   }
 
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .footer .ghost:first-child { justify-self: start; }
+  .right-actions { display: inline-flex; align-items: center; gap: 0.5rem; justify-self: end; }
+
   .dots {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 0.45rem;
   }
   .dot {
@@ -262,13 +272,7 @@
   .dot:hover { background: var(--bezel-hi); }
   .dot.active { background: var(--led-cyan); border-color: var(--led-cyan); }
 
-  .controls {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-  }
-  .spacer { flex: 1; }
-  .controls button {
+  .footer button {
     font-family: var(--mono);
     font-weight: 700;
     font-size: 0.72rem;
@@ -278,6 +282,7 @@
     padding: 0.55rem 0.95rem;
     cursor: pointer;
   }
+  .footer .dot { padding: 0; }
   .ghost {
     background: var(--panel);
     border: 1px solid var(--bezel-hi);
