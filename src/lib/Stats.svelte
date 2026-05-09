@@ -150,34 +150,42 @@
 </footer>
 
 <style>
-  .head { padding: 1rem 0.25rem 0.25rem; }
+  .head { padding: 0.4rem 0.1rem 0.6rem; }
   .head h1 {
-    font-size: 2.25rem;
-    font-weight: 600;
-    letter-spacing: 0;
-    margin-bottom: 0.5rem;
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 0.4rem;
   }
-  .head p { color: var(--muted); font-size: 0.9375rem; }
+  .head p { font-family: var(--sans); color: var(--label-dim); font-size: 0.85rem; }
 
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
+    margin-bottom: 0.6rem;
   }
   .cell {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.75rem 0.875rem;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
+    padding: 0.7rem 0.85rem;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.32rem;
   }
   .cell-title {
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--label-dim);
+    font-weight: 700;
   }
   .cell-row {
     display: flex;
@@ -185,54 +193,69 @@
     justify-content: space-between;
     gap: 0.5rem;
   }
-  .cell-row.small { font-size: 0.6875rem; color: var(--muted); }
+  .cell-row.small { font-family: var(--mono); font-size: 0.66rem; color: var(--label-dim); letter-spacing: 0.04em; }
   .big {
-    font-size: 1.375rem;
-    font-weight: 600;
-    letter-spacing: 0;
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--led-green);
+    letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;
   }
-  .muted { color: var(--muted); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
-  .streak { color: var(--accent); }
+  .muted { color: var(--label-dim); font-family: var(--mono); font-size: 0.72rem; font-variant-numeric: tabular-nums; }
+  .streak { color: var(--led-amber); font-family: var(--mono); font-weight: 700; }
 
   .extra-row {
     display: flex;
     gap: 0.5rem;
+    margin-bottom: 1rem;
   }
   .extra {
     flex: 1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.625rem 0.875rem;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
+    padding: 0.6rem 0.85rem;
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.2rem;
   }
   .extra-label {
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--label-dim);
+    font-weight: 700;
   }
   .extra-value {
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--led-cyan);
     font-variant-numeric: tabular-nums;
   }
 
+  .achievements { margin-bottom: 1rem; }
   .achievements h2 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--label);
+    font-weight: 700;
+    margin-bottom: 0.55rem;
     display: flex;
     align-items: baseline;
-    gap: 0.5rem;
+    gap: 0.55rem;
   }
   .count {
-    font-size: 0.75rem;
-    color: var(--muted);
-    font-weight: 400;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    color: var(--label-dim);
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
   }
   .ach-grid {
@@ -241,70 +264,84 @@
     gap: 0.5rem;
   }
   .ach {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.625rem 0.75rem;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
+    padding: 0.6rem 0.75rem;
     display: flex;
     align-items: center;
-    gap: 0.625rem;
-    opacity: 0.55;
+    gap: 0.6rem;
+    opacity: 0.5;
   }
-  .ach.got { opacity: 1; border-color: rgba(96, 150, 186, 0.3); }
-  .ach-icon { font-size: 1.5rem; flex-shrink: 0; }
-  .ach-text { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
-  .ach-name { font-size: 0.8125rem; font-weight: 600; }
-  .ach-desc { font-size: 0.6875rem; color: var(--muted); line-height: 1.3; }
+  .ach.got { opacity: 1; border-color: var(--led-green); }
+  .ach-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .ach-text { display: flex; flex-direction: column; gap: 0.12rem; min-width: 0; }
+  .ach-name { font-family: var(--sans); font-size: 0.8rem; font-weight: 700; color: var(--label); letter-spacing: -0.005em; }
+  .ach-desc { font-family: var(--sans); font-size: 0.7rem; color: var(--label-dim); line-height: 1.35; }
 
-  .hardest h2 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
-  .hardest .muted { font-size: 0.8125rem; margin-bottom: 0.625rem; }
+  .hardest { margin-bottom: 1rem; }
+  .hardest h2 { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--label); font-weight: 700; margin-bottom: 0.25rem; }
+  .hardest .muted { font-family: var(--sans); font-size: 0.78rem; margin-bottom: 0.6rem; }
   .hardest ul {
     list-style: none;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
     overflow: hidden;
   }
   .hardest li {
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: 0.75rem;
+    gap: 0.7rem;
     align-items: center;
-    padding: 0.625rem 0.875rem;
-    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 0.85rem;
+    border-bottom: 1px solid var(--bezel-lo);
   }
   .hardest li:last-child { border-bottom: none; }
   .iata {
-    font-family: var(--font-main);
-    font-size: 0.75rem;
-    color: var(--muted);
-    background: var(--surface-2);
-    padding: 0.25rem 0.5rem;
-    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--led-cyan);
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-lo);
+    padding: 0.22rem 0.5rem;
+    border-radius: 1px;
     min-width: 3ch;
     text-align: center;
   }
   .info { display: flex; flex-direction: column; min-width: 0; }
-  .name { font-size: 0.9375rem; font-weight: 500; }
-  .meta { font-size: 0.75rem; color: var(--muted); }
+  .name { font-family: var(--sans); font-size: 0.9rem; font-weight: 700; color: var(--label); letter-spacing: -0.005em; }
+  .meta { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.04em; color: var(--label-dim); }
   .ratio {
+    font-family: var(--mono);
     font-variant-numeric: tabular-nums;
-    color: var(--bad);
-    font-size: 0.875rem;
+    color: var(--led-red);
+    font-weight: 700;
+    font-size: 0.85rem;
   }
 
-  .actions { padding-top: 0.75rem; }
-  .actions button {
+  .actions { padding-top: 1rem; }
+  .actions .primary {
     width: 100%;
-    min-height: 52px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
-    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    min-height: 48px;
+    border-radius: 1px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--panel);
+    color: var(--led-cyan);
+    border: 1px solid var(--led-cyan);
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
   }
-  .actions button:active { transform: scale(0.98); }
-  .actions button:hover { border-color: var(--panel-line); background: var(--surface-2); }
+  .actions .primary:hover { color: #b0ecf6; border-color: #b0ecf6; background: rgba(96, 216, 240, 0.08); }
+  .actions .primary:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
 </style>

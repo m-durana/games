@@ -52,7 +52,7 @@
     flex-direction: column;
     gap: 0.875rem;
     padding: 1rem;
-    border-radius: 8px;
+    border-radius: 2px;
     background: var(--surface-2);
     border: 1px solid var(--border);
   }
@@ -73,7 +73,7 @@
     width: 100%;
     max-height: 220px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 1px;
     background: var(--surface-3, var(--surface));
   }
   .step { display: flex; gap: 0.75rem; align-items: flex-start; }
@@ -81,7 +81,7 @@
     flex-shrink: 0;
     width: 24px;
     height: 24px;
-    border-radius: 4px;
+    border-radius: 1px;
     background: var(--accent);
     color: var(--bg);
     font-family: var(--font-main);

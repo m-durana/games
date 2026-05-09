@@ -38,57 +38,78 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.625rem;
+    gap: 0.7rem;
     flex: 1;
     justify-content: center;
   }
   .pill.speed {
-    font-size: 0.6875rem;
-    font-family: var(--font-main);
-    letter-spacing: 0;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--info);
-    background: rgba(96, 150, 186, 0.16);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
+    color: var(--led-cyan);
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    padding: 0.28rem 0.7rem;
+    border-radius: 1px;
   }
   .head h1 {
-    font-family: var(--font-main);
+    font-family: var(--mono);
     font-size: 5.5rem;
-    font-weight: 600;
-    letter-spacing: 0;
+    font-weight: 700;
+    color: var(--led-green);
+    letter-spacing: 0.02em;
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
-  .verdict { color: var(--muted); font-size: 1rem; }
+  .verdict { color: var(--label-dim); font-family: var(--sans); font-size: 0.92rem; }
   .best-flag {
-    font-size: 0.75rem;
-    color: var(--good);
-    background: rgba(163, 206, 241, 0.42);
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--led-amber);
+    border: 1px solid var(--led-amber);
+    background: rgba(251, 191, 36, 0.08);
+    padding: 0.28rem 0.7rem;
+    border-radius: 1px;
   }
 
   .actions {
     display: flex;
     flex-direction: column;
-    gap: 0.625rem;
-    padding-top: 0.75rem;
+    gap: 0.55rem;
+    padding-top: 1rem;
   }
   .actions button {
-    min-height: 52px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: transform 0.1s, background 0.15s, border-color 0.15s;
+    min-height: 48px;
+    border-radius: 1px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
   }
-  .actions button:active { transform: scale(0.98); }
-  .primary { background: var(--accent); color: var(--bg); }
-  .primary:hover { background: #a3cef1; }
+  .primary {
+    background: var(--panel);
+    color: var(--led-cyan);
+    border: 1px solid var(--led-cyan);
+  }
+  .primary:hover { color: #b0ecf6; border-color: #b0ecf6; background: rgba(96, 216, 240, 0.08); }
+  .primary:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
   .secondary {
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--label-dim);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
   }
-  .secondary:hover { border-color: var(--panel-line); background: var(--surface-2); }
+  .secondary:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .secondary:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
 </style>

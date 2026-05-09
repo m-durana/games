@@ -53,42 +53,48 @@
     z-index: 100;
     width: calc(100% - 2rem);
     max-width: 420px;
-    background: var(--surface);
-    border: 1px solid rgba(96, 150, 186, 0.5);
-    border-radius: 8px;
-    padding: 0.75rem 0.875rem;
+    background: var(--panel);
+    border: 1px solid var(--led-cyan);
+    border-radius: 2px;
+    padding: 0.7rem 0.85rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4);
   }
   .icon {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
     flex-shrink: 0;
   }
   .text {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
+    gap: 0.12rem;
     min-width: 0;
   }
   .label {
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--led-cyan);
+    font-weight: 700;
   }
-  .name { font-size: 0.9375rem; font-weight: 600; }
-  .desc { font-size: 0.75rem; color: var(--muted); }
+  .name { font-family: var(--sans); font-size: 0.9rem; font-weight: 700; color: var(--label); letter-spacing: -0.005em; }
+  .desc { font-family: var(--sans); font-size: 0.74rem; color: var(--label-dim); }
   button {
-    width: 44px; height: 44px;
-    border-radius: 4px;
-    color: var(--muted);
+    width: 36px; height: 36px;
+    border-radius: 1px;
+    color: var(--label-dim);
     flex-shrink: 0;
-    font-size: 1.125rem;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
+    font-family: var(--mono); font-weight: 700;
+    font-size: 0.95rem;
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    cursor: pointer;
   }
-  button:hover, button:active { color: var(--text); background: var(--surface); }
+  button:hover { color: var(--led-red); border-color: var(--led-red); }
+  button:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
 </style>

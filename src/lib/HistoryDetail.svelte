@@ -139,72 +139,87 @@
   }
   .pills { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; }
   .pill {
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--muted);
-    background: var(--surface-2);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
+    color: var(--label-dim);
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    padding: 0.28rem 0.65rem;
+    border-radius: 1px;
   }
-  .pill.subtle { background: var(--surface); }
+  .pill.subtle { background: var(--panel); }
   h1 {
-    font-size: 2.25rem;
-    font-weight: 600;
-    letter-spacing: 0;
+    font-family: var(--mono);
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--led-green);
+    font-variant-numeric: tabular-nums;
   }
-  .of { color: var(--muted); font-size: 1.25rem; }
-  .muted { color: var(--muted); text-align: center; padding: 1rem; }
+  .of { font-family: var(--mono); color: var(--label-dim); font-size: 1.2rem; }
+  .muted { font-family: var(--sans); color: var(--label-dim); text-align: center; padding: 1rem; }
 
-  .recap { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
+  .recap { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.6rem; }
   .row {
     display: flex;
     align-items: flex-start;
-    gap: 0.625rem;
-    padding: 0.625rem 0.75rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    gap: 0.6rem;
+    padding: 0.55rem 0.7rem;
+    background: var(--panel);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    border-radius: 1px;
     text-align: left;
     transition: border-color 0.15s, background 0.15s;
   }
-  .row:hover { border-color: var(--panel-line); }
-  .row.bad { border-color: rgba(139, 140, 137, 0.35); }
-  .row.open { background: var(--surface-2); }
+  .row:hover { border-color: var(--led-cyan); }
+  .row.bad { border-color: var(--bezel-hi); }
+  .row.open { border-color: var(--led-cyan); background: rgba(96, 216, 240, 0.04); }
   .num {
     width: 1.4rem;
+    font-family: var(--mono);
     font-variant-numeric: tabular-nums;
-    color: var(--muted);
-    font-size: 0.75rem;
+    color: var(--label-dim);
+    font-size: 0.78rem;
     padding-top: 0.15rem;
   }
   .row-body { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
-  .airline { font-size: 0.9rem; font-weight: 500; }
-  .ans { font-size: 0.8125rem; color: var(--muted); display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
-  .ans.good { color: var(--good, var(--good)); }
-  .picked { color: var(--bad); text-decoration: line-through; }
-  .arrow { color: var(--muted); }
-  .correct { color: var(--good, var(--good)); }
-  .chev { color: var(--muted); padding-top: 0.1rem; }
+  .airline { font-family: var(--sans); font-size: 0.9rem; font-weight: 700; color: var(--label); letter-spacing: -0.005em; }
+  .ans { font-family: var(--sans); font-size: 0.8rem; color: var(--label-dim); display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
+  .ans.good { color: var(--led-green); }
+  .picked { color: var(--led-red); text-decoration: line-through; }
+  .arrow { color: var(--label-dim); }
+  .correct { color: var(--led-green); }
+  .chev { color: var(--label-dim); padding-top: 0.1rem; }
   .explain {
-    font-size: 0.8125rem;
-    color: var(--text);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--label-2);
     margin-top: 0.5rem;
-    padding: 0.5rem 0.6rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    background: var(--panel-2);
+    border: 1px solid var(--bezel-lo);
+    border-radius: 1px;
+    white-space: pre-line;
   }
   .facts {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.3rem 0.75rem;
+    gap: 0.4rem 0.85rem;
     margin-top: 0.5rem;
-    font-size: 0.75rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
   }
-  .facts div { display: flex; flex-direction: column; }
-  .facts dt { color: var(--muted); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.06em; }
-  .facts dd { color: var(--text); }
+  .facts div { display: flex; flex-direction: column; gap: 0.15rem; }
+  .facts dt { font-family: var(--mono); color: var(--label-dim); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; }
+  .facts dd { color: var(--label); font-weight: 700; }
 
   .wordle-recap {
     display: flex;
@@ -224,13 +239,13 @@
     padding: 0.3rem 0.5rem;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 1px;
     font-size: 0.75rem;
     white-space: nowrap;
   }
   .wordle-cell {
     padding: 0.3rem 0.4rem;
-    border-radius: 4px;
+    border-radius: 1px;
     font-size: 0.6875rem;
     font-family: var(--font-main);
     text-align: center;
@@ -259,11 +274,22 @@
   .actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
   .secondary {
     flex: 1;
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    font-size: 0.9375rem;
+    background: var(--panel);
+    color: var(--label-dim);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    padding: 0.7rem 1rem;
+    border-radius: 1px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    min-height: 48px;
+    transition: color 0.15s, border-color 0.15s;
   }
+  .secondary:hover { color: var(--led-cyan); border-color: var(--led-cyan); }
+  .secondary:active { border-color: var(--bezel-lo); border-bottom-color: var(--bezel-hi); border-right-color: var(--bezel-hi); }
 </style>

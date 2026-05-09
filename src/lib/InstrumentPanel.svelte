@@ -54,7 +54,7 @@
     justify-content: center;
     background: #060810;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 2px;
     padding: 0.75rem;
   }
   /* The radarscope PFD floats the G/S scale at right:-22px of the attitude
