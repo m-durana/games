@@ -439,7 +439,7 @@
                   onclick={() => toggleInfo(fb.label)}
                   aria-expanded={infoLabel === fb.label}
                   title="What does this attribute mean?"
-                >{fb.label} <span class="info-mark" aria-hidden="true">ⓘ</span></button>
+                ><span class="cell-label-text">{fb.label}</span><span class="info-mark" aria-hidden="true">ⓘ</span></button>
               {/each}
             </div>
             {#if infoLabel && infoMap[infoLabel]}
@@ -620,10 +620,11 @@
     border: none;
   }
   .cell-label:first-child { text-align: left; padding-left: 0.4rem; justify-content: flex-start; }
-  .cell-label-btn { white-space: nowrap; }
+  .cell-label-btn { gap: 0.2rem; padding-left: 0.35rem; padding-right: 0.35rem; white-space: nowrap; }
+  .cell-label-text { flex: 0 0 auto; white-space: nowrap; }
   .cell-label-btn:hover { color: var(--led-cyan); }
   .cell-label-btn.active { color: var(--led-cyan); background: var(--panel); }
-  .info-mark { flex: 0 0 auto; font-size: 0.6rem; opacity: 0.7; margin-left: 0.2rem; }
+  .info-mark { flex: 0 0 auto; font-size: 0.6rem; opacity: 0.7; }
 
   .guess-name {
     font-family: var(--sans);
