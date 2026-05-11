@@ -116,9 +116,9 @@
       return { ...local, ...seed };
     } catch { return seed; }
   }
-  function persist() { localStorage.setItem(KEY, JSON.stringify(state)); }
+  function persist() { localStorage.setItem(KEY, JSON.stringify(reviewState)); }
 
-  let state: Record<string, ReviewEntry> = $state(loadState());
+  let reviewState: Record<string, ReviewEntry> = $state(loadState());
   let index = $state(0);
   let photos: string[] = $state([]);
   let aerialZooms: Record<Provider, number> = $state({ arcgis: DEFAULT_ZOOM, mapbox: DEFAULT_ZOOM, azure: DEFAULT_ZOOM });
@@ -149,7 +149,7 @@
 
   const current = $derived(reviewAirportList[index]);
   const entry = $derived<ReviewEntry>(
-    state[current?.iata] ?? { aerial: null, approved: [], rejected: [] },
+    reviewState[current?.iata] ?? { aerial: null, approved: [], rejected: [] },
   );
 
   const currentProvider = $derived<Provider | null>(PROVIDERS[providerIndex] ?? null);
@@ -190,10 +190,10 @@
   });
 
   const airportsWithAnyApproval = $derived(
-    Object.values(state).filter((e) => e.aerial !== null || (e.approved ?? []).length > 0).length,
+    Object.values(reviewState).filter((e) => e.aerial !== null || (e.approved ?? []).length > 0).length,
   );
   const totalAerials = $derived(
-    Object.values(state).filter((e) => e.aerial !== null).length,
+    Object.values(reviewState).filter((e) => e.aerial !== null).length,
   );
 
   $effect(() => {
@@ -217,7 +217,7 @@
     aerialZooms = { arcgis: DEFAULT_ZOOM, mapbox: DEFAULT_ZOOM, azure: DEFAULT_ZOOM };
     pan = { x: 0, y: 0 };
     extraWide = false;
-    const existing = state[a.iata]?.aerial;
+    const existing = reviewState[a.iata]?.aerial;
     if (existing) {
       aerialZooms[existing.provider] = existing.zoom;
       const i = PROVIDERS.indexOf(existing.provider);
@@ -257,7 +257,7 @@
 
   async function loadCoords(a: ReviewAirportEntry) {
     // 1. Manual override saved by the reviewer (highest priority).
-    const override = state[a.iata]?.coords;
+    const override = reviewState[a.iata]?.coords;
     if (override) {
       coords = { lat: override.lat, lon: override.lon };
       restorePanFromSpec(a);
@@ -294,7 +294,7 @@
   }
 
   function restorePanFromSpec(a: ReviewAirportEntry) {
-    const spec = state[a.iata]?.aerial;
+    const spec = reviewState[a.iata]?.aerial;
     if (!spec || !coords) return;
     const ext = wideExtents(spec.provider, a.country, coords.lat);
     pan = {
@@ -368,8 +368,8 @@
   }
 
   function ensureEntry(id: string): ReviewEntry {
-    if (!state[id]) state = { ...state, [id]: { aerial: null, approved: [], rejected: [] } };
-    return state[id];
+    if (!reviewState[id]) reviewState = { ...reviewState, [id]: { aerial: null, approved: [], rejected: [] } };
+    return reviewState[id];
   }
 
   function setAerialZoom(value: number) {
@@ -426,8 +426,8 @@
     const ext = wideExtents(aerialItem.provider, current.country, coords.lat);
     const centerLat = coords.lat - panClamped.y * ext.dLat;
     const centerLon = coords.lon + panClamped.x * ext.dLon;
-    state = {
-      ...state,
+    reviewState = {
+      ...reviewState,
       [id]: {
         ...e,
         aerial: {
@@ -447,7 +447,7 @@
     const id = current.iata;
     const e = ensureEntry(id);
     if (e.aerial) {
-      state = { ...state, [id]: { ...e, aerial: null } };
+      reviewState = { ...reviewState, [id]: { ...e, aerial: null } };
       persist();
     }
   }
@@ -487,7 +487,7 @@
     manualCoordError = '';
     const id = current.iata;
     const e = ensureEntry(id);
-    state = { ...state, [id]: { ...e, coords: parsed } };
+    reviewState = { ...reviewState, [id]: { ...e, coords: parsed } };
     persist();
     coords = parsed;
     coordsLoading = false;
@@ -509,7 +509,7 @@
     }
     const id = current.iata;
     const e = ensureEntry(id);
-    state = { ...state, [id]: { ...e, coords: parsed } };
+    reviewState = { ...reviewState, [id]: { ...e, coords: parsed } };
     persist();
     coords = parsed;
     pan = { x: 0, y: 0 };
@@ -522,7 +522,7 @@
     const e = ensureEntry(id);
     if (!e.coords) { editingCoords = false; return; }
     const { coords: _drop, ...rest } = e;
-    state = { ...state, [id]: rest as ReviewEntry };
+    reviewState = { ...reviewState, [id]: rest as ReviewEntry };
     persist();
     editingCoords = false;
     // Re-resolve via the normal lookup path (bundled lon → Wikipedia).
@@ -537,7 +537,7 @@
     const isOn = e.approved.includes(url);
     const nextApproved = isOn ? e.approved.filter((u) => u !== url) : [...e.approved, url];
     const nextRejected = e.rejected.filter((u) => u !== url);
-    state = { ...state, [id]: { ...e, approved: nextApproved, rejected: nextRejected } };
+    reviewState = { ...reviewState, [id]: { ...e, approved: nextApproved, rejected: nextRejected } };
     persist();
   }
 
@@ -627,7 +627,7 @@
   function next() { if (index < reviewAirportList.length - 1) index += 1; }
   function prev() { if (index > 0) index -= 1; }
 
-  function buildExport() { return state; }
+  function buildExport() { return reviewState; }
   function exportData() {
     exportText = JSON.stringify(buildExport(), null, 2);
     navigator.clipboard?.writeText(exportText).catch(() => {});
@@ -661,8 +661,8 @@
     try {
       const data = JSON.parse(importText) as Record<string, any>;
       const sanitized = sanitizeState(data);
-      const merged = { ...state, ...sanitized };
-      state = merged;
+      const merged = { ...reviewState, ...sanitized };
+      reviewState = merged;
       persist();
       importText = '';
       showImport = false;
@@ -702,7 +702,7 @@
       }}
     >
       {#each reviewAirportList as a, i}
-        {@const e = state[a.iata]}
+        {@const e = reviewState[a.iata]}
         {@const hasAerial = !!e?.aerial}
         {@const ac = e?.approved?.length ?? 0}
         <option value={a.iata}>
@@ -783,7 +783,7 @@
             <div class="manual-coords">
               <p class="muted aerial-hint">
                 Editing coordinates for {current.name}.
-                {#if state[current.iata]?.coords}<span class="status-good">manual override active</span>{/if}
+                {#if reviewState[current.iata]?.coords}<span class="status-good">manual override active</span>{/if}
               </p>
               <div class="manual-coords-row">
                 <input
@@ -795,7 +795,7 @@
                 <button class="ok" onclick={saveCoordEdit} disabled={!coordEditInput.trim()}>Save</button>
                 <button class="ghost-btn" onclick={() => (editingCoords = false)}>Cancel</button>
               </div>
-              {#if state[current.iata]?.coords}
+              {#if reviewState[current.iata]?.coords}
                 <button class="ghost-btn clear-override" onclick={clearCoordOverride}>Clear override (revert to default)</button>
               {/if}
               {#if coordEditError}<p class="err">{coordEditError}</p>{/if}

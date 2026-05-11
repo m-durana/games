@@ -350,7 +350,7 @@
             {:else if current.answers && current.answers.length > 1}
               <div class="fb-row">
                 <span class="fb-label">Other valid forms</span>
-                {#each current.answers.filter((a) => normalizeReadback(a) !== normalizeReadback(picked)) as alt}
+                {#each current.answers.filter((a) => normalizeReadback(a) !== normalizeReadback(picked ?? '')) as alt}
                   <span class="fb-alt">· {alt}</span>
                 {/each}
               </div>

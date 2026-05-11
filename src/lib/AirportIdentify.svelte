@@ -416,6 +416,8 @@
         <div
           class="photo-stage"
           class:zoomed={zoom > 1}
+          role="application"
+          aria-label="Airport aerial photo"
           onwheel={onWheel}
           onpointerdown={onPointerDown}
           onpointermove={onPointerMove}

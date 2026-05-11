@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly, fade } from 'svelte/transition';
-  import { onMount } from 'svelte';
+  import { onMount, untrack } from 'svelte';
 
   interface Props {
     /** Either pass `src` for a single image or `images` + `initialIndex` for a gallery. */
@@ -14,7 +14,7 @@
   let { src, images, initialIndex = 0, alt = '', onClose }: Props = $props();
 
   const photos = $derived(images && images.length > 0 ? images : (src ? [src] : []));
-  let index = $state(Math.min(Math.max(initialIndex, 0), Math.max((images?.length ?? 1) - 1, 0)));
+  let index = $state(untrack(() => Math.min(Math.max(initialIndex, 0), Math.max((images?.length ?? 1) - 1, 0))));
 
   const current = $derived(photos[index] ?? '');
   const hasMany = $derived(photos.length > 1);
@@ -67,7 +67,9 @@
     role="dialog"
     aria-modal="true"
     aria-label="Enlarged photo"
+    tabindex="0"
     onclick={(e) => e.stopPropagation()}
+    onkeydown={(e) => e.stopPropagation()}
     in:fly={{ y: 12, duration: 180 }}
   >
     <button class="lb-close" type="button" onclick={onClose} aria-label="Close">✕</button>

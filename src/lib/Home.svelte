@@ -80,6 +80,22 @@
   }
   let inProgressExpanded = $state(false);
 
+  const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
+
+  let difficulty: Difficulty = $state(
+    (localStorage.getItem('difficulty') as Difficulty) || 'medium',
+  );
+  function setDifficulty(d: Difficulty) {
+    difficulty = d;
+    localStorage.setItem('difficulty', d);
+  }
+
+  let pool: 'all' | 'us' | 'us_eu' = $state(loadPool());
+  function setPool(p: 'all' | 'us' | 'us_eu') {
+    pool = p;
+    savePool(p);
+  }
+
   function openGuide(e: Event, key: IntroKey) {
     e.stopPropagation();
     e.preventDefault();
@@ -225,22 +241,6 @@
     }
   }
 
-  const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
-
-  let difficulty: Difficulty = $state(
-    (localStorage.getItem('difficulty') as Difficulty) || 'medium',
-  );
-  function setDifficulty(d: Difficulty) {
-    difficulty = d;
-    localStorage.setItem('difficulty', d);
-  }
-
-  let pool: 'all' | 'us' | 'us_eu' = $state(loadPool());
-  function setPool(p: 'all' | 'us' | 'us_eu') {
-    pool = p;
-    savePool(p);
-  }
-
   const history = $derived(loadHistory());
   const daily = $derived(loadDailyDone());
   const speedBest = $derived(loadSpeedBest());
@@ -250,7 +250,7 @@
 <div class="diff-row">
   <div class="diff" role="tablist" aria-label="Difficulty">
     {#each difficulties as d}
-      <button class:on={difficulty === d} aria-selected={difficulty === d} onclick={() => setDifficulty(d)}>
+      <button role="tab" class:on={difficulty === d} aria-selected={difficulty === d} onclick={() => setDifficulty(d)}>
         <span class="led"></span>{difficultyLabel(d)}
       </button>
     {/each}
@@ -261,6 +261,7 @@
     {#each [['all','All'],['us','US'],['us_eu','US + EU']] as [value, label]}
       <button
         type="button"
+        role="tab"
         class:on={pool === value}
         aria-selected={pool === value}
         onclick={() => setPool(value as 'all' | 'us' | 'us_eu')}
@@ -470,7 +471,7 @@
       <button class="bezel-aux-btn" type="button" onclick={askClearAll}>Clear all</button>
       <div class="mfd-screen">
         {#each visibleEntries as entry (entry.key)}
-          <div class="mfd-row" tabindex="0">
+          <div class="mfd-row">
             <span class="pre">▸</span>
             <span class="name"><span class="cat">{entry.category}</span>{entry.label}</span>
             <span class="diff" aria-hidden="true"></span>
@@ -514,7 +515,7 @@
 <!-- Confirm Clear All modal -->
 {#if confirmClearOpen}
   <div class="cockpit-modal-backdrop" role="presentation" onclick={cancelClearAll}>
-    <div class="bezel cockpit-modal" data-label="Confirm" role="dialog" aria-modal="true" aria-labelledby="ccm-title" onclick={(e) => e.stopPropagation()}>
+    <div class="bezel cockpit-modal" data-label="Confirm" role="dialog" aria-modal="true" aria-labelledby="ccm-title" tabindex="0" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()}>
       <h3 id="ccm-title" class="ccm-title">Delete all saved progress?</h3>
       <p class="ccm-body">All in-progress rounds will be cleared. This can't be undone.</p>
       <div class="ccm-actions">

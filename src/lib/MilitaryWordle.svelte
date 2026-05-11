@@ -659,9 +659,10 @@
     border: none;
   }
   .cell-label:first-child { text-align: left; padding-left: 0.4rem; justify-content: flex-start; }
+  .cell-label-btn { white-space: nowrap; }
   .cell-label-btn:hover { color: var(--led-cyan); }
   .cell-label-btn.active { color: var(--led-cyan); background: var(--panel); }
-  .info-mark { font-size: 0.6rem; opacity: 0.7; margin-left: 0.2rem; }
+  .info-mark { flex: 0 0 auto; font-size: 0.6rem; opacity: 0.7; margin-left: 0.2rem; }
 
   .guess-name {
     font-family: var(--sans);

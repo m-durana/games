@@ -94,9 +94,9 @@
       return { ...local, ...seed };
     } catch { return seed; }
   }
-  function persist() { localStorage.setItem(KEY, JSON.stringify(state)); }
+  function persist() { localStorage.setItem(KEY, JSON.stringify(reviewState)); }
 
-  let state: Record<string, ReviewEntry> = $state(loadState());
+  let reviewState: Record<string, ReviewEntry> = $state(loadState());
   let index = $state(0);
   let images: string[] = $state([]);
   let loading = $state(true);
@@ -118,7 +118,7 @@
 
   const current = $derived(aircraft[index]);
   const entry = $derived<ReviewEntry>(
-    state[current?.id] ?? { approved: [], rejected: [], verified: [] },
+    reviewState[current?.id] ?? { approved: [], rejected: [], verified: [] },
   );
   const currentPhoto = $derived(images[cursor] ?? null);
   const isApproved = $derived(
@@ -128,14 +128,14 @@
     currentPhoto !== null && entry.rejected.some((u) => sameUrl(u, currentPhoto)),
   );
   const aircraftWithAnyApproval = $derived(
-    Object.values(state).filter((e) => (e.approved ?? []).length > 0).length,
+    Object.values(reviewState).filter((e) => (e.approved ?? []).length > 0).length,
   );
   const totalApprovedPhotos = $derived(
-    Object.values(state).reduce((n, e) => n + (e.approved ?? []).length, 0),
+    Object.values(reviewState).reduce((n, e) => n + (e.approved ?? []).length, 0),
   );
   const unreviewedAircraft = $derived(
     aircraft.filter((a) => {
-      const e = state[a.id];
+      const e = reviewState[a.id];
       return !e || ((e.approved?.length ?? 0) === 0 && (e.rejected?.length ?? 0) === 0);
     }).length,
   );
@@ -143,10 +143,10 @@
     aircraft.filter((a) => reviewStatus(a.id) === 'partial').length,
   );
   const totalUncheckedPhotos = $derived(
-    Object.values(state).reduce((n, e) => n + (e.unchecked?.length ?? 0), 0),
+    Object.values(reviewState).reduce((n, e) => n + (e.unchecked?.length ?? 0), 0),
   );
   const totalUnsurePhotos = $derived(
-    Object.values(state).reduce((n, e) => n + (e.unsure?.length ?? 0), 0),
+    Object.values(reviewState).reduce((n, e) => n + (e.unsure?.length ?? 0), 0),
   );
 
   $effect(() => {
@@ -213,7 +213,7 @@
       // them or flagged them as multi-subject ambiguous). Unchecked is dedup'd
       // against the wikimedia fetch; unsure is *kept even if also in approved*
       // because the whole point is to re-surface flagged-but-approved photos.
-      const e0 = state[a.id];
+      const e0 = reviewState[a.id];
       const uncheckedUrls = e0?.unchecked ?? [];
       const unsureUrls = e0?.unsure ?? [];
       const fetchedSet = new Set(urls.map(canonUrl));
@@ -234,7 +234,7 @@
       if (urls.length > 0) {
         const e = ensureEntry(a.id);
         if (e.fetchedCount !== urls.length) {
-          state = { ...state, [a.id]: { ...e, fetchedCount: urls.length } };
+          reviewState = { ...reviewState, [a.id]: { ...e, fetchedCount: urls.length } };
           persist();
         }
       }
@@ -253,12 +253,12 @@
   }
 
   function ensureEntry(id: string): ReviewEntry {
-    if (!state[id]) {
-      state = { ...state, [id]: { approved: [], rejected: [], verified: [], unchecked: [], unsure: [] } };
-    } else if (!Array.isArray(state[id].verified) || !Array.isArray(state[id].unsure)) {
-      state = { ...state, [id]: { ...state[id], verified: state[id].verified ?? [], unchecked: state[id].unchecked ?? [], unsure: state[id].unsure ?? [] } };
+    if (!reviewState[id]) {
+      reviewState = { ...reviewState, [id]: { approved: [], rejected: [], verified: [], unchecked: [], unsure: [] } };
+    } else if (!Array.isArray(reviewState[id].verified) || !Array.isArray(reviewState[id].unsure)) {
+      reviewState = { ...reviewState, [id]: { ...reviewState[id], verified: reviewState[id].verified ?? [], unchecked: reviewState[id].unchecked ?? [], unsure: reviewState[id].unsure ?? [] } };
     }
-    return state[id];
+    return reviewState[id];
   }
 
   // Per-aircraft review status used by the dropdown and the header counter.
@@ -266,7 +266,7 @@
   // (fetchedCount is set and exceeds marks). Unknown count is treated as
   // reviewed - no nagging hint.
   function reviewStatus(id: string): 'unreviewed' | 'partial' | 'reviewed' {
-    const e = state[id];
+    const e = reviewState[id];
     const ac = e?.approved?.length ?? 0;
     const rc = e?.rejected?.length ?? 0;
     const uc = e?.unchecked?.length ?? 0;
@@ -294,7 +294,7 @@
     // Mark as visually checked - drop from the unchecked + unsure queues.
     const nextUnchecked = (e.unchecked ?? []).filter((u) => !sameUrl(u, url));
     const nextUnsure = (e.unsure ?? []).filter((u) => !sameUrl(u, url));
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: e.verified ?? [], unchecked: nextUnchecked, unsure: nextUnsure, fetchedCount: e.fetchedCount } };
+    reviewState = { ...reviewState, [id]: { approved: nextApproved, rejected: nextRejected, verified: e.verified ?? [], unchecked: nextUnchecked, unsure: nextUnsure, fetchedCount: e.fetchedCount } };
     persist();
     advanceCursor();
   }
@@ -311,7 +311,7 @@
     const nextVerified = (e.verified ?? []).filter((u) => !sameUrl(u, url));
     const nextUnchecked = (e.unchecked ?? []).filter((u) => !sameUrl(u, url));
     const nextUnsure = (e.unsure ?? []).filter((u) => !sameUrl(u, url));
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected, verified: nextVerified, unchecked: nextUnchecked, unsure: nextUnsure, fetchedCount: e.fetchedCount } };
+    reviewState = { ...reviewState, [id]: { approved: nextApproved, rejected: nextRejected, verified: nextVerified, unchecked: nextUnchecked, unsure: nextUnsure, fetchedCount: e.fetchedCount } };
     persist();
     advanceCursor();
   }
@@ -342,7 +342,7 @@
   const verifyQueue = $derived.by<VerifyItem[]>(() => {
     const items: VerifyItem[] = [];
     for (const a of aircraft) {
-      const e = state[a.id];
+      const e = reviewState[a.id];
       if (!e) continue;
       const verified = new Set(e.verified ?? []);
       for (const url of e.approved) {
@@ -354,10 +354,10 @@
     return items;
   });
   const verifyTotalApproved = $derived(
-    Object.values(state).reduce((n, e) => n + (e.approved ?? []).length, 0),
+    Object.values(reviewState).reduce((n, e) => n + (e.approved ?? []).length, 0),
   );
   const verifyTotalVerified = $derived(
-    Object.values(state).reduce(
+    Object.values(reviewState).reduce(
       (n, e) => n + (e.verified ?? []).filter((u) => (e.approved ?? []).includes(u)).length,
       0,
     ),
@@ -375,12 +375,12 @@
   // LIFO history of verify-mode mutations. Each entry is a full state +
   // cursor snapshot, captured *before* the action; verifyUndo() restores it.
   // State is small (kbs), cap at 30 to keep memory trivial.
-  type VerifySnapshot = { state: Record<string, ReviewEntry>; cursor: number; showAll: boolean };
+  type VerifySnapshot = { reviewState: Record<string, ReviewEntry>; cursor: number; showAll: boolean };
   let verifyHistory: VerifySnapshot[] = $state([]);
   const VERIFY_HISTORY_MAX = 30;
   function snapshotForUndo() {
     const cloned: Record<string, ReviewEntry> = {};
-    for (const [id, e] of Object.entries(state)) {
+    for (const [id, e] of Object.entries(reviewState)) {
       cloned[id] = {
         approved: [...e.approved],
         rejected: [...e.rejected],
@@ -390,14 +390,14 @@
         ...(e.fetchedCount !== undefined ? { fetchedCount: e.fetchedCount } : {}),
       };
     }
-    const next = [...verifyHistory, { state: cloned, cursor: verifyCursor, showAll: verifyShowAll }];
+    const next = [...verifyHistory, { reviewState: cloned, cursor: verifyCursor, showAll: verifyShowAll }];
     if (next.length > VERIFY_HISTORY_MAX) next.shift();
     verifyHistory = next;
   }
   function verifyUndo() {
     if (verifyHistory.length === 0) return;
     const last = verifyHistory[verifyHistory.length - 1];
-    state = last.state;
+    reviewState = last.reviewState;
     verifyShowAll = last.showAll;
     verifyCursor = last.cursor;
     verifyHistory = verifyHistory.slice(0, -1);
@@ -410,7 +410,7 @@
     const { id, url } = verifyCurrent;
     const e = ensureEntry(id);
     if (!(e.verified ?? []).includes(url)) {
-      state = { ...state, [id]: { ...e, verified: [...(e.verified ?? []), url] } };
+      reviewState = { ...reviewState, [id]: { ...e, verified: [...(e.verified ?? []), url] } };
       persist();
     }
     if (!verifyShowAll) {
@@ -428,8 +428,8 @@
     snapshotForUndo();
     const fromEntry = ensureEntry(fromId);
     const toEntry = ensureEntry(reassignTarget);
-    state = {
-      ...state,
+    reviewState = {
+      ...reviewState,
       [fromId]: {
         approved: fromEntry.approved.filter((u) => u !== url),
         rejected: fromEntry.rejected,
@@ -461,8 +461,8 @@
     snapshotForUndo();
     const { id, url } = verifyCurrent;
     const e = ensureEntry(id);
-    state = {
-      ...state,
+    reviewState = {
+      ...reviewState,
       [id]: {
         approved: e.approved.filter((u) => u !== url),
         rejected: e.rejected.includes(url) ? e.rejected : [...e.rejected, url],
@@ -483,8 +483,8 @@
     snapshotForUndo();
     const { id, url } = verifyCurrent;
     const e = ensureEntry(id);
-    state = {
-      ...state,
+    reviewState = {
+      ...reviewState,
       [id]: { ...e, verified: (e.verified ?? []).filter((u) => u !== url) },
     };
     persist();
@@ -497,7 +497,7 @@
     if (verifyCursor > 0) verifyCursor -= 1;
   }
 
-  function buildExport() { return state; }
+  function buildExport() { return reviewState; }
   function exportData() {
     exportText = JSON.stringify(buildExport(), null, 2);
     navigator.clipboard?.writeText(exportText).catch(() => {});
@@ -515,8 +515,8 @@
   // The user drops the downloaded file into src/data/aircraft-photos.json and rebuilds.
   function downloadGamePool() {
     const photos: Record<string, string[]> = {};
-    for (const id of Object.keys(state)) {
-      const verified = state[id]?.verified ?? [];
+    for (const id of Object.keys(reviewState)) {
+      const verified = reviewState[id]?.verified ?? [];
       if (verified.length > 0) photos[id] = [...verified];
     }
     const blob = new Blob([JSON.stringify(photos, null, 2) + '\n'], { type: 'application/json' });
@@ -546,7 +546,7 @@
   function applyImport() {
     try {
       const data = JSON.parse(importText) as Record<string, any>;
-      state = { ...state, ...sanitizeState(data) };
+      reviewState = { ...reviewState, ...sanitizeState(data) };
       persist();
       importText = '';
       showImport = false;
@@ -670,7 +670,7 @@
       }}
     >
       {#each aircraft as a, i}
-        {@const e = state[a.id]}
+        {@const e = reviewState[a.id]}
         {@const ac = e?.approved?.length ?? 0}
         {@const rc = e?.rejected?.length ?? 0}
         {@const uc = e?.unchecked?.length ?? 0}

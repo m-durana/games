@@ -399,7 +399,9 @@
 
         <div class="photo-stage">
           {#if photoUrl}
-            <img src={photoUrl} alt="Aircraft to identify" class="photo zoomable" onclick={() => (lightboxOpen = true)} />
+            <button class="photo-open" type="button" onclick={() => (lightboxOpen = true)} aria-label="Open aircraft photo">
+              <img src={photoUrl} alt="Aircraft to identify" class="photo zoomable" />
+            </button>
             {#if hasMultiplePhotos && !revealed}
               <button class="photo-cycle" onclick={cyclePhoto} aria-label="Show a different photo of this aircraft">
                 Different photo ({(photoIndex % photoUrls.length) + 1}/{photoUrls.length})
@@ -539,6 +541,14 @@
     height: 100%;
     object-fit: contain;
     background: #0c0e11;
+  }
+  .photo-open {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: #0c0e11;
+    cursor: zoom-in;
   }
   .photo.zoomable { cursor: zoom-in; }
   .photo-loading {

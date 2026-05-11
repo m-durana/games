@@ -29,9 +29,9 @@
       return out;
     } catch { return {}; }
   }
-  function persist() { localStorage.setItem(KEY, JSON.stringify(state)); }
+  function persist() { localStorage.setItem(KEY, JSON.stringify(reviewState)); }
 
-  let state: Record<string, ReviewEntry> = $state(loadState());
+  let reviewState: Record<string, ReviewEntry> = $state(loadState());
   let index = $state(0);
   let images: string[] = $state([]);
   let loading = $state(true);
@@ -46,7 +46,7 @@
 
   const current = $derived(military[index]);
   const entry = $derived<ReviewEntry>(
-    state[current?.id] ?? { approved: [], rejected: [] },
+    reviewState[current?.id] ?? { approved: [], rejected: [] },
   );
   const currentPhoto = $derived(images[cursor] ?? null);
   const isApproved = $derived(
@@ -56,10 +56,10 @@
     currentPhoto !== null && entry.rejected.includes(currentPhoto),
   );
   const aircraftWithAnyApproval = $derived(
-    Object.values(state).filter((e) => (e.approved ?? []).length > 0).length,
+    Object.values(reviewState).filter((e) => (e.approved ?? []).length > 0).length,
   );
   const totalApprovedPhotos = $derived(
-    Object.values(state).reduce((n, e) => n + (e.approved ?? []).length, 0),
+    Object.values(reviewState).reduce((n, e) => n + (e.approved ?? []).length, 0),
   );
 
   $effect(() => {
@@ -82,8 +82,8 @@
   }
 
   function ensureEntry(id: string): ReviewEntry {
-    if (!state[id]) state = { ...state, [id]: { approved: [], rejected: [] } };
-    return state[id];
+    if (!reviewState[id]) reviewState = { ...reviewState, [id]: { approved: [], rejected: [] } };
+    return reviewState[id];
   }
 
   function advanceCursor() {
@@ -97,7 +97,7 @@
     const url = currentPhoto;
     const nextApproved = e.approved.includes(url) ? e.approved : [...e.approved, url];
     const nextRejected = e.rejected.filter((u) => u !== url);
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected } };
+    reviewState = { ...reviewState, [id]: { approved: nextApproved, rejected: nextRejected } };
     persist();
     advanceCursor();
   }
@@ -109,7 +109,7 @@
     const url = currentPhoto;
     const nextRejected = e.rejected.includes(url) ? e.rejected : [...e.rejected, url];
     const nextApproved = e.approved.filter((u) => u !== url);
-    state = { ...state, [id]: { approved: nextApproved, rejected: nextRejected } };
+    reviewState = { ...reviewState, [id]: { approved: nextApproved, rejected: nextRejected } };
     persist();
     advanceCursor();
   }
@@ -119,7 +119,7 @@
   function next() { if (index < military.length - 1) index += 1; }
   function prev() { if (index > 0) index -= 1; }
 
-  function buildExport() { return state; }
+  function buildExport() { return reviewState; }
   function exportData() {
     exportText = JSON.stringify(buildExport(), null, 2);
     navigator.clipboard?.writeText(exportText).catch(() => {});
@@ -153,12 +153,12 @@
     try {
       type AnyEntry = { approved?: string[]; approvedUrl?: string; rejected?: string[] };
       const data = JSON.parse(importText) as Record<string, AnyEntry>;
-      const merged = { ...state };
+      const merged = { ...reviewState };
       for (const [id, e] of Object.entries(data)) {
         const approved = e.approved ?? (e.approvedUrl ? [e.approvedUrl] : []);
         merged[id] = { approved, rejected: e.rejected ?? [] };
       }
-      state = merged;
+      reviewState = merged;
       persist();
       importText = '';
       showImport = false;
@@ -196,7 +196,7 @@
       }}
     >
       {#each military as a, i}
-        {@const e = state[a.id]}
+        {@const e = reviewState[a.id]}
         {@const ac = e?.approved?.length ?? 0}
         {@const rc = e?.rejected?.length ?? 0}
         <option value={a.id}>

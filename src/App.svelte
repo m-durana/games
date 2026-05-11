@@ -596,7 +596,7 @@
           <span class="gear-icon" aria-hidden="true"></span>
         </button>
         {#if menuOpen}
-          <div class="menu" role="menu" onclick={(e) => e.stopPropagation()}>
+          <div class="menu" role="menu" tabindex="0" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()}>
             <button onclick={showBrowse}>Liveries</button>
             <button onclick={showStats}>Stats</button>
             <button onclick={showSettings}>Settings</button>
