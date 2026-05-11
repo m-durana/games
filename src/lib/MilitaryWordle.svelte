@@ -478,7 +478,7 @@
                   onclick={() => toggleInfo(fb.label)}
                   aria-expanded={infoLabel === fb.label}
                   title="What does this attribute mean?"
-                >{fb.label} <span class="info-mark" aria-hidden="true">ⓘ</span></button>
+                ><span class="cell-label-text">{fb.label}</span><span class="info-mark" aria-hidden="true">ⓘ</span></button>
               {/each}
             </div>
             {#if infoLabel && infoMap[infoLabel]}
@@ -633,7 +633,7 @@
   .board { display: flex; flex-direction: column; gap: 0; }
   .board-head, .board-row {
     display: grid;
-    grid-template-columns: 1.6fr repeat(var(--cols, 6), 0.9fr);
+    grid-template-columns: minmax(96px, 1.05fr) repeat(var(--cols, 6), minmax(72px, 1fr));
     gap: 1px;
     background: var(--bezel-lo);
   }
@@ -644,12 +644,12 @@
   .cell-label {
     font-family: var(--mono);
     font-size: 0.6rem;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
     color: var(--label-dim);
     text-transform: uppercase;
     font-weight: 700;
     background: var(--panel-2);
-    padding: 0.5rem 0.5rem;
+    padding: 0.45rem 0.3rem;
     text-align: center;
     cursor: pointer;
     min-height: 32px;
@@ -658,11 +658,12 @@
     justify-content: center;
     border: none;
   }
-  .cell-label:first-child { text-align: left; padding-left: 0.4rem; justify-content: flex-start; }
-  .cell-label-btn { white-space: nowrap; }
+  .cell-label:first-child { text-align: left; padding-left: 0.3rem; justify-content: flex-start; }
+  .cell-label-btn { gap: 0.15rem; padding-left: 0.2rem; padding-right: 0.2rem; white-space: nowrap; }
+  .cell-label-text { flex: 0 0 auto; white-space: nowrap; }
   .cell-label-btn:hover { color: var(--led-cyan); }
   .cell-label-btn.active { color: var(--led-cyan); background: var(--panel); }
-  .info-mark { flex: 0 0 auto; font-size: 0.6rem; opacity: 0.7; margin-left: 0.2rem; }
+  .info-mark { flex: 0 0 auto; font-size: 0.55rem; opacity: 0.7; }
 
   .guess-name {
     font-family: var(--sans);
