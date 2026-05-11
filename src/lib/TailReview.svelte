@@ -358,7 +358,7 @@
           </label>
           <div class="crop-preview-row">
             <span class="muted">Preview:</span>
-            <div class="cropframe" style="aspect-ratio:{cropBox.w / cropBox.h};">
+            <div class="cropframe" style="aspect-ratio:{(cropBox.w * cropImgRatio) / cropBox.h};">
               <img
                 src={cropping.url}
                 alt=""

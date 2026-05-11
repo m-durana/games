@@ -125,6 +125,71 @@
   let results: RoundResult[] = $state(initial.results);
   let streak = $state(initial.streak);
   let advanceTimer: number | null = null;
+  let tailImageRatios: Record<string, number> = $state({});
+
+  interface CropRect {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+  }
+
+  function clamp(n: number, min: number, max: number): number {
+    return Math.min(max, Math.max(min, n));
+  }
+
+  function expandCropToFrame(crop: CropRect, imageRatio: number, frameRatio: number): CropRect {
+    const cx = crop.x + crop.w / 2;
+    const cy = crop.y + crop.h / 2;
+    const cropRatio = (crop.w * imageRatio) / crop.h;
+    let w = crop.w;
+    let h = crop.h;
+
+    if (cropRatio < frameRatio) {
+      w = crop.h * frameRatio / imageRatio;
+    } else {
+      h = crop.w * imageRatio / frameRatio;
+    }
+
+    if (w > 1) {
+      w = 1;
+      h = imageRatio / frameRatio;
+    }
+    if (h > 1) {
+      h = 1;
+      w = frameRatio / imageRatio;
+    }
+
+    w = clamp(w, 0.001, 1);
+    h = clamp(h, 0.001, 1);
+
+    return {
+      x: clamp(cx - w / 2, 0, 1 - w),
+      y: clamp(cy - h / 2, 0, 1 - h),
+      w,
+      h,
+    };
+  }
+
+  function recordTailImageRatio(src: string, event: Event) {
+    const img = event.currentTarget as HTMLImageElement;
+    if (!img.naturalWidth || !img.naturalHeight) return;
+    tailImageRatios = {
+      ...tailImageRatios,
+      [src]: img.naturalWidth / img.naturalHeight,
+    };
+  }
+
+  function tailCropStyle(crop: CropRect, imageRatio: number | undefined): string {
+    const r = imageRatio ?? 1;
+    const frameRatio = 16 / 9;
+    const displayCrop = expandCropToFrame(crop, r, frameRatio);
+    const width = 100 / displayCrop.w;
+    const height = 100 / displayCrop.h;
+    const left = (-displayCrop.x / displayCrop.w) * 100;
+    const top = (-displayCrop.y / displayCrop.h) * 100;
+    return `width:${width}%; height:${height}%; left:${left}%; top:${top}%;`;
+  }
 
   const AIRLINE_MODES = new Set<Mode>(['group','alliance','hub','logo','country','reverseGroup','tail']);
   // svelte-ignore state_referenced_locally
@@ -336,12 +401,14 @@
           {@const t = tailEntry(current.airline.iata)}
           {#if t}
             {#if t.crop}
+              {@const tailSrc = t.thumb ?? t.url}
               <div class="tail-stage">
                 <img
-                  src={t.thumb ?? t.url}
+                  src={tailSrc}
                   alt="Aircraft tail"
                   class="tail-crop"
-                  style="width:{100 / t.crop.w}%; height:{100 / t.crop.h}%; left:{(-t.crop.x / t.crop.w) * 100}%; top:{(-t.crop.y / t.crop.h) * 100}%;"
+                  style={tailCropStyle(t.crop, tailImageRatios[tailSrc])}
+                  onload={(event) => recordTailImageRatio(tailSrc, event)}
                 />
               </div>
             {:else}
@@ -672,7 +739,7 @@
     background: var(--panel-2);
   }
   .tail-stage img.tail-fill { width: 100%; height: 100%; object-fit: cover; }
-  .tail-stage img.tail-crop { position: absolute; max-width: none; object-fit: cover; }
+  .tail-stage img.tail-crop { position: absolute; max-width: none; }
 
   .prompt-block {
     display: flex;
