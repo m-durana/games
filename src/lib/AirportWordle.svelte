@@ -422,7 +422,7 @@
         </p>
 
         {#if guesses.length > 0}
-          <div class="board">
+          <div class="board" style={`--cols: ${guesses[0].feedback.length};`}>
             <div class="board-head">
               <span class="cell-label">Airport</span>
               {#each guesses[0].feedback as fb}
