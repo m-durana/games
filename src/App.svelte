@@ -148,6 +148,7 @@
   let menuOpen = $state(false);
   let toastQueue: Achievement[] = $state([]);
   let pendingStart: { entry: ProgressEntry; proceed: () => void } | null = $state(null);
+  let routingReady = $state(false);
 
   function maybeStart(key: string, proceed: () => void) {
     const entry = getProgress(key);
@@ -495,6 +496,7 @@
   }
 
   $effect(() => {
+    if (!routingReady) return;
     const target = viewHash(view);
     if (target === null || typeof window === 'undefined') return;
     const cur = window.location.hash;
@@ -562,6 +564,7 @@
         const fromHash = parseHash(window.location.hash);
         if (fromHash) view = fromHash;
       }
+      routingReady = true;
       const onPop = () => {
         const v = parseHash(window.location.hash);
         if (v) view = v;

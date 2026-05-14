@@ -1,0 +1,2546 @@
+[
+  {
+    "iata": "ABJ",
+    "name": "Abidjan",
+    "country": "Ivory Coast"
+  },
+  {
+    "iata": "ABV",
+    "name": "Nnamdi Azikiwe",
+    "country": "Nigeria",
+    "city": "Abuja",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 5.5,
+    "hubAlliance": "Independent",
+    "lat": 9.00679,
+    "wikipedia": "Nnamdi Azikiwe International Airport",
+    "commonsCategory": "Nnamdi Azikiwe International Airport"
+  },
+  {
+    "iata": "ACA",
+    "name": "Acapulco",
+    "country": "Mexico"
+  },
+  {
+    "iata": "ACC",
+    "name": "Accra",
+    "country": "Ghana"
+  },
+  {
+    "iata": "ADB",
+    "name": "İzmir",
+    "country": "Turkey"
+  },
+  {
+    "iata": "ADD",
+    "name": "Addis Ababa Bole",
+    "country": "Ethiopia",
+    "city": "Addis Ababa",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 12,
+    "hubAlliance": "Star Alliance",
+    "lat": 8.9778,
+    "wikipedia": "Addis Ababa Bole International Airport",
+    "commonsCategory": "Addis Ababa Bole International Airport"
+  },
+  {
+    "iata": "ADL",
+    "name": "Adelaide",
+    "country": "Australia",
+    "city": "Adelaide",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 8.0,
+    "hubAlliance": "Independent",
+    "lat": -34.945,
+    "wikipedia": "Adelaide Airport",
+    "commonsCategory": "Adelaide Airport"
+  },
+  {
+    "iata": "AEP",
+    "name": "Buenos Aires Aeroparque",
+    "country": "Argentina"
+  },
+  {
+    "iata": "AGP",
+    "name": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "iata": "AKL",
+    "name": "Auckland",
+    "country": "New Zealand",
+    "city": "Auckland",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 18.9,
+    "hubAlliance": "Star Alliance",
+    "lat": -37.0082,
+    "wikipedia": "Auckland Airport",
+    "commonsCategory": "Auckland Airport"
+  },
+  {
+    "iata": "ALA",
+    "name": "Almaty",
+    "country": "Kazakhstan",
+    "city": "Almaty",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 8.5,
+    "hubAlliance": "Independent",
+    "lat": 43.3521,
+    "wikipedia": "Almaty International Airport",
+    "commonsCategory": "Almaty International Airport"
+  },
+  {
+    "iata": "ALG",
+    "name": "Algiers Houari Boumediene",
+    "country": "Algeria",
+    "city": "Algiers",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 10.0,
+    "hubAlliance": "Independent",
+    "lat": 36.6911,
+    "wikipedia": "Houari Boumediene Airport",
+    "commonsCategory": "Houari Boumediene Airport"
+  },
+  {
+    "iata": "AMD",
+    "name": "Ahmedabad",
+    "country": "India"
+  },
+  {
+    "iata": "AMM",
+    "name": "Amman Queen Alia",
+    "country": "Jordan",
+    "city": "Amman",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 9.3,
+    "hubAlliance": "oneworld",
+    "lat": 31.7226,
+    "wikipedia": "Queen Alia International Airport",
+    "commonsCategory": "Queen Alia International Airport"
+  },
+  {
+    "iata": "AMS",
+    "name": "Amsterdam Schiphol",
+    "country": "Netherlands",
+    "city": "Amsterdam",
+    "runways": 6,
+    "terminals": 1,
+    "paxYearlyM": 66.8,
+    "hubAlliance": "SkyTeam",
+    "lat": 52.3105,
+    "wikipedia": "Amsterdam Airport Schiphol",
+    "commonsCategory": "Amsterdam Airport Schiphol"
+  },
+  {
+    "iata": "ARN",
+    "name": "Stockholm Arlanda",
+    "country": "Sweden",
+    "city": "Stockholm",
+    "runways": 3,
+    "terminals": 4,
+    "paxYearlyM": 26.2,
+    "hubAlliance": "SkyTeam",
+    "lat": 59.6519,
+    "wikipedia": "Stockholm Arlanda Airport",
+    "commonsCategory": "Stockholm-Arlanda Airport"
+  },
+  {
+    "iata": "ASU",
+    "name": "Asunción",
+    "country": "Paraguay"
+  },
+  {
+    "iata": "ASW",
+    "name": "Aswan",
+    "country": "Egypt"
+  },
+  {
+    "iata": "ATH",
+    "name": "Athens",
+    "country": "Greece",
+    "city": "Athens",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 31.9,
+    "hubAlliance": "Star Alliance",
+    "lat": 37.9364,
+    "wikipedia": "Athens International Airport",
+    "commonsCategory": "Athens International Airport"
+  },
+  {
+    "iata": "ATL",
+    "name": "Atlanta",
+    "country": "United States",
+    "city": "Atlanta",
+    "runways": 5,
+    "terminals": 2,
+    "paxYearlyM": 106.3,
+    "hubAlliance": "SkyTeam",
+    "lat": 33.6407,
+    "wikipedia": "Hartsfield–Jackson Atlanta International Airport",
+    "commonsCategory": "Hartsfield-Jackson Atlanta International Airport"
+  },
+  {
+    "iata": "AUH",
+    "name": "Abu Dhabi",
+    "country": "United Arab Emirates",
+    "city": "Abu Dhabi",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 29.5,
+    "hubAlliance": "Independent",
+    "lat": 24.433,
+    "wikipedia": "Zayed International Airport",
+    "commonsCategory": "Zayed International Airport"
+  },
+  {
+    "iata": "AUS",
+    "name": "Austin",
+    "country": "United States"
+  },
+  {
+    "iata": "AYT",
+    "name": "Antalya",
+    "country": "Turkey",
+    "city": "Antalya",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 38.1,
+    "hubAlliance": "Independent",
+    "lat": 36.8987,
+    "wikipedia": "Antalya Airport",
+    "commonsCategory": "Antalya Airport"
+  },
+  {
+    "iata": "BAH",
+    "name": "Bahrain",
+    "country": "Bahrain",
+    "city": "Bahrain",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 9.4,
+    "hubAlliance": "oneworld",
+    "lat": 26.2708,
+    "wikipedia": "Bahrain International Airport",
+    "commonsCategory": "Bahrain International Airport"
+  },
+  {
+    "iata": "BCN",
+    "name": "Barcelona El Prat",
+    "country": "Spain",
+    "city": "Barcelona",
+    "runways": 3,
+    "terminals": 2,
+    "paxYearlyM": 55.0,
+    "hubAlliance": "Independent",
+    "lat": 41.2974,
+    "wikipedia": "Barcelona–El Prat Airport",
+    "commonsCategory": "Barcelona-El Prat Airport"
+  },
+  {
+    "iata": "BEG",
+    "name": "Belgrade",
+    "country": "Serbia",
+    "city": "Belgrade",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 8.4,
+    "hubAlliance": "Independent",
+    "lat": 44.8184,
+    "wikipedia": "Belgrade Nikola Tesla Airport",
+    "commonsCategory": "Belgrade Nikola Tesla Airport"
+  },
+  {
+    "iata": "BER",
+    "name": "Berlin Brandenburg",
+    "country": "Germany",
+    "city": "Berlin",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 25.5,
+    "hubAlliance": "Independent",
+    "lat": 52.3667,
+    "wikipedia": "Berlin Brandenburg Airport",
+    "commonsCategory": "Berlin Brandenburg Airport"
+  },
+  {
+    "iata": "BEY",
+    "name": "Beirut Rafic Hariri",
+    "country": "Lebanon",
+    "city": "Beirut",
+    "runways": 3,
+    "terminals": 1,
+    "paxYearlyM": 7.0,
+    "hubAlliance": "Star Alliance",
+    "lat": 33.8208,
+    "wikipedia": "Beirut–Rafic Hariri International Airport",
+    "commonsCategory": "Beirut–Rafic Hariri International Airport"
+  },
+  {
+    "iata": "BGO",
+    "name": "Bergen",
+    "country": "Norway"
+  },
+  {
+    "iata": "BGY",
+    "name": "Milan Bergamo",
+    "country": "Italy",
+    "city": "Bergamo",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 17.4,
+    "hubAlliance": "Independent",
+    "lat": 45.6689,
+    "wikipedia": "Milan Bergamo Airport",
+    "commonsCategory": "Milan Bergamo Airport"
+  },
+  {
+    "iata": "BHX",
+    "name": "Birmingham",
+    "country": "United Kingdom"
+  },
+  {
+    "iata": "BJL",
+    "name": "Banjul",
+    "country": "Gambia"
+  },
+  {
+    "iata": "BKI",
+    "name": "Kota Kinabalu",
+    "country": "Malaysia"
+  },
+  {
+    "iata": "BKK",
+    "name": "Bangkok Suvarnabhumi",
+    "country": "Thailand",
+    "city": "Bangkok",
+    "runways": 3,
+    "terminals": 1,
+    "paxYearlyM": 62.2,
+    "hubAlliance": "Star Alliance",
+    "lat": 13.69,
+    "wikipedia": "Suvarnabhumi Airport",
+    "commonsCategory": "Suvarnabhumi Airport"
+  },
+  {
+    "iata": "BLQ",
+    "name": "Bologna",
+    "country": "Italy"
+  },
+  {
+    "iata": "BLR",
+    "name": "Bengaluru Kempegowda",
+    "country": "India",
+    "city": "Bengaluru",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 41.9,
+    "hubAlliance": "Star Alliance",
+    "lat": 13.1986,
+    "wikipedia": "Kempegowda International Airport",
+    "commonsCategory": "Kempegowda International Airport"
+  },
+  {
+    "iata": "BMA",
+    "name": "Stockholm Bromma",
+    "country": "Sweden"
+  },
+  {
+    "iata": "BNA",
+    "name": "Nashville",
+    "country": "United States"
+  },
+  {
+    "iata": "BNE",
+    "name": "Brisbane",
+    "country": "Australia",
+    "city": "Brisbane",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 22.2,
+    "hubAlliance": "oneworld",
+    "lat": -27.3842,
+    "wikipedia": "Brisbane Airport",
+    "commonsCategory": "Brisbane Airport"
+  },
+  {
+    "iata": "BOG",
+    "name": "Bogotá El Dorado",
+    "country": "Colombia",
+    "city": "Bogotá",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 45.8,
+    "hubAlliance": "Star Alliance",
+    "lat": 4.7016,
+    "wikipedia": "El Dorado International Airport",
+    "commonsCategory": "El Dorado International Airport"
+  },
+  {
+    "iata": "BOM",
+    "name": "Mumbai Chhatrapati Shivaji",
+    "country": "India",
+    "city": "Mumbai",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 54.8,
+    "hubAlliance": "Star Alliance",
+    "lat": 19.0896,
+    "wikipedia": "Chhatrapati Shivaji Maharaj International Airport",
+    "commonsCategory": "Chhatrapati Shivaji Maharaj International Airport"
+  },
+  {
+    "iata": "BOS",
+    "name": "Boston",
+    "country": "United States"
+  },
+  {
+    "iata": "BRU",
+    "name": "Brussels",
+    "country": "Belgium",
+    "city": "Brussels",
+    "runways": 3,
+    "terminals": 1,
+    "paxYearlyM": 23.6,
+    "hubAlliance": "Star Alliance",
+    "lat": 50.9014,
+    "wikipedia": "Brussels Airport",
+    "commonsCategory": "Brussels Airport"
+  },
+  {
+    "iata": "BSB",
+    "name": "Brasília",
+    "country": "Brazil",
+    "city": "Brasília",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 16.0,
+    "hubAlliance": "Independent",
+    "lat": -15.8697,
+    "wikipedia": "Brasília International Airport",
+    "commonsCategory": "Brasília International Airport"
+  },
+  {
+    "iata": "BSL",
+    "name": "Basel",
+    "country": "Switzerland"
+  },
+  {
+    "iata": "BUD",
+    "name": "Budapest",
+    "country": "Hungary",
+    "city": "Budapest",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 17.5,
+    "hubAlliance": "Independent",
+    "lat": 47.4369,
+    "wikipedia": "Budapest Ferenc Liszt International Airport",
+    "commonsCategory": "Budapest Ferenc Liszt International Airport"
+  },
+  {
+    "iata": "BWI",
+    "name": "Baltimore",
+    "country": "United States"
+  },
+  {
+    "iata": "BWN",
+    "name": "Bandar Seri Begawan",
+    "country": "Brunei",
+    "city": "Bandar Seri Begawan",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 1.3,
+    "hubAlliance": "Independent",
+    "lat": 4.9442,
+    "wikipedia": "Brunei International Airport",
+    "commonsCategory": "Brunei International Airport"
+  },
+  {
+    "iata": "CAI",
+    "name": "Cairo",
+    "country": "Egypt",
+    "city": "Cairo",
+    "runways": 3,
+    "terminals": 4,
+    "paxYearlyM": 30.9,
+    "hubAlliance": "Star Alliance",
+    "lat": 30.1219,
+    "wikipedia": "Cairo International Airport",
+    "commonsCategory": "Cairo International Airport"
+  },
+  {
+    "iata": "CAN",
+    "name": "Guangzhou Baiyun",
+    "country": "China",
+    "city": "Guangzhou",
+    "runways": 5,
+    "terminals": 3,
+    "paxYearlyM": 83.6,
+    "hubAlliance": "SkyTeam",
+    "lat": 23.3924,
+    "wikipedia": "Guangzhou Baiyun International Airport",
+    "commonsCategory": "Guangzhou Baiyun International Airport"
+  },
+  {
+    "iata": "CBR",
+    "name": "Canberra",
+    "country": "Australia"
+  },
+  {
+    "iata": "CCS",
+    "name": "Caracas",
+    "country": "Venezuela"
+  },
+  {
+    "iata": "CCU",
+    "name": "Kolkata",
+    "country": "India"
+  },
+  {
+    "iata": "CDG",
+    "name": "Paris CDG",
+    "country": "France",
+    "city": "Paris",
+    "runways": 4,
+    "terminals": 3,
+    "paxYearlyM": 70.3,
+    "hubAlliance": "SkyTeam",
+    "lat": 49.0097,
+    "wikipedia": "Paris Charles de Gaulle Airport",
+    "commonsCategory": "Paris Charles de Gaulle Airport"
+  },
+  {
+    "iata": "CEB",
+    "name": "Cebu",
+    "country": "Philippines"
+  },
+  {
+    "iata": "CGK",
+    "name": "Jakarta Soekarno-Hatta",
+    "country": "Indonesia",
+    "city": "Jakarta",
+    "runways": 3,
+    "terminals": 3,
+    "paxYearlyM": 51,
+    "hubAlliance": "SkyTeam",
+    "lat": -6.1256,
+    "wikipedia": "Soekarno–Hatta International Airport",
+    "commonsCategory": "Soekarno-Hatta International Airport"
+  },
+  {
+    "iata": "CGN",
+    "name": "Cologne",
+    "country": "Germany"
+  },
+  {
+    "iata": "CHC",
+    "name": "Christchurch",
+    "country": "New Zealand"
+  },
+  {
+    "iata": "CJU",
+    "name": "Jeju",
+    "country": "South Korea",
+    "city": "Jeju",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 30.0,
+    "hubAlliance": "Independent",
+    "lat": 33.5104,
+    "wikipedia": "Jeju International Airport",
+    "commonsCategory": "Jeju International Airport"
+  },
+  {
+    "iata": "CKG",
+    "name": "Chongqing",
+    "country": "China"
+  },
+  {
+    "iata": "CLT",
+    "name": "Charlotte",
+    "country": "United States",
+    "city": "Charlotte",
+    "runways": 3,
+    "terminals": 1,
+    "paxYearlyM": 53.4,
+    "hubAlliance": "oneworld",
+    "lat": 35.214,
+    "wikipedia": "Charlotte Douglas International Airport",
+    "commonsCategory": "Charlotte Douglas International Airport"
+  },
+  {
+    "iata": "CMB",
+    "name": "Colombo Bandaranaike",
+    "country": "Sri Lanka",
+    "city": "Colombo",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 8.8,
+    "hubAlliance": "oneworld",
+    "lat": 7.1808,
+    "wikipedia": "Bandaranaike International Airport",
+    "commonsCategory": "Bandaranaike International Airport"
+  },
+  {
+    "iata": "CMN",
+    "name": "Casablanca Mohammed V",
+    "country": "Morocco",
+    "city": "Casablanca",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 10.3,
+    "hubAlliance": "oneworld",
+    "lat": 33.3675,
+    "wikipedia": "Mohammed V International Airport",
+    "commonsCategory": "Mohammed V International Airport"
+  },
+  {
+    "iata": "CNX",
+    "name": "Chiang Mai",
+    "country": "Thailand"
+  },
+  {
+    "iata": "COK",
+    "name": "Kochi",
+    "country": "India"
+  },
+  {
+    "iata": "COR",
+    "name": "Córdoba",
+    "country": "Argentina"
+  },
+  {
+    "iata": "CPH",
+    "name": "Copenhagen",
+    "country": "Denmark",
+    "city": "Copenhagen",
+    "runways": 3,
+    "terminals": 2,
+    "paxYearlyM": 30,
+    "hubAlliance": "SkyTeam",
+    "lat": 55.618,
+    "wikipedia": "Copenhagen Airport",
+    "commonsCategory": "Copenhagen Airport"
+  },
+  {
+    "iata": "CPT",
+    "name": "Cape Town",
+    "country": "South Africa",
+    "city": "Cape Town",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 12.0,
+    "hubAlliance": "Independent",
+    "lat": -33.9648,
+    "wikipedia": "Cape Town International Airport",
+    "commonsCategory": "Cape Town International Airport"
+  },
+  {
+    "iata": "CTA",
+    "name": "Catania",
+    "country": "Italy"
+  },
+  {
+    "iata": "CTS",
+    "name": "Sapporo New Chitose",
+    "country": "Japan",
+    "city": "Sapporo",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 22.0,
+    "hubAlliance": "Independent",
+    "lat": 42.7752,
+    "wikipedia": "New Chitose Airport",
+    "commonsCategory": "New Chitose Airport"
+  },
+  {
+    "iata": "CTU",
+    "name": "Chengdu",
+    "country": "China"
+  },
+  {
+    "iata": "CUN",
+    "name": "Cancún",
+    "country": "Mexico",
+    "city": "Cancún",
+    "runways": 2,
+    "terminals": 4,
+    "paxYearlyM": 32.0,
+    "hubAlliance": "Independent",
+    "lat": 21.0365,
+    "wikipedia": "Cancún International Airport",
+    "commonsCategory": "Cancún International Airport"
+  },
+  {
+    "iata": "DAC",
+    "name": "Dhaka Hazrat Shahjalal",
+    "country": "Bangladesh",
+    "city": "Dhaka",
+    "runways": 1,
+    "terminals": 3,
+    "paxYearlyM": 8.0,
+    "hubAlliance": "Independent",
+    "lat": 23.8431,
+    "wikipedia": "Hazrat Shahjalal International Airport",
+    "commonsCategory": "Hazrat Shahjalal International Airport"
+  },
+  {
+    "iata": "DAD",
+    "name": "Da Nang",
+    "country": "Vietnam"
+  },
+  {
+    "iata": "DAL",
+    "name": "Dallas Love Field",
+    "country": "United States",
+    "city": "Dallas",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 15.6,
+    "hubAlliance": "Independent",
+    "lat": 32.8471,
+    "wikipedia": "Dallas Love Field",
+    "commonsCategory": "Dallas Love Field"
+  },
+  {
+    "iata": "DAR",
+    "name": "Dar es Salaam",
+    "country": "Tanzania"
+  },
+  {
+    "iata": "DCA",
+    "name": "Washington Reagan",
+    "country": "United States"
+  },
+  {
+    "iata": "DEL",
+    "name": "Delhi Indira Gandhi",
+    "country": "India",
+    "city": "Delhi",
+    "runways": 4,
+    "terminals": 3,
+    "paxYearlyM": 79.2,
+    "hubAlliance": "Star Alliance",
+    "lat": 28.5562,
+    "wikipedia": "Indira Gandhi International Airport",
+    "commonsCategory": "Indira Gandhi International Airport"
+  },
+  {
+    "iata": "DEN",
+    "name": "Denver",
+    "country": "United States",
+    "city": "Denver",
+    "runways": 6,
+    "terminals": 1,
+    "paxYearlyM": 82.4,
+    "hubAlliance": "Star Alliance",
+    "lat": 39.8561,
+    "wikipedia": "Denver International Airport",
+    "commonsCategory": "Denver International Airport"
+  },
+  {
+    "iata": "DFW",
+    "name": "Dallas/Fort Worth",
+    "country": "United States",
+    "city": "Dallas",
+    "runways": 7,
+    "terminals": 5,
+    "paxYearlyM": 85.7,
+    "hubAlliance": "oneworld",
+    "lat": 32.8998,
+    "wikipedia": "Dallas/Fort Worth International Airport",
+    "commonsCategory": "Dallas/Fort Worth International Airport"
+  },
+  {
+    "iata": "DKR",
+    "name": "Dakar",
+    "country": "Senegal"
+  },
+  {
+    "iata": "DME",
+    "name": "Moscow Domodedovo",
+    "country": "Russia",
+    "city": "Moscow",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 16.5,
+    "hubAlliance": "Independent",
+    "lat": 55.4088,
+    "wikipedia": "Domodedovo International Airport",
+    "commonsCategory": "Domodedovo International Airport"
+  },
+  {
+    "iata": "DMM",
+    "name": "Dammam",
+    "country": "Saudi Arabia"
+  },
+  {
+    "iata": "DOH",
+    "name": "Doha Hamad",
+    "country": "Qatar",
+    "city": "Doha",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 54.3,
+    "hubAlliance": "oneworld",
+    "lat": 25.2731,
+    "wikipedia": "Hamad International Airport",
+    "commonsCategory": "Hamad International Airport"
+  },
+  {
+    "iata": "DPS",
+    "name": "Bali Ngurah Rai",
+    "country": "Indonesia",
+    "city": "Denpasar",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 21.0,
+    "hubAlliance": "Independent",
+    "lat": -8.7482,
+    "wikipedia": "Ngurah Rai International Airport",
+    "commonsCategory": "Ngurah Rai International Airport"
+  },
+  {
+    "iata": "DTW",
+    "name": "Detroit",
+    "country": "United States",
+    "city": "Detroit",
+    "runways": 6,
+    "terminals": 2,
+    "paxYearlyM": 31.7,
+    "hubAlliance": "SkyTeam",
+    "lat": 42.2124,
+    "wikipedia": "Detroit Metropolitan Airport",
+    "commonsCategory": "Detroit Metropolitan Wayne County Airport"
+  },
+  {
+    "iata": "DUB",
+    "name": "Dublin",
+    "country": "Ireland",
+    "city": "Dublin",
+    "runways": 3,
+    "terminals": 2,
+    "paxYearlyM": 33,
+    "hubAlliance": "Independent",
+    "lat": 53.4213,
+    "wikipedia": "Dublin Airport",
+    "commonsCategory": "Dublin Airport"
+  },
+  {
+    "iata": "DUR",
+    "name": "Durban",
+    "country": "South Africa"
+  },
+  {
+    "iata": "DUS",
+    "name": "Düsseldorf",
+    "country": "Germany",
+    "city": "Düsseldorf",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 19.4,
+    "hubAlliance": "Independent",
+    "lat": 51.2895,
+    "wikipedia": "Düsseldorf Airport",
+    "commonsCategory": "Düsseldorf Airport"
+  },
+  {
+    "iata": "DVO",
+    "name": "Davao",
+    "country": "Philippines"
+  },
+  {
+    "iata": "DXB",
+    "name": "Dubai",
+    "country": "United Arab Emirates",
+    "city": "Dubai",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 92.3,
+    "hubAlliance": "Independent",
+    "lat": 25.2532,
+    "wikipedia": "Dubai International Airport",
+    "commonsCategory": "Dubai International Airport"
+  },
+  {
+    "iata": "EDI",
+    "name": "Edinburgh",
+    "country": "United Kingdom",
+    "city": "Edinburgh",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 15.8,
+    "hubAlliance": "Independent",
+    "lat": 55.95,
+    "wikipedia": "Edinburgh Airport",
+    "commonsCategory": "Edinburgh Airport"
+  },
+  {
+    "iata": "ESB",
+    "name": "Ankara",
+    "country": "Turkey"
+  },
+  {
+    "iata": "EWR",
+    "name": "Newark",
+    "country": "United States"
+  },
+  {
+    "iata": "EZE",
+    "name": "Buenos Aires Ezeiza",
+    "country": "Argentina",
+    "city": "Buenos Aires",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 11,
+    "hubAlliance": "SkyTeam",
+    "lat": -34.8222,
+    "wikipedia": "Ministro Pistarini International Airport",
+    "commonsCategory": "Ministro Pistarini International Airport"
+  },
+  {
+    "iata": "FAO",
+    "name": "Faro",
+    "country": "Portugal"
+  },
+  {
+    "iata": "FCO",
+    "name": "Rome Fiumicino",
+    "country": "Italy",
+    "city": "Rome",
+    "runways": 3,
+    "terminals": 2,
+    "paxYearlyM": 40.5,
+    "hubAlliance": "SkyTeam",
+    "lat": 41.8003,
+    "wikipedia": "Leonardo da Vinci–Fiumicino Airport",
+    "commonsCategory": "Leonardo da Vinci-Fiumicino Airport"
+  },
+  {
+    "iata": "FLL",
+    "name": "Fort Lauderdale",
+    "country": "United States",
+    "city": "Fort Lauderdale",
+    "runways": 2,
+    "terminals": 4,
+    "paxYearlyM": 32.2,
+    "hubAlliance": "Independent",
+    "lat": 26.0726,
+    "wikipedia": "Fort Lauderdale–Hollywood International Airport",
+    "commonsCategory": "Fort Lauderdale-Hollywood International Airport"
+  },
+  {
+    "iata": "FOR",
+    "name": "Fortaleza",
+    "country": "Brazil"
+  },
+  {
+    "iata": "FRA",
+    "name": "Frankfurt",
+    "country": "Germany",
+    "city": "Frankfurt",
+    "runways": 4,
+    "terminals": 2,
+    "paxYearlyM": 61.6,
+    "hubAlliance": "Star Alliance",
+    "lat": 50.0379,
+    "wikipedia": "Frankfurt Airport",
+    "commonsCategory": "Frankfurt Airport"
+  },
+  {
+    "iata": "FUK",
+    "name": "Fukuoka",
+    "country": "Japan"
+  },
+  {
+    "iata": "GDL",
+    "name": "Guadalajara",
+    "country": "Mexico"
+  },
+  {
+    "iata": "GIG",
+    "name": "Rio de Janeiro",
+    "country": "Brazil"
+  },
+  {
+    "iata": "GLA",
+    "name": "Glasgow",
+    "country": "United Kingdom"
+  },
+  {
+    "iata": "GMP",
+    "name": "Seoul Gimpo",
+    "country": "South Korea",
+    "city": "Seoul",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 31.4,
+    "hubAlliance": "SkyTeam",
+    "lat": 37.5583,
+    "wikipedia": "Gimpo International Airport",
+    "commonsCategory": "Gimpo International Airport"
+  },
+  {
+    "iata": "GOI",
+    "name": "Goa",
+    "country": "India"
+  },
+  {
+    "iata": "GOT",
+    "name": "Gothenburg",
+    "country": "Sweden"
+  },
+  {
+    "iata": "GRU",
+    "name": "São Paulo Guarulhos",
+    "country": "Brazil",
+    "city": "São Paulo",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 47.2,
+    "hubAlliance": "Star Alliance",
+    "lat": -23.4356,
+    "wikipedia": "São Paulo–Guarulhos International Airport",
+    "commonsCategory": "São Paulo-Guarulhos International Airport"
+  },
+  {
+    "iata": "GUA",
+    "name": "Guatemala City",
+    "country": "Guatemala"
+  },
+  {
+    "iata": "GVA",
+    "name": "Geneva",
+    "country": "Switzerland",
+    "city": "Geneva",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 18.4,
+    "hubAlliance": "Star Alliance",
+    "lat": 46.2381,
+    "wikipedia": "Geneva Airport",
+    "commonsCategory": "Geneva Airport"
+  },
+  {
+    "iata": "GYD",
+    "name": "Baku Heydar Aliyev",
+    "country": "Azerbaijan",
+    "city": "Baku",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 7.5,
+    "hubAlliance": "Independent",
+    "lat": 40.4675,
+    "wikipedia": "Heydar Aliyev International Airport",
+    "commonsCategory": "Heydar Aliyev International Airport"
+  },
+  {
+    "iata": "GYE",
+    "name": "Guayaquil",
+    "country": "Ecuador"
+  },
+  {
+    "iata": "HAK",
+    "name": "Haikou Meilan",
+    "country": "China",
+    "city": "Haikou",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 26.9,
+    "hubAlliance": "Independent",
+    "lat": 19.9349,
+    "wikipedia": "Haikou Meilan International Airport",
+    "commonsCategory": "Haikou Meilan International Airport"
+  },
+  {
+    "iata": "HAM",
+    "name": "Hamburg Helmut Schmidt",
+    "country": "Germany",
+    "city": "Hamburg",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 14.8,
+    "hubAlliance": "Independent",
+    "lat": 53.6304,
+    "wikipedia": "Hamburg Airport",
+    "commonsCategory": "Hamburg Airport"
+  },
+  {
+    "iata": "HAN",
+    "name": "Hanoi Noi Bai",
+    "country": "Vietnam",
+    "city": "Hanoi",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 24.5,
+    "hubAlliance": "SkyTeam",
+    "lat": 21.2212,
+    "wikipedia": "Noi Bai International Airport",
+    "commonsCategory": "Noi Bai International Airport"
+  },
+  {
+    "iata": "HAV",
+    "name": "Havana",
+    "country": "Cuba"
+  },
+  {
+    "iata": "HEL",
+    "name": "Helsinki",
+    "country": "Finland",
+    "city": "Helsinki",
+    "runways": 3,
+    "terminals": 1,
+    "paxYearlyM": 17.0,
+    "hubAlliance": "oneworld",
+    "lat": 60.3172,
+    "wikipedia": "Helsinki Airport",
+    "commonsCategory": "Helsinki Airport"
+  },
+  {
+    "iata": "HGH",
+    "name": "Hangzhou Xiaoshan",
+    "country": "China"
+  },
+  {
+    "iata": "HKG",
+    "name": "Hong Kong",
+    "country": "Hong Kong",
+    "city": "Hong Kong",
+    "runways": 3,
+    "terminals": 2,
+    "paxYearlyM": 53.1,
+    "hubAlliance": "oneworld",
+    "lat": 22.308,
+    "wikipedia": "Hong Kong International Airport",
+    "commonsCategory": "Hong Kong International Airport"
+  },
+  {
+    "iata": "HKT",
+    "name": "Phuket",
+    "country": "Thailand",
+    "city": "Phuket",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 17.0,
+    "hubAlliance": "Independent",
+    "lat": 8.1132,
+    "wikipedia": "Phuket International Airport",
+    "commonsCategory": "Phuket International Airport"
+  },
+  {
+    "iata": "HND",
+    "name": "Tokyo Haneda",
+    "country": "Japan",
+    "city": "Tokyo",
+    "runways": 4,
+    "terminals": 3,
+    "paxYearlyM": 85.9,
+    "hubAlliance": "oneworld",
+    "lat": 35.5494,
+    "wikipedia": "Haneda Airport",
+    "commonsCategory": "Haneda Airport"
+  },
+  {
+    "iata": "HNL",
+    "name": "Honolulu",
+    "country": "United States",
+    "city": "Honolulu",
+    "runways": 4,
+    "terminals": 3,
+    "paxYearlyM": 19.5,
+    "hubAlliance": "Independent",
+    "lat": 21.3187,
+    "wikipedia": "Daniel K. Inouye International Airport",
+    "commonsCategory": "Honolulu International Airport"
+  },
+  {
+    "iata": "HOU",
+    "name": "Houston Hobby",
+    "country": "United States"
+  },
+  {
+    "iata": "HPH",
+    "name": "Haiphong",
+    "country": "Vietnam"
+  },
+  {
+    "iata": "HRG",
+    "name": "Hurghada",
+    "country": "Egypt"
+  },
+  {
+    "iata": "HYD",
+    "name": "Hyderabad",
+    "country": "India"
+  },
+  {
+    "iata": "IAD",
+    "name": "Washington Dulles",
+    "country": "United States"
+  },
+  {
+    "iata": "IAH",
+    "name": "Houston",
+    "country": "United States"
+  },
+  {
+    "iata": "ICN",
+    "name": "Seoul Incheon",
+    "country": "South Korea",
+    "city": "Seoul",
+    "runways": 4,
+    "terminals": 2,
+    "paxYearlyM": 71.2,
+    "hubAlliance": "SkyTeam",
+    "lat": 37.4602,
+    "wikipedia": "Incheon International Airport",
+    "commonsCategory": "Incheon International Airport"
+  },
+  {
+    "iata": "ISB",
+    "name": "Islamabad",
+    "country": "Pakistan",
+    "city": "Islamabad",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 6.0,
+    "hubAlliance": "Independent",
+    "lat": 33.5491,
+    "wikipedia": "Islamabad International Airport",
+    "commonsCategory": "Islamabad International Airport"
+  },
+  {
+    "iata": "IST",
+    "name": "Istanbul",
+    "country": "Turkey",
+    "city": "Istanbul",
+    "runways": 5,
+    "terminals": 1,
+    "paxYearlyM": 80.1,
+    "hubAlliance": "Star Alliance",
+    "lat": 41.2753,
+    "wikipedia": "Istanbul Airport",
+    "commonsCategory": "Istanbul Airport"
+  },
+  {
+    "iata": "ITM",
+    "name": "Osaka Itami",
+    "country": "Japan"
+  },
+  {
+    "iata": "JED",
+    "name": "Jeddah King Abdulaziz",
+    "country": "Saudi Arabia",
+    "city": "Jeddah",
+    "runways": 3,
+    "terminals": 3,
+    "paxYearlyM": 53.4,
+    "hubAlliance": "SkyTeam",
+    "lat": 21.6796,
+    "wikipedia": "King Abdulaziz International Airport",
+    "commonsCategory": "King Abdulaziz International Airport"
+  },
+  {
+    "iata": "JFK",
+    "name": "New York JFK",
+    "country": "United States",
+    "city": "New York",
+    "runways": 4,
+    "terminals": 6,
+    "paxYearlyM": 62.5,
+    "hubAlliance": "oneworld",
+    "lat": 40.6413,
+    "wikipedia": "John F. Kennedy International Airport",
+    "commonsCategory": "John F. Kennedy International Airport"
+  },
+  {
+    "iata": "JIB",
+    "name": "Djibouti",
+    "country": "Djibouti"
+  },
+  {
+    "iata": "JNB",
+    "name": "Johannesburg O.R. Tambo",
+    "country": "South Africa",
+    "city": "Johannesburg",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 20.1,
+    "hubAlliance": "Star Alliance",
+    "lat": -26.1392,
+    "wikipedia": "O. R. Tambo International Airport",
+    "commonsCategory": "O. R. Tambo International Airport"
+  },
+  {
+    "iata": "KBP",
+    "name": "Kyiv Boryspil",
+    "country": "Ukraine",
+    "city": "Kyiv",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 15.0,
+    "hubAlliance": "Independent",
+    "lat": 50.345,
+    "wikipedia": "Boryspil International Airport",
+    "commonsCategory": "Boryspil International Airport"
+  },
+  {
+    "iata": "KEF",
+    "name": "Reykjavík Keflavík",
+    "country": "Iceland",
+    "city": "Reykjavík",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 8.3,
+    "hubAlliance": "Independent",
+    "lat": 63.985,
+    "wikipedia": "Keflavík International Airport",
+    "commonsCategory": "Keflavík International Airport"
+  },
+  {
+    "iata": "KGL",
+    "name": "Kigali",
+    "country": "Rwanda",
+    "city": "Kigali",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 1,
+    "hubAlliance": "Star Alliance",
+    "lat": -1.9686,
+    "wikipedia": "Kigali International Airport",
+    "commonsCategory": "Kigali International Airport"
+  },
+  {
+    "iata": "KHH",
+    "name": "Kaohsiung",
+    "country": "Taiwan"
+  },
+  {
+    "iata": "KHI",
+    "name": "Karachi Jinnah",
+    "country": "Pakistan",
+    "city": "Karachi",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 6.5,
+    "hubAlliance": "Independent",
+    "lat": 24.9008,
+    "wikipedia": "Jinnah International Airport",
+    "commonsCategory": "Jinnah International Airport"
+  },
+  {
+    "iata": "KIV",
+    "name": "Chișinău",
+    "country": "Moldova"
+  },
+  {
+    "iata": "KIX",
+    "name": "Osaka Kansai",
+    "country": "Japan"
+  },
+  {
+    "iata": "KMG",
+    "name": "Kunming Changshui",
+    "country": "China",
+    "city": "Kunming",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 47.2,
+    "hubAlliance": "SkyTeam",
+    "lat": 25.1019,
+    "wikipedia": "Kunming Changshui International Airport",
+    "commonsCategory": "Kunming Changshui International Airport"
+  },
+  {
+    "iata": "KUL",
+    "name": "Kuala Lumpur",
+    "country": "Malaysia",
+    "city": "Kuala Lumpur",
+    "runways": 3,
+    "terminals": 2,
+    "paxYearlyM": 57.1,
+    "hubAlliance": "oneworld",
+    "lat": 2.7456,
+    "wikipedia": "Kuala Lumpur International Airport",
+    "commonsCategory": "Kuala Lumpur International Airport"
+  },
+  {
+    "iata": "KWI",
+    "name": "Kuwait City",
+    "country": "Kuwait",
+    "city": "Kuwait City",
+    "runways": 3,
+    "terminals": 3,
+    "paxYearlyM": 15,
+    "hubAlliance": "Independent",
+    "lat": 29.2266,
+    "wikipedia": "Kuwait International Airport",
+    "commonsCategory": "Kuwait International Airport"
+  },
+  {
+    "iata": "LAS",
+    "name": "Las Vegas Harry Reid",
+    "country": "United States",
+    "city": "Las Vegas",
+    "runways": 4,
+    "terminals": 2,
+    "paxYearlyM": 57.6,
+    "hubAlliance": "Independent",
+    "lat": 36.084,
+    "wikipedia": "Harry Reid International Airport",
+    "commonsCategory": "Harry Reid International Airport"
+  },
+  {
+    "iata": "LAX",
+    "name": "Los Angeles",
+    "country": "United States",
+    "city": "Los Angeles",
+    "runways": 4,
+    "terminals": 9,
+    "paxYearlyM": 75.1,
+    "hubAlliance": "oneworld",
+    "lat": 33.9425,
+    "wikipedia": "Los Angeles International Airport",
+    "commonsCategory": "Los Angeles International Airport"
+  },
+  {
+    "iata": "LBA",
+    "name": "Leeds Bradford",
+    "country": "United Kingdom",
+    "city": "Leeds",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 4,
+    "hubAlliance": "Independent",
+    "lat": 53.8659,
+    "wikipedia": "Leeds Bradford Airport",
+    "commonsCategory": "Leeds Bradford Airport"
+  },
+  {
+    "iata": "LED",
+    "name": "St Petersburg Pulkovo",
+    "country": "Russia",
+    "city": "St Petersburg",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 21.0,
+    "hubAlliance": "Independent",
+    "lat": 59.8003,
+    "wikipedia": "Pulkovo Airport",
+    "commonsCategory": "Pulkovo Airport"
+  },
+  {
+    "iata": "LGA",
+    "name": "New York LaGuardia",
+    "country": "United States"
+  },
+  {
+    "iata": "LGW",
+    "name": "London Gatwick",
+    "country": "United Kingdom",
+    "city": "London",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 43.2,
+    "hubAlliance": "Independent",
+    "lat": 51.1481,
+    "wikipedia": "Gatwick Airport",
+    "commonsCategory": "London Gatwick Airport"
+  },
+  {
+    "iata": "LHR",
+    "name": "London Heathrow",
+    "country": "United Kingdom",
+    "city": "London",
+    "runways": 2,
+    "terminals": 4,
+    "paxYearlyM": 83.9,
+    "hubAlliance": "oneworld",
+    "lat": 51.47,
+    "wikipedia": "Heathrow Airport",
+    "commonsCategory": "London Heathrow Airport"
+  },
+  {
+    "iata": "LIM",
+    "name": "Lima Jorge Chávez",
+    "country": "Peru",
+    "city": "Lima",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 24.0,
+    "hubAlliance": "Independent",
+    "lat": -12.0219,
+    "wikipedia": "Jorge Chávez International Airport",
+    "commonsCategory": "Jorge Chávez International Airport"
+  },
+  {
+    "iata": "LIN",
+    "name": "Milan Linate",
+    "country": "Italy"
+  },
+  {
+    "iata": "LIS",
+    "name": "Lisbon",
+    "country": "Portugal",
+    "city": "Lisbon",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 35.1,
+    "hubAlliance": "Star Alliance",
+    "lat": 38.7813,
+    "wikipedia": "Lisbon Airport",
+    "commonsCategory": "Lisbon Airport"
+  },
+  {
+    "iata": "LOS",
+    "name": "Lagos Murtala Muhammed",
+    "country": "Nigeria",
+    "city": "Lagos",
+    "runways": 2,
+    "terminals": 4,
+    "paxYearlyM": 7.0,
+    "hubAlliance": "Independent",
+    "lat": 6.5774,
+    "wikipedia": "Murtala Muhammed International Airport",
+    "commonsCategory": "Murtala Muhammed International Airport"
+  },
+  {
+    "iata": "LWO",
+    "name": "Lviv",
+    "country": "Ukraine"
+  },
+  {
+    "iata": "LYS",
+    "name": "Lyon",
+    "country": "France"
+  },
+  {
+    "iata": "MAA",
+    "name": "Chennai",
+    "country": "India"
+  },
+  {
+    "iata": "MAD",
+    "name": "Madrid Barajas",
+    "country": "Spain",
+    "city": "Madrid",
+    "runways": 4,
+    "terminals": 5,
+    "paxYearlyM": 66.1,
+    "hubAlliance": "oneworld",
+    "lat": 40.4719,
+    "wikipedia": "Adolfo Suárez Madrid–Barajas Airport",
+    "commonsCategory": "Adolfo Suárez Madrid-Barajas Airport"
+  },
+  {
+    "iata": "MAN",
+    "name": "Manchester",
+    "country": "United Kingdom"
+  },
+  {
+    "iata": "MCO",
+    "name": "Orlando",
+    "country": "United States"
+  },
+  {
+    "iata": "MCT",
+    "name": "Muscat",
+    "country": "Oman",
+    "city": "Muscat",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 12.9,
+    "hubAlliance": "oneworld",
+    "lat": 23.5933,
+    "wikipedia": "Muscat International Airport",
+    "commonsCategory": "Muscat International Airport"
+  },
+  {
+    "iata": "MDE",
+    "name": "Medellín",
+    "country": "Colombia"
+  },
+  {
+    "iata": "MDW",
+    "name": "Chicago Midway",
+    "country": "United States"
+  },
+  {
+    "iata": "MED",
+    "name": "Medina",
+    "country": "Saudi Arabia"
+  },
+  {
+    "iata": "MEL",
+    "name": "Melbourne",
+    "country": "Australia",
+    "city": "Melbourne",
+    "runways": 2,
+    "terminals": 4,
+    "paxYearlyM": 36.2,
+    "hubAlliance": "oneworld",
+    "lat": -37.6733,
+    "wikipedia": "Melbourne Airport",
+    "commonsCategory": "Melbourne Airport"
+  },
+  {
+    "iata": "MEX",
+    "name": "Mexico City Benito Juárez",
+    "country": "Mexico",
+    "city": "Mexico City",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 44.6,
+    "hubAlliance": "SkyTeam",
+    "lat": 19.4361,
+    "wikipedia": "Mexico City International Airport",
+    "commonsCategory": "Mexico City International Airport"
+  },
+  {
+    "iata": "MGA",
+    "name": "Managua",
+    "country": "Nicaragua"
+  },
+  {
+    "iata": "MIA",
+    "name": "Miami",
+    "country": "United States"
+  },
+  {
+    "iata": "MLE",
+    "name": "Maldives Velana",
+    "country": "Maldives",
+    "city": "Malé",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 4.0,
+    "hubAlliance": "Independent",
+    "lat": 4.1918,
+    "wikipedia": "Velana International Airport",
+    "commonsCategory": "Velana International Airport"
+  },
+  {
+    "iata": "MNL",
+    "name": "Manila Ninoy Aquino",
+    "country": "Philippines",
+    "city": "Manila",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 50.0,
+    "hubAlliance": "Independent",
+    "lat": 14.5086,
+    "wikipedia": "Ninoy Aquino International Airport",
+    "commonsCategory": "Ninoy Aquino International Airport"
+  },
+  {
+    "iata": "MRU",
+    "name": "Mauritius",
+    "country": "Mauritius",
+    "city": "Port Louis",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 3.4,
+    "hubAlliance": "Independent",
+    "lat": -20.4302,
+    "wikipedia": "Sir Seewoosagur Ramgoolam International Airport",
+    "commonsCategory": "Sir Seewoosagur Ramgoolam International Airport"
+  },
+  {
+    "iata": "MSP",
+    "name": "Minneapolis–St. Paul",
+    "country": "United States",
+    "city": "Minneapolis",
+    "runways": 4,
+    "terminals": 2,
+    "paxYearlyM": 34.8,
+    "hubAlliance": "SkyTeam",
+    "lat": 44.8848,
+    "wikipedia": "Minneapolis–Saint Paul International Airport",
+    "commonsCategory": "Minneapolis-Saint Paul International Airport"
+  },
+  {
+    "iata": "MSQ",
+    "name": "Minsk",
+    "country": "Belarus"
+  },
+  {
+    "iata": "MTY",
+    "name": "Monterrey",
+    "country": "Mexico",
+    "city": "Monterrey",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 15.6,
+    "hubAlliance": "SkyTeam",
+    "lat": 25.7785,
+    "wikipedia": "Monterrey International Airport",
+    "commonsCategory": "Monterrey International Airport"
+  },
+  {
+    "iata": "MUC",
+    "name": "Munich",
+    "country": "Germany"
+  },
+  {
+    "iata": "MVD",
+    "name": "Montevideo",
+    "country": "Uruguay"
+  },
+  {
+    "iata": "MXP",
+    "name": "Milan Malpensa",
+    "country": "Italy"
+  },
+  {
+    "iata": "NAN",
+    "name": "Nadi",
+    "country": "Fiji",
+    "city": "Nadi",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 2.2,
+    "hubAlliance": "oneworld",
+    "lat": -17.7553,
+    "wikipedia": "Nadi International Airport",
+    "commonsCategory": "Nadi International Airport"
+  },
+  {
+    "iata": "NAP",
+    "name": "Naples",
+    "country": "Italy"
+  },
+  {
+    "iata": "NBO",
+    "name": "Nairobi Jomo Kenyatta",
+    "country": "Kenya",
+    "city": "Nairobi",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 9.0,
+    "hubAlliance": "SkyTeam",
+    "lat": -1.3192,
+    "wikipedia": "Jomo Kenyatta International Airport",
+    "commonsCategory": "Jomo Kenyatta International Airport"
+  },
+  {
+    "iata": "NCE",
+    "name": "Nice",
+    "country": "France"
+  },
+  {
+    "iata": "NRT",
+    "name": "Tokyo Narita",
+    "country": "Japan",
+    "city": "Tokyo",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 39.8,
+    "hubAlliance": "oneworld",
+    "lat": 35.772,
+    "wikipedia": "Narita International Airport",
+    "commonsCategory": "Narita International Airport"
+  },
+  {
+    "iata": "OAK",
+    "name": "Oakland",
+    "country": "United States"
+  },
+  {
+    "iata": "ODS",
+    "name": "Odesa",
+    "country": "Ukraine"
+  },
+  {
+    "iata": "OKA",
+    "name": "Naha Okinawa",
+    "country": "Japan",
+    "city": "Naha",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 21.0,
+    "hubAlliance": "Independent",
+    "lat": 26.1958,
+    "wikipedia": "Naha Airport",
+    "commonsCategory": "Naha Airport"
+  },
+  {
+    "iata": "OOL",
+    "name": "Gold Coast",
+    "country": "Australia"
+  },
+  {
+    "iata": "OPO",
+    "name": "Porto",
+    "country": "Portugal"
+  },
+  {
+    "iata": "ORD",
+    "name": "Chicago O'Hare",
+    "country": "United States",
+    "city": "Chicago",
+    "runways": 8,
+    "terminals": 4,
+    "paxYearlyM": 84.9,
+    "hubAlliance": "Star Alliance",
+    "lat": 41.9786,
+    "wikipedia": "O'Hare International Airport",
+    "commonsCategory": "O'Hare International Airport"
+  },
+  {
+    "iata": "ORY",
+    "name": "Paris Orly",
+    "country": "France"
+  },
+  {
+    "iata": "OSL",
+    "name": "Oslo Gardermoen",
+    "country": "Norway",
+    "city": "Oslo",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 24.2,
+    "hubAlliance": "Star Alliance",
+    "lat": 60.1939,
+    "wikipedia": "Oslo Airport, Gardermoen",
+    "commonsCategory": "Oslo Airport, Gardermoen"
+  },
+  {
+    "iata": "OTP",
+    "name": "Bucharest Otopeni",
+    "country": "Romania",
+    "city": "Bucharest",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 17.0,
+    "hubAlliance": "SkyTeam",
+    "lat": 44.5711,
+    "wikipedia": "Henri Coandă International Airport",
+    "commonsCategory": "Henri Coandă International Airport"
+  },
+  {
+    "iata": "PDX",
+    "name": "Portland",
+    "country": "United States"
+  },
+  {
+    "iata": "PEK",
+    "name": "Beijing Capital",
+    "country": "China",
+    "city": "Beijing",
+    "runways": 3,
+    "terminals": 3,
+    "paxYearlyM": 70.7,
+    "hubAlliance": "Star Alliance",
+    "lat": 40.0801,
+    "wikipedia": "Beijing Capital International Airport",
+    "commonsCategory": "Beijing Capital International Airport"
+  },
+  {
+    "iata": "PEN",
+    "name": "Penang",
+    "country": "Malaysia"
+  },
+  {
+    "iata": "PER",
+    "name": "Perth",
+    "country": "Australia",
+    "city": "Perth",
+    "runways": 2,
+    "terminals": 4,
+    "paxYearlyM": 13.0,
+    "hubAlliance": "oneworld",
+    "lat": -31.9404,
+    "wikipedia": "Perth Airport",
+    "commonsCategory": "Perth Airport"
+  },
+  {
+    "iata": "PHL",
+    "name": "Philadelphia",
+    "country": "United States"
+  },
+  {
+    "iata": "PHX",
+    "name": "Phoenix",
+    "country": "United States"
+  },
+  {
+    "iata": "PIT",
+    "name": "Pittsburgh",
+    "country": "United States"
+  },
+  {
+    "iata": "PKX",
+    "name": "Beijing Daxing",
+    "country": "China"
+  },
+  {
+    "iata": "PMI",
+    "name": "Palma de Mallorca",
+    "country": "Spain"
+  },
+  {
+    "iata": "PMO",
+    "name": "Palermo",
+    "country": "Italy"
+  },
+  {
+    "iata": "PNQ",
+    "name": "Pune",
+    "country": "India"
+  },
+  {
+    "iata": "POM",
+    "name": "Port Moresby",
+    "country": "Papua New Guinea",
+    "city": "Port Moresby",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 1.6,
+    "hubAlliance": "Independent",
+    "lat": -9.4434,
+    "wikipedia": "Jacksons International Airport",
+    "commonsCategory": "Jacksons International Airport"
+  },
+  {
+    "iata": "POS",
+    "name": "Port of Spain",
+    "country": "Trinidad and Tobago",
+    "city": "Port of Spain",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 2.6,
+    "hubAlliance": "Independent",
+    "lat": 10.5954,
+    "wikipedia": "Piarco International Airport",
+    "commonsCategory": "Piarco International Airport"
+  },
+  {
+    "iata": "PPT",
+    "name": "Tahiti Faa'a",
+    "country": "French Polynesia",
+    "city": "Papeete",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 1.5,
+    "hubAlliance": "Independent",
+    "lat": -17.5536,
+    "wikipedia": "Faa'a International Airport",
+    "commonsCategory": "Faa'a International Airport"
+  },
+  {
+    "iata": "PRG",
+    "name": "Prague",
+    "country": "Czech Republic",
+    "city": "Prague",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 13.8,
+    "hubAlliance": "Independent",
+    "lat": 50.1008,
+    "wikipedia": "Václav Havel Airport Prague",
+    "commonsCategory": "Václav Havel Airport Prague"
+  },
+  {
+    "iata": "PRN",
+    "name": "Pristina",
+    "country": "Kosovo"
+  },
+  {
+    "iata": "PTY",
+    "name": "Panama City Tocumen",
+    "country": "Panama",
+    "city": "Panama City",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 21.0,
+    "hubAlliance": "Star Alliance",
+    "lat": 9.0714,
+    "wikipedia": "Tocumen International Airport",
+    "commonsCategory": "Tocumen International Airport"
+  },
+  {
+    "iata": "PUS",
+    "name": "Busan",
+    "country": "South Korea"
+  },
+  {
+    "iata": "PVG",
+    "name": "Shanghai Pudong",
+    "country": "China",
+    "city": "Shanghai",
+    "runways": 4,
+    "terminals": 2,
+    "paxYearlyM": 85.0,
+    "hubAlliance": "SkyTeam",
+    "lat": 31.1443,
+    "wikipedia": "Shanghai Pudong International Airport",
+    "commonsCategory": "Shanghai Pudong International Airport"
+  },
+  {
+    "iata": "PVR",
+    "name": "Puerto Vallarta",
+    "country": "Mexico"
+  },
+  {
+    "iata": "RAK",
+    "name": "Marrakesh Menara",
+    "country": "Morocco",
+    "city": "Marrakesh",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 6.0,
+    "hubAlliance": "Independent",
+    "lat": 31.6069,
+    "wikipedia": "Marrakesh Menara Airport",
+    "commonsCategory": "Marrakech-Menara Airport"
+  },
+  {
+    "iata": "RDU",
+    "name": "Raleigh-Durham",
+    "country": "United States"
+  },
+  {
+    "iata": "REC",
+    "name": "Recife",
+    "country": "Brazil"
+  },
+  {
+    "iata": "RIX",
+    "name": "Riga",
+    "country": "Latvia",
+    "city": "Riga",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 7.4,
+    "hubAlliance": "Independent",
+    "lat": 56.9236,
+    "wikipedia": "Riga International Airport",
+    "commonsCategory": "Riga International Airport"
+  },
+  {
+    "iata": "RKT",
+    "name": "Ras Al Khaimah",
+    "country": "United Arab Emirates"
+  },
+  {
+    "iata": "RUH",
+    "name": "Riyadh King Khalid",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "runways": 2,
+    "terminals": 5,
+    "paxYearlyM": 37.2,
+    "hubAlliance": "SkyTeam",
+    "lat": 24.9576,
+    "wikipedia": "King Khalid International Airport",
+    "commonsCategory": "King Khalid International Airport"
+  },
+  {
+    "iata": "SAL",
+    "name": "San Salvador",
+    "country": "El Salvador"
+  },
+  {
+    "iata": "SAN",
+    "name": "San Diego",
+    "country": "United States"
+  },
+  {
+    "iata": "SAT",
+    "name": "San Antonio",
+    "country": "United States"
+  },
+  {
+    "iata": "SAW",
+    "name": "Istanbul Sabiha Gökçen",
+    "country": "Turkey",
+    "city": "Istanbul",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 41.4,
+    "hubAlliance": "Independent",
+    "lat": 40.8986,
+    "wikipedia": "Istanbul Sabiha Gökçen International Airport",
+    "commonsCategory": "Sabiha Gökçen International Airport"
+  },
+  {
+    "iata": "SCL",
+    "name": "Santiago",
+    "country": "Chile",
+    "city": "Santiago",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 24.6,
+    "hubAlliance": "Independent",
+    "lat": -33.393,
+    "wikipedia": "Santiago International Airport",
+    "commonsCategory": "Comodoro Arturo Merino Benítez International Airport"
+  },
+  {
+    "iata": "SDQ",
+    "name": "Santo Domingo",
+    "country": "Dominican Republic"
+  },
+  {
+    "iata": "SEA",
+    "name": "Seattle–Tacoma",
+    "country": "United States",
+    "city": "Seattle",
+    "runways": 3,
+    "terminals": 1,
+    "paxYearlyM": 50.9,
+    "hubAlliance": "oneworld",
+    "lat": 47.4502,
+    "wikipedia": "Seattle–Tacoma International Airport",
+    "commonsCategory": "Seattle-Tacoma International Airport"
+  },
+  {
+    "iata": "SFO",
+    "name": "San Francisco",
+    "country": "United States",
+    "city": "San Francisco",
+    "runways": 4,
+    "terminals": 4,
+    "paxYearlyM": 50.2,
+    "hubAlliance": "Star Alliance",
+    "lat": 37.6213,
+    "wikipedia": "San Francisco International Airport",
+    "commonsCategory": "San Francisco International Airport"
+  },
+  {
+    "iata": "SGN",
+    "name": "Ho Chi Minh City Tan Son Nhat",
+    "country": "Vietnam",
+    "city": "Ho Chi Minh City",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 40,
+    "hubAlliance": "SkyTeam",
+    "lat": 10.8188,
+    "wikipedia": "Tan Son Nhat International Airport",
+    "commonsCategory": "Tan Son Nhat International Airport"
+  },
+  {
+    "iata": "SHA",
+    "name": "Shanghai Hongqiao",
+    "country": "China"
+  },
+  {
+    "iata": "SHJ",
+    "name": "Sharjah",
+    "country": "United Arab Emirates"
+  },
+  {
+    "iata": "SIN",
+    "name": "Singapore Changi",
+    "country": "Singapore",
+    "city": "Singapore",
+    "runways": 3,
+    "terminals": 4,
+    "paxYearlyM": 70.0,
+    "hubAlliance": "Star Alliance",
+    "lat": 1.3644,
+    "wikipedia": "Singapore Changi Airport",
+    "commonsCategory": "Singapore Changi Airport"
+  },
+  {
+    "iata": "SJC",
+    "name": "San Jose",
+    "country": "United States"
+  },
+  {
+    "iata": "SJJ",
+    "name": "Sarajevo",
+    "country": "Bosnia and Herzegovina"
+  },
+  {
+    "iata": "SJO",
+    "name": "San José",
+    "country": "Costa Rica"
+  },
+  {
+    "iata": "SKP",
+    "name": "Skopje",
+    "country": "North Macedonia"
+  },
+  {
+    "iata": "SLC",
+    "name": "Salt Lake City",
+    "country": "United States"
+  },
+  {
+    "iata": "SOF",
+    "name": "Sofia",
+    "country": "Bulgaria",
+    "city": "Sofia",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 7.6,
+    "hubAlliance": "Independent",
+    "lat": 42.6952,
+    "wikipedia": "Sofia Airport",
+    "commonsCategory": "Sofia Airport"
+  },
+  {
+    "iata": "SSA",
+    "name": "Salvador",
+    "country": "Brazil"
+  },
+  {
+    "iata": "SSH",
+    "name": "Sharm El Sheikh",
+    "country": "Egypt"
+  },
+  {
+    "iata": "STL",
+    "name": "St. Louis",
+    "country": "United States"
+  },
+  {
+    "iata": "STN",
+    "name": "London Stansted",
+    "country": "United Kingdom"
+  },
+  {
+    "iata": "STR",
+    "name": "Stuttgart",
+    "country": "Germany"
+  },
+  {
+    "iata": "SUB",
+    "name": "Surabaya",
+    "country": "Indonesia"
+  },
+  {
+    "iata": "SVO",
+    "name": "Moscow Sheremetyevo",
+    "country": "Russia",
+    "city": "Moscow",
+    "runways": 3,
+    "terminals": 6,
+    "paxYearlyM": 36.3,
+    "hubAlliance": "SkyTeam",
+    "lat": 55.9726,
+    "wikipedia": "Sheremetyevo International Airport",
+    "commonsCategory": "Sheremetyevo International Airport"
+  },
+  {
+    "iata": "SVQ",
+    "name": "Seville",
+    "country": "Spain"
+  },
+  {
+    "iata": "SYD",
+    "name": "Sydney Kingsford Smith",
+    "country": "Australia",
+    "city": "Sydney",
+    "runways": 3,
+    "terminals": 3,
+    "paxYearlyM": 42.5,
+    "hubAlliance": "oneworld",
+    "lat": -33.9399,
+    "wikipedia": "Sydney Airport",
+    "commonsCategory": "Sydney Airport"
+  },
+  {
+    "iata": "SZX",
+    "name": "Shenzhen",
+    "country": "China"
+  },
+  {
+    "iata": "TAS",
+    "name": "Tashkent",
+    "country": "Uzbekistan",
+    "city": "Tashkent",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 8.7,
+    "hubAlliance": "Independent",
+    "lat": 41.2579,
+    "wikipedia": "Tashkent International Airport",
+    "commonsCategory": "Tashkent International Airport"
+  },
+  {
+    "iata": "TFU",
+    "name": "Chengdu Tianfu",
+    "country": "China"
+  },
+  {
+    "iata": "TGD",
+    "name": "Podgorica",
+    "country": "Montenegro"
+  },
+  {
+    "iata": "TIA",
+    "name": "Tirana",
+    "country": "Albania"
+  },
+  {
+    "iata": "TIJ",
+    "name": "Tijuana",
+    "country": "Mexico"
+  },
+  {
+    "iata": "TLL",
+    "name": "Tallinn",
+    "country": "Estonia"
+  },
+  {
+    "iata": "TLV",
+    "name": "Tel Aviv Ben Gurion",
+    "country": "Israel",
+    "city": "Tel Aviv",
+    "runways": 3,
+    "terminals": 2,
+    "paxYearlyM": 19.2,
+    "hubAlliance": "Star Alliance",
+    "lat": 32.0114,
+    "wikipedia": "Ben Gurion Airport",
+    "commonsCategory": "Ben Gurion Airport"
+  },
+  {
+    "iata": "TPA",
+    "name": "Tampa",
+    "country": "United States"
+  },
+  {
+    "iata": "TPE",
+    "name": "Taipei Taoyuan",
+    "country": "Taiwan",
+    "city": "Taipei",
+    "runways": 2,
+    "terminals": 2,
+    "paxYearlyM": 47.8,
+    "hubAlliance": "Star Alliance",
+    "lat": 25.0797,
+    "wikipedia": "Taoyuan International Airport",
+    "commonsCategory": "Taiwan Taoyuan International Airport"
+  },
+  {
+    "iata": "TRV",
+    "name": "Thiruvananthapuram",
+    "country": "India"
+  },
+  {
+    "iata": "TSA",
+    "name": "Taipei Songshan",
+    "country": "Taiwan"
+  },
+  {
+    "iata": "TSN",
+    "name": "Tianjin",
+    "country": "China"
+  },
+  {
+    "iata": "TUN",
+    "name": "Tunis",
+    "country": "Tunisia"
+  },
+  {
+    "iata": "TXL",
+    "name": "Berlin Tegel",
+    "country": "Germany"
+  },
+  {
+    "iata": "UIO",
+    "name": "Quito",
+    "country": "Ecuador"
+  },
+  {
+    "iata": "ULN",
+    "name": "Ulaanbaatar Chinggis Khaan",
+    "country": "Mongolia",
+    "city": "Ulaanbaatar",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 2.1,
+    "hubAlliance": "Independent",
+    "lat": 47.6433,
+    "wikipedia": "Chinggis Khaan International Airport",
+    "commonsCategory": "Chinggis Khaan International Airport"
+  },
+  {
+    "iata": "VCE",
+    "name": "Venice Marco Polo",
+    "country": "Italy",
+    "city": "Venice",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 11.4,
+    "hubAlliance": "Independent",
+    "lat": 45.5053,
+    "wikipedia": "Venice Marco Polo Airport",
+    "commonsCategory": "Venice Marco Polo Airport"
+  },
+  {
+    "iata": "VCP",
+    "name": "Campinas Viracopos",
+    "country": "Brazil",
+    "city": "Campinas",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 12.8,
+    "hubAlliance": "Independent",
+    "lat": -23.0074,
+    "wikipedia": "Viracopos International Airport",
+    "commonsCategory": "Viracopos International Airport"
+  },
+  {
+    "iata": "VIE",
+    "name": "Vienna",
+    "country": "Austria",
+    "city": "Vienna",
+    "runways": 2,
+    "terminals": 3,
+    "paxYearlyM": 31.7,
+    "hubAlliance": "Star Alliance",
+    "lat": 48.1103,
+    "wikipedia": "Vienna International Airport",
+    "commonsCategory": "Vienna International Airport"
+  },
+  {
+    "iata": "VLC",
+    "name": "Valencia",
+    "country": "Spain"
+  },
+  {
+    "iata": "VNO",
+    "name": "Vilnius",
+    "country": "Lithuania"
+  },
+  {
+    "iata": "WAW",
+    "name": "Warsaw Chopin",
+    "country": "Poland",
+    "city": "Warsaw",
+    "runways": 2,
+    "terminals": 1,
+    "paxYearlyM": 21.3,
+    "hubAlliance": "Star Alliance",
+    "lat": 52.1657,
+    "wikipedia": "Warsaw Chopin Airport",
+    "commonsCategory": "Warsaw Chopin Airport"
+  },
+  {
+    "iata": "WLG",
+    "name": "Wellington",
+    "country": "New Zealand"
+  },
+  {
+    "iata": "XIY",
+    "name": "Xi'an",
+    "country": "China"
+  },
+  {
+    "iata": "XMN",
+    "name": "Xiamen Gaoqi",
+    "country": "China",
+    "city": "Xiamen"
+  },
+  {
+    "iata": "YEG",
+    "name": "Edmonton",
+    "country": "Canada"
+  },
+  {
+    "iata": "YHZ",
+    "name": "Halifax",
+    "country": "Canada"
+  },
+  {
+    "iata": "YOW",
+    "name": "Ottawa",
+    "country": "Canada"
+  },
+  {
+    "iata": "YTZ",
+    "name": "Toronto Billy Bishop",
+    "country": "Canada",
+    "city": "Toronto",
+    "runways": 3,
+    "terminals": 1,
+    "paxYearlyM": 1.7,
+    "hubAlliance": "Independent",
+    "lat": 43.6275,
+    "wikipedia": "Billy Bishop Toronto City Airport",
+    "commonsCategory": "Billy Bishop Toronto City Airport"
+  },
+  {
+    "iata": "YUL",
+    "name": "Montréal",
+    "country": "Canada"
+  },
+  {
+    "iata": "YYC",
+    "name": "Calgary",
+    "country": "Canada",
+    "city": "Calgary",
+    "runways": 3,
+    "terminals": 2,
+    "paxYearlyM": 18,
+    "hubAlliance": "Star Alliance",
+    "lat": 51.1139,
+    "wikipedia": "Calgary International Airport",
+    "commonsCategory": "Calgary International Airport"
+  },
+  {
+    "iata": "YYZ",
+    "name": "Toronto Pearson",
+    "country": "Canada",
+    "city": "Toronto",
+    "runways": 5,
+    "terminals": 2,
+    "paxYearlyM": 44.8,
+    "hubAlliance": "Star Alliance",
+    "lat": 43.6777,
+    "wikipedia": "Toronto Pearson International Airport",
+    "commonsCategory": "Toronto Pearson International Airport"
+  },
+  {
+    "iata": "ZAG",
+    "name": "Zagreb",
+    "country": "Croatia",
+    "city": "Zagreb",
+    "runways": 1,
+    "terminals": 1,
+    "paxYearlyM": 4.7,
+    "hubAlliance": "Star Alliance",
+    "lat": 45.7429,
+    "wikipedia": "Franjo Tuđman Airport",
+    "commonsCategory": "Franjo Tuđman Airport"
+  },
+  {
+    "iata": "ZNZ",
+    "name": "Zanzibar Abeid Karume",
+    "country": "Tanzania",
+    "city": "Zanzibar City",
+    "runways": 1,
+    "terminals": 2,
+    "paxYearlyM": 2.0,
+    "hubAlliance": "Independent",
+    "lat": -6.222,
+    "wikipedia": "Abeid Amani Karume International Airport",
+    "commonsCategory": "Abeid Amani Karume International Airport"
+  },
+  {
+    "iata": "ZRH",
+    "name": "Zürich",
+    "country": "Switzerland",
+    "city": "Zürich",
+    "runways": 3,
+    "terminals": 1,
+    "paxYearlyM": 28.9,
+    "hubAlliance": "Star Alliance",
+    "lat": 47.4647,
+    "wikipedia": "Zurich Airport",
+    "commonsCategory": "Zürich Airport"
+  }
+]

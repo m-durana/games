@@ -44,7 +44,7 @@
     "iata": "AZ",
     "country": "Italy",
     "group": "Lufthansa Group",
-    "alliance": "SkyTeam",
+    "alliance": "Star Alliance",
     "hub": "FCO"
   },
   {
@@ -52,7 +52,7 @@
     "iata": "BA",
     "country": "United Kingdom",
     "group": "IAG",
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "LHR"
   },
   {
@@ -60,7 +60,7 @@
     "iata": "IB",
     "country": "Spain",
     "group": "IAG",
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "MAD"
   },
   {
@@ -140,7 +140,7 @@
     "iata": "AA",
     "country": "United States",
     "group": "American Airlines Group",
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "DFW"
   },
   {
@@ -172,7 +172,7 @@
     "iata": "AS",
     "country": "United States",
     "group": "Alaska Air Group",
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "SEA"
   },
   {
@@ -180,7 +180,7 @@
     "iata": "HA",
     "country": "United States",
     "group": "Alaska Air Group",
-    "alliance": null,
+    "alliance": "oneworld",
     "hub": "HNL"
   },
   {
@@ -284,7 +284,7 @@
     "iata": "LA",
     "country": "Chile",
     "group": "LATAM Airlines Group",
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "SCL"
   },
   {
@@ -296,7 +296,7 @@
     "hub": "BOG"
   },
   {
-    "name": "GOL Linhas A\u00e9reas",
+    "name": "GOL Linhas Aéreas",
     "iata": "G3",
     "country": "Brazil",
     "group": "Abra Group",
@@ -304,7 +304,7 @@
     "hub": "GRU"
   },
   {
-    "name": "Azul Linhas A\u00e9reas",
+    "name": "Azul Linhas Aéreas",
     "iata": "AD",
     "country": "Brazil",
     "group": null,
@@ -320,7 +320,7 @@
     "hub": "PTY"
   },
   {
-    "name": "Aerol\u00edneas Argentinas",
+    "name": "Aerolíneas Argentinas",
     "iata": "AR",
     "country": "Argentina",
     "group": null,
@@ -412,7 +412,7 @@
     "iata": "AY",
     "country": "Finland",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "HEL"
   },
   {
@@ -430,14 +430,6 @@
     "group": null,
     "alliance": "Star Alliance",
     "hub": "WAW"
-  },
-  {
-    "name": "Czech Airlines",
-    "iata": "OK",
-    "country": "Czech Republic",
-    "group": null,
-    "alliance": null,
-    "hub": "PRG"
   },
   {
     "name": "Air Serbia",
@@ -484,7 +476,7 @@
     "iata": "QR",
     "country": "Qatar",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "DOH"
   },
   {
@@ -508,7 +500,7 @@
     "iata": "RJ",
     "country": "Jordan",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "AMM"
   },
   {
@@ -516,7 +508,7 @@
     "iata": "WY",
     "country": "Oman",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "MCT"
   },
   {
@@ -548,7 +540,7 @@
     "iata": "AT",
     "country": "Morocco",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "CMN"
   },
   {
@@ -580,7 +572,7 @@
     "iata": "CX",
     "country": "Hong Kong",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "HKG"
   },
   {
@@ -588,7 +580,7 @@
     "iata": "JL",
     "country": "Japan",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "HND"
   },
   {
@@ -700,7 +692,7 @@
     "iata": "MH",
     "country": "Malaysia",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "KUL"
   },
   {
@@ -728,19 +720,11 @@
     "hub": "DEL"
   },
   {
-    "name": "Vistara",
-    "iata": "UK",
-    "country": "India",
-    "group": "Tata Group",
-    "alliance": null,
-    "hub": "DEL"
-  },
-  {
     "name": "SriLankan Airlines",
     "iata": "UL",
     "country": "Sri Lanka",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "CMB"
   },
   {
@@ -748,7 +732,7 @@
     "iata": "QF",
     "country": "Australia",
     "group": "Qantas Group",
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "SYD"
   },
   {
@@ -780,7 +764,7 @@
     "iata": "FJ",
     "country": "Fiji",
     "group": null,
-    "alliance": "Oneworld",
+    "alliance": "oneworld",
     "hub": "NAN"
   },
   {
@@ -1006,5 +990,77 @@
     "group": null,
     "alliance": null,
     "hub": "POM"
+  },
+  {
+    "name": "Virgin Atlantic",
+    "iata": "VS",
+    "country": "United Kingdom",
+    "group": null,
+    "alliance": "SkyTeam",
+    "hub": "LHR"
+  },
+  {
+    "name": "Air Europa",
+    "iata": "UX",
+    "country": "Spain",
+    "group": null,
+    "alliance": "SkyTeam",
+    "hub": "MAD"
+  },
+  {
+    "name": "Middle East Airlines",
+    "iata": "ME",
+    "country": "Lebanon",
+    "group": null,
+    "alliance": "SkyTeam",
+    "hub": "BEY"
+  },
+  {
+    "name": "XiamenAir",
+    "iata": "MF",
+    "country": "China",
+    "group": null,
+    "alliance": "SkyTeam",
+    "hub": "XMN"
+  },
+  {
+    "name": "Shenzhen Airlines",
+    "iata": "ZH",
+    "country": "China",
+    "group": null,
+    "alliance": "Star Alliance",
+    "hub": "SZX"
+  },
+  {
+    "name": "Air Algérie",
+    "iata": "AH",
+    "country": "Algeria",
+    "group": null,
+    "alliance": null,
+    "hub": "ALG"
+  },
+  {
+    "name": "Biman Bangladesh Airlines",
+    "iata": "BG",
+    "country": "Bangladesh",
+    "group": null,
+    "alliance": null,
+    "hub": "DAC"
+  },
+  {
+    "name": "Tunisair",
+    "iata": "TU",
+    "country": "Tunisia",
+    "group": null,
+    "alliance": null,
+    "hub": "TUN"
+  },
+  {
+    "name": "Air Tahiti Nui",
+    "iata": "TN",
+    "country": "French Polynesia",
+    "group": null,
+    "alliance": null,
+    "hub": "PPT"
   }
 ]

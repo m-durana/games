@@ -11,10 +11,14 @@
     AIRPORT_ROUND_LENGTH,
     regionOf,
     regionLabel,
+    admin1Of,
+    latBand,
+    trafficTier,
     type AirportEntry,
     type AirportDifficulty,
   } from './airports-game';
   import AirportReveal from './AirportReveal.svelte';
+  import Combobox from './Combobox.svelte';
   import Lightbox from './Lightbox.svelte';
   import RoundBar from './RoundBar.svelte';
   import * as Sound from './sound';
@@ -168,8 +172,8 @@
   const maxStage = $derived(difficulty === 'hard' ? 2 : 3);
 
   // Group dropdown by region for fast scanning.
-  const groupedOptions = $derived(groupByRegion(pooledAirports()));
-  function groupByRegion(list: AirportEntry[]): { region: string; airports: AirportEntry[] }[] {
+  const comboGroups = $derived(buildComboGroups(pooledAirports()));
+  function buildComboGroups(list: AirportEntry[]) {
     const map = new Map<string, AirportEntry[]>();
     for (const a of list) {
       const r = regionOf(a.country);
@@ -178,8 +182,34 @@
       map.get(label)!.push(a);
     }
     return [...map.entries()]
-      .map(([region, airports]) => ({ region, airports: airports.sort((a, b) => a.name.localeCompare(b.name)) }))
-      .sort((a, b) => a.region.localeCompare(b.region));
+      .map(([region, airports]) => ({
+        label: region,
+        items: airports
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((a) => ({ id: a.iata, label: `${a.name} (${a.iata})`, sub: a.country })),
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label));
+  }
+
+  // Hint helpers.
+  // Country names are too revealing for countries with only 1-2 pooled airports
+  // (e.g., Switzerland → only ZRH). Fall back to continent + climate band there.
+  const countryCounts = $derived.by(() => {
+    const m = new Map<string, number>();
+    for (const a of pooledAirports()) m.set(a.country, (m.get(a.country) ?? 0) + 1);
+    return m;
+  });
+  function locationHint(a: AirportEntry): string {
+    const band = latBand(a.lat);
+    const admin1 = admin1Of(a.iata);
+    if (admin1) return `${admin1}, ${a.country} · ${band}`;
+    const r = regionOf(a.country);
+    const region = r ? regionLabel(r) : 'Other';
+    if ((countryCounts.get(a.country) ?? 0) >= 3) return `${a.country} · ${band}`;
+    return `${region} · ${band}`;
+  }
+  function profileHint(a: AirportEntry): string {
+    return `Hub for ${a.hubAlliance} · ${trafficTier(a.paxYearlyM)} · ${a.runways} runway${a.runways === 1 ? '' : 's'}`;
   }
 
   const choices = $derived(buildChoices(current));
@@ -464,14 +494,14 @@
           <div class="hints">
             {#if stage >= 1}
               <div class="hint">
-                <span class="hint-tag">Hint 1 - Country</span>
-                <p>In <strong>{current.country}</strong>.</p>
+                <span class="hint-tag">Hint 1 - Location</span>
+                <p>{locationHint(current)}</p>
               </div>
             {/if}
             {#if stage >= 2}
               <div class="hint">
-                <span class="hint-tag">Hint 2 - Hub alliance & city</span>
-                <p>Hub for <strong>{current.hubAlliance}</strong> · {current.city}</p>
+                <span class="hint-tag">Hint 2 - Airport profile</span>
+                <p>{profileHint(current)}</p>
               </div>
             {/if}
           </div>
@@ -486,23 +516,19 @@
               {@const cost = stagePoints[stage] - stagePoints[stage + 1]}
               {@const costLabel = cost > 0 ? ` (−${cost} pt)` : ' (free)'}
               <button class="btn-ghost hint-btn" onclick={nextHint}>
-                {stage === 0 ? `Show country${costLabel}` : stage === 1 ? `Show alliance & city${costLabel}` : `Narrow to 4 choices${costLabel}`}
+                {stage === 0 ? `Show location${costLabel}` : stage === 1 ? `Show airport profile${costLabel}` : `Narrow to 4 choices${costLabel}`}
               </button>
             {/if}
           </div>
 
           {#if stage < 3}
             <div class="guess-row">
-              <select bind:value={guessId} class="guess-select">
-                <option value="">Pick an airport…</option>
-                {#each groupedOptions as group}
-                  <optgroup label={group.region}>
-                    {#each group.airports as a}
-                      <option value={a.iata}>{a.name} ({a.iata})</option>
-                    {/each}
-                  </optgroup>
-                {/each}
-              </select>
+              <Combobox
+                bind:value={guessId}
+                groups={comboGroups}
+                placeholder="Type or pick an airport…"
+                onsubmit={submitDropdownGuess}
+              />
               <button class="btn-primary" disabled={!guessId} onclick={submitDropdownGuess}>Guess</button>
             </div>
           {:else}

@@ -4,6 +4,8 @@
   import {
     airportLabel,
     airportLabelWithCountry,
+    airportRoutes,
+    airlines,
     difficultyLabel,
     modeTitle,
     recordRoundStats,
@@ -58,9 +60,14 @@
 
   // svelte-ignore state_referenced_locally
   const newAchievements = evaluateAchievements();
+  let achievementsReported = false;
   $effect(() => {
+    if (achievementsReported) return;
     if (newAchievements.length > 0 && onAchievements) onAchievements(newAchievements);
+    achievementsReported = true;
   });
+
+  const AIRPORT_SUBJECT_MODES = new Set<Mode>(['airportAirline', 'airportConn', 'whereAmI', 'hubOf']);
 
   let expanded: number | null = $state(null);
   let shareState: 'idle' | 'copied' = $state('idle');
@@ -74,8 +81,34 @@
   }
 
   function fmt(v: string, m: Mode): string {
-    if (m === 'airportConn') return airportLabelWithCountry(v);
-    return m === 'hub' ? airportLabel(v) : v;
+    if (m === 'airportConn' || m === 'whereAmI') return airportLabelWithCountry(v);
+    if (m === 'hub' || m === 'airlineDest') return airportLabel(v);
+    if (m === 'airportAirline') return resultsAirlineName(v);
+    return v;
+  }
+
+  function resultsAirlineName(iata: string): string {
+    return airlines.find((a) => a.iata === iata)?.name ?? iata;
+  }
+
+  function rowTitle(r: RoundResult): string {
+    if (AIRPORT_SUBJECT_MODES.has(r.question.mode)) {
+      return airportLabelWithCountry(r.question.airport ?? r.question.airline.hub);
+    }
+    return r.question.airline.name;
+  }
+
+  function rowSubhead(r: RoundResult): string {
+    if (r.question.mode === 'whereAmI') return 'Airport from route clues';
+    if (r.question.mode === 'airportConn') return 'Airport route source';
+    if (r.question.mode === 'airportAirline') return 'Airport carrier source';
+    if (r.question.mode === 'hubOf') return 'Airport hub tenant';
+    return r.question.airline.name;
+  }
+
+  function routeSource(iata: string): string {
+    const r = airportRoutes(iata);
+    return r?.source ?? 'Airport route source';
   }
 
   function toggle(i: number) {
@@ -162,9 +195,14 @@
   {#each results as r, i}
     <button class="row" class:bad={!r.correct} class:open={expanded === i} onclick={() => toggle(i)}>
       <span class="num">{i + 1}</span>
-      <Logo iata={r.question.airline.iata} name={r.question.airline.name} />
+      {#if AIRPORT_SUBJECT_MODES.has(r.question.mode)}
+        <span class="airport-chip" aria-hidden="true">{r.question.airport ?? r.question.airline.hub}</span>
+      {:else}
+        <Logo iata={r.question.airline.iata} name={r.question.airline.name} />
+      {/if}
       <div class="row-body">
-        <span class="airline">{r.question.airline.name}</span>
+        <span class="airline">{rowTitle(r)}</span>
+        <span class="row-subhead">{rowSubhead(r)}</span>
         {#if r.correct}
           <span class="ans good">{fmt(r.question.answer, r.question.mode)}</span>
         {:else}
@@ -176,11 +214,21 @@
         {/if}
         {#if expanded === i}
           <dl class="facts">
-            <div><dt>Country</dt><dd>{r.question.airline.country}</dd></div>
-            <div><dt>IATA</dt><dd>{r.question.airline.iata}</dd></div>
-            <div><dt>Hub</dt><dd>{airportLabel(r.question.airline.hub)}</dd></div>
-            <div><dt>Alliance</dt><dd>{r.question.airline.alliance ?? 'Independent'}</dd></div>
-            <div><dt>Group</dt><dd>{r.question.airline.group ?? 'Independent'}</dd></div>
+            {#if AIRPORT_SUBJECT_MODES.has(r.question.mode)}
+              {@const ap = r.question.airport ?? r.question.airline.hub}
+              <div><dt>Airport</dt><dd>{airportLabelWithCountry(ap)}</dd></div>
+              <div><dt>Source</dt><dd>{routeSource(ap)}</dd></div>
+              {#if r.question.mode === 'whereAmI'}
+                <div class="wide"><dt>Destinations shown</dt><dd>{(r.question.destinations ?? []).map(airportLabelWithCountry).join(', ')}</dd></div>
+              {/if}
+              <div><dt>Context carrier</dt><dd>{r.question.airline.name}</dd></div>
+            {:else}
+              <div><dt>Country</dt><dd>{r.question.airline.country}</dd></div>
+              <div><dt>IATA</dt><dd>{r.question.airline.iata}</dd></div>
+              <div><dt>Hub</dt><dd>{airportLabel(r.question.airline.hub)}</dd></div>
+              <div><dt>Alliance</dt><dd>{r.question.airline.alliance ?? 'Independent'}</dd></div>
+              <div><dt>Group</dt><dd>{r.question.airline.group ?? 'Independent'}</dd></div>
+            {/if}
           </dl>
         {/if}
       </div>
@@ -339,7 +387,30 @@
     gap: 0.25rem;
     min-width: 0;
   }
+  .airport-chip {
+    min-width: 42px;
+    height: 32px;
+    margin-top: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--led-cyan);
+    border: 1px solid var(--bezel-hi);
+    border-bottom-color: var(--bezel-lo);
+    border-right-color: var(--bezel-lo);
+    background: var(--panel);
+  }
   .airline { font-family: var(--sans); font-size: 0.92rem; font-weight: 700; color: var(--label); letter-spacing: -0.005em; }
+  .row-subhead {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--label-dim);
+  }
   .ans { font-family: var(--sans); font-size: 0.8rem; color: var(--label-dim); }
   .ans.good { color: var(--led-green); }
   .ans .picked { color: var(--led-red); text-decoration: line-through; }
@@ -358,6 +429,7 @@
     font-size: 0.82rem;
   }
   .facts > div { display: flex; flex-direction: column; gap: 0.18rem; min-width: 0; }
+  .facts > div.wide { grid-column: 1 / -1; }
   .facts dt {
     font-family: var(--mono);
     font-size: 0.6rem;

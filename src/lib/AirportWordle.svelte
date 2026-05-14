@@ -6,7 +6,7 @@
     pooledAirports,
     compareAttributes,
     fetchAirportImages,
-    pickRoundAirport,
+    pickAirportWordleRound,
     AIRPORT_ROUND_LENGTH,
     AIRPORT_WORDLE_MAX_GUESSES,
     AIRPORT_WORDLE_HARD_MAX_GUESSES,
@@ -100,7 +100,7 @@
     }
     // svelte-ignore state_referenced_locally
     return {
-      answers: pickRoundAirport(AIRPORT_ROUND_LENGTH, difficulty),
+      answers: pickAirportWordleRound(AIRPORT_ROUND_LENGTH, difficulty),
       index: 0,
       guesses: [] as { airport: AirportEntry; feedback: AttributeFeedback[] }[],
       solved: false,
@@ -131,7 +131,7 @@
   }
 
   function startFreshFromPrompt() {
-    answers = pickRoundAirport(AIRPORT_ROUND_LENGTH, difficulty);
+    answers = pickAirportWordleRound(AIRPORT_ROUND_LENGTH, difficulty);
     index = 0;
     guesses = [];
     solved = false;
@@ -324,7 +324,7 @@
   }
 
   function playAgain() {
-    answers = pickRoundAirport(AIRPORT_ROUND_LENGTH, difficulty);
+    answers = pickAirportWordleRound(AIRPORT_ROUND_LENGTH, difficulty);
     index = 0;
     guesses = [];
     solved = false;

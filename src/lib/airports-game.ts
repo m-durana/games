@@ -1,4 +1,4 @@
-import airportData from '../data/airport-wordle.json';
+import airportData from '../data/airports-canonical.json';
 import curatedPhotos from '../data/airport-photos.json';
 import curatedAerials from '../data/airport-aerials.json';
 import reviewState from '../data/airport-review-state.json';
@@ -35,9 +35,23 @@ export interface AirportEntry {
   commonsCategory?: string;
 }
 
+export type CanonicalAirportEntry = Partial<AirportEntry> & Pick<AirportEntry, 'iata' | 'name' | 'country'>;
+
 export type AirportDifficulty = 'easy' | 'medium' | 'hard';
 
-export const airports = airportData as AirportEntry[];
+export const allAirports = airportData as CanonicalAirportEntry[];
+
+export function hasAirportGameFacts(a: CanonicalAirportEntry): a is AirportEntry {
+  return typeof a.city === 'string' &&
+    typeof a.runways === 'number' &&
+    typeof a.terminals === 'number' &&
+    typeof a.paxYearlyM === 'number' &&
+    typeof a.hubAlliance === 'string' &&
+    typeof a.lat === 'number' &&
+    typeof a.wikipedia === 'string';
+}
+
+export const airports = allAirports.filter(hasAirportGameFacts);
 
 const REGION_MAP: Record<string, Region> = {
   'United States': 'NA', 'Canada': 'NA', 'Mexico': 'NA', 'Panama': 'NA', 'Trinidad and Tobago': 'NA',
@@ -70,6 +84,49 @@ const REGION_LABEL: Record<Region, string> = {
   ME: 'Middle East', AF: 'Africa', AS: 'Asia', OC: 'Oceania',
 };
 export function regionLabel(r: Region): string { return REGION_LABEL[r]; }
+
+// Sub-national hint (state / province) for large countries where the country
+// alone is too broad to be a useful hint. Keyed by IATA. Falls back to country
+// when not present.
+const ADMIN1_BY_IATA: Record<string, string> = {
+  // United States
+  ATL: 'Georgia', AUS: 'Texas', BNA: 'Tennessee', BOS: 'Massachusetts',
+  BWI: 'Maryland', CLT: 'North Carolina', DAL: 'Texas', DCA: 'Virginia',
+  DEN: 'Colorado', DFW: 'Texas', DTW: 'Michigan', EWR: 'New Jersey',
+  FLL: 'Florida', HNL: 'Hawaii', HOU: 'Texas', IAD: 'Virginia',
+  IAH: 'Texas', JFK: 'New York', LAS: 'Nevada', LAX: 'California',
+  LGA: 'New York', MCO: 'Florida', MDW: 'Illinois', MIA: 'Florida',
+  MSP: 'Minnesota', OAK: 'California', ORD: 'Illinois', PDX: 'Oregon',
+  PHL: 'Pennsylvania', PHX: 'Arizona', PIT: 'Pennsylvania', RDU: 'North Carolina',
+  SAN: 'California', SAT: 'Texas', SEA: 'Washington', SFO: 'California',
+  SJC: 'California', SLC: 'Utah', STL: 'Missouri', TPA: 'Florida',
+  // Canada
+  YEG: 'Alberta', YYC: 'Alberta', YHZ: 'Nova Scotia',
+  YOW: 'Ontario', YTZ: 'Ontario', YYZ: 'Ontario', YUL: 'Quebec',
+  // Australia
+  ADL: 'South Australia', BNE: 'Queensland', OOL: 'Queensland',
+  CBR: 'ACT', MEL: 'Victoria', PER: 'Western Australia', SYD: 'New South Wales',
+  // Brazil
+  BSB: 'Distrito Federal', FOR: 'Ceará', GIG: 'Rio de Janeiro',
+  GRU: 'São Paulo', VCP: 'São Paulo', REC: 'Pernambuco', SSA: 'Bahia',
+  // India
+  AMD: 'Gujarat', BLR: 'Karnataka', BOM: 'Maharashtra', PNQ: 'Maharashtra',
+  CCU: 'West Bengal', COK: 'Kerala', TRV: 'Kerala', DEL: 'Delhi NCT',
+  GOI: 'Goa', HYD: 'Telangana', MAA: 'Tamil Nadu',
+  // China
+  CAN: 'Guangdong', SZX: 'Guangdong', CKG: 'Chongqing', CTU: 'Sichuan',
+  TFU: 'Sichuan', HAK: 'Hainan', HGH: 'Zhejiang', KMG: 'Yunnan',
+  PEK: 'Beijing', PKX: 'Beijing', PVG: 'Shanghai', SHA: 'Shanghai',
+  TSN: 'Tianjin', XIY: 'Shaanxi',
+  // Mexico
+  ACA: 'Guerrero', CUN: 'Quintana Roo', GDL: 'Jalisco',
+  MEX: 'CDMX', MTY: 'Nuevo León', PVR: 'Jalisco', TIJ: 'Baja California',
+  // Japan (a few prefectures help disambiguate non-Tokyo airports)
+  CTS: 'Hokkaido', OKA: 'Okinawa',
+};
+export function admin1Of(iata: string): string | undefined {
+  return ADMIN1_BY_IATA[iata];
+}
 
 const TRAFFIC_ORDER: TrafficTier[] = ['Small', 'Mid', 'Large', 'Mega'];
 export function trafficTier(pax: number): TrafficTier {
@@ -143,6 +200,19 @@ export function reviewedAirports(): AirportEntry[] {
 
 export function airportsForDifficulty(d: AirportDifficulty): AirportEntry[] {
   const pool = reviewedAirports();
+  if (d === 'easy') {
+    return pool.filter(
+      (a) => !HARD_FORCE.has(a.iata) && (a.paxYearlyM >= EASY_PAX_THRESHOLD || EASY_FORCE.has(a.iata)),
+    );
+  }
+  if (d === 'hard') {
+    return pool.filter((a) => (a.paxYearlyM < HARD_PAX_THRESHOLD || HARD_FORCE.has(a.iata)) && !EASY_FORCE.has(a.iata));
+  }
+  return pool;
+}
+
+export function airportWordleAirportsForDifficulty(d: AirportDifficulty): AirportEntry[] {
+  const pool = pooledAirports();
   if (d === 'easy') {
     return pool.filter(
       (a) => !HARD_FORCE.has(a.iata) && (a.paxYearlyM >= EASY_PAX_THRESHOLD || EASY_FORCE.has(a.iata)),
@@ -472,5 +542,10 @@ function shuffle<T>(arr: T[]): T[] {
 
 export function pickRoundAirport(count: number, difficulty: AirportDifficulty = 'medium'): AirportEntry[] {
   const pool = airportsForDifficulty(difficulty);
+  return shuffle(pool).slice(0, count);
+}
+
+export function pickAirportWordleRound(count: number, difficulty: AirportDifficulty = 'medium'): AirportEntry[] {
+  const pool = airportWordleAirportsForDifficulty(difficulty);
   return shuffle(pool).slice(0, count);
 }

@@ -10,7 +10,7 @@
 
   const styles: Record<string, Style> = {
     'Star Alliance': { bg: '#0a2c5a', fg: '#ffffff', symbol: '★' },
-    'Oneworld': { bg: '#1a1a1a', fg: '#ffffff', symbol: '◉' },
+    'oneworld': { bg: '#1a1a1a', fg: '#ffffff', symbol: '◉' },
     'SkyTeam': { bg: '#c8102e', fg: '#ffffff', symbol: '✈' },
     'Independent': { bg: '#2e2e33', fg: '#9aa0a6', symbol: ' - ' },
   };

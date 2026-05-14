@@ -13,6 +13,7 @@
     type AircraftDifficulty,
   } from './aircraft';
   import AircraftReveal from './AircraftReveal.svelte';
+  import Combobox from './Combobox.svelte';
   import RoundBar from './RoundBar.svelte';
   import Lightbox from './Lightbox.svelte';
   import * as Sound from './sound';
@@ -170,17 +171,22 @@
   const maxStage = $derived(difficulty === 'hard' ? 2 : 3);
 
   // Grouped dropdown options - full aircraft list (a guess outside the easy pool is allowed but limits learning).
-  const groupedOptions = $derived(groupByManufacturer(pooledAircraft()));
+  const comboGroups = $derived(buildComboGroups(pooledAircraft()));
 
-  function groupByManufacturer(list: Aircraft[]): { manufacturer: string; planes: Aircraft[] }[] {
+  function buildComboGroups(list: Aircraft[]) {
     const map = new Map<string, Aircraft[]>();
     for (const a of list) {
       if (!map.has(a.manufacturer)) map.set(a.manufacturer, []);
       map.get(a.manufacturer)!.push(a);
     }
     return [...map.entries()]
-      .map(([manufacturer, planes]) => ({ manufacturer, planes }))
-      .sort((a, b) => a.manufacturer.localeCompare(b.manufacturer));
+      .map(([manufacturer, planes]) => ({
+        label: manufacturer,
+        items: planes
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((a) => ({ id: a.id, label: a.name })),
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label));
   }
 
   // Distractors for stage 3 multiple choice - prefer same family or same body class
@@ -447,16 +453,12 @@
 
           {#if stage < 3}
             <div class="guess-row">
-              <select bind:value={guessId} class="guess-select">
-                <option value="">Pick an aircraft…</option>
-                {#each groupedOptions as group}
-                  <optgroup label={group.manufacturer}>
-                    {#each group.planes as a}
-                      <option value={a.id}>{a.name}</option>
-                    {/each}
-                  </optgroup>
-                {/each}
-              </select>
+              <Combobox
+                bind:value={guessId}
+                groups={comboGroups}
+                placeholder="Type or pick an aircraft…"
+                onsubmit={submitDropdownGuess}
+              />
               <button class="btn-primary" disabled={!guessId} onclick={submitDropdownGuess}>Guess</button>
             </div>
           {:else}

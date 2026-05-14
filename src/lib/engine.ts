@@ -1,7 +1,6 @@
 import airlinesData from '../data/airlines.json';
 import logoFlagsData from '../data/logo-flags.json';
-import airportsData from '../data/airports.json';
-import airportMetaData from '../data/airport-meta.json';
+import airportData from '../data/airports-canonical.json';
 import metaData from '../data/airline-meta.json';
 import tailsData from '../data/tails.json';
 import airportRoutesData from '../data/airport-routes.json';
@@ -45,8 +44,14 @@ export function poolCountryFilter(country: string): boolean {
 export function pooledAirlines(): Airline[] {
   return airlines.filter((a) => poolCountryFilter(a.country));
 }
-const airports = airportsData as Record<string, string>;
-const airportCountry = airportMetaData as Record<string, string>;
+interface CanonicalAirport {
+  iata: string;
+  name: string;
+  country: string;
+}
+const canonicalAirports = airportData as CanonicalAirport[];
+const airports = Object.fromEntries(canonicalAirports.map((a) => [a.iata, a.name])) as Record<string, string>;
+const airportCountry = Object.fromEntries(canonicalAirports.map((a) => [a.iata, a.country])) as Record<string, string>;
 
 // IATAs allowed by the current pool — used to keep distractors on-pool so
 // US-only doesn't surface Canadian/Mexican airports as decoys, etc.
@@ -115,7 +120,7 @@ export function airlineRoutes(iata: string): AirlineRouteEntry | null {
   return airlineRoutesMap[iata] ?? null;
 }
 
-function hasRankedAirportDestinations(r: AirportRouteEntry | null): r is AirportRouteEntry {
+export function hasRankedAirportDestinations(r: AirportRouteEntry | null): r is AirportRouteEntry {
   return !!r && r.destinationRanked === true && Array.isArray(r.topDestinations) && r.topDestinations.length >= 3;
 }
 
@@ -149,7 +154,7 @@ export const ROUND_LENGTH = 10;
 
 const INDEPENDENT = 'Independent';
 
-export const ALLIANCE_ORDER: string[] = ['Star Alliance', 'Oneworld', 'SkyTeam', INDEPENDENT];
+export const ALLIANCE_ORDER: string[] = ['Star Alliance', 'oneworld', 'SkyTeam', INDEPENDENT];
 
 export function airportName(iata: string): string {
   return airports[iata] ?? iata;
@@ -258,10 +263,8 @@ function answerFor(airline: Airline, mode: Mode): string {
   if (mode === 'alliance') return airline.alliance ?? INDEPENDENT;
   if (mode === 'hub') return airline.hub;
   if (mode === 'country') return airline.country;
-  // The route-based modes are special-cased entirely in buildQuestion (the answer
-  // there depends on a randomly-picked top-3 entry, not on the airline alone).
-  // Returning '' here is fine - buildQuestion never falls through to this for them.
-  if (mode === 'airportAirline' || mode === 'airlineDest' || mode === 'airportConn') return '';
+  // Route-based modes build answers from route tables rather than airline fields.
+  if (mode === 'airportAirline' || mode === 'airlineDest' || mode === 'airportConn' || mode === 'whereAmI' || mode === 'hubOf') return '';
   // mode === 'logo' or 'reverseGroup' or 'tail' or 'code': answer is the airline name
   return airline.name;
 }
@@ -273,6 +276,27 @@ function airlineNameByIata(iata: string): string {
 
 function airlineByIata(iata: string): Airline | null {
   return airlines.find((x) => x.iata === iata) ?? null;
+}
+
+function contextAirlineForAirport(iata: string): Airline {
+  const r = airportRoutes(iata);
+  for (const carrier of r?.topAirlines ?? []) {
+    const found = airlineByIata(carrier);
+    if (found) return found;
+  }
+  return airlines.find((a) => a.hub === iata) ?? airlines[0];
+}
+
+function eligibleAirportSubjects(mode: Mode): string[] {
+  const ok = pooledAirportSet();
+  return Object.keys(airports).filter((iata) => {
+    if (!ok.has(iata)) return false;
+    const r = airportRoutes(iata);
+    if (mode === 'airportAirline') return !!r && Array.isArray(r.topAirlines) && r.topAirlines.some((carrier) => airlineByIata(carrier));
+    if (mode === 'airportConn' || mode === 'whereAmI') return hasRankedAirportDestinations(r);
+    if (mode === 'hubOf') return !!r?.topAirlines?.some((carrier) => airlineByIata(carrier));
+    return false;
+  });
 }
 
 function optionPool(mode: Mode, sourcePool: Airline[]): string[] {
@@ -374,38 +398,30 @@ function smartDistractors(
   return shuffle(fallbackPool.filter((p) => p !== answer), rng).slice(0, n);
 }
 
-function buildQuestion(
-  airline: Airline,
+function buildAirportQuestion(
+  airportIata: string,
   mode: Mode,
   sourcePool: Airline[],
   fallbackPool: string[],
   difficulty: Difficulty,
   rng: Rng,
 ): Question {
-  const answer = answerFor(airline, mode);
-  if (mode === 'alliance') {
-    return { mode, airline, options: [...ALLIANCE_ORDER], answer };
-  }
+  const airline = contextAirlineForAirport(airportIata);
+  const r = airportRoutes(airportIata)!;
+
   if (mode === 'airportAirline') {
-    const airportIata = airline.hub;
-    const r = airportRoutes(airportIata)!;
-    // Avoid trivial answers: don't pick the hub carrier itself as the correct
-    // answer if the top list contains other carriers.
-    const topRaw = (r.topAirlines ?? []).slice(0, 3);
-    const topFiltered = topRaw.filter((x) => x !== airline.iata);
-    const top = topFiltered.length > 0 ? topFiltered : topRaw;
+    const top = (r.topAirlines ?? []).filter((iata) => airlineByIata(iata)).slice(0, 5);
     const correct = pick(top, rng);
+    const correctAirline = airlineByIata(correct);
     const exclude = new Set(r.topAirlines ?? []);
-    // Smart distractors: same alliance / same country first, then any airline.
-    const sameAlliance = airline.alliance
-      ? airlines.filter((x) => x.alliance === airline.alliance && !exclude.has(x.iata) && x.iata !== correct).map((x) => x.iata)
+    const sameAlliance = correctAirline?.alliance
+      ? airlines.filter((x) => x.alliance === correctAirline.alliance && !exclude.has(x.iata) && x.iata !== correct).map((x) => x.iata)
       : [];
-    const sameCountry = airlines
-      .filter((x) => x.country === airline.country && !exclude.has(x.iata) && x.iata !== correct)
-      .map((x) => x.iata);
-    const ranked = [...shuffle(sameAlliance, rng), ...shuffle(sameCountry, rng)];
+    const sameCountry = correctAirline
+      ? airlines.filter((x) => x.country === correctAirline.country && !exclude.has(x.iata) && x.iata !== correct).map((x) => x.iata)
+      : [];
     const distractors: string[] = [];
-    for (const iata of ranked) {
+    for (const iata of [...shuffle(sameAlliance, rng), ...shuffle(sameCountry, rng)]) {
       if (!distractors.includes(iata)) distractors.push(iata);
       if (distractors.length === 3) break;
     }
@@ -424,13 +440,12 @@ function buildQuestion(
       answer: correct,
     };
   }
+
   if (mode === 'airportConn') {
-    const airportIata = airline.hub;
-    const r = airportRoutes(airportIata)!;
     const top = r.topDestinations ?? [];
     const correct = top[0];
-    const exclude = new Set(r.topDestinations ?? []);
-    exclude.add(airportIata); // never offer the airport itself as a destination
+    const exclude = new Set(top);
+    exclude.add(airportIata);
     const ok = pooledAirportSet();
     const apCountry = airportCountry[airportIata];
     const region = apCountry ? REGIONS[apCountry] : undefined;
@@ -444,9 +459,8 @@ function buildQuestion(
             ok.has(c),
         )
       : [];
-    const ranked = shuffle(sameRegion, rng);
     const distractors: string[] = [];
-    for (const code of ranked) {
+    for (const code of shuffle(sameRegion, rng)) {
       if (!distractors.includes(code)) distractors.push(code);
       if (distractors.length === 3) break;
     }
@@ -464,6 +478,90 @@ function buildQuestion(
       options: shuffle([correct, ...distractors], rng),
       answer: correct,
     };
+  }
+
+  if (mode === 'whereAmI') {
+    const showCount = difficulty === 'hard' ? 3 : difficulty === 'easy' ? 5 : 4;
+    const destinations = (r.topDestinations ?? []).slice(0, showCount);
+    const correct = airportIata;
+    const ok = pooledAirportSet();
+    const apCountry = airportCountry[airportIata];
+    const region = apCountry ? REGIONS[apCountry] : undefined;
+    const sameRegion = region
+      ? Object.keys(airports).filter(
+          (c) => c !== correct && airportCountry[c] && REGIONS[airportCountry[c]] === region && ok.has(c),
+        )
+      : [];
+    const distractors: string[] = [];
+    for (const code of shuffle(sameRegion, rng)) {
+      if (!distractors.includes(code) && code !== correct) distractors.push(code);
+      if (distractors.length === 3) break;
+    }
+    if (distractors.length < 3) {
+      const extra = shuffle(
+        Object.keys(airports).filter((x) => x !== correct && !distractors.includes(x) && ok.has(x)),
+        rng,
+      ).slice(0, 3 - distractors.length);
+      distractors.push(...extra);
+    }
+    return {
+      mode,
+      airline,
+      airport: airportIata,
+      options: shuffle([correct, ...distractors], rng),
+      answer: correct,
+      destinations,
+      promptKind: 'destinations',
+    };
+  }
+
+  if (mode === 'hubOf') {
+    const dominantIata = r.topAirlines?.find((carrier) => airlineByIata(carrier)) ?? airline.iata;
+    const dominant = airlineByIata(dominantIata) ?? airline;
+    const correct = dominant.name;
+    const sameAlliance = dominant.alliance
+      ? airlines.filter((x) => x.iata !== dominant.iata && x.alliance === dominant.alliance)
+      : [];
+    const sameCountry = airlines.filter(
+      (x) => x.iata !== dominant.iata && x.country === dominant.country && x.alliance !== dominant.alliance,
+    );
+    const distractors: string[] = [];
+    for (const x of [...shuffle(sameAlliance, rng), ...shuffle(sameCountry, rng)]) {
+      if (!distractors.includes(x.name) && x.name !== correct) distractors.push(x.name);
+      if (distractors.length === 3) break;
+    }
+    if (distractors.length < 3) {
+      const extra = shuffle(
+        fallbackPool.filter((x) => x !== correct && !distractors.includes(x)),
+        rng,
+      ).slice(0, 3 - distractors.length);
+      distractors.push(...extra);
+    }
+    return {
+      mode,
+      airline: dominant,
+      airport: airportIata,
+      options: shuffle([correct, ...distractors], rng),
+      answer: correct,
+      prompt: airportIata,
+      promptKind: 'airport',
+    };
+  }
+
+  return buildQuestion(airline, mode, sourcePool, fallbackPool, difficulty, rng);
+}
+
+function buildQuestion(
+  airline: Airline,
+  mode: Mode,
+  sourcePool: Airline[],
+  fallbackPool: string[],
+  difficulty: Difficulty,
+  rng: Rng,
+): Question {
+  const answer = answerFor(airline, mode);
+  if (mode === 'alliance') {
+    return { mode, airline, options: [...ALLIANCE_ORDER], answer };
   }
   if (mode === 'airlineDest') {
     const r = airlineRoutes(airline.iata)!;
@@ -504,85 +602,6 @@ function buildQuestion(
       airline,
       options: shuffle([correct, ...distractors], rng),
       answer: correct,
-    };
-  }
-  if (mode === 'whereAmI') {
-    const airportIata = airline.hub;
-    const r = airportRoutes(airportIata)!;
-    const showCount = difficulty === 'hard' ? 3 : difficulty === 'easy' ? 5 : 4;
-    const destinations = (r.topDestinations ?? []).slice(0, showCount);
-    const correct = airportIata;
-    const ok = pooledAirportSet();
-    const apCountry = airportCountry[airportIata];
-    const region = apCountry ? REGIONS[apCountry] : undefined;
-    const sameRegion = region
-      ? Object.keys(airports).filter(
-          (c) => c !== correct && airportCountry[c] && REGIONS[airportCountry[c]] === region && ok.has(c),
-        )
-      : [];
-    const sameAlliance = airline.alliance
-      ? sourcePool
-          .filter((x) => x.iata !== airline.iata && x.alliance === airline.alliance && x.hub !== correct && airports[x.hub] && ok.has(x.hub))
-          .map((x) => x.hub)
-      : [];
-    const ranked = difficulty === 'hard'
-      ? [...shuffle(sameAlliance, rng), ...shuffle(sameRegion, rng)]
-      : [...shuffle(sameRegion, rng)];
-    const distractors: string[] = [];
-    for (const code of ranked) {
-      if (!distractors.includes(code) && code !== correct) distractors.push(code);
-      if (distractors.length === 3) break;
-    }
-    if (distractors.length < 3) {
-      const extra = shuffle(
-        Object.keys(airports).filter((x) => x !== correct && !distractors.includes(x) && ok.has(x)),
-        rng,
-      ).slice(0, 3 - distractors.length);
-      distractors.push(...extra);
-    }
-    return {
-      mode,
-      airline,
-      airport: airportIata,
-      options: shuffle([correct, ...distractors], rng),
-      answer: correct,
-      destinations,
-      promptKind: 'destinations',
-    };
-  }
-  if (mode === 'hubOf') {
-    const airportIata = airline.hub;
-    const r = airportRoutes(airportIata);
-    const dominantIata = r?.topAirlines?.[0] ?? airline.iata;
-    const dominant = airlineByIata(dominantIata) ?? airline;
-    const correct = dominant.name;
-    const sameAlliance = dominant.alliance
-      ? airlines.filter((x) => x.iata !== dominant.iata && x.alliance === dominant.alliance)
-      : [];
-    const sameCountry = airlines.filter(
-      (x) => x.iata !== dominant.iata && x.country === dominant.country && x.alliance !== dominant.alliance,
-    );
-    const ranked = [...shuffle(sameAlliance, rng), ...shuffle(sameCountry, rng)];
-    const distractors: string[] = [];
-    for (const x of ranked) {
-      if (!distractors.includes(x.name) && x.name !== correct) distractors.push(x.name);
-      if (distractors.length === 3) break;
-    }
-    if (distractors.length < 3) {
-      const extra = shuffle(
-        airlines.filter((x) => x.name !== correct && !distractors.includes(x.name)).map((x) => x.name),
-        rng,
-      ).slice(0, 3 - distractors.length);
-      distractors.push(...extra);
-    }
-    return {
-      mode,
-      airline: dominant,
-      airport: airportIata,
-      options: shuffle([correct, ...distractors], rng),
-      answer: correct,
-      prompt: airportIata,
-      promptKind: 'airport',
     };
   }
   if (mode === 'country' && airports[airline.hub] && rng() < 0.5) {
@@ -850,16 +869,10 @@ function eligibleFor(mode: Mode, sourcePool: Airline[], difficulty?: Difficulty)
   }
   if (mode === 'tail') return sourcePool.filter((a) => hasTail(a.iata));
   if (mode === 'airportAirline') {
-    return sourcePool.filter((a) => {
-      const r = airportRoutes(a.hub);
-      return !!r && Array.isArray(r.topAirlines) && r.topAirlines.length > 0;
-    });
+    return [];
   }
   if (mode === 'airportConn') {
-    return sourcePool.filter((a) => {
-      const r = airportRoutes(a.hub);
-      return hasRankedAirportDestinations(r);
-    });
+    return [];
   }
   if (mode === 'airlineDest') {
     return sourcePool.filter((a) => {
@@ -868,52 +881,45 @@ function eligibleFor(mode: Mode, sourcePool: Airline[], difficulty?: Difficulty)
     });
   }
   if (mode === 'whereAmI') {
-    return sourcePool.filter((a) => {
-      const r = airportRoutes(a.hub);
-      return !!r && Array.isArray(r.topDestinations) && r.topDestinations.length >= 3;
-    });
+    return [];
   }
   if (mode === 'hubOf') {
-    // Eligible: airline's hub is a known airport. Hard difficulty narrows to
-    // hubs where multiple airlines list it as their primary hub (forces the
-    // player to pick the dominant carrier instead of any tenant).
-    return sourcePool.filter((a) => {
-      if (!airports[a.hub]) return false;
-      if (difficulty === 'hard') {
-        const tenants = airlines.filter((x) => x.hub === a.hub);
-        return tenants.length >= 2;
-      }
-      if (difficulty === 'easy') {
-        const tenants = airlines.filter((x) => x.hub === a.hub);
-        return tenants.length === 1;
-      }
-      return true;
-    });
+    return [];
   }
   return sourcePool;
 }
 
-// Modes whose question is "about" an airport (the airline's hub). For these we
-// also dedupe by hub IATA so US-only doesn't ask about DFW twice in one round
-// just because two different US airlines share the hub.
+// Modes whose question is about an airport. These are built from airport IATA
+// codes first, not from an airline hub surrogate.
 const AIRPORT_MODES: Mode[] = ['airportAirline', 'airportConn', 'whereAmI', 'hubOf'];
 
 export function buildRound(mode: Mode, difficulty: Difficulty, seed?: number): Question[] {
   const rng = seed === undefined ? defaultRng() : mulberry32(seed);
   const sourcePool = pool(difficulty);
+  if (AIRPORT_MODES.includes(mode)) {
+    const eligibleAirports = eligibleAirportSubjects(mode);
+    const fallbackPool = optionPool(mode, sourcePool);
+    const usedAirports = new Set<string>();
+    const out: Question[] = [];
+    let safety = 0;
+    while (out.length < ROUND_LENGTH && safety < 1000 && usedAirports.size < eligibleAirports.length) {
+      safety++;
+      const airportIata = pick(eligibleAirports, rng);
+      if (usedAirports.has(airportIata)) continue;
+      usedAirports.add(airportIata);
+      out.push(buildAirportQuestion(airportIata, mode, sourcePool, fallbackPool, difficulty, rng));
+    }
+    return out;
+  }
   const eligible = eligibleFor(mode, sourcePool, difficulty);
   const used = new Set<string>();
-  const usedHubs = new Set<string>();
-  const dedupHubs = AIRPORT_MODES.includes(mode);
   const out: Question[] = [];
   let safety = 0;
   while (out.length < ROUND_LENGTH && safety < 1000) {
     safety++;
     const a = pick(eligible, rng);
     if (used.has(a.iata)) continue;
-    if (dedupHubs && usedHubs.has(a.hub)) continue;
     used.add(a.iata);
-    if (dedupHubs) usedHubs.add(a.hub);
     const fallbackPool = optionPool(mode, sourcePool);
     out.push(buildQuestion(a, mode, sourcePool, fallbackPool, difficulty, rng));
   }
@@ -929,6 +935,12 @@ export function buildSpeedQuestion(): Question {
   const modes: Mode[] = (['group', 'alliance', 'hub', 'logo', 'country', 'reverseGroup', 'airportAirline', 'airlineDest', 'airportConn', 'whereAmI', 'hubOf'] as Mode[])
     .filter((m) => !(loadPool() === 'us' && m === 'country'));
   let mode = pick(modes, rng);
+  if (AIRPORT_MODES.includes(mode)) {
+    const eligibleAirports = eligibleAirportSubjects(mode);
+    if (eligibleAirports.length > 0) {
+      return buildAirportQuestion(pick(eligibleAirports, rng), mode, sourcePool, optionPool(mode, sourcePool), difficulty, rng);
+    }
+  }
   let eligible = eligibleFor(mode, sourcePool, difficulty);
   if (eligible.length === 0) {
     mode = 'group';
@@ -952,6 +964,16 @@ export function buildMixedRound(rng: Rng = defaultRng()): Question[] {
   while (out.length < ROUND_LENGTH && safety < 2000) {
     safety++;
     const mode = pick(allModes, rng);
+    if (AIRPORT_MODES.includes(mode)) {
+      const eligibleAirports = eligibleAirportSubjects(mode);
+      if (eligibleAirports.length === 0) continue;
+      const airportIata = pick(eligibleAirports, rng);
+      const key = `${mode}:${airportIata}`;
+      if (used.has(key)) continue;
+      used.add(key);
+      out.push(buildAirportQuestion(airportIata, mode, sourcePool, optionPool(mode, sourcePool), difficulty, rng));
+      continue;
+    }
     const eligible = eligibleFor(mode, sourcePool, difficulty);
     if (eligible.length === 0) continue;
     const a = pick(eligible, rng);
@@ -1116,7 +1138,7 @@ export function modeTitle(mode: Mode): string {
 export function modeDescription(mode: Mode): string {
   switch (mode) {
     case 'group': return 'Identify the parent group an airline belongs to - or whether it operates independently.';
-    case 'alliance': return 'Star Alliance, Oneworld, SkyTeam, or no alliance at all?';
+    case 'alliance': return 'Star Alliance, oneworld, SkyTeam, or no alliance at all?';
     case 'hub': return "Pick the airline's primary hub airport - the one it bases the bulk of its operation at.";
     case 'logo': return 'Identify the airline from its logo.';
     case 'country': return "Pick the country where the airline is registered / headquartered.";
